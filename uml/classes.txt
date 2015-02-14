@@ -1,0 +1,75 @@
+@startuml
+
+class Experiment o-- Protocol
+class Experiment o-- "many" Plate
+class Plate *-- "many" Well
+class Well *-- "many" Dose
+class Dose o-- "many" Compound
+class Plate ..> PlateTemplate : derived from
+class PlateTemplate *-- "many" Well
+
+class Experiment {
+ + String name
+ + DateTime date
+}
+
+class PlateTemplate {
+ + String name
+ + String desc
+ + PlateDirection direction
+ + PlateType plateType
+}
+
+class Plate {
+ + String name
+ + String desc
+ + String barcode
+}
+
+class Well {
+ + String location
+ + String label
+ + WellType type
+}
+
+class Dose {
+ + int number
+ + DoseUnit unit
+}
+
+class Compound {
+ + String name
+}
+
+enum DoseUnit {
+	MILLIS
+	MICRO
+	NANO
+	PICO
+}
+
+enum PlateDirection {
+	VERTICAL
+	HORIZONTAL
+}
+
+enum WellType {
+    MEASURED
+	POSITIVE
+	NEGATIVE
+	EMPTY
+}
+
+enum PlateType {
+	COUNT_24
+	COUNT_96
+	COUNT_384
+	COUNT_1536
+}
+
+class Protocol {
+ + int id
+ + String name
+}
+
+@enduml
