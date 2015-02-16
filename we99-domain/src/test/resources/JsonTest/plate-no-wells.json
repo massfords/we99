@@ -1,0 +1,13 @@
+{
+  "Plate": {
+    "name": "plate1",
+    "plateType": {
+      "rows": 3,
+      "cols": 4,
+      "manufacturer": "Foo Inc."
+    },
+    "wells": [],
+    "derivedFrom": 456,
+    "barcode": 1234
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "PlateTemplate": {
+    "name": "plateTemplate-456c3e28-0d13-4f86-b0f5-879ad62ec88f",
+    "description": "my test plate",
+    "plateType": {
+      "rows": 4,
+      "cols": 3,
+      "manufacturer": "Foo Inc."
+    },
+    "wells": []
+  }
+}

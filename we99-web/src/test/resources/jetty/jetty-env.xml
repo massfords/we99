@@ -1,0 +1,12 @@
+<Configure>
+    <New id="Database" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>java:comp/env/jdbc/WE99</Arg>
+        <Arg>
+            <New class="org.apache.commons.dbcp.BasicDataSource">
+                <Set name="driverClassName">org.h2.Driver</Set>
+                <Set name="url">jdbc:h2:file:./target/db/we99;DB_CLOSE_DELAY=-1;MVCC=true</Set>
+            </New>
+        </Arg>
+    </New>
+</Configure>

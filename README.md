@@ -18,8 +18,8 @@ Robert Z.       | Advisor
 
 George Heilmeier was a special assistant to the Secretary of Defense as well as a
 scientist, inventor, and engineer. He liked to begin projects by asking the
-following questions. Failure to provide good answers was a good sign that the
-project was either not ready to receive funding.
+following questions. Failure to provide good answers indicated that the
+project was either not ready to receive funding or doomed.
 
 ### What are you trying to do? Articulate your objectives using absolutely no jargon.
 We are building a tool for use by biologists to assist in the preparation of

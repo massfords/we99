@@ -1,0 +1,55 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="edu.harvard.we99" />
+
+    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/WE99" expected-type="javax.sql.DataSource"/>
+    <jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">
+        <jdbc:script location="classpath:/we99.ddl"/>
+    </jdbc:initialize-database>
+
+    <bean id="plateTemplateService" class="edu.harvard.we99.services.PlateTemplateServiceImpl">
+        <constructor-arg ref="plateTemplateStorage"/>
+    </bean>
+    <bean id="plateTemplateStorage" class="edu.harvard.we99.services.storage.PlateTemplateStorageImpl"/>
+
+    <bean id="plateTypeService" class="edu.harvard.we99.services.PlateTypeServiceImpl">
+        <constructor-arg ref="plateTypeStorage"/>
+    </bean>
+    <bean id="plateTypeStorage" class="edu.harvard.we99.services.storage.PlateTypeStorageImpl"/>
+
+    <bean id="binder" class="java.lang.String" depends-on="dataSource"/>
+
+    <jaxrs:server address="/rest" >
+        <jaxrs:serviceBeans>
+            <ref bean="plateTemplateService"/>
+            <ref bean="plateTypeService"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:features>
+            <bean class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationFeature"/>
+        </jaxrs:features>
+        <jaxrs:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider">
+                <constructor-arg>
+                    <bean class="edu.harvard.we99.util.JacksonMapper"/>
+                </constructor-arg>
+                <constructor-arg>
+                    <array>
+                        <value>JACKSON</value>
+                        <value>JAXB</value>
+                    </array>
+                </constructor-arg>
+            </bean>
+            <bean class="org.apache.cxf.jaxrs.validation.ValidationExceptionMapper"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+</beans>

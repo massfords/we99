@@ -1,0 +1,8 @@
+{
+  "Dose": {
+    "id": 1234,
+    "number": 2,
+    "units": "MILLIS",
+    "compound": {"name": "h20"}
+  }
+}

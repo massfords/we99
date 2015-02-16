@@ -1,0 +1,14 @@
+{
+  "PlateTemplate": {
+    "id": 2,
+    "name": "plateTemplate-uuid",
+    "description": "my test plate",
+    "plateType": {
+      "id": 2,
+      "rows": 4,
+      "cols": 3,
+      "manufacturer": "Foo Inc."
+    },
+    "wells": []
+  }
+}
