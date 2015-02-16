@@ -1,7 +1,12 @@
 package edu.harvard.we99.services;
 
+import edu.harvard.we99.domain.Compound;
+import edu.harvard.we99.domain.Coordinate;
+import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.PlateTemplate;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.domain.Well;
+import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.test.PrimaryKeyScrubber;
 import edu.harvard.we99.test.UUIDScrubber;
 import edu.harvard.we99.util.ClientFactory;
@@ -36,10 +41,20 @@ public class PlateTemplateIT {
     private static PlateTemplateService plateTemplateService;
 
     /**
+     * Proxy to the remote service
+     */
+    private static CompoundService compoundService;
+
+    /**
      * PlateType that we should use when creating the templates. We'll assign
      * this value in our BeforeClass
      */
     private static PlateType plateType;
+
+    /**
+     * Compound used for the various wells we're filling
+     */
+    private static Compound compound;
 
     /**
      * JSON scrubbers to clean the payloads for our assertions
@@ -61,10 +76,13 @@ public class PlateTemplateIT {
 
         plateTypeService = cf.create(PlateTypeService.class);
         plateTemplateService = cf.create(PlateTemplateService.class);
+        compoundService = cf.create(CompoundService.class);
 
         plateType = plateTypeService.create(new PlateType()
                 .withRows(4).withCols(3)
                 .withManufacturer("Foo Inc."));
+
+        compound = compoundService.create(new Compound(UUID.randomUUID().toString()));
     }
 
     @AfterClass
@@ -90,11 +108,8 @@ public class PlateTemplateIT {
         // assert that we can get it
 
         // Yes, this is making a REST PUT call, even though it looks like a simple Java call
-        PlateTemplate pt = plateTemplateService.create(new PlateTemplate()
-                        .withName("plateTemplate-" + UUID.randomUUID().toString())
-                        .withDescription("my test plate")
-                        .withPlateType(plateType)
-        );
+        PlateTemplate plateTemplate = createPlateTemplate();
+        PlateTemplate pt = plateTemplateService.create(plateTemplate);
         assertNotNull(pt);
 
         String actual = toJsonString(pt);
@@ -102,12 +117,25 @@ public class PlateTemplateIT {
 
     }
 
-//    @Test
-//    public void update() throws Exception {
-//        // create a new template
-//        // update one or more valus on it
-//        // assert the updated values
-//    }
+    @Test
+    public void update() throws Exception {
+        // create a new template
+        // update one or more values and wells
+        // assert the updated values
+        PlateTemplate plateTemplate = createPlateTemplate();
+        PlateTemplate pt = plateTemplateService.create(plateTemplate);
+
+        pt.setDescription("my modified description");
+        Coordinate coordinate = new Coordinate(0, 0);
+        Well well = new Well(coordinate)
+                .withLabel("well 0,0")
+                .withType(WellType.MEASURED);
+        well.dose(new Dose(compound, 1));
+        pt.getWells().put(coordinate,well);
+        PlateTemplate updated = plateTemplateService.update(pt.getId(), pt);
+        String actual = toJsonString(updated);
+        assertJsonEquals(load("/PlateTemplateIT/updated.json"), actual, jsonScrubber);
+    }
 
 //    @Test
 //    public void delete() throws Exception {
@@ -115,4 +143,11 @@ public class PlateTemplateIT {
 //        // delete it
 //        // assert that we get a 404 if we try to get it
 //    }
+
+    private PlateTemplate createPlateTemplate() {
+        return new PlateTemplate()
+                .withName("plateTemplate-" + UUID.randomUUID().toString())
+                .withDescription("my test plate")
+                .withPlateType(plateType);
+    }
 }

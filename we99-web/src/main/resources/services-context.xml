@@ -14,6 +14,7 @@
 
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/WE99" expected-type="javax.sql.DataSource"/>
     <jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">
+        <jdbc:script location="classpath:/drop-all-h2.sql"/>
         <jdbc:script location="classpath:/we99.ddl"/>
     </jdbc:initialize-database>
 
@@ -27,12 +28,18 @@
     </bean>
     <bean id="plateTypeStorage" class="edu.harvard.we99.services.storage.PlateTypeStorageImpl"/>
 
+    <bean id="compoundService" class="edu.harvard.we99.services.CompoundServiceImpl">
+        <constructor-arg ref="compoundStorage"/>
+    </bean>
+    <bean id="compoundStorage" class="edu.harvard.we99.services.storage.CompoundStorageImpl"/>
+
     <bean id="binder" class="java.lang.String" depends-on="dataSource"/>
 
     <jaxrs:server address="/rest" >
         <jaxrs:serviceBeans>
             <ref bean="plateTemplateService"/>
             <ref bean="plateTypeService"/>
+            <ref bean="compoundService"/>
         </jaxrs:serviceBeans>
         <jaxrs:features>
             <bean class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationFeature"/>

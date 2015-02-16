@@ -1,15 +1,21 @@
 package edu.harvard.we99.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.annotation.Generated;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  * @author mford
  */
 @Embeddable
-public class Coordinate extends BaseEntity {
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Coordinate {
     @NotNull
     @Min(0)
     private Integer row;

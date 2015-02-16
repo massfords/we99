@@ -1,6 +1,6 @@
 package edu.harvard.we99.services;
 
-import edu.harvard.we99.domain.PlateTemplate;
+import edu.harvard.we99.domain.Compound;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,43 +13,43 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * REST Service for performing basic CRUD operations on a PlateTemplate
+ * REST Service for performing basic CRUD operations on a Compound
  *
  * @author mford
  */
-@Path("/plateTemplate")
+@Path("/compound")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface PlateTemplateService {
+public interface CompoundService {
     /**
-     * Creates a new template in our system.
-     * @param template
+     * Creates a new compound in our system.
+     * @param compound
      * @return
      */
     @PUT
-    PlateTemplate create(PlateTemplate template);
+    Compound create(Compound compound);
 
     /**
-     * Gets an existing template or throws an exception with 404
+     * Gets an existing compound or throws an exception with 404
      * @param id
      * @return
      */
     @GET
     @Path("{id}")
-    PlateTemplate get(@PathParam("id")Long id);
+    Compound get(@PathParam("id")Long id);
 
     /**
-     * Updates an existing template or throws an exception with a 404 if not found.
+     * Updates an existing compound or throws an exception with a 404 if not found.
      * @param id
-     * @param template
+     * @param compound
      * @return
      */
     @POST
     @Path("{id}")
-    PlateTemplate update(@PathParam("id") Long id, PlateTemplate template);
+    Compound update(@PathParam("id") Long id, Compound compound);
 
     /**
-     * Deletes an existing template or throws an exception with a 404 if not found
+     * Deletes an existing compound or throws an exception with a 404 if not found
      * @param id
      * @return
      */

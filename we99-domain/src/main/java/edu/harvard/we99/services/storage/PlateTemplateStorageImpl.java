@@ -1,74 +1,42 @@
 package edu.harvard.we99.services.storage;
 
+import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.PlateTemplate;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.PersistenceContext;
+import edu.harvard.we99.domain.Well;
 
 /**
  * Implementation of the PlanTemplateStorage
  *
  * @author mford
  */
-public class PlateTemplateStorageImpl implements PlateTemplateStorage {
-    /**
-     * This is injected by Spring via the standard JPA annotation
-     */
-    @PersistenceContext
-    private EntityManager em;
+public class PlateTemplateStorageImpl extends CRUDStorageImpl<PlateTemplate> implements CRUDStorage<PlateTemplate> {
 
-    /**
-     * Creates a TX and performs the INSERT
-     * @param template
-     * @return
-     */
-    @Override @Transactional
-    public PlateTemplate create(PlateTemplate template) {
-        em.persist(template);
-        return template;
+    public PlateTemplateStorageImpl() {
+        super(PlateTemplate.class);
     }
 
     @Override
-    public PlateTemplate get(Long id) {
-        return getOrThrow(id);
-    }
+    protected void updateFromCaller(PlateTemplate fromDb, PlateTemplate fromUser) {
+        fromDb.withName(fromUser.getName())
+                .withDescription(fromUser.getDescription());
 
-    /**
-     * Creates a TX and performs the UPDATE
-     * @param id
-     * @param template
-     * @return
-     */
-    @Override @Transactional
-    public PlateTemplate update(Long id, PlateTemplate template) {
-        PlateTemplate pt = getOrThrow(id);
-        pt.setName(template.getName());
-        pt.setDescription(pt.getDescription());
-
-        return em.merge(template.withId(id));
-    }
-
-    /**
-     * Creates a TX and performs the DELETE
-     *
-     * @param id
-     */
-    @Override @Transactional
-    public void delete(Long id) {
-        PlateTemplate pt = getOrThrow(id);
-        em.remove(pt);
-    }
-
-    /**
-     * Helper method that gets the entity or throws if not found
-     * @param id
-     * @return
-     */
-    private PlateTemplate getOrThrow(Long id) {
-        PlateTemplate pt = em.find(PlateTemplate.class, id);
-        if (pt == null) throw new EntityNotFoundException("No such entity:" + id);
-        return pt;
+        // update the wells
+        fromDb.getWells().clear();
+        fromDb.getWells().putAll(fromUser.getWells());
+        for(Well well : fromDb.getWells().values()) {
+            if (well.getId() == null) {
+                em.persist(well);
+            } else {
+                em.merge(well);
+            }
+            for(Dose d : well.getContents()) {
+                d.setWell(well);
+                if (d.getId() == null) {
+                    em.persist(d);
+                } else {
+                    em.merge(d);
+                }
+            }
+        }
     }
 }

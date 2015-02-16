@@ -62,6 +62,10 @@ public class Well extends BaseEntity {
         this.coordinate = new Coordinate(row, col);
     }
 
+    public Well(Coordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
     /**
      * Adds all of the doses in the array into our well.
      * @param doses
