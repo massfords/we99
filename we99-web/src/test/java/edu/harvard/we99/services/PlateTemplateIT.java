@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.Dose;
+import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateTemplate;
 import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.Well;
@@ -33,17 +34,7 @@ public class PlateTemplateIT {
     /**
      * Proxy to the remote service
      */
-    private static PlateTypeService plateTypeService;
-
-    /**
-     * Proxy to the remote service
-     */
     private static PlateTemplateService plateTemplateService;
-
-    /**
-     * Proxy to the remote service
-     */
-    private static CompoundService compoundService;
 
     /**
      * PlateType that we should use when creating the templates. We'll assign
@@ -74,14 +65,14 @@ public class PlateTemplateIT {
         // install some plate types
         // install some compounds
 
-        plateTypeService = cf.create(PlateTypeService.class);
         plateTemplateService = cf.create(PlateTemplateService.class);
-        compoundService = cf.create(CompoundService.class);
 
+        PlateTypeService plateTypeService = cf.create(PlateTypeService.class);
         plateType = plateTypeService.create(new PlateType()
-                .withRows(4).withCols(3)
+                .withDim(new PlateDimension(4, 3))
                 .withManufacturer("Foo Inc."));
 
+        CompoundService compoundService = cf.create(CompoundService.class);
         compound = compoundService.create(new Compound(UUID.randomUUID().toString()));
     }
 
@@ -91,7 +82,6 @@ public class PlateTemplateIT {
         // delete all of the plate types
         // delete all of the compounds
 
-        plateTypeService = null;
         plateTemplateService = null;
         plateType = null;
     }

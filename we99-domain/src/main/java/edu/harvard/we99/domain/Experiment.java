@@ -34,7 +34,7 @@ public class Experiment extends BaseEntity {
     /**
      * Timestamp for the creation of the experiment
      *
-     * todo - look into using the new Java 8 datetime if there's a JPA/Hibernate annotation for ti
+     * todo - look into using the new Java 8 datetime if there's a JPA/Hibernate annotation for it
      */
     private Timestamp created;
 

@@ -15,8 +15,7 @@ public class PlateTypeStorageImpl extends CRUDStorageImpl<PlateType> implements 
 
     @Override
     protected void updateFromCaller(PlateType fromDb, PlateType fromUser) {
-        fromDb.withRows(fromUser.getRows())
-                .withCols(fromUser.getCols())
+        fromDb.withDim(fromUser.getDim())
                 .withManufacturer(fromUser.getManufacturer());
     }
 }

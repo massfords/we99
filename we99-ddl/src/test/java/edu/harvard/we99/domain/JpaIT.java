@@ -53,8 +53,7 @@ public class JpaIT {
         beginTx();
 
         PlateType type = new PlateType()
-                .withRows(10)
-                .withCols(16)
+                .withDim(new PlateDimension(10, 16))
                 .withManufacturer("Foo Company");
 
         PlateTemplate pt = new PlateTemplate()
@@ -91,8 +90,7 @@ public class JpaIT {
         int COL_COUNT = 4;
 
         PlateType type = new PlateType()
-                .withRows(ROW_COUNT)
-                .withCols(COL_COUNT)
+                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
                 .withManufacturer("Foo Company");
 
         PlateTemplate pt = new PlateTemplate()
@@ -117,8 +115,7 @@ public class JpaIT {
         int COL_COUNT = 4;
 
         PlateType type = new PlateType()
-                .withRows(ROW_COUNT)
-                .withCols(COL_COUNT)
+                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
                 .withManufacturer("Foo Company");
 
         PlateTemplate pt = new PlateTemplate()
@@ -146,8 +143,7 @@ public class JpaIT {
         int COL_COUNT = 4;
 
         PlateType type = new PlateType()
-                .withRows(ROW_COUNT)
-                .withCols(COL_COUNT)
+                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
                 .withManufacturer("Foo Company");
 
         PlateTemplate pt = new PlateTemplate()
@@ -211,8 +207,7 @@ public class JpaIT {
         int COL_COUNT = 4;
 
         PlateType type = new PlateType()
-                .withRows(ROW_COUNT)
-                .withCols(COL_COUNT)
+                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
                 .withManufacturer("Foo Company");
 
         Plate plate = new Plate()

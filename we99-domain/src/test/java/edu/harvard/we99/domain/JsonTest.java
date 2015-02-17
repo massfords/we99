@@ -60,7 +60,7 @@ public class JsonTest {
                 ));
 
         params.add(array(
-                new PlateType().withRows(3).withCols(4).withManufacturer("Foo Inc."),
+                new PlateType().withDim(new PlateDimension(3, 4)).withManufacturer("Foo Inc."),
                 load("/JsonTest/plateType.json")
         ));
 
@@ -89,8 +89,7 @@ public class JsonTest {
 
     private static PlateType type() {
         return new PlateType()
-                .withCols(4)
-                .withRows(3)
+                .withDim(new PlateDimension(3,4))
                 .withManufacturer("Foo Inc.");
     }
 

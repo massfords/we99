@@ -3,8 +3,10 @@
     "name": "plateTemplate-uuid",
     "description": "my modified description",
     "plateType": {
-      "rows": 4,
-      "cols": 3,
+      "dim": {
+        "rows": 4,
+        "cols": 3
+      },
       "manufacturer": "Foo Inc."
     },
     "wells": [

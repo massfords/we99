@@ -2,8 +2,10 @@
   "Plate": {
     "name": "plate1",
     "plateType": {
-      "rows": 3,
-      "cols": 4,
+      "dim": {
+        "rows": 3,
+        "cols": 4
+      },
       "manufacturer": "Foo Inc."
     },
     "wells": [],

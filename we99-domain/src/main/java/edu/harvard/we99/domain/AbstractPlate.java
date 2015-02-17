@@ -88,10 +88,12 @@ public abstract class AbstractPlate<T extends AbstractPlate> extends BaseEntity 
                 maxCol = Math.max(maxCol, well.getCoordinate().getCol());
             }
 
-            if (maxRow >= plateType.getRows() || maxCol >= plateType.getCols()) {
+            PlateDimension maxSpecified = new PlateDimension(maxRow, maxCol);
+
+            if (!plateType.getDim().greaterThan(maxSpecified)) {
                 String message = "Coordinates for wells must be with 0x0 and %dx%d";
                 String formattedErrorMessage = String.format(
-                        message, plateType.getRows(), plateType.getCols());
+                        message, plateType.getDim().getRows(), plateType.getDim().getCols());
                 throw new PersistenceException(formattedErrorMessage);
             }
         }
