@@ -1,5 +1,5 @@
-import edu.harvard.we99.test.PrimaryKeyScrubber;
-import edu.harvard.we99.test.UUIDScrubber;
+package edu.harvard.we99.test;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

@@ -25,11 +25,17 @@ import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Integration tests for the PlateTemplate service
+ * Integration tests for the PlateTemplate service.
+ *
+ * This test assumes that the server is running. You can run it as part of the
+ * WebAppIT test or via command line in maven.
+ *
+ * It's also possible to start the Jetty server manually (or any server at the
+ * configured endpoint) and run the test against that instance.
  *
  * @author mford
  */
-public class PlateTemplateIT {
+public class PlateTemplateST {
 
     /**
      * Proxy to the remote service
@@ -59,7 +65,7 @@ public class PlateTemplateIT {
      */
     @BeforeClass
     public static void init() throws Exception {
-        URL url = new URL("http://localhost:8080/we99/services/rest/");
+        URL url = new URL(WebAppIT.WE99_URL);
         ClientFactory cf = new ClientFactory(url);
 
         // install some plate types

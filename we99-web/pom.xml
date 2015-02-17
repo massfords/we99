@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>parent</artifactId>
+        <artifactId>we99-parent</artifactId>
         <groupId>edu.harvard.we99</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
@@ -13,6 +13,18 @@
     <packaging>war</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>edu.harvard.we99</groupId>
             <artifactId>we99-test</artifactId>
@@ -48,7 +60,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.7.v20150116</version>
+                <version>${jetty.version}</version>
                 <configuration>
                     <scanIntervalSeconds>0</scanIntervalSeconds>
                     <stopKey>foo</stopKey>
@@ -60,22 +72,6 @@
                         <jettyEnvXml>${basedir}/src/test/resources/jetty/jetty-env.xml</jettyEnvXml>
                     </webAppConfig>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>test-rest-services</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>start</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>stop-rest-services</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>com.h2database</groupId>
