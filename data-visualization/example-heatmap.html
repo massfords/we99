@@ -51,6 +51,10 @@
 <h4>Customize Look Through Custom Css Classes</h4>
 <div id="heatmap-5"></div>
 
+<h4>Onclick callback.</h4>
+<div id="heatmap-6"></div>
+
+
 </body>
 
 <script>
@@ -99,11 +103,13 @@
     dvis.heatMap("#heatmap-5", heatMapDataTwo, heatMapFiveConfig);
 
     var heatMapSixConfig = {
-        events: {
-            cellOnclick: function(){alert("hello");}
+        eventCallBack:{
+            onClick: function(point){ alert("Hello"); }
         }
     };
-    dvis.heatMap("heatmap-6", heatMapDataTwo, heatMapSixConfig);
+    dvis.heatMap("#heatmap-6", heatMapDataTwo, heatMapSixConfig);
+
+
 </script>
 
 </html>
