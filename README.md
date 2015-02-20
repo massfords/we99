@@ -7,11 +7,11 @@ Shared repo for Harvard Extension School E99 West-East project team
 
 Name            | Role
 --------------- | -------------
-Mark F.         |
-Alan O.         |
-Sean S.         |
-Tim S.          |
-S. Alexander Z. |
+Mark F.         | Server
+Alan O.         | Server
+Sean S.         | Client
+Tim S.          | Client
+S. Alexander Z. | Client + Server
 Robert Z.       | Advisor
 
 # Heilmeier's Catechism
