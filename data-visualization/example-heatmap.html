@@ -1,0 +1,115 @@
+<html>
+<script src="jquery-2.1.3.min.js" charset="utf-8"></script>
+<script src="d3.v3.min.js" charset="utf-8"></script>
+<script src="data-vis.js" charset="utf-8"></script>
+
+
+<style>
+
+    .heatmap-table{
+       display: inline;
+       margin: 10px;
+    }
+
+    .my-heatmap-table{
+        display: inline,
+        width: 500px,
+        height: 600px
+    }
+
+    .my-heatmap-table td,
+    .my-heatmap-table th{
+        width: 50px;
+        height: 50px;
+        border: 1px solid black;
+        font-size: large;
+    }
+
+    .my-heatmap-row-cell{
+        color: red;
+    }
+
+    .my-heatmap-col-cell{
+        color: blue;
+    }
+
+</style>
+<body>
+
+<h4>Basic Heat Map</h4>
+<div id="heatmap-1"></div>
+
+<h4>Larger Basic Heat Map</h4>
+<div id="heatmap-2"></div>
+
+<h4>Two Heat Maps On The Same Scales</h4>
+<div id="heatmap-3"></div>
+
+<h4>Heat Map Different Colors</h4>
+<div id="heatmap-4"></div>
+
+<h4>Customize Look Through Custom Css Classes</h4>
+<div id="heatmap-5"></div>
+
+<h4>Onclick callback (Not Working Yet).</h4>
+<div id="heatmap-6"></div>
+
+
+</body>
+
+<script>
+
+    var dvis = new DataVis();
+
+    var heatMapDataOne =  {
+        colName: ["A", "B", "C"],
+        rowName: ["One", "Two", "Three"],
+        data: [
+            [1.2, 0.0, 3.9],
+            [2.8, 4.0, 1.5],
+            [0.5, 0.0, 3.0]
+        ]
+    };
+
+    var heatMapDataTwo =  {
+        colName: ["A", "B", "C", "D", "E", "F", "G"],
+        rowName: ["One", "Two", "Three", "Four"],
+        data: [
+            [1.2, 0.0, 3.9, 1.2, 0.0, 2, 8.0],
+            [2.8, 4.0, 1.5, 6.0, 3.2, 3.1, 9.0],
+            [0.5, 0.0, 3.0, 11.0, 12.5, 3.2, 9.0],
+            [0.5, 0.0, 3.0, 1.2, 3.4, 5.6, 4.2]
+        ]
+    };
+
+    dvis.heatMap("#heatmap-1", heatMapDataOne);
+    dvis.heatMap("#heatmap-2", heatMapDataTwo);
+
+    var heatMapThreeConfig = { color: {scaleMin: 0.0, scaleMax: 12.5 } };
+    dvis.heatMap("#heatmap-3", heatMapDataOne, heatMapThreeConfig);
+    dvis.heatMap("#heatmap-3", heatMapDataTwo, heatMapThreeConfig);
+
+    var heatMapFourConfig = { color: { light: 'azure', dark: 'darkcyan'} };
+    dvis.heatMap("#heatmap-4", heatMapDataTwo, heatMapFourConfig);
+
+    var heatMapFiveConfig = { classes: {
+        tableClass: "my-heatmap-table",
+        dataCellClass: "my-heatmap-data-cell",
+        rowClass: "my-heatmap-row",
+        rowNameCellClass: "my-heatmap-row-cell",
+        colHeaderClass: "my-heatmap-col-header",
+        colCellClass: "my-heatmap-col-cell"
+    }};
+    dvis.heatMap("#heatmap-5", heatMapDataTwo, heatMapFiveConfig);
+
+    var heatMapSixConfig = {
+        eventCallBack:{
+            onClick: function(point){ alert("Hello"); }
+        }
+    };
+    dvis.heatMap("#heatmap-6", heatMapDataTwo, heatMapSixConfig);
+
+
+</script>
+
+</html>

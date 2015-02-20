@@ -1,0 +1,59 @@
+@startuml
+
+class WellResult o-- Well: many
+class WellResult o-- PlateResult: many
+class PlateResult --o Plate: many
+class Well --o Plate: many
+class PlateFacade -- ResultFilter: uses
+class PlateFacade -- NormalizerFunction: uses
+class PlateFacade -- DataSet: uses
+class PlateResultReader -- PlateResult: creates
+class PlateFacade .. PlateResult: abstracts
+
+class WellResult{
+ + String name
+ + Boolean excluded
+ + double [] data
+ + byte [] byteData
+ + Map <String, String> features
+}
+
+class PlateResult{
+ + String name
+ + Map <String, String> features
+}
+
+interface PlateResultReader{
+ PlateResult[] generateResults(byte[] input)
+}
+
+interface NormalizerFunction{
+ double[][] normizalize(double [][])
+}
+
+class PlateFacade{
+ DataSet assemblePlateData(ResultFilter filter, NormalizerFunction normalizer)
+}
+
+class DataSet{
+ + double [][] linearRegressionCoefficients
+ + Double linearRegressionConstant
+ + double [][] data
+ + List <String> colHeaders
+ + List <String> rowNames
+}
+
+class ResultFilter{
+ + List <String> plateNameList
+ + List <String> wellResultExclude
+ + List <String> wellFeatures
+ + List <String> plateFeatures
+}
+
+class Plate{
+}
+
+class Well{
+}
+
+@enduml
