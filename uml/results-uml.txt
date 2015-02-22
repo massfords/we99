@@ -10,6 +10,7 @@ class WellResult{
  + int row
  + int col
  + double data
+ + String resultType
 }
 
 class PlateResult{
