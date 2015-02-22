@@ -18,7 +18,7 @@ class PlateResult{
 }
 
 interface PlateResultReader{
- PlateResult[] generateResults(byte[] input)
+ PlateResult[] generateResults(String fileName, String fileContents)
 }
 
 @enduml
