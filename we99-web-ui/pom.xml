@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>we99-parent</artifactId>
+        <groupId>edu.harvard.we99</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>we99-web-ui</artifactId>
+    <packaging>war</packaging>
+
+    <properties>
+        <!-- grunt output dir -->
+        <grunt_dist_dir>target/grunt-build/dist</grunt_dist_dir>
+    </properties>
+
+    <build>
+
+        <finalName>we99-web-ui</finalName>
+        <plugins>
+<!--
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.14</version>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v0.10.30</nodeVersion>
+                            <npmVersion>1.4.12</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm cache clear</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>cache clean</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>grunt build</id>
+                        <goals>
+                            <goal>grunt</goal>
+                        </goals>
+                        <configuration>
+                            TODO: remove the space between the dashes in the arguments field below. Only here in order to avoid error in commenting out this block of XML
+                            <arguments>- -no-color build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+    -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <!-- There is no web.xml for this type of war -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!-- TODO uncomment this when the grunt build is enabled -->
+                    <!--<webResources>-->
+                        <!--<resource>-->
+                            <!--<directory>${grunt_dist_dir}</directory>-->
+                        <!--</resource>-->
+                    <!--</webResources>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

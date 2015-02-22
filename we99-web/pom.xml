@@ -51,6 +51,12 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.7</version>
         </dependency>
+        <dependency>
+            <groupId>edu.harvard.we99</groupId>
+            <artifactId>we99-web-ui</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
     </dependencies>
 
     <build>
