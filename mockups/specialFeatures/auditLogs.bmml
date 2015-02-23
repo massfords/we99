@@ -1,0 +1,29 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="954" measuredH="533" mockupW="864" mockupH="464">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::SearchBox" x="110" y="142" w="-1" h="-1" measuredW="120" measuredH="25" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::DataGrid" x="110" y="182" w="844" h="171" measuredW="792" measuredH="171" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>User%20%5E%2C%20Event%20Type%2C%20Action%2C%20Experiment%2C%20Timestamp%0AGeorge%20Washington%2C%20CREATE%20PLATE%20TEMPLATE%2C%20Created%20%27Acme%20Corp%27%20Template%2C%20-%2C%20January%2010%202015%204%3A00%20AM%0AAbe%20Lincoln%2C%20CREATE%20PLATE%2CCreated%20%27Abe%27s%20Compound%20X%27%20plate%20%2C%20Geronimo%2C%20July%2012%202014%206%3A00%20PM%0AThomas%20Jefferson%2C%20IMPORT%20RESULT%2C%20Imported%20file%20%27Output.dat%27%2C%20Gamma%2C%20October%2021%202014%209%3A00%20AM%0AJohn%20Adams%2C%20SAVE%20ANALYSIS%2C%20Saved%20linear%20regression%20as%20%27My%20results%27%2C%20Delta%2C%20Febuary%2015%202015%207%3A00%20AM%0AAbe%20Lincoln%2C%20DELETE%20PLATE%20TEMPLATE%2C%20Deleted%20template%20%27TEST123%27%2C%20-%2C%20January%2012%202014%206%3A00%20AM%0A%7B20L%2C%200R%2C%2040L%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Title" x="110" y="69" w="-1" h="-1" measuredW="195" measuredH="43" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Audit%20Logs</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Button" x="110" y="368" w="-1" h="-1" measuredW="95" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Export%20Logs</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::StickyNote" x="90" y="410" w="160" h="123" measuredW="109" measuredH="123" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Export%20will%20allow%20the%20user%20to%20download%20audit%20logs%20as%20a%20csv%20file%20for%20backup%20or%20further%20analysis</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
