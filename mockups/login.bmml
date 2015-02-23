@@ -1,0 +1,341 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1720" measuredH="1357" mockupW="1642" mockupH="1348">
+  <controls>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::List" x="139" y="693" w="199" h="101" measuredW="100" measuredH="126" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Project%20X%0ARadioactive%20Spiders%0ACure%20for%20Cancer%0AZombie%20Virus</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Button" x="373" y="701" w="-1" h="-1" measuredW="74" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Add%20New</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="78" y="9" w="576" h="381" measuredW="450" measuredH="400" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>we99</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::HRule" x="139" y="621" w="343" h="-1" measuredW="100" measuredH="10" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="139" y="586" w="-1" h="-1" measuredW="177" measuredH="26" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>Select%20an%20Experiment</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::SearchBox" x="139" y="657" w="199" h="-1" measuredW="120" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>filter</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="__group__" x="120" y="123" w="500" h="196" measuredW="500" measuredH="196" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <controlName>Login</controlName>
+        <markup>true</markup>
+      </controlProperties>
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="46" w="500" h="150" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="14">
+          <controlProperties>
+            <color>15658734</color>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::TextInput" x="163" y="61" w="253" h="-1" measuredW="79" measuredH="26" zOrder="1" locked="false" isInGroup="14">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="39" y="68" w="115" h="-1" measuredW="35" measuredH="21" zOrder="2" locked="false" isInGroup="14">
+          <controlProperties>
+            <align>right</align>
+            <text>Email%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="163" y="149" w="84" h="28" measuredW="54" measuredH="27" zOrder="3" locked="false" isInGroup="14">
+          <controlProperties>
+            <text>Login</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Link" x="262" y="150" w="-1" h="-1" measuredW="105" measuredH="19" zOrder="4" locked="false" isInGroup="14">
+          <controlProperties>
+            <text>Forgot%20password%3F</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::TextInput" x="163" y="105" w="253" h="-1" measuredW="79" measuredH="26" zOrder="5" locked="false" isInGroup="14">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="39" y="112" w="115" h="-1" measuredW="59" measuredH="21" zOrder="6" locked="false" isInGroup="14">
+          <controlProperties>
+            <align>right</align>
+            <text>Password%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Title" x="0" y="0" w="-1" h="-1" measuredW="68" measuredH="31" zOrder="7" locked="false" isInGroup="14">
+          <controlProperties>
+            <size>28</size>
+            <text>Login</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="717" y="51" w="460" h="418" measuredW="450" measuredH="400" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>we99</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::TabBar" x="748" y="195" w="378" h="180" measuredW="379" measuredH="100" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Experiments%2C%20Personnel%2C%20Testing%20Devices%2C%20%20Settings</text>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::Label" x="748" y="146" w="-1" h="-1" measuredW="178" measuredH="28" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>20</size>
+        <text>Welcome%2C%20Manager</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="1221" y="51" w="460" h="418" measuredW="450" measuredH="400" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>we99</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::TabBar" x="1252" y="195" w="378" h="180" measuredW="224" measuredH="100" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Experiments%2C%20%20Settings</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::Label" x="1252" y="146" w="-1" h="-1" measuredW="182" measuredH="28" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>20</size>
+        <text>Welcome%2C%20Scientist</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::TabBar" x="90" y="530" w="392" h="330" measuredW="162" measuredH="100" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Experiment</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::Link" x="371" y="660" w="-1" h="-1" measuredW="78" measuredH="19" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>show%20deleted</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Button" x="139" y="809" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Select</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Icon" x="315" y="697" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Icon" x="315" y="719" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::Icon" x="315" y="742" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Icon" x="315" y="762" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::StickyNote" x="353" y="750" w="231" h="231" measuredW="109" measuredH="123" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Show%20deleted%20allows%20experiment%20managers%20to%20undelete%20an%20experiment.%20When%20selected.%20this%20button%20will%20become%20%27hide%20deleted%27%20and%20there%20%20will%20be%20no%20edit%20option%20and%20no%20delete%20option%20next%20to%20the%20name%20but%20an%20undelete%20option.%20deleted%20projects%20cannot%20be%20selected.%20experiments%20not%20belonging%20to%20the%20user%20cannot%20be%20viewed%20in%20this%20list%20unless%20the%20user%20is%20an%20experiment%20manager</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::TabBar" x="641" y="530" w="383" h="359" measuredW="152" measuredH="100" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Personnel</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::List" x="666" y="696" w="199" h="125" measuredW="100" measuredH="126" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Chuck%20Norris%0ACharles%20Xavier%0AEugene%20Porter%0ANeil%20Tyson%0APeter%20Parker</text>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::Button" x="892" y="699" w="-1" h="-1" measuredW="74" measuredH="27" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Add%20New</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::HRule" x="666" y="624" w="343" h="-1" measuredW="100" measuredH="10" zOrder="24" locked="false" isInGroup="-1"/>
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::Label" x="666" y="589" w="-1" h="-1" measuredW="150" measuredH="26" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>Manage%20Personnel</text>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::SearchBox" x="666" y="660" w="199" h="-1" measuredW="120" measuredH="25" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>filter</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::Icon" x="840" y="703" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Icon" x="840" y="725" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::Icon" x="840" y="748" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::Icon" x="840" y="768" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::Icon" x="840" y="788" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::StickyNote" x="881" y="794" w="172" h="109" measuredW="109" measuredH="123" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Personnel%20Editor%20can%20be%20used%20to%20add/rename%20personnel%20as%20well%20as%20reset%20their%20passwords</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::Button" x="892" y="741" w="-1" h="-1" measuredW="117" measuredH="27" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Password%20Reset</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::Icon" x="818" y="703" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>PencilIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::Icon" x="294" y="697" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>PencilIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::TabBar" x="1178" y="527" w="392" h="330" measuredW="191" measuredH="100" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Testing%20Devices</text>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::List" x="1227" y="703" w="199" h="101" measuredW="100" measuredH="126" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>X-Ray%0ABlack%20Box%0AReally%20Black%20Box%0A2001%20SO%20Monolith</text>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Button" x="1455" y="706" w="-1" h="-1" measuredW="74" measuredH="27" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Add%20New</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::HRule" x="1219" y="612" w="343" h="-1" measuredW="100" measuredH="10" zOrder="39" locked="false" isInGroup="-1"/>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::Label" x="1227" y="583" w="-1" h="-1" measuredW="204" measuredH="26" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>Manage%20Testing%20Devices</text>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::SearchBox" x="1227" y="667" w="199" h="-1" measuredW="120" measuredH="25" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>filter</text>
+      </controlProperties>
+    </control>
+    <control controlID="66" controlTypeID="com.balsamiq.mockups::Link" x="1448" y="670" w="-1" h="-1" measuredW="78" measuredH="19" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>show%20deleted</text>
+      </controlProperties>
+    </control>
+    <control controlID="68" controlTypeID="com.balsamiq.mockups::Icon" x="1403" y="707" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="69" controlTypeID="com.balsamiq.mockups::Icon" x="1403" y="729" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="70" controlTypeID="com.balsamiq.mockups::Icon" x="1403" y="752" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="71" controlTypeID="com.balsamiq.mockups::Icon" x="1403" y="772" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="46" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <icon>XIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::StickyNote" x="1457" y="760" w="263" h="195" measuredW="109" measuredH="123" zOrder="47" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Show%20deleted%20allows%20equipment%20managers%20to%20undelete%20a%20device.%20When%20selected.%20this%20button%20will%20become%20%27hide%20deleted%27%20and%20there%20will%20be%20no%20edit%20option%20and%20no%20delete%20option%20next%20to%20the%20name%20but%20an%20undelete%20option.%20Can%20filter%20by%20type%20but%20if%20no%20type%20selected%20will%20show%20all%20devices.%20new%20devices%20can%20be%20added%20in%20the%20create%20new%20or%20edit%20screen%20when%20assigning%20types%20to%20the%20boxes</text>
+      </controlProperties>
+    </control>
+    <control controlID="73" controlTypeID="com.balsamiq.mockups::Icon" x="1382" y="707" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="48" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>PencilIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="74" controlTypeID="com.balsamiq.mockups::ComboBox" x="1230" y="634" w="-1" h="-1" measuredW="119" measuredH="24" zOrder="49" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>-%20Select%20Type%20-</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::TabBar" x="78" y="1027" w="392" h="330" measuredW="150" measuredH="100" zOrder="50" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Settings</text>
+      </controlProperties>
+    </control>
+    <control controlID="77" controlTypeID="com.balsamiq.mockups::HRule" x="127" y="1118" w="343" h="-1" measuredW="100" measuredH="10" zOrder="51" locked="false" isInGroup="-1"/>
+    <control controlID="78" controlTypeID="com.balsamiq.mockups::Label" x="127" y="1083" w="-1" h="-1" measuredW="141" measuredH="26" zOrder="52" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>Manage%20Settings</text>
+      </controlProperties>
+    </control>
+    <control controlID="79" controlTypeID="com.balsamiq.mockups::StickyNote" x="199" y="1173" w="254" h="138" measuredW="109" measuredH="123" zOrder="53" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>All%20other%20settings%20such%20as%20managing%20ones%20on%20user%20credentials%20/%20email%20/%20etc.%20can%20go%20here.</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::VerticalScrollBar" x="337" y="694" w="-1" h="-1" measuredW="16" measuredH="100" zOrder="54" locked="false" isInGroup="-1"/>
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::VerticalScrollBar" x="863" y="696" w="-1" h="125" measuredW="16" measuredH="100" zOrder="55" locked="false" isInGroup="-1"/>
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::VerticalScrollBar" x="1425" y="703" w="-1" h="-1" measuredW="16" measuredH="100" zOrder="56" locked="false" isInGroup="-1"/>
+  </controls>
+</mockup>
