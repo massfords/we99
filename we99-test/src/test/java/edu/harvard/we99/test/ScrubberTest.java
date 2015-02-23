@@ -27,19 +27,19 @@ public class ScrubberTest {
         params.add(
                 array(  load("/ScrubberTest/input.json"),
                         load("/ScrubberTest/pk-expected.json"),
-                        new PrimaryKeyScrubber())
+                        Scrubbers.pkey)
         );
 
         params.add(
                 array(  load("/ScrubberTest/input.json"),
                         load("/ScrubberTest/uuid-expected.json"),
-                        new UUIDScrubber())
+                        Scrubbers.uuid)
         );
 
         params.add(
-                array(  load("/ScrubberTest/input.json"),
+                array(load("/ScrubberTest/input.json"),
                         load("/ScrubberTest/composed-expected.json"),
-                        new UUIDScrubber().andThen(new PrimaryKeyScrubber()))
+                        Scrubbers.uuid.andThen(Scrubbers.pkey))
         );
 
         return params;

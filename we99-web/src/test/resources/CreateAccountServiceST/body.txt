@@ -1,0 +1,9 @@
+Welcome Mark Ford!
+
+Click the following link to verify your new account:
+
+http://localhost:8080/we99/open/createAccount-verify.html?uuid=uuid&email=junit@uuid
+
+Thanks,
+
+The WE99 Crew

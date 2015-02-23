@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+       ">
+
+    <!--
+        Used by Spring Security to fetch the User object from the provided username.
+        Note: this class doesn't actually perform authentication or verify their
+              password. That's handled by the authentication-provider element below
+    -->
+    <bean id="customUserDetailService"
+          class="edu.harvard.we99.security.CustomUserDetailsService"/>
+
+    <!--
+        Standard auth manager for spring. The manager has the following pieces:
+        provider:           responsible for authenticating the user
+        user service:       handles the fetching of the user bean from the user name
+        password encoder:   salts and hashes the pw provided by the user during the
+                            challenge before comparing it to the password on the
+                            fetched User object.
+    -->
+    <sec:authentication-manager alias="basic">
+        <sec:authentication-provider user-service-ref="customUserDetailService">
+            <sec:password-encoder ref="passwordEncoder">
+                <sec:salt-source user-property="salt"/>
+            </sec:password-encoder>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <!--
+        Password encoder that's used by the authentication provider above to
+        produce a hash of the password. It's defined as a top level bean because
+        it's also used by the CreateAccountService as part of that workflow.
+    -->
+    <bean id="passwordEncoder"
+          class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+        <constructor-arg value="256"/>
+    </bean>
+
+    <!--
+        Standard spring security annotations for path based security.
+
+        In general, everything is locked down with a few exceptions:
+        - unauthenticated users can request an account, load html/JS/css and login
+        - all REST services use basic/digest auth
+        - all user interface pages use a login HTML page
+    -->
+    <sec:http pattern="/services/rest/createAccount/**" security="none"/>
+    <sec:http pattern="/services/rest/**" auto-config='true' use-expressions="true"
+              authentication-manager-ref="basic" access-decision-manager-ref="adm"
+              disable-url-rewriting="true">
+        <sec:intercept-url pattern="/**" access="isAuthenticated()"/>
+    </sec:http>
+    <sec:http pattern="/open/**" security="none"/>
+    <sec:http pattern="/css/**" security="none"/>
+    <sec:http pattern="/lib/**" security="none"/>
+    <sec:http pattern="/js/**" security="none"/>
+    <sec:http pattern="/createAccount.html" security="none"/>
+    <sec:http pattern="/**" auto-config='true' use-expressions="true" authentication-manager-ref="basic"
+              access-decision-manager-ref="adm" disable-url-rewriting="true">
+        <sec:intercept-url pattern="j_spring*" method="GET" access="permitAll"/>
+        <sec:intercept-url pattern="/**" method="GET" access="isAuthenticated()"/>
+        <sec:form-login login-page="/open/login.html" authentication-failure-url="/open/login.html?error"/>
+        <sec:logout logout-success-url="/open/loggedOut.html"/>
+    </sec:http>
+
+    <!--
+        Standard authorization setup for Spring. We may add Roles at some point
+        and could then use the PreAuthorize annotation on the services which
+        would be an easy way to achieve declarative security.
+    -->
+    <bean id="adm"
+          class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
+                <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+                <bean class="org.springframework.security.access.vote.RoleVoter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+</beans>

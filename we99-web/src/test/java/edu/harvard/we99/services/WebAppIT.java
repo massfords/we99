@@ -15,9 +15,13 @@ import java.io.File;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         PlateTemplateST.class,
+        CreateAccountServiceST.class,
 })
 public class WebAppIT {
     public static final String WE99_URL = "http://localhost:8080/we99/services/rest";
+    public static final String WE99_EMAIL = "we99.2015@gmail.com";
+    public static final String WE99_PW = "pass";
+
     private static WebAppFixture webAppFixture;
 
     /**

@@ -37,6 +37,22 @@
             <version>${spring.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-expression</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security}</version>
+        </dependency>
+        <dependency>
             <groupId>edu.harvard.we99</groupId>
             <artifactId>we99-ddl</artifactId>
             <version>${project.version}</version>
@@ -57,6 +73,20 @@
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
+        <!--
+            Mock Mail server used for testing. It's important not to include
+            this in our final packaging since it intercepts all Java Mail
+            requests and "delivers" them to the mock mailbox.
+
+            We avoid this by using the test scope on the dependency
+        -->
+        <dependency>
+            <groupId>org.jvnet.mock-javamail</groupId>
+            <artifactId>mock-javamail</artifactId>
+            <version>1.9</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

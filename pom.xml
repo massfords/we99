@@ -9,6 +9,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.1.4.RELEASE</spring.version>
+        <spring.security>3.2.5.RELEASE</spring.security>
         <h2.version>1.4.185</h2.version>
         <jackson.version>2.4.0</jackson.version>
         <jetty.version>9.1.0.v20131115</jetty.version>

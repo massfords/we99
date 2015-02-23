@@ -8,8 +8,7 @@ import edu.harvard.we99.domain.PlateTemplate;
 import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.WellType;
-import edu.harvard.we99.test.PrimaryKeyScrubber;
-import edu.harvard.we99.test.UUIDScrubber;
+import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -57,7 +56,7 @@ public class PlateTemplateST {
      * JSON scrubbers to clean the payloads for our assertions
      */
     private Function<String,String> jsonScrubber =
-            new PrimaryKeyScrubber().andThen(new UUIDScrubber());
+            Scrubbers.pkey.andThen(Scrubbers.uuid);
 
     /**
      * Init our proxies and then create a new PlateType for use in the template
@@ -66,7 +65,7 @@ public class PlateTemplateST {
     @BeforeClass
     public static void init() throws Exception {
         URL url = new URL(WebAppIT.WE99_URL);
-        ClientFactory cf = new ClientFactory(url);
+        ClientFactory cf = new ClientFactory(url, WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW);
 
         // install some plate types
         // install some compounds

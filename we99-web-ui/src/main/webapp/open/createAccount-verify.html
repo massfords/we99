@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>WE-99 Verify Account</title>
+    <script src="../lib/jquery-2.1.3.min.js" charset="utf-8"></script>
+    <script src="../lib/URI.js" charset="utf-8"></script>
+</head>
+<body>
+<!--
+    This page submits to the REST service directly. We should probably use an
+    Ajax call to POST the data and then act on the response. This is just temporary
+    in order to demonstrate that the account creation works.
+-->
+<form id="verifyForm" method="POST" name="verifyForm" action="../services/rest/createAccount/verify/">
+    <table style="vertical-align: middle;">
+        <tr>
+            <td>First Name:</td>
+            <td><input id="firstName" type="text" name="firstName" readonly/></td>
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td><input id="lastName" type="text" name="lastName" readonly/></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input id="email" type="text" name="email" readonly/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password"/></td>
+        </tr>
+        <tr>
+            <td><input id="submit" type="submit" value="Update"/></td>
+        </tr>
+    </table>
+    <input id="uuid" type="hidden" name="uuid" readonly/>
+</form>
+</body>
+<script>
+    // The user is directed to this page with the uuid and email in the location
+    // This snippet of code shows extracting those values and using them to access
+    // the user's registration info so we can populate the form above and prompt
+    // them to enter a password.
+    // Note: there's no confirmation on the length of the password, we probably
+    //       need something like that. Perhaps a simple check for a non-null value?
+
+    var url = new URI();
+    var queryParams = url.search(true);
+    var email = queryParams['email'];
+    var uuid = queryParams['uuid'];
+    jQuery.get('../services/rest/createAccount/verify/'+uuid+'?email='+email, function success(data) {
+        $( '#firstName' ).val(data.User.firstName);
+        $( '#lastName' ).val(data.User.lastName);
+        $( '#email' ).val(data.User.email);
+        var $verifyForm = $('#verifyForm');
+        var action = $verifyForm.attr("action")+uuid;
+        $verifyForm.attr('action', action);
+        $('#submit').enabled(true);
+    }, "json");
+
+</script>
+</html>
