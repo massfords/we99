@@ -1,5 +1,7 @@
 package edu.harvard.we99.services;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.PlateType;
 
 import javax.ws.rs.Consumes;
@@ -19,6 +21,8 @@ import javax.ws.rs.core.Response;
  * @author mford
  */
 @Path("/plateType")
+@Api(value = "/plateType",
+        description = "Service for performing CRUD operations on a PlateType")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface PlateTypeService {
@@ -28,6 +32,7 @@ public interface PlateTypeService {
      * @return
      */
     @PUT
+    @ApiOperation(value = "Creates a new PlateType")
     PlateType create(PlateType type);
 
     /**
@@ -37,7 +42,8 @@ public interface PlateTypeService {
      * @statuscode 404 If there is no PlateType with this id
      */
     @GET
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Gets an existing PlateType or throws an exception with a 404")
     PlateType get(@PathParam("id")Long id);
 
     /**
@@ -48,7 +54,8 @@ public interface PlateTypeService {
      * @statuscode 404 If there is no PlateType with this id
      */
     @POST
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Updates an existing PlateType or throws an exception with a 404")
     PlateType update(@PathParam("id") Long id, PlateType type);
 
     /**
@@ -58,6 +65,7 @@ public interface PlateTypeService {
      * @statuscode 404 If there is no PlateType with this id
      */
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Deletes an existing PlateType or throws an exception with a 404")
     Response delete(@PathParam("id") Long id);
 }

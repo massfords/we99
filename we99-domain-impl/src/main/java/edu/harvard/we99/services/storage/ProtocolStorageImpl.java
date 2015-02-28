@@ -7,8 +7,8 @@ import edu.harvard.we99.domain.Protocol;
  */
 public class ProtocolStorageImpl extends CRUDStorageImpl<Protocol> {
 
-    public ProtocolStorageImpl(Class<Protocol> clazz) {
-        super(clazz);
+    public ProtocolStorageImpl() {
+        super(Protocol.class);
     }
 
     @Override
