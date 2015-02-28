@@ -1,9 +1,0 @@
-{
-  "PlateType": {
-    "dim": {
-      "rows": 3,
-      "cols": 4
-    },
-    "manufacturer": "Foo Inc."
-  }
-}

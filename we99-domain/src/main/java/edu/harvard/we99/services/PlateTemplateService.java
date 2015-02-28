@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import edu.harvard.we99.domain.PlateTemplate;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -23,16 +24,18 @@ import javax.ws.rs.core.Response;
 public interface PlateTemplateService {
     /**
      * Creates a new template in our system.
-     * @param template
+     * @param template PlateTemplate to add into the system
      * @return
+     * @statuscode 415 If the PlateTemplate is missing a required field
      */
     @PUT
     PlateTemplate create(PlateTemplate template);
 
     /**
      * Gets an existing template or throws an exception with 404
-     * @param id
+     * @param id PlateTemplate's id field
      * @return
+     * @statuscode 404 If there is no PlateTemplate with this id
      */
     @GET
     @Path("{id}")
@@ -40,9 +43,10 @@ public interface PlateTemplateService {
 
     /**
      * Updates an existing template or throws an exception with a 404 if not found.
-     * @param id
-     * @param template
+     * @param id PlateTemplate's id field
+     * @param template PlateTemplate to update
      * @return
+     * @statuscode 404 If there is no PlateTemplate with this id
      */
     @POST
     @Path("{id}")
@@ -50,10 +54,11 @@ public interface PlateTemplateService {
 
     /**
      * Deletes an existing template or throws an exception with a 404 if not found
-     * @param id
+     * @param id PlateTemplate's id field
      * @return
+     * @statuscode 404 If there is no PlateTemplate with this id
      */
-    @POST
+    @DELETE
     @Path("{id}")
     Response delete(@PathParam("id") Long id);
 }

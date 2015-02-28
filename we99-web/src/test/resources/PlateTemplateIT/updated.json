@@ -1,30 +1,28 @@
 {
-  "PlateTemplate": {
-    "name": "plateTemplate-uuid",
-    "description": "my modified description",
-    "plateType": {
-      "dim": {
-        "rows": 4,
-        "cols": 3
-      },
-      "manufacturer": "Foo Inc."
+  "name": "plateTemplate-uuid",
+  "description": "my modified description",
+  "plateType": {
+    "dim": {
+      "rows": 4,
+      "cols": 3
     },
-    "wells": [
-      {
-        "coordinate": {
-          "row": 0,
-          "col": 0
-        },
-        "label": "well 0,0",
-        "type": "MEASURED",
-        "contents": [
-          {
-            "number": 1,
-            "units": "MILLIS",
-            "compound": {"name": "uuid"}
-          }
-        ]
-      }
-    ]
-  }
+    "manufacturer": "Foo Inc."
+  },
+  "wells": [
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 0
+      },
+      "label": "well 0,0",
+      "type": "MEASURED",
+      "contents": [
+        {
+          "number": 1,
+          "units": "MILLIS",
+          "compound": {"name": "uuid"}
+        }
+      ]
+    }
+  ]
 }

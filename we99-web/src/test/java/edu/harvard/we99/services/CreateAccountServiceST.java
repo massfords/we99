@@ -77,7 +77,7 @@ public class CreateAccountServiceST {
         // 6. get our user bean to verify that we now have access
         cf = new ClientFactory(new URL(WebAppIT.WE99_URL), email, password);
         UserService userService = cf.create(UserService.class);
-        User me = userService.whoami(request);
+        User me = userService.whoami();
         assertNotNull(me);
         assertJsonEquals(load("/CreateAccountServiceST/user.json"),
                 toJsonString(me), Scrubbers.uuid.andThen(Scrubbers.pkey));

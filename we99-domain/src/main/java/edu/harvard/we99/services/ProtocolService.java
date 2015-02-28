@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import edu.harvard.we99.domain.Protocol;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -53,7 +54,7 @@ public interface ProtocolService {
      * @param id
      * @return
      */
-    @POST
+    @DELETE
     @Path("{id}")
     Response delete(@PathParam("id") Long id);
 }

@@ -2,9 +2,9 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.User;
 import edu.harvard.we99.services.storage.UserStorage;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User whoami(HttpServletRequest request) {
-        String email = request.getUserPrincipal().getName();
+    public User whoami() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         try {
             return storage.findByEmail(email);
