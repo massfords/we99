@@ -1,5 +1,7 @@
 package edu.harvard.we99.security;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +39,8 @@ import javax.ws.rs.core.Response;
  * @author mford
  */
 @Path("/createAccount")
+@Api(value = "/createAccount",
+        description = "Service for creating new user accounts")
 public interface CreateAccountService {
     /**
      * A self service for users to create their own account.
@@ -53,6 +57,7 @@ public interface CreateAccountService {
      */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @ApiOperation(value = "A self service for users to create their own account.")
     Response createAccount(@FormParam("email") String email,
                           @FormParam("firstName") String firstName,
                           @FormParam("lastName") String lastName,
@@ -70,6 +75,7 @@ public interface CreateAccountService {
     @Path("/verify/{uuid}")
     @GET
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @ApiOperation(value = "Fetches the user associated with this registration key")
     User activateAccount(@PathParam("uuid") String uuid,
                          @QueryParam("email") String email);
 
@@ -89,6 +95,7 @@ public interface CreateAccountService {
     @Path("/verify/{uuid}")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @ApiOperation(value = "Accepts a password for the given user account.")
     Response activateAccount(@PathParam("uuid") String uuid,
                          @FormParam("email") String email,
                          @FormParam("password") String password);

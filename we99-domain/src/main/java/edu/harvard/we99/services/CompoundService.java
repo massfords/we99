@@ -1,5 +1,7 @@
 package edu.harvard.we99.services;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Compound;
 
 import javax.ws.rs.Consumes;
@@ -18,6 +20,8 @@ import javax.ws.rs.core.Response;
  *
  * @author mford
  */
+@Api(value = "/compound",
+        description = "Service for performing basic CRUD operations on a Compound")
 @Path("/compound")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -29,6 +33,7 @@ public interface CompoundService {
      * @statuscode 415 If the compound name is not unique
      */
     @PUT
+    @ApiOperation(value = "Create a new Compound")
     Compound create(Compound compound);
 
     /**
@@ -38,7 +43,8 @@ public interface CompoundService {
      * @statuscode 404 If there is no Compound found with this id
      */
     @GET
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Gets an existing compound or throws an exception with 404")
     Compound get(@PathParam("id")Long id);
 
     /**
@@ -49,7 +55,8 @@ public interface CompoundService {
      * @statuscode 415 If the compound name is changed to be the same as an existing one
      */
     @POST
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Updates an existing compound or throws an exception with a 404 if not found.")
     Compound update(@PathParam("id") Long id, Compound compound);
 
     /**
@@ -60,6 +67,8 @@ public interface CompoundService {
      * @statuscode 404 If there is no Compound found with this id
      */
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Deletes an existing compound or throws an exception with a 404 if not found")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Response delete(@PathParam("id") Long id);
 }

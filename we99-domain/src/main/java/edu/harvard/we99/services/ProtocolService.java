@@ -1,5 +1,7 @@
 package edu.harvard.we99.services;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Protocol;
 
 import javax.ws.rs.Consumes;
@@ -19,6 +21,8 @@ import javax.ws.rs.core.Response;
  * @author mford
  */
 @Path("/protocol")
+@Api(value = "/protocol",
+        description = "Service for performing basic CRUD operations on a Protocol")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface ProtocolService {
@@ -28,6 +32,7 @@ public interface ProtocolService {
      * @return
      */
     @PUT
+    @ApiOperation(value = "Creates a new protocol in our system.")
     Protocol create(Protocol protocol);
 
     /**
@@ -36,7 +41,8 @@ public interface ProtocolService {
      * @return
      */
     @GET
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Gets an existing protocol or throws an exception with 404")
     Protocol get(@PathParam("id") Long id);
 
     /**
@@ -46,7 +52,8 @@ public interface ProtocolService {
      * @return
      */
     @POST
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Updates an existing protocol or throws an exception with a 404 if not found.")
     Protocol update(@PathParam("id") Long id, Protocol protocol);
 
     /**
@@ -55,6 +62,7 @@ public interface ProtocolService {
      * @return
      */
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Deletes an existing protocol or throws an exception with a 404 if not found")
     Response delete(@PathParam("id") Long id);
 }

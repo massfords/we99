@@ -42,13 +42,20 @@ public abstract class BaseRESTServiceImpl<T extends BaseEntity> {
         }
     }
 
-    public Response delete(Long id) {
+    /**
+     * It appears that CXF will use this method signature in its dispatch logic
+     * if it has the Response as a return type. I suspect that this is a bug.
+     *
+     * todo - look into providing a patch to Apache CXF.
+     *        It should match against the Interface's decl of the method based
+     *        on its annotations, not this one
+     * @param id
+     */
+    protected void deleteImpl(Long id) {
         try {
             storage.delete(id);
         } catch(EntityNotFoundException e) {
             throw new WebApplicationException(Response.status(404).build());
         }
-        return Response.ok().build();
     }
-
 }

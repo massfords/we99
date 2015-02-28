@@ -1,5 +1,7 @@
 package edu.harvard.we99.services;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.PlateTemplate;
 
 import javax.ws.rs.Consumes;
@@ -19,6 +21,8 @@ import javax.ws.rs.core.Response;
  * @author mford
  */
 @Path("/plateTemplate")
+@Api(value = "/plateTemplate",
+        description = "Service for performing basic CRUD operations on a PlateTemplate")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface PlateTemplateService {
@@ -29,6 +33,7 @@ public interface PlateTemplateService {
      * @statuscode 415 If the PlateTemplate is missing a required field
      */
     @PUT
+    @ApiOperation(value = "Creates a new plate in our system.")
     PlateTemplate create(PlateTemplate template);
 
     /**
@@ -38,7 +43,8 @@ public interface PlateTemplateService {
      * @statuscode 404 If there is no PlateTemplate with this id
      */
     @GET
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Gets an existing template or throws an exception with 404")
     PlateTemplate get(@PathParam("id")Long id);
 
     /**
@@ -49,7 +55,8 @@ public interface PlateTemplateService {
      * @statuscode 404 If there is no PlateTemplate with this id
      */
     @POST
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Updates an existing template or throws an exception with a 404 if not found.")
     PlateTemplate update(@PathParam("id") Long id, PlateTemplate template);
 
     /**
@@ -59,6 +66,7 @@ public interface PlateTemplateService {
      * @statuscode 404 If there is no PlateTemplate with this id
      */
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Deletes an existing template or throws an exception with a 404 if not found")
     Response delete(@PathParam("id") Long id);
 }
