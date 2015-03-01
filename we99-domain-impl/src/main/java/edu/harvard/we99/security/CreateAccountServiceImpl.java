@@ -2,12 +2,8 @@ package edu.harvard.we99.security;
 
 import edu.harvard.we99.domain.User;
 import edu.harvard.we99.services.storage.UserStorage;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.text.StrSubstitutor;
-import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,11 +13,12 @@ import javax.validation.ConstraintViolationException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static edu.harvard.we99.security.InternalEmailService.prepareEmailMessage;
 
 /**
  * Implementation of the service to create new user accounts. Manages the simple
@@ -39,10 +36,9 @@ public class CreateAccountServiceImpl implements CreateAccountService {
     private final UserStorage storage;
 
     /**
-     * Config for sending emails. This is something that should be configured
-     * at install time.
+     * Helper service for sending emails.
      */
-    private final EmailConfig emailConfig;
+    private final InternalEmailService emailService;
 
     /**
      * Filter to accepting new user registrations. The provided email must
@@ -52,10 +48,10 @@ public class CreateAccountServiceImpl implements CreateAccountService {
 
     public CreateAccountServiceImpl(
             EmailFilter emailFilter,
-            EmailConfig emailConfig,
+            InternalEmailService emailService,
             UserStorage storage) {
         this.storage = storage;
-        this.emailConfig = emailConfig;
+        this.emailService = emailService;
         this.emailFilter = emailFilter;
     }
 
@@ -74,13 +70,26 @@ public class CreateAccountServiceImpl implements CreateAccountService {
         }
 
         try {
-
             User user = storage.create(new User(emailAddress, firstName, lastName));
 
-            Email email = createEmail();
+            Email email = emailService.createEmail();
             email.setSubject("Welcome to WE99");
 
-            String emailBody = prepareEmailMessage(request, user);
+            // after creating the user, their password is a random UUID. We'll send
+            // this to them in an email so they can click on it and then login.
+            // in the meantime, this user will never be able to login outside of this
+            // workflow since the format of the UUID will NEVER match a value
+            // entered by the user through our standard login process.
+            // Why never? Because the value entered by the user is salted, hashed,
+            // and then encoded to a hex string. Thus, even if they login w/ the
+            // exact UUID as their value then it still won't match what we have
+            // stored for them.
+            String uuid = user.getPassword();
+            Map<String,String> params = new HashMap<>();
+            params.put("uuid", uuid);
+
+            String emailBody = prepareEmailMessage(request, user,
+                    EmailTemplates.newUserEmail, params);
 
             email.setMsg(emailBody);
             email.addTo(emailAddress);
@@ -121,56 +130,5 @@ public class CreateAccountServiceImpl implements CreateAccountService {
             log.error("error finding user with reg key {}", uuid, e);
             throw new WebApplicationException(Response.status(404).build());
         }
-    }
-
-    /**
-     * Prepares the body of the email. A simple replacement of tokens in a template
-     * to form a greeting and link for the user to click on.
-     *
-     * This is very basic. A better solution would be a 3rd party identity
-     * management system that handled user registration.
-     *
-     * @param request
-     * @param user
-     * @return
-     * @throws IOException
-     */
-    private String prepareEmailMessage(HttpServletRequest request, User user) throws IOException {
-        Map<String,String> params = new HashMap<>();
-        params.put("firstName", user.getFirstName());
-        params.put("lastName", user.getLastName());
-        params.put("email", user.getEmail());
-        params.put("protocol", request.isSecure()? "https" : "http");
-        params.put("host", request.getServerName());
-        params.put("port", String.valueOf(request.getServerPort()));
-        params.put("context", request.getContextPath().substring(1));
-        params.put("uuid", user.getPassword());
-
-        StrSubstitutor subby = new StrSubstitutor(params);
-        String template = loadTemplate();
-        return subby.replace(template);
-    }
-
-    private String loadTemplate() throws IOException {
-        try (InputStream is = getClass().getResourceAsStream("/newUserEmail.txt")) {
-            return IOUtils.toString(is);
-        }
-    }
-
-    /**
-     * Using commons-mail to create and deliver the mail. It's a little cleaner
-     * than the JavaMail API
-     * @return
-     * @throws EmailException
-     */
-    private Email createEmail() throws EmailException {
-        Email email = new SimpleEmail();
-//        email.setDebug(true);
-        email.setHostName(this.emailConfig.getHost());
-        email.setSmtpPort(this.emailConfig.getPort());
-        email.setAuthenticator(new DefaultAuthenticator(this.emailConfig.getUsername(), this.emailConfig.getPassword()));
-        email.setStartTLSEnabled(true);
-        email.setFrom(emailConfig.getFrom());
-        return email;
     }
 }

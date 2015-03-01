@@ -49,6 +49,7 @@
         - all user interface pages use a login HTML page
     -->
     <sec:http pattern="/services/rest/createAccount/**" security="none"/>
+    <sec:http pattern="/services/rest/forgotPassword/**" security="none"/>
     <sec:http pattern="/services/rest/**" auto-config='true' use-expressions="true"
               authentication-manager-ref="basic" access-decision-manager-ref="adm"
               disable-url-rewriting="true">

@@ -53,7 +53,10 @@ public interface CreateAccountService {
      * @param firstName
      * @param lastName
      * @param request
-     * @return 200 if the tmp account can be created, 409 if the email's already taken
+     * @return 307 if the tmp account can be created as you'll be redirected to
+     *          the registration success page, 409 if the email's already taken
+     * @statuscode 307 on success to direct the user to the 'check your email' page
+     * @statuscode 404 if there is no user with this email
      */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -71,6 +74,7 @@ public interface CreateAccountService {
      * @param email
      * @return the user to populate the form to set their password or a 404 if there
      *         is no user account awaiting activation.
+     * @statuscode 404 if there is no user with this email / uuid
      */
     @Path("/verify/{uuid}")
     @GET
@@ -91,6 +95,8 @@ public interface CreateAccountService {
      *                 for their password
      * @return 200 to indicate success, 404 if the account was already activated.
      *         possibly other codes in the future if password strength rules are applied
+     * @statuscode 404 if there is no user with this email / uuid
+     * @statuscode 200 if successful
      */
     @Path("/verify/{uuid}")
     @POST

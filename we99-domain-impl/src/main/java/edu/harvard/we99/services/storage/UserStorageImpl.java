@@ -1,6 +1,7 @@
 package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.User;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,13 @@ public class UserStorageImpl extends CRUDStorageImpl<User> implements UserStorag
 
     @Override
     protected void updateFromCaller(User fromDb, User fromUser) {
-        // todo - we don't have a facility for updating a user yet. Not sure we will for 1.0
+        String password = fromUser.getPassword();
+        if (StringUtils.isNotBlank(password)) {
+            fromDb.setPassword(password);
+        }
+        // todo - if this or others grow in size then we should use Orika or something similar
+        fromDb.setFirstName(fromUser.getFirstName());
+        fromDb.setLastName(fromUser.getLastName());
     }
 
     @Override

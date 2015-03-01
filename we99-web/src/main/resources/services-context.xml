@@ -40,10 +40,20 @@
         <constructor-arg ref="passwordEncoder"/>
     </bean>
 
+    <bean id="emailService" class="edu.harvard.we99.security.InternalEmailService">
+        <constructor-arg ref="emailConfig"/>
+    </bean>
+
     <bean id="createAccountService" class="edu.harvard.we99.security.CreateAccountServiceImpl">
         <constructor-arg ref="emailFilter"/>
-        <constructor-arg ref="emailConfig"/>
+        <constructor-arg ref="emailService"/>
         <constructor-arg ref="userStorage"/>
+    </bean>
+
+    <bean id="forgotPasswordService" class="edu.harvard.we99.security.ForgotPasswordServiceImpl">
+        <constructor-arg ref="emailService"/>
+        <constructor-arg ref="userStorage"/>
+        <constructor-arg ref="createAccountService"/>
     </bean>
 
     <bean id="protocolService" class="edu.harvard.we99.services.ProtocolServiceImpl">
@@ -83,6 +93,7 @@
             <ref bean="protocolService"/>
             <ref bean="compoundService"/>
             <ref bean="createAccountService"/>
+            <ref bean="forgotPasswordService"/>
             <ref bean="userService"/>
             <ref bean="swaggerResourceJSON" />
         </jaxrs:serviceBeans>
