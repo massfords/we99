@@ -1,8 +1,12 @@
 package edu.harvard.we99.services;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Compound;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -17,43 +21,59 @@ import javax.ws.rs.core.Response;
  *
  * @author mford
  */
+@Api(value = "/compound",
+        description = "Service for performing basic CRUD operations on a Compound")
 @Path("/compound")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface CompoundService {
     /**
      * Creates a new compound in our system.
-     * @param compound
-     * @return
+     * @param compound New Compound to add into the system. Name must be unique
+     * @return Newly created Compound
+     * @statuscode 415 If the compound name is not unique
      */
     @PUT
+    @ApiOperation(value = "Create a new Compound")
+    @PreAuthorize("hasRole('PERM_MODIFY_COMPOUNDS')")
     Compound create(Compound compound);
 
     /**
      * Gets an existing compound or throws an exception with 404
-     * @param id
-     * @return
+     * @param id Compound's id field
+     * @return Compound
+     * @statuscode 404 If there is no Compound found with this id
      */
     @GET
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Gets an existing compound or throws an exception with 404")
+    @PreAuthorize("hasRole('PERM_READ_COMPOUNDS')")
     Compound get(@PathParam("id")Long id);
 
     /**
      * Updates an existing compound or throws an exception with a 404 if not found.
-     * @param id
-     * @param compound
+     * @param id Compound's id field
+     * @param compound Updated Compound to save
      * @return
+     * @statuscode 415 If the compound name is changed to be the same as an existing one
      */
     @POST
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Updates an existing compound or throws an exception with a 404 if not found.")
+    @PreAuthorize("hasRole('PERM_MODIFY_COMPOUNDS')")
     Compound update(@PathParam("id") Long id, Compound compound);
 
     /**
      * Deletes an existing compound or throws an exception with a 404 if not found
-     * @param id
+     * @param id Compound's id field
      * @return
+     * @statuscode 200 If the Compound was deleted
+     * @statuscode 404 If there is no Compound found with this id
      */
-    @POST
-    @Path("{id}")
+    @DELETE
+    @Path("/{id}")
+    @ApiOperation(value = "Deletes an existing compound or throws an exception with a 404 if not found")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @PreAuthorize("hasRole('PERM_MODIFY_COMPOUNDS')")
     Response delete(@PathParam("id") Long id);
 }

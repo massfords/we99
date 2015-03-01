@@ -49,6 +49,7 @@
         - all user interface pages use a login HTML page
     -->
     <sec:http pattern="/services/rest/createAccount/**" security="none"/>
+    <sec:http pattern="/services/rest/forgotPassword/**" security="none"/>
     <sec:http pattern="/services/rest/**" auto-config='true' use-expressions="true"
               authentication-manager-ref="basic" access-decision-manager-ref="adm"
               disable-url-rewriting="true">
@@ -66,6 +67,7 @@
         <sec:form-login login-page="/open/login.html" authentication-failure-url="/open/login.html?error"/>
         <sec:logout logout-success-url="/open/loggedOut.html"/>
     </sec:http>
+    <sec:global-method-security pre-post-annotations="enabled"/>
 
     <!--
         Standard authorization setup for Spring. We may add Roles at some point
@@ -78,7 +80,9 @@
             <list>
                 <bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
                 <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
-                <bean class="org.springframework.security.access.vote.RoleVoter"/>
+                <bean class="org.springframework.security.access.vote.RoleVoter ">
+                    <property name="rolePrefix" value="PERM_"/>
+                </bean>
             </list>
         </constructor-arg>
     </bean>

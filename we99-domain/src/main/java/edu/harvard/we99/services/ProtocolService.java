@@ -1,8 +1,12 @@
 package edu.harvard.we99.services;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Protocol;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -18,6 +22,8 @@ import javax.ws.rs.core.Response;
  * @author mford
  */
 @Path("/protocol")
+@Api(value = "/protocol",
+        description = "Service for performing basic CRUD operations on a Protocol")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface ProtocolService {
@@ -27,6 +33,8 @@ public interface ProtocolService {
      * @return
      */
     @PUT
+    @ApiOperation(value = "Creates a new protocol in our system.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PROTOCOLS')")
     Protocol create(Protocol protocol);
 
     /**
@@ -35,7 +43,9 @@ public interface ProtocolService {
      * @return
      */
     @GET
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Gets an existing protocol or throws an exception with 404")
+    @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
     Protocol get(@PathParam("id") Long id);
 
     /**
@@ -45,7 +55,9 @@ public interface ProtocolService {
      * @return
      */
     @POST
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Updates an existing protocol or throws an exception with a 404 if not found.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PROTOCOLS')")
     Protocol update(@PathParam("id") Long id, Protocol protocol);
 
     /**
@@ -53,7 +65,9 @@ public interface ProtocolService {
      * @param id
      * @return
      */
-    @POST
-    @Path("{id}")
+    @DELETE
+    @Path("/{id}")
+    @ApiOperation(value = "Deletes an existing protocol or throws an exception with a 404 if not found")
+    @PreAuthorize("hasRole('PERM_MODIFY_PROTOCOLS')")
     Response delete(@PathParam("id") Long id);
 }

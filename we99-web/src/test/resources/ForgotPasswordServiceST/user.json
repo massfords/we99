@@ -1,0 +1,21 @@
+{
+  "email": "we99.2015@gmail.com",
+  "firstName": "Test",
+  "lastName": "User",
+  "role": {
+    "name": "Admin",
+    "permissions": [
+      "PERM_MODIFY_COMPOUNDS",
+      "PERM_MODIFY_PLATEMAPS",
+      "PERM_MODIFY_PLATES",
+      "PERM_MODIFY_PLATETYPES",
+      "PERM_MODIFY_PROTOCOLS",
+      "PERM_MODIFY_USERROLE",
+      "PERM_READ_COMPOUNDS",
+      "PERM_READ_PLATEMAPS",
+      "PERM_READ_PLATES",
+      "PERM_READ_PLATETYPES",
+      "PERM_READ_PROTOCOLS"
+    ]
+  }
+}

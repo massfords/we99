@@ -1,8 +1,12 @@
 package edu.harvard.we99.services;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Plate;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -18,42 +22,56 @@ import javax.ws.rs.core.Response;
  * @author mford
  */
 @Path("/plate")
+@Api(value = "/plate",
+        description = "Service for performing basic CRUD operations on a Plate")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface PlateService {
     /**
      * Creates a new plate in our system.
-     * @param plate
+     * @param plate New plate to add to the system
      * @return
+     * @statuscode 415 If the Plate is missing any required fields
      */
     @PUT
+    @ApiOperation(value = "Creates a new plate in our system.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
     Plate create(Plate plate);
 
     /**
      * Gets an existing plate or throws an exception with 404
-     * @param id
+     * @param id Plate's id field
      * @return
+     * @statuscode 404 If the Plate is not found
      */
     @GET
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Gets an existing plate or throws an exception with 404")
+    @PreAuthorize("hasRole('PERM_READ_PLATES')")
     Plate get(@PathParam("id") Long id);
 
     /**
      * Updates an existing plate or throws an exception with a 404 if not found.
-     * @param id
-     * @param plate
+     * @param id Plate's id field
+     * @param plate Plate to update
      * @return
+     * @statuscode 404 If there is no Plate with this id
      */
     @POST
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Updates an existing plate or throws an exception with a 404 if not found.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
     Plate update(@PathParam("id") Long id, Plate plate);
 
     /**
      * Deletes an existing plate or throws an exception with a 404 if not found
-     * @param id
+     * @param id Plate's id field
      * @return
+     * @statuscode 404 If there is no Plate with this id
      */
-    @POST
-    @Path("{id}")
+    @DELETE
+    @Path("/{id}")
+    @ApiOperation(value = "Deletes an existing plate or throws an exception with a 404 if not found")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
     Response delete(@PathParam("id") Long id);
 }

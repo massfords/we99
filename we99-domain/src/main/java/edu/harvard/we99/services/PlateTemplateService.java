@@ -1,8 +1,12 @@
 package edu.harvard.we99.services;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.PlateTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -18,42 +22,56 @@ import javax.ws.rs.core.Response;
  * @author mford
  */
 @Path("/plateTemplate")
+@Api(value = "/plateTemplate",
+        description = "Service for performing basic CRUD operations on a PlateTemplate")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface PlateTemplateService {
     /**
      * Creates a new template in our system.
-     * @param template
+     * @param template PlateTemplate to add into the system
      * @return
+     * @statuscode 415 If the PlateTemplate is missing a required field
      */
     @PUT
+    @ApiOperation(value = "Creates a new plate in our system.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     PlateTemplate create(PlateTemplate template);
 
     /**
      * Gets an existing template or throws an exception with 404
-     * @param id
+     * @param id PlateTemplate's id field
      * @return
+     * @statuscode 404 If there is no PlateTemplate with this id
      */
     @GET
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Gets an existing template or throws an exception with 404")
+    @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
     PlateTemplate get(@PathParam("id")Long id);
 
     /**
      * Updates an existing template or throws an exception with a 404 if not found.
-     * @param id
-     * @param template
+     * @param id PlateTemplate's id field
+     * @param template PlateTemplate to update
      * @return
+     * @statuscode 404 If there is no PlateTemplate with this id
      */
     @POST
-    @Path("{id}")
+    @Path("/{id}")
+    @ApiOperation(value = "Updates an existing template or throws an exception with a 404 if not found.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     PlateTemplate update(@PathParam("id") Long id, PlateTemplate template);
 
     /**
      * Deletes an existing template or throws an exception with a 404 if not found
-     * @param id
+     * @param id PlateTemplate's id field
      * @return
+     * @statuscode 404 If there is no PlateTemplate with this id
      */
-    @POST
-    @Path("{id}")
+    @DELETE
+    @Path("/{id}")
+    @ApiOperation(value = "Deletes an existing template or throws an exception with a 404 if not found")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     Response delete(@PathParam("id") Long id);
 }

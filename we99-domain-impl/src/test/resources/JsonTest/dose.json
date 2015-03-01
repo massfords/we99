@@ -1,0 +1,8 @@
+{
+  "id": 1234,
+  "amount": {
+    "number": 2,
+    "units": "MILLIS"
+  },
+  "compound": {"name": "h20"}
+}

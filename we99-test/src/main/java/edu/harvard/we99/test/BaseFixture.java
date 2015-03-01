@@ -7,9 +7,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
+import java.util.UUID;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Simple util methods useful for Unit Testing
@@ -90,6 +94,18 @@ public class BaseFixture {
     private static JsonNode getJsonNode(String json) throws IOException {
         JsonParser jp = jf.createParser(json);
         return jp.readValueAsTree();
+    }
+
+    public static String extractUUID(String body) {
+        Pattern pattern = Pattern.compile(Scrubbers.UUID_PATTERN);
+        Matcher matcher = pattern.matcher(body);
+        boolean found = matcher.find();
+        assertTrue(found);
+        return matcher.group();
+    }
+
+    public static String name(String prefix) {
+        return prefix + UUID.randomUUID().toString();
     }
 
 }

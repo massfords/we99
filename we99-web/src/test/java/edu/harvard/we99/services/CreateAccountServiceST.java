@@ -1,7 +1,7 @@
 package edu.harvard.we99.services;
 
-import edu.harvard.we99.domain.User;
 import edu.harvard.we99.security.CreateAccountService;
+import edu.harvard.we99.security.User;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.commons.io.IOUtils;
@@ -13,16 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URL;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
+import static edu.harvard.we99.test.BaseFixture.extractUUID;
 import static edu.harvard.we99.test.BaseFixture.load;
+import static edu.harvard.we99.test.BaseFixture.name;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the workflow for creating a new user account.
@@ -49,7 +47,7 @@ public class CreateAccountServiceST {
         CreateAccountService cas = cf.create(CreateAccountService.class);
 
         // 2. register a new email address
-        String email = "junit@" + UUID.randomUUID().toString();
+        String email = name("junit@");
         Response response = cas.createAccount(email,
                 "Mark", "Ford", request);
         assertEquals(307, response.getStatus());
@@ -77,17 +75,9 @@ public class CreateAccountServiceST {
         // 6. get our user bean to verify that we now have access
         cf = new ClientFactory(new URL(WebAppIT.WE99_URL), email, password);
         UserService userService = cf.create(UserService.class);
-        User me = userService.whoami(request);
+        User me = userService.whoami();
         assertNotNull(me);
         assertJsonEquals(load("/CreateAccountServiceST/user.json"),
                 toJsonString(me), Scrubbers.uuid.andThen(Scrubbers.pkey));
-    }
-
-    private String extractUUID(String body) {
-        Pattern pattern = Pattern.compile(Scrubbers.UUID_PATTERN);
-        Matcher matcher = pattern.matcher(body);
-        boolean found = matcher.find();
-        assertTrue(found);
-        return matcher.group();
     }
 }
