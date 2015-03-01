@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="2450" measuredH="1971" mockupW="2400" mockupH="1951">
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="2450" measuredH="1741" mockupW="2400" mockupH="1721">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="990" y="67" w="733" h="751" measuredW="450" measuredH="400" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
@@ -350,26 +350,6 @@
         <text/>
       </controlProperties>
     </control>
-    <control controlID="90" controlTypeID="com.balsamiq.mockups::DataGrid" x="217" y="1690" w="464" h="241" measuredW="223" measuredH="111" zOrder="53" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Plate%2C%20ID/Barcode%2C%20Dosage%2C%20UOM%0A1%2C%20XV12345%2C%2020%2C%B5M%0A2%2C%2C%2C%0A3%2C%2C%2C</text>
-      </controlProperties>
-    </control>
-    <control controlID="91" controlTypeID="com.balsamiq.mockups::DataGrid" x="237" y="1710" w="464" h="241" measuredW="223" measuredH="111" zOrder="54" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Plate%2C%20ID/Barcode%2C%20Dosage%2C%20UOM%0A1%2C%20XV12345%2C%2020%2C%B5M%0A2%2C%2C%2C%0A3%2C%2C%2C</text>
-      </controlProperties>
-    </control>
-    <control controlID="92" controlTypeID="com.balsamiq.mockups::DataGrid" x="257" y="1730" w="464" h="241" measuredW="223" measuredH="111" zOrder="55" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Plate%2C%20ID/Barcode%2C%20Dosage%2C%20UOM%0A1%2C%20XV12345%2C%2020%2C%B5M%0A2%2C%2C%2C%0A3%2C%2C%2C</text>
-      </controlProperties>
-    </control>
-    <control controlID="93" controlTypeID="com.balsamiq.mockups::DataGrid" x="217" y="1690" w="464" h="241" measuredW="223" measuredH="111" zOrder="56" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Plate%2C%20ID/Barcode%2C%20Dosage%2C%20UOM%0A1%2C%20XV12345%2C%2020%2C%B5M%0A2%2C%2C%2C%0A3%2C%2C%2C</text>
-      </controlProperties>
-    </control>
     <control controlID="94" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="163" y="990" w="733" h="751" measuredW="450" measuredH="400" zOrder="34" locked="false" isInGroup="-1">
       <controlProperties>
         <text>WE99%0Ahttp%3A//www.we99isAwesome.com</text>
@@ -420,12 +400,12 @@
         <text>Generate%20Plate%20Set</text>
       </controlProperties>
     </control>
-    <control controlID="103" controlTypeID="com.balsamiq.mockups::DataGrid" x="163" y="777" w="347" h="116" measuredW="124" measuredH="111" zOrder="57" locked="false" isInGroup="-1">
+    <control controlID="103" controlTypeID="com.balsamiq.mockups::DataGrid" x="163" y="777" w="347" h="116" measuredW="124" measuredH="111" zOrder="53" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Plate%2C%20ID/Barcode%0A1%2C%20XV12345%0A2%2C%0A3%2C</text>
       </controlProperties>
     </control>
-    <control controlID="104" controlTypeID="com.balsamiq.mockups::Button" x="297" y="908" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="58" locked="false" isInGroup="-1">
+    <control controlID="104" controlTypeID="com.balsamiq.mockups::Button" x="297" y="908" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="54" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Import</text>
       </controlProperties>
