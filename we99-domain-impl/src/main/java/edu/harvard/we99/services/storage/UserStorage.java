@@ -1,6 +1,9 @@
 package edu.harvard.we99.services.storage;
 
-import edu.harvard.we99.domain.User;
+import edu.harvard.we99.security.RoleName;
+import edu.harvard.we99.security.User;
+
+import java.util.List;
 
 /**
  * Storage interface for reading/writing User objects to the system.
@@ -26,6 +29,16 @@ public interface UserStorage extends CRUDStorage<User> {
      */
     User findByEmail(String email);
 
+    List<User> listAll();
+
+    /**
+     * Returns all of the users that match the given query. The query is considered
+     * as literal text that appears in their first name, last name, or email address
+     * @param query
+     * @return
+     */
+    List<User> find(String query);
+
     /**
      * Activates the user account by setting the password in place.
      * @param uuid
@@ -34,5 +47,7 @@ public interface UserStorage extends CRUDStorage<User> {
      * @return
      */
     void activate(String uuid, String email, String password);
+
+    void assignRole(Long id, RoleName roleName);
 
 }

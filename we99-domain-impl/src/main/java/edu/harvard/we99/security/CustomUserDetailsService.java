@@ -1,6 +1,5 @@
 package edu.harvard.we99.security;
 
-import edu.harvard.we99.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,8 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             query.setParameter("email", username);
             User domainUser = query.getSingleResult();
 
-            SaltyUser user
-                    = new SaltyUser(domainUser.getEmail(), domainUser.getPassword(), domainUser.getSalt());
+            SaltyUser user = new SaltyUser(domainUser);
             return user;
         } catch (Exception e) {
             log.error("error resolving user with username {}", username);

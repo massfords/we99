@@ -1,6 +1,6 @@
 package edu.harvard.we99.services;
 
-import edu.harvard.we99.domain.User;
+import edu.harvard.we99.security.User;
 import edu.harvard.we99.security.ForgotPasswordService;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;

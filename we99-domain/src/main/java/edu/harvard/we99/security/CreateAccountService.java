@@ -2,7 +2,6 @@ package edu.harvard.we99.security;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import edu.harvard.we99.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
