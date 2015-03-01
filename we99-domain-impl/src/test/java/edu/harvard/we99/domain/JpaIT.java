@@ -17,6 +17,8 @@ import javax.validation.ConstraintViolationException;
 import java.util.HashSet;
 import java.util.Set;
 
+import static edu.harvard.we99.test.BaseFixture.name;
+
 /**
  * Tests the reading and writing of entities to the database. This will
  * exercise the JPA annotations to ensure that the relationships are modeled
@@ -52,9 +54,7 @@ public class JpaIT {
 
         beginTx();
 
-        PlateType type = new PlateType()
-                .withDim(new PlateDimension(10, 16))
-                .withManufacturer("Foo Company");
+        PlateType type = makePlateType(10, 16);
 
         PlateTemplate pt = new PlateTemplate()
                 .withName("Template 1")
@@ -89,9 +89,7 @@ public class JpaIT {
         int ROW_COUNT = 3;
         int COL_COUNT = 4;
 
-        PlateType type = new PlateType()
-                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
-                .withManufacturer("Foo Company");
+        PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
 
         PlateTemplate pt = new PlateTemplate()
                 .withName("Template 1")
@@ -114,9 +112,7 @@ public class JpaIT {
         int ROW_COUNT = 3;
         int COL_COUNT = 4;
 
-        PlateType type = new PlateType()
-                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
-                .withManufacturer("Foo Company");
+        PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
 
         PlateTemplate pt = new PlateTemplate()
                 .withName("Template 1")
@@ -142,9 +138,7 @@ public class JpaIT {
         int ROW_COUNT = 3;
         int COL_COUNT = 4;
 
-        PlateType type = new PlateType()
-                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
-                .withManufacturer("Foo Company");
+        PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
 
         PlateTemplate pt = new PlateTemplate()
                 .withName("Template 1")
@@ -156,8 +150,7 @@ public class JpaIT {
         int counter = 1;
         for(Well well : pt.getWells().values()) {
             Dose dose = new Dose().withWell(well)
-                    .withNumber(50)
-                    .withUnits(DoseUnit.MILLIS);
+                    .withAmount(50, DoseUnit.MILLIS);
             if (counter % 2 == 0) {
                 dose.withCompound(scotch);
             } else {
@@ -206,9 +199,7 @@ public class JpaIT {
         int ROW_COUNT = 3;
         int COL_COUNT = 4;
 
-        PlateType type = new PlateType()
-                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
-                .withManufacturer("Foo Company");
+        PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
 
         Plate plate = new Plate()
                 .withName("Plate 1")
@@ -249,4 +240,12 @@ public class JpaIT {
 
         return wells.toArray(new Well[wells.size()]);
     }
+
+    private PlateType makePlateType(int ROW_COUNT, int COL_COUNT) {
+        return new PlateType()
+                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
+                .withName(name("plateType"))
+                .withManufacturer("Foo Company");
+    }
+
 }

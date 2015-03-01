@@ -1,6 +1,5 @@
 package edu.harvard.we99.security;
 
-import edu.harvard.we99.domain.User;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;

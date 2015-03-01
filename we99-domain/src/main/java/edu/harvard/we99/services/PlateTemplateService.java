@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.PlateTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -34,6 +35,7 @@ public interface PlateTemplateService {
      */
     @PUT
     @ApiOperation(value = "Creates a new plate in our system.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     PlateTemplate create(PlateTemplate template);
 
     /**
@@ -45,6 +47,7 @@ public interface PlateTemplateService {
     @GET
     @Path("/{id}")
     @ApiOperation(value = "Gets an existing template or throws an exception with 404")
+    @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
     PlateTemplate get(@PathParam("id")Long id);
 
     /**
@@ -57,6 +60,7 @@ public interface PlateTemplateService {
     @POST
     @Path("/{id}")
     @ApiOperation(value = "Updates an existing template or throws an exception with a 404 if not found.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     PlateTemplate update(@PathParam("id") Long id, PlateTemplate template);
 
     /**
@@ -68,5 +72,6 @@ public interface PlateTemplateService {
     @DELETE
     @Path("/{id}")
     @ApiOperation(value = "Deletes an existing template or throws an exception with a 404 if not found")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     Response delete(@PathParam("id") Long id);
 }

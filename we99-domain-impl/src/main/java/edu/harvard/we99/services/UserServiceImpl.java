@@ -1,12 +1,13 @@
 package edu.harvard.we99.services;
 
-import edu.harvard.we99.domain.User;
+import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.storage.UserStorage;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Implementation of the user service.
@@ -34,5 +35,15 @@ public class UserServiceImpl implements UserService {
         } catch(EntityNotFoundException e) {
             throw new WebApplicationException(Response.status(404).build());
         }
+    }
+
+    @Override
+    public List<User> list() {
+        return storage.listAll();
+    }
+
+    @Override
+    public List<User> find(String query) {
+        return storage.find(query);
     }
 }

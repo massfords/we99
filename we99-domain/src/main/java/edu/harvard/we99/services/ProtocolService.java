@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Protocol;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,6 +34,7 @@ public interface ProtocolService {
      */
     @PUT
     @ApiOperation(value = "Creates a new protocol in our system.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PROTOCOLS')")
     Protocol create(Protocol protocol);
 
     /**
@@ -43,6 +45,7 @@ public interface ProtocolService {
     @GET
     @Path("/{id}")
     @ApiOperation(value = "Gets an existing protocol or throws an exception with 404")
+    @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
     Protocol get(@PathParam("id") Long id);
 
     /**
@@ -54,6 +57,7 @@ public interface ProtocolService {
     @POST
     @Path("/{id}")
     @ApiOperation(value = "Updates an existing protocol or throws an exception with a 404 if not found.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PROTOCOLS')")
     Protocol update(@PathParam("id") Long id, Protocol protocol);
 
     /**
@@ -64,5 +68,6 @@ public interface ProtocolService {
     @DELETE
     @Path("/{id}")
     @ApiOperation(value = "Deletes an existing protocol or throws an exception with a 404 if not found")
+    @PreAuthorize("hasRole('PERM_MODIFY_PROTOCOLS')")
     Response delete(@PathParam("id") Long id);
 }

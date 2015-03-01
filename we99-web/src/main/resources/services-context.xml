@@ -85,6 +85,11 @@
         <constructor-arg ref="userStorage"/>
     </bean>
 
+    <bean id="roleService" class="edu.harvard.we99.security.RoleServiceImpl"/>
+    <bean id="manageUser" class="edu.harvard.we99.security.ManagedUserServiceImpl">
+        <constructor-arg ref="userStorage"/>
+    </bean>
+
     <!--suppress UnparsedCustomBeanInspection -->
     <jaxrs:server address="/rest" >
         <jaxrs:serviceBeans>
@@ -95,6 +100,8 @@
             <ref bean="createAccountService"/>
             <ref bean="forgotPasswordService"/>
             <ref bean="userService"/>
+            <ref bean="roleService"/>
+            <ref bean="manageUser"/>
             <ref bean="swaggerResourceJSON" />
         </jaxrs:serviceBeans>
         <jaxrs:features>

@@ -1,6 +1,20 @@
 {
-  "id": 2,
-  "email": "junit@8dea51e9-340b-4cf4-88d2-3bba7eba3d6a",
+  "email": "junit@uuid",
   "firstName": "Mark",
-  "lastName": "Ford"
+  "lastName": "Ford",
+  "role": {
+    "name": "Scientist",
+    "permissions": [
+      "PERM_MODIFY_COMPOUNDS",
+      "PERM_MODIFY_PLATEMAPS",
+      "PERM_MODIFY_PLATES",
+      "PERM_MODIFY_PLATETYPES",
+      "PERM_MODIFY_PROTOCOLS",
+      "PERM_READ_COMPOUNDS",
+      "PERM_READ_PLATEMAPS",
+      "PERM_READ_PLATES",
+      "PERM_READ_PLATETYPES",
+      "PERM_READ_PROTOCOLS"
+    ]
+  }
 }

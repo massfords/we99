@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.PlateType;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,6 +34,7 @@ public interface PlateTypeService {
      */
     @PUT
     @ApiOperation(value = "Creates a new PlateType")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATETYPES')")
     PlateType create(PlateType type);
 
     /**
@@ -44,6 +46,7 @@ public interface PlateTypeService {
     @GET
     @Path("/{id}")
     @ApiOperation(value = "Gets an existing PlateType or throws an exception with a 404")
+    @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
     PlateType get(@PathParam("id")Long id);
 
     /**
@@ -56,6 +59,7 @@ public interface PlateTypeService {
     @POST
     @Path("/{id}")
     @ApiOperation(value = "Updates an existing PlateType or throws an exception with a 404")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATETYPES')")
     PlateType update(@PathParam("id") Long id, PlateType type);
 
     /**
@@ -67,5 +71,6 @@ public interface PlateTypeService {
     @DELETE
     @Path("/{id}")
     @ApiOperation(value = "Deletes an existing PlateType or throws an exception with a 404")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATETYPES')")
     Response delete(@PathParam("id") Long id);
 }

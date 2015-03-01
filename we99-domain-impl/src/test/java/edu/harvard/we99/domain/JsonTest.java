@@ -35,8 +35,7 @@ public class JsonTest {
         params.add(
                 array(new Dose()
                                 .withId(1234L)
-                                .withNumber(2)
-                                .withUnits(DoseUnit.MILLIS)
+                                .withAmount(2, DoseUnit.MILLIS)
                                 .withCompound(new Compound("h20")),
                         load("/JsonTest/dose.json")
                 ));

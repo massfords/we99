@@ -15,7 +15,7 @@ import java.util.Set;
 
 /**
  * A Well is a physical vessel within a Plate or PlateTemplate. It can receive
- * multiple doses of a compound. Our system of plates are rectangluar so
+ * multiple doses of compounds. Our system of plates are rectangluar so
  * a Well has a simple row,col style Coordinate to identify it within a plate.
  *
  * @author mford

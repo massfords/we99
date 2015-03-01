@@ -1,6 +1,5 @@
 package edu.harvard.we99.security;
 
-import edu.harvard.we99.domain.User;
 import edu.harvard.we99.services.storage.UserStorage;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;

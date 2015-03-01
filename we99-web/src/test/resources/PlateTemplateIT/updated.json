@@ -2,6 +2,7 @@
   "name": "plateTemplate-uuid",
   "description": "my modified description",
   "plateType": {
+    "name": "plateTypeuuid",
     "dim": {
       "rows": 4,
       "cols": 3
@@ -18,8 +19,10 @@
       "type": "MEASURED",
       "contents": [
         {
-          "number": 1,
-          "units": "MILLIS",
+          "amount": {
+            "number": 1,
+            "units": "MILLIS"
+          },
           "compound": {"name": "uuid"}
         }
       ]

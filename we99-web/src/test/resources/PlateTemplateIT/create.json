@@ -2,6 +2,7 @@
   "name": "plateTemplate-uuid",
   "description": "my test plate",
   "plateType": {
+    "name": "plateTypeuuid",
     "dim": {
       "rows": 4,
       "cols": 3

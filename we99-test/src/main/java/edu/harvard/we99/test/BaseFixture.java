@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -103,5 +104,8 @@ public class BaseFixture {
         return matcher.group();
     }
 
+    public static String name(String prefix) {
+        return prefix + UUID.randomUUID().toString();
+    }
 
 }
