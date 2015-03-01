@@ -21,59 +21,29 @@
 
         <finalName>we99-web-ui</finalName>
         <plugins>
-<!--
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>0.0.14</version>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v0.10.30</nodeVersion>
-                            <npmVersion>1.4.12</npmVersion>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm cache clear</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>cache clean</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>grunt build</id>
-                        <goals>
-                            <goal>grunt</goal>
-                        </goals>
-                        <configuration>
-                            TODO: remove the space between the dashes in the arguments field below. Only here in order to avoid error in commenting out this block of XML
-                            <arguments>- -no-color build</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-    -->
+        <!-- TSS: Add in Yeoman -->
+			<plugin>
+				<groupId>com.github.trecloux</groupId>
+				<artifactId>yeoman-maven-plugin</artifactId>
+				<version>0.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
+                    <webResources>
+			            <resource>
+			                <directory>yo/dist</directory>
+			            </resource>
+			        </webResources>
                     <!-- There is no web.xml for this type of war -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <!-- TODO uncomment this when the grunt build is enabled -->
@@ -84,6 +54,27 @@
                     <!--</webResources>-->
                 </configuration>
             </plugin>
+            
+            <plugin>
+			    <artifactId>maven-clean-plugin</artifactId>
+			    <version>2.5</version>
+			    <configuration>
+			        <filesets>
+			            <fileset>
+			                <directory>yo/dist</directory>
+			            </fileset>
+			            <fileset>
+			                <directory>yo/.tmp</directory>
+			            </fileset>
+			            <fileset>
+			                <directory>yo/app/components</directory>
+			            </fileset>
+			            <fileset>
+			              <directory>yo/node_modules</directory>
+			            </fileset>
+			        </filesets>
+			    </configuration>
+			</plugin>
         </plugins>
     </build>
 </project>
