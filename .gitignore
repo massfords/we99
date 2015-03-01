@@ -8,3 +8,6 @@ target
 .settings/
 .project
 .classpath
+we99-web-ui/yo/bower_components
+we99-web-ui/yo/node_modules
+we99-web-ui/node_modules

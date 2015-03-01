@@ -1,8 +1,10 @@
 package edu.harvard.we99.services;
 
+import edu.harvard.we99.domain.Amount;
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.Dose;
+import edu.harvard.we99.domain.DoseUnit;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateTemplate;
 import edu.harvard.we99.domain.PlateType;
@@ -15,11 +17,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.net.URL;
-import java.util.UUID;
 import java.util.function.Function;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
+import static edu.harvard.we99.test.BaseFixture.name;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 import static org.junit.Assert.assertNotNull;
 
@@ -74,11 +76,12 @@ public class PlateTemplateST {
 
         PlateTypeService plateTypeService = cf.create(PlateTypeService.class);
         plateType = plateTypeService.create(new PlateType()
+                .withName(name("plateType"))
                 .withDim(new PlateDimension(4, 3))
                 .withManufacturer("Foo Inc."));
 
         CompoundService compoundService = cf.create(CompoundService.class);
-        compound = compoundService.create(new Compound(UUID.randomUUID().toString()));
+        compound = compoundService.create(new Compound(name("")));
     }
 
     @AfterClass
@@ -125,7 +128,7 @@ public class PlateTemplateST {
         Well well = new Well(coordinate)
                 .withLabel("well 0,0")
                 .withType(WellType.MEASURED);
-        well.dose(new Dose(compound, 1));
+        well.dose(new Dose(compound, new Amount(1, DoseUnit.MILLIS)));
         pt.getWells().put(coordinate,well);
         PlateTemplate updated = plateTemplateService.update(pt.getId(), pt);
         String actual = toJsonString(updated);
@@ -141,7 +144,7 @@ public class PlateTemplateST {
 
     private PlateTemplate createPlateTemplate() {
         return new PlateTemplate()
-                .withName("plateTemplate-" + UUID.randomUUID().toString())
+                .withName(name("plateTemplate-"))
                 .withDescription("my test plate")
                 .withPlateType(plateType);
     }
