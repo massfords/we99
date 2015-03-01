@@ -107,3 +107,4 @@ DataVis.prototype.heatMap = function(location, dataSet, configParams){
             .text(function (c) { return c.text; } );
 
     }
+   
