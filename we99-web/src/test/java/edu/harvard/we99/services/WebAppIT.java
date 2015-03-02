@@ -14,6 +14,7 @@ import java.io.File;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+        MathServiceST.class,
         PlateTemplateST.class,
         CreateAccountServiceST.class,
         ForgotPasswordServiceST.class,

@@ -39,6 +39,7 @@ public interface MathService {
      * @param points Required to be n arrays of size 2. 
      * @return The four values that make up the coefficients and constant value 
      *         in the polynomial curve function.
+     * @statuscode 400 if you pass an empty array or one without 2 dimensional points
      */
     @POST
     @Path("fitCurve")

@@ -90,6 +90,8 @@
         <constructor-arg ref="userStorage"/>
     </bean>
 
+    <bean id="math" class="edu.harvard.we99.services.MathServiceImpl"/>
+
     <!--suppress UnparsedCustomBeanInspection -->
     <jaxrs:server address="/rest" >
         <jaxrs:serviceBeans>
@@ -102,6 +104,7 @@
             <ref bean="userService"/>
             <ref bean="roleService"/>
             <ref bean="manageUser"/>
+            <ref bean="math"/>
             <ref bean="swaggerResourceJSON" />
         </jaxrs:serviceBeans>
         <jaxrs:features>
