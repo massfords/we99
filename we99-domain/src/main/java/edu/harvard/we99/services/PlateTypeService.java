@@ -15,6 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * REST Service for performing CRUD operations on a PlateType
@@ -73,4 +74,12 @@ public interface PlateTypeService {
     @ApiOperation(value = "Deletes an existing PlateType or throws an exception with a 404")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATETYPES')")
     Response delete(@PathParam("id") Long id);
+
+    /**
+     * Lists all of the {@link edu.harvard.we99.domain.PlateType} in the system
+     */
+    @GET
+    @ApiOperation(value = "Lists all of the plate types in the system")
+    @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
+    List<PlateType> listAll();
 }

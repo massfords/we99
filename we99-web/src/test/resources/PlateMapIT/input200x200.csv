@@ -1,0 +1,19 @@
+#row, col, well-type, label
+#
+# This is a sparse CSV. We don't need to define entries for every single cell.
+# The PlateMap import code will look at the max dimension and determine which
+# PlateTypes are eligible. If there aren't any eligible PlateTypes, then perhaps
+# the system could create a one-off for just this map and let the user fill in
+# the type details later.
+#
+0, 0, MEASURED, A
+0, 1, MEASURED, A
+0, 2, MEASURED, A
+0, 3, MEASURED, A
+0, 49, EMPTY,
+2, 0, MEASURED, B
+2, 1, MEASURED, B
+2, 2, MEASURED, B
+2, 3, MEASURED, B
+2, 49, EMPTY,
+200,200,EMPTY,

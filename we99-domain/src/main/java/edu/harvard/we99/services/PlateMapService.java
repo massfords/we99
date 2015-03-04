@@ -2,10 +2,10 @@ package edu.harvard.we99.services;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import edu.harvard.we99.domain.ImportedPlateMap;
 import edu.harvard.we99.domain.PlateMap;
-import org.springframework.security.access.prepost.PreAuthorize;
-
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -82,7 +82,8 @@ public interface PlateMapService {
      * Creates a prototype PlateMap from the given CSV contents. This still requires
      * a user to select a PlateType after the initial upload before persisting the
      * map to the db. Assuming that we can parse the value, we'll return it to the
-     * caller in JSON format.
+     * caller in JSON format. We'll also bundle the map with a list of suggested
+     * {@link edu.harvard.we99.domain.PlateType} that are suitable for use in the map.
      * @param csv
      * @statuscode 409 If we don't understand the format of the CSV
      */
@@ -90,5 +91,5 @@ public interface PlateMapService {
     @Consumes("multipart/form-data")
     @ApiOperation(value = "Processes the uploaded CSV and returns a PlateMap")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
-    PlateMap prototype(@Multipart("file") InputStream csv);
+    ImportedPlateMap prototype(@Multipart("file") InputStream csv);
 }

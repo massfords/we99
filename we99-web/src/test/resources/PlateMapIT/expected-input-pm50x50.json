@@ -1,0 +1,136 @@
+{
+  "plateMap": {
+    "wells": [
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 0
+        },
+        "label": "A",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 1
+        },
+        "label": "A",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 2
+        },
+        "label": "A",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 3
+        },
+        "label": "A",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 49
+        },
+        "label": "",
+        "type": "EMPTY"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 0
+        },
+        "label": "B",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 1
+        },
+        "label": "B",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 2
+        },
+        "label": "B",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 3
+        },
+        "label": "B",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 49
+        },
+        "label": "",
+        "type": "EMPTY"
+      },
+      {
+        "coordinate": {
+          "row": 49,
+          "col": 49
+        },
+        "label": "",
+        "type": "EMPTY"
+      }
+    ]
+  },
+  "matchingPlateTypes": [
+    {
+      "name": "ptuuid",
+      "dim": {
+        "rows": 50,
+        "cols": 50
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "name": "ptuuid",
+      "dim": {
+        "rows": 60,
+        "cols": 60
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "name": "ptuuid",
+      "dim": {
+        "rows": 70,
+        "cols": 70
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "name": "ptuuid",
+      "dim": {
+        "rows": 80,
+        "cols": 80
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "name": "ptuuid",
+      "dim": {
+        "rows": 90,
+        "cols": 90
+      },
+      "manufacturer": "Foo Inc."
+    }
+  ]
+}

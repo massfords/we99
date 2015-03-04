@@ -1,9 +1,10 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.PlateType;
-import edu.harvard.we99.services.storage.CRUDStorage;
+import edu.harvard.we99.services.storage.PlateTypeStorage;
 
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Implementation of the PlateTypeService
@@ -12,7 +13,7 @@ import javax.ws.rs.core.Response;
  */
 public class PlateTypeServiceImpl extends BaseRESTServiceImpl<PlateType> implements PlateTypeService {
 
-    public PlateTypeServiceImpl(CRUDStorage<PlateType> storage) {
+    public PlateTypeServiceImpl(PlateTypeStorage storage) {
         super(storage);
     }
 
@@ -20,5 +21,10 @@ public class PlateTypeServiceImpl extends BaseRESTServiceImpl<PlateType> impleme
     public Response delete(Long id) {
         deleteImpl(id);
         return Response.ok().build();
+    }
+
+    @Override
+    public List<PlateType> listAll() {
+        return ((PlateTypeStorage)storage).listAll();
     }
 }

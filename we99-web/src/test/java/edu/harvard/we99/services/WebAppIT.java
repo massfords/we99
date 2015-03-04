@@ -20,7 +20,8 @@ import java.io.File;
         ForgotPasswordServiceST.class,
         ManageUserServiceST.class,
         GuestAccessST.class,
-        CompoundServiceST.class
+        CompoundServiceST.class,
+        PlateMapImportST.class
 })
 public class WebAppIT {
     public static final String WE99_URL = "http://localhost:8080/we99/services/rest";

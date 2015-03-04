@@ -1,0 +1,169 @@
+{
+  "plateMap": {
+    "wells": [
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 0
+        },
+        "label": "A",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 1
+        },
+        "label": "A",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 2
+        },
+        "label": "A",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 3
+        },
+        "label": "A",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 4
+        },
+        "label": "",
+        "type": "EMPTY"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 0
+        },
+        "label": "B",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 1
+        },
+        "label": "B",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 2
+        },
+        "label": "B",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 3
+        },
+        "label": "B",
+        "type": "MEASURED"
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 4
+        },
+        "label": "",
+        "type": "EMPTY"
+      }
+    ]
+  },
+  "matchingPlateTypes": [
+    {
+      "id": 1,
+      "name": "ptd781c0d5-6714-4028-a932-301cb42ed6fd",
+      "dim": {
+        "rows": 10,
+        "cols": 10
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "id": 2,
+      "name": "pte8f65f89-01ab-484e-92ef-648c96f12ece",
+      "dim": {
+        "rows": 20,
+        "cols": 20
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "id": 3,
+      "name": "pt451cec03-6ec4-4a1f-8b1d-e0cd91e79952",
+      "dim": {
+        "rows": 30,
+        "cols": 30
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "id": 4,
+      "name": "ptd4a233e3-c853-43e7-aa38-0ffbe0fbc122",
+      "dim": {
+        "rows": 40,
+        "cols": 40
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "id": 5,
+      "name": "pte5b489c8-c470-4d2d-a6a3-1fe1bff62fa0",
+      "dim": {
+        "rows": 50,
+        "cols": 50
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "id": 6,
+      "name": "pt8f81a44b-03ea-4351-bb07-ff98b0599cec",
+      "dim": {
+        "rows": 60,
+        "cols": 60
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "id": 7,
+      "name": "ptf2fc8b30-a605-4230-864b-1b565981475a",
+      "dim": {
+        "rows": 70,
+        "cols": 70
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "id": 8,
+      "name": "pt98fa7d35-2afd-4aff-8920-53dd2138cc23",
+      "dim": {
+        "rows": 80,
+        "cols": 80
+      },
+      "manufacturer": "Foo Inc."
+    },
+    {
+      "id": 9,
+      "name": "pt99a505b2-d524-4e98-84d9-75e5ea7f4b7b",
+      "dim": {
+        "rows": 90,
+        "cols": 90
+      },
+      "manufacturer": "Foo Inc."
+    }
+  ]
+}

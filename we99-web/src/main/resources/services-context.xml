@@ -21,6 +21,7 @@
 
     <bean id="plateTemplateService" class="edu.harvard.we99.services.PlateMapServiceImpl">
         <constructor-arg ref="plateTemplateStorage"/>
+        <constructor-arg ref="plateTypeStorage"/>
     </bean>
     <bean id="plateTemplateStorage" class="edu.harvard.we99.services.storage.PlateMapStorageImpl"/>
 

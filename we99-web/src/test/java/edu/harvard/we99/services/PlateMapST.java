@@ -8,17 +8,10 @@ import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
-import org.apache.commons.io.IOUtils;
-import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.jaxrs.ext.multipart.Attachment;
-import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition;
-import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.ws.rs.core.Response;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.function.Function;
 
@@ -26,7 +19,6 @@ import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.test.BaseFixture.name;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -128,19 +120,6 @@ public class PlateMapST {
         PlateMap updated = plateMapService.update(pm.getId(), pm);
         String actual = toJsonString(updated);
         assertJsonEquals(load("/PlateMapIT/updated.json"), actual, jsonScrubber);
-    }
-
-    @Test
-    public void prototype() throws Exception {
-        WebClient client = WebClient.create(WebAppIT.WE99_URL + "/plateMap", WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW, null);
-        client.type("multipart/form-data");
-        ContentDisposition cd = new ContentDisposition("attachment;filename=pmap.csv");
-        Attachment att = new Attachment("file", getClass().getResourceAsStream("/PlateMapIT/input.csv"), cd);
-        Response response = client.post(new MultipartBody(att));
-        assertEquals(200, response.getStatus());
-
-        InputStream is = (InputStream) response.getEntity();
-        assertJsonEquals(load("/PlateMapIT/expected-input-pm.json"), IOUtils.toString(is));
     }
 
     private PlateMap createPlateMap() {
