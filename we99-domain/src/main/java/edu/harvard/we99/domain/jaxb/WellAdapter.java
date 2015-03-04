@@ -1,4 +1,7 @@
-package edu.harvard.we99.domain;
+package edu.harvard.we99.domain.jaxb;
+
+import edu.harvard.we99.domain.Coordinate;
+import edu.harvard.we99.domain.Well;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.ArrayList;

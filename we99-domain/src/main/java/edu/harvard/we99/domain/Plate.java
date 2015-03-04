@@ -1,5 +1,7 @@
 package edu.harvard.we99.domain;
 
+import edu.harvard.we99.domain.jaxb.WellAdapter;
+
 import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,7 +44,7 @@ public class Plate extends AbstractPlate<Plate> {
      */
     @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST) @Size(min = 0)
     @MapKey(name="coordinate")
-    @XmlJavaTypeAdapter(value=WellAdapter.class) // custom JAXB adapter to convert the map to an array an back again
+    @XmlJavaTypeAdapter(value=WellAdapter.class) // custom JAXB adapter to convert the map to an array and back again
     private Map<Coordinate, Well> wells = new LinkedHashMap<>();
 
     public Plate() {}

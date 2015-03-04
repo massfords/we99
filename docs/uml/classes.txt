@@ -1,75 +1,93 @@
 @startuml
 
-class Experiment o-- Protocol
-class Experiment o-- "many" Plate
-class Plate *-- "many" Well
-class Well *-- "many" Dose
-class Dose o-- "many" Compound
-class Plate ..> PlateTemplate : derived from
-class PlateTemplate *-- "many" Well
-
-class Experiment {
- + String name
- + DateTime date
-}
-
-class PlateTemplate {
- + String name
- + String desc
- + PlateDirection direction
- + PlateType plateType
-}
+AbstractPlate <|-- Plate
+AbstractPlate <|-- PlateMap
+AbstractPlate o-- "1" PlateType
+Plate *-- "many" Well
+AbstractWell <|-- Well
+AbstractWell <|-- WellMap
+Well *-- "many" Dose
+Dose o-- "1" Compound
+PlateMap *-- "many" WellMap
+Experiment *-- "many" Plate
+Experiment o-- "1" Protocol
 
 class Plate {
- + String name
- + String desc
- + String barcode
+    String barcode
+}
+
+class AbstractPlate {
+    String name
+    String description
+}
+
+class PlateType {
+    String name
+    String description
+    String manufacturer
+    String link
+    PlateDimension dim
+}
+
+class PlateDimension {
+    int rows
+    int cols
 }
 
 class Well {
- + String location
- + String label
- + WellType type
+
 }
 
-class Dose {
- + int number
- + DoseUnit unit
+class WellMap {
+
 }
 
-class Compound {
- + String name
+class AbstractWell {
+    String label
+    Coordinate coord
+    WellType type
 }
 
-enum DoseUnit {
-	MILLIS
-	MICRO
-	NANO
-	PICO
-}
-
-enum PlateDirection {
-	VERTICAL
-	HORIZONTAL
+class Coordinate {
+    int row
+    int col
 }
 
 enum WellType {
     MEASURED
-	POSITIVE
-	NEGATIVE
-	EMPTY
+    POSITIVE
+    NEGATIVE
+    EMPTY
 }
 
-enum PlateType {
-	COUNT_24
-	COUNT_96
-	COUNT_384
-	COUNT_1536
+enum DoseUnits {
+    MILLIS
+    MICRO
+    NANO
+    PICO
+}
+
+class Amount {
+    int quantity
+    DoseUnits units
+}
+
+class Dose {
+    Amount amount
+}
+
+class Compound {
+    String name
 }
 
 class Protocol {
- + int id
- + String name
+    String name
 }
+
+class Experiment {
+    String name
+    Timestamp created
+}
+
 
 @enduml
