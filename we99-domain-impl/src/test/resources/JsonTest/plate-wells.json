@@ -7,6 +7,8 @@
     },
     "manufacturer": "Foo Inc."
   },
+  "derivedFrom": 456,
+  "barcode": "1234",
   "wells": [
     {
       "coordinate": {
@@ -62,7 +64,5 @@
       "type": "EMPTY",
       "contents": []
     }
-  ],
-  "derivedFrom": 456,
-  "barcode": 1234
+  ]
 }

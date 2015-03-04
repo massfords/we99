@@ -1,21 +1,24 @@
 package edu.harvard.we99.services;
 
-import edu.harvard.we99.domain.Amount;
-import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Coordinate;
-import edu.harvard.we99.domain.Dose;
-import edu.harvard.we99.domain.DoseUnit;
 import edu.harvard.we99.domain.PlateDimension;
-import edu.harvard.we99.domain.PlateTemplate;
+import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.PlateType;
-import edu.harvard.we99.domain.Well;
+import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
+import org.apache.commons.io.IOUtils;
+import org.apache.cxf.jaxrs.client.WebClient;
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition;
+import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import javax.ws.rs.core.Response;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.function.Function;
 
@@ -23,6 +26,7 @@ import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.test.BaseFixture.name;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -36,23 +40,18 @@ import static org.junit.Assert.assertNotNull;
  *
  * @author mford
  */
-public class PlateTemplateST {
+public class PlateMapST {
 
     /**
      * Proxy to the remote service
      */
-    private static PlateTemplateService plateTemplateService;
+    private static PlateMapService plateMapService;
 
     /**
      * PlateType that we should use when creating the templates. We'll assign
      * this value in our BeforeClass
      */
     private static PlateType plateType;
-
-    /**
-     * Compound used for the various wells we're filling
-     */
-    private static Compound compound;
 
     /**
      * JSON scrubbers to clean the payloads for our assertions
@@ -72,16 +71,13 @@ public class PlateTemplateST {
         // install some plate types
         // install some compounds
 
-        plateTemplateService = cf.create(PlateTemplateService.class);
+        plateMapService = cf.create(PlateMapService.class);
 
         PlateTypeService plateTypeService = cf.create(PlateTypeService.class);
         plateType = plateTypeService.create(new PlateType()
                 .withName(name("plateType"))
                 .withDim(new PlateDimension(4, 3))
                 .withManufacturer("Foo Inc."));
-
-        CompoundService compoundService = cf.create(CompoundService.class);
-        compound = compoundService.create(new Compound(name("")));
     }
 
     @AfterClass
@@ -90,7 +86,7 @@ public class PlateTemplateST {
         // delete all of the plate types
         // delete all of the compounds
 
-        plateTemplateService = null;
+        plateMapService = null;
         plateType = null;
     }
 
@@ -106,12 +102,12 @@ public class PlateTemplateST {
         // assert that we can get it
 
         // Yes, this is making a REST PUT call, even though it looks like a simple Java call
-        PlateTemplate plateTemplate = createPlateTemplate();
-        PlateTemplate pt = plateTemplateService.create(plateTemplate);
+        PlateMap plateMap = createPlateMap();
+        PlateMap pt = plateMapService.create(plateMap);
         assertNotNull(pt);
 
         String actual = toJsonString(pt);
-        assertJsonEquals(load("/PlateTemplateIT/create.json"), actual, jsonScrubber);
+        assertJsonEquals(load("/PlateMapIT/create.json"), actual, jsonScrubber);
 
     }
 
@@ -120,31 +116,36 @@ public class PlateTemplateST {
         // create a new template
         // update one or more values and wells
         // assert the updated values
-        PlateTemplate plateTemplate = createPlateTemplate();
-        PlateTemplate pt = plateTemplateService.create(plateTemplate);
+        PlateMap plateMap = createPlateMap();
+        PlateMap pm = plateMapService.create(plateMap);
 
-        pt.setDescription("my modified description");
+        pm.setDescription("my modified description");
         Coordinate coordinate = new Coordinate(0, 0);
-        Well well = new Well(coordinate)
+        WellMap well = new WellMap(coordinate)
                 .withLabel("well 0,0")
                 .withType(WellType.MEASURED);
-        well.dose(new Dose(compound, new Amount(1, DoseUnit.MILLIS)));
-        pt.getWells().put(coordinate,well);
-        PlateTemplate updated = plateTemplateService.update(pt.getId(), pt);
+        pm.getWells().put(coordinate,well);
+        PlateMap updated = plateMapService.update(pm.getId(), pm);
         String actual = toJsonString(updated);
-        assertJsonEquals(load("/PlateTemplateIT/updated.json"), actual, jsonScrubber);
+        assertJsonEquals(load("/PlateMapIT/updated.json"), actual, jsonScrubber);
     }
 
-//    @Test
-//    public void delete() throws Exception {
-//        // create a new template
-//        // delete it
-//        // assert that we get a 404 if we try to get it
-//    }
+    @Test
+    public void prototype() throws Exception {
+        WebClient client = WebClient.create(WebAppIT.WE99_URL + "/plateMap", WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW, null);
+        client.type("multipart/form-data");
+        ContentDisposition cd = new ContentDisposition("attachment;filename=pmap.csv");
+        Attachment att = new Attachment("file", getClass().getResourceAsStream("/PlateMapIT/input.csv"), cd);
+        Response response = client.post(new MultipartBody(att));
+        assertEquals(200, response.getStatus());
 
-    private PlateTemplate createPlateTemplate() {
-        return new PlateTemplate()
-                .withName(name("plateTemplate-"))
+        InputStream is = (InputStream) response.getEntity();
+        assertJsonEquals(load("/PlateMapIT/expected-input-pm.json"), IOUtils.toString(is));
+    }
+
+    private PlateMap createPlateMap() {
+        return new PlateMap()
+                .withName(name("plateMap-"))
                 .withDescription("my test plate")
                 .withPlateType(plateType);
     }

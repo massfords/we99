@@ -15,6 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * REST Service for performing basic CRUD operations on a Compound
@@ -76,4 +77,12 @@ public interface CompoundService {
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_MODIFY_COMPOUNDS')")
     Response delete(@PathParam("id") Long id);
+
+    /**
+     * Gets the list of the compounds in the system
+     */
+    @GET
+    @ApiOperation(value = "Gets the list of compounds")
+    @PreAuthorize("hasRole('PERM_READ_COMPOUNDS')")
+    List<Compound> listAll();
 }

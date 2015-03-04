@@ -34,9 +34,9 @@ public abstract class BaseRESTServiceImpl<T extends BaseEntity> {
         }
     }
 
-    public T update(Long id, T type) {
+    public T update(Long id, T plateMap) {
         try {
-            return storage.update(id, type);
+            return storage.update(id, plateMap);
         } catch(EntityNotFoundException e) {
             throw new WebApplicationException(Response.status(404).build());
         }

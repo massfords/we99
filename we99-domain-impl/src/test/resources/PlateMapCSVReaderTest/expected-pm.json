@@ -1,0 +1,84 @@
+{
+  "wells": [
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 0
+      },
+      "label": "A",
+      "type": "MEASURED"
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 1
+      },
+      "label": "A",
+      "type": "MEASURED"
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 2
+      },
+      "label": "A",
+      "type": "MEASURED"
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 3
+      },
+      "label": "A",
+      "type": "MEASURED"
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 4
+      },
+      "label": "",
+      "type": "EMPTY"
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 0
+      },
+      "label": "B",
+      "type": "MEASURED"
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 1
+      },
+      "label": "B",
+      "type": "MEASURED"
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 2
+      },
+      "label": "B",
+      "type": "MEASURED"
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 3
+      },
+      "label": "B",
+      "type": "MEASURED"
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 4
+      },
+      "label": "",
+      "type": "EMPTY"
+    }
+  ]
+}

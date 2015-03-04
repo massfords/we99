@@ -20,6 +20,12 @@
             <version>2.0.1</version>
         </dependency>
 
+        <!-- CXF specific annotations -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
 
         <!-- Swagger Dependencies -->
         <dependency>
@@ -65,27 +71,22 @@
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
             <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jaxb-annotations</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jsonSchema</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-scala_2.10</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
 
 
@@ -160,6 +161,7 @@
 
     <build>
         <plugins>
+            <!-- Used to produce documentation for our REST services -->
             <plugin>
                 <groupId>com.qmino</groupId>
                 <artifactId>miredot-plugin</artifactId>

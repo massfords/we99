@@ -43,7 +43,7 @@ public class JsonTest {
         params.add(
                 array(
                         new Plate("plate1", type())
-                                .withBarcode(1234L)
+                                .withBarcode("1234")
                                 .withDerivedFrom(456L),
                         load("/JsonTest/plate-no-wells.json")
                 ));
@@ -51,7 +51,7 @@ public class JsonTest {
         params.add(
                 array(
                         new Plate("plate1", type())
-                                .withBarcode(1234L)
+                                .withBarcode("1234")
                                 .withDerivedFrom(456L)
                                 .withWells(wells(2,3))
                         ,

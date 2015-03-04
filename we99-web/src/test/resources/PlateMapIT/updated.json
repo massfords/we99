@@ -1,5 +1,5 @@
 {
-  "name": "plateTemplate-uuid",
+  "name": "plateMap-uuid",
   "description": "my modified description",
   "plateType": {
     "name": "plateTypeuuid",
@@ -16,16 +16,7 @@
         "col": 0
       },
       "label": "well 0,0",
-      "type": "MEASURED",
-      "contents": [
-        {
-          "amount": {
-            "number": 1,
-            "units": "MILLIS"
-          },
-          "compound": {"name": "uuid"}
-        }
-      ]
+      "type": "MEASURED"
     }
   ]
 }

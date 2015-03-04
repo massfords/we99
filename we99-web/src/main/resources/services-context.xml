@@ -19,10 +19,10 @@
         <jdbc:script location="classpath:/populate-users.sql"/>
     </jdbc:initialize-database>
 
-    <bean id="plateTemplateService" class="edu.harvard.we99.services.PlateTemplateServiceImpl">
+    <bean id="plateTemplateService" class="edu.harvard.we99.services.PlateMapServiceImpl">
         <constructor-arg ref="plateTemplateStorage"/>
     </bean>
-    <bean id="plateTemplateStorage" class="edu.harvard.we99.services.storage.PlateTemplateStorageImpl"/>
+    <bean id="plateTemplateStorage" class="edu.harvard.we99.services.storage.PlateMapStorageImpl"/>
 
     <bean id="plateTypeService" class="edu.harvard.we99.services.PlateTypeServiceImpl">
         <constructor-arg ref="plateTypeStorage"/>

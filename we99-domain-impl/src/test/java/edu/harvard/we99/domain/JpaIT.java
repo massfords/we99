@@ -56,7 +56,7 @@ public class JpaIT {
 
         PlateType type = makePlateType(10, 16);
 
-        PlateTemplate pt = new PlateTemplate()
+        PlateMap pt = new PlateMap()
                 .withName("Template 1")
                 .withDescription("My Description")
                 .withPlateType(type)
@@ -73,7 +73,7 @@ public class JpaIT {
 
         beginTx();
 
-        PlateTemplate pt = new PlateTemplate()
+        PlateMap pt = new PlateMap()
                 .withName("Template 1")
                 .withDescription("My Description")
                 ;
@@ -91,16 +91,16 @@ public class JpaIT {
 
         PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
 
-        PlateTemplate pt = new PlateTemplate()
+        PlateMap pm = new PlateMap()
                 .withName("Template 1")
                 .withDescription("My Description")
                 .withPlateType(type)
                 ;
 
-        pt.withWells(makeWells(ROW_COUNT, COL_COUNT));
+        pm.withWells(makeWellMaps(ROW_COUNT, COL_COUNT));
 
         em.persist(type);
-        em.persist(pt);
+        em.persist(pm);
 
         commitTx();
     }
@@ -114,54 +114,14 @@ public class JpaIT {
 
         PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
 
-        PlateTemplate pt = new PlateTemplate()
+        PlateMap pt = new PlateMap()
                 .withName("Template 1")
                 .withDescription("My Description")
                 .withPlateType(type)
-                .withWells(new Well(100, 200)
+                .withWells(new WellMap(100, 200)
                         .withType(WellType.EMPTY))
                 ;
 
-        em.persist(type);
-        em.persist(pt);
-
-        commitTx();
-    }
-
-    @Test
-    public void plateTemplate_withWells_withDoses() throws Exception {
-        beginTx();
-
-        Compound soda = new Compound().withName("H20");
-        Compound scotch = new Compound().withName("Single Malt");
-
-        int ROW_COUNT = 3;
-        int COL_COUNT = 4;
-
-        PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
-
-        PlateTemplate pt = new PlateTemplate()
-                .withName("Template 1")
-                .withDescription("My Description")
-                .withPlateType(type);
-
-        pt.withWells(makeWells(ROW_COUNT, COL_COUNT));
-
-        int counter = 1;
-        for(Well well : pt.getWells().values()) {
-            Dose dose = new Dose().withWell(well)
-                    .withAmount(50, DoseUnit.MILLIS);
-            if (counter % 2 == 0) {
-                dose.withCompound(scotch);
-            } else {
-                dose.withCompound(soda);
-            }
-            well.dose(dose);
-            counter++;
-        }
-
-        em.persist(soda);
-        em.persist(scotch);
         em.persist(type);
         em.persist(pt);
 
@@ -205,7 +165,7 @@ public class JpaIT {
                 .withName("Plate 1")
                 .withDescription("My Description")
                 .withPlateType(type)
-                .withBarcode(1234L);
+                .withBarcode("1234");
 
         plate.withWells(makeWells(ROW_COUNT, COL_COUNT));
 
@@ -223,6 +183,22 @@ public class JpaIT {
 
     private void beginTx() {
         em.getTransaction().begin();
+    }
+
+    private WellMap[] makeWellMaps(int rowCount, int colCount) {
+        Set<WellMap> wells = new HashSet<>();
+
+        for(int row=0; row< rowCount; row++) {
+            for(int col=0; col< colCount; col++) {
+                wells.add(
+                        new WellMap(row, col)
+                                .withType(WellType.EMPTY)
+                );
+            }
+        }
+        Assert.assertEquals(rowCount * colCount, wells.size());
+
+        return wells.toArray(new WellMap[wells.size()]);
     }
 
     private Well[] makeWells(int rowCount, int colCount) {

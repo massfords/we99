@@ -13,18 +13,18 @@ import java.util.Map;
  *
  * @author mford
  */
-public class WellMapAdapter extends XmlAdapter<List<WellMap>, Map<Coordinate, WellMap>> {
+public class WellAdapter extends XmlAdapter<List<Well>, Map<Coordinate, Well>> {
     @Override
-    public Map<Coordinate, WellMap> unmarshal(List<WellMap> values) throws Exception {
-        Map<Coordinate, WellMap> map = new LinkedHashMap<>();
-        for(WellMap w : values) {
+    public Map<Coordinate, Well> unmarshal(List<Well> values) throws Exception {
+        Map<Coordinate, Well> map = new LinkedHashMap<>();
+        for(Well w : values) {
             map.put(w.getCoordinate(), w);
         }
         return map;
     }
 
     @Override
-    public List<WellMap> marshal(Map<Coordinate, WellMap> v) throws Exception {
+    public List<Well> marshal(Map<Coordinate, Well> v) throws Exception {
         return new ArrayList<>(v.values());
     }
 }

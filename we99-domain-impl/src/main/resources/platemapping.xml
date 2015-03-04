@@ -1,0 +1,21 @@
+<beanio xmlns="http://www.beanio.org/2012/03"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03">
+
+    <!-- 'format' identifies the type of stream -->
+    <stream name="wellMaps" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <!-- Detail records are bound to example.Contact -->
+        <record name="wellMap" class="edu.harvard.we99.domain.WellMap">
+            <segment name="coordinate" class="edu.harvard.we99.domain.Coordinate">
+                <field name="row" required="true" trim="true"/>
+                <field name="col" required="true" trim="true"/>
+            </segment>
+            <field name="type" required="false" trim="true"/>
+            <field name="label" required="false" trim="true"/>
+        </record>
+    </stream>
+</beanio>
