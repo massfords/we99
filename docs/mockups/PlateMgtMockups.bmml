@@ -1,0 +1,401 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="2450" measuredH="1741" mockupW="2400" mockupH="1721">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="990" y="67" w="733" h="751" measuredW="450" measuredH="400" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>WE99%0Ahttp%3A//www.we99isAwesome.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Arrow" x="597" y="165" w="370" h="48" measuredW="150" measuredH="100" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Image" x="1046" y="443" w="199" h="184" measuredW="77" measuredH="79" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Link" x="1070" y="642" w="-1" h="-1" measuredW="188" measuredH="19" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Upload%20Compounds%20Table%20%28.csv%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Image" x="1349" y="443" w="199" h="184" measuredW="77" measuredH="79" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Link" x="1373" y="642" w="-1" h="-1" measuredW="165" measuredH="19" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Upload%20Plate%20mapping%20%28csv%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Button" x="1212" y="695" w="202" h="67" measuredW="75" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Continue</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Label" x="1037" y="165" w="-1" h="-1" measuredW="368" measuredH="28" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>20</size>
+        <text>Tell%20us%20about%20your%20exciting%20experiment%21</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="1037" y="405" w="-1" h="-1" measuredW="552" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Provide%20csv%20files%20with%20your%20compound%20assignments%20and%20their%20mappings.%20%5C%5B%20%5Bformatting%20details...%5D%20%5C%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Canvas" x="50" y="20" w="643" h="446" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::HRule" x="104" y="76" w="343" h="-1" measuredW="100" measuredH="10" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Label" x="104" y="41" w="-1" h="-1" measuredW="209" measuredH="26" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <size>18</size>
+        <text>Cure%20for%20Cancer%20-%20Details</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::TabBar" x="86" y="101" w="547" h="365" measuredW="193" measuredH="100" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <selectedIndex>0</selectedIndex>
+        <text>Plates%2C%20Chemicals</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::Button" x="516" y="154" w="-1" h="-1" measuredW="74" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Add%20New</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::SearchBox" x="108" y="155" w="199" h="-1" measuredW="120" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>filter</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::Link" x="242" y="105" w="-1" h="-1" measuredW="51" measuredH="19" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Settings</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::DataGrid" x="104" y="198" w="500" h="268" measuredW="529" measuredH="231" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Date%20%5Ev%2C%20Plate%20Set%20%5Ev%2C%20Status%20%5Ev%2C%20Action%20%5Ev%2C%20Preparer%20%5Ev%2C%20Tester%20%5Ev%0Axx/xx/xx%2C%20plate%20set1%2C%20tested%2C%20%5Bview%20analysis%5D%2C%20Peter%20Parker%2C%20Charles%20Xavier%0Axx/xx/xx%2C%20plate%20set2%2C%20tested%2C%20%5Bview%20analysis%5D%2C%20Neil%20Tyson%2C%20Chuck%20Norris%0Axx/xx/xx%2C%20plate%20set3%2C%20tested%2C%20%5Bview%20analysis%5D%2C%20Peter%20Parker%2C%20Eugene%20Porter%0Axx/xx/xx%2C%20plate%20set3b%2C%20in%20testing%2C%20%5Bupload%20analysis%5D%20%2C%20Peter%20Parker%2C%20-%0Axx/xx/xx%2C%20plate%20set4%2C%20ready%20to%20test%2C%20%5Bsend%20to%20device%5D%20%2C%20Peter%20Parker%2C%20-%0Axx/xx/xx%2C%20plate%20set5%2C%20ready%20to%20test%2C%20%5Bsend%20to%20device%5D%20%2C%20Peter%20Parker%2C%20-%0Axx/xx/xx%2C%20plate%20set6%2C%20preparing%2C%20%5Bmark%20prepared%5D%20%2C%20Peter%20Parker%2C%20-</text>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::ComboBox" x="1037" y="286" w="165" h="-1" measuredW="146" measuredH="24" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Philosopher%27s%20Stone</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Label" x="1217" y="288" w="-1" h="-1" measuredW="193" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Need%20more%20plates%3F%20%5BOrder%20more....%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::Label" x="1036" y="246" w="-1" h="-1" measuredW="253" measuredH="24" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>What%20Type%20of%20plates%20are%20you%20using%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::Canvas" x="1030" y="321" w="559" h="69" measuredW="100" measuredH="70" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::Paragraph" x="1037" y="329" w="436" h="80" measuredW="275" measuredH="80" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Plate%20Type%3A%20Philosopher%27s%20Stone%20VX30.%20%28Corning%20%3A%20Magic%20Rock%29%0ARows%3A%2020%0ACols%20%3A%2010</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::StickyNote" x="1523" y="487" w="-1" h="-1" measuredW="109" measuredH="123" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Check%20if%20csv%20has%20the%20proper%20rows%20and%20columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::StickyNote" x="1495" y="278" w="-1" h="-1" measuredW="109" measuredH="123" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Shows%20details%20on%20the%20plate%20time%20selected</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::VCurly" x="867" y="371" w="111" h="376" measuredW="180" measuredH="140" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>right</direction>
+        <text>Only%20shows%20this%20once%20a%20plate%20type%20is%20selected</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::StickyNote" x="1567" y="399" w="119" h="88" measuredW="109" measuredH="123" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>link%20to%20popup%20explaining%20how%20to%20build%20csv</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Canvas" x="1807" y="124" w="643" h="429" measuredW="100" measuredH="70" zOrder="27" locked="false" isInGroup="-1"/>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::DataGrid" x="1826" y="190" w="617" h="301" measuredW="682" measuredH="141" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%2C%20Model%20%5Ev%2C%20Manufacturer%20%5Ev%2C%20Material%20%5Ev%2C%20Columns%20%5Ev%2C%20Rows%20%5Ev%2C%20Dimensions%0A%5Border%5D%20%2C%20X%2C%20Acme%2C%20Plastic%2C%2015%2C%2010%2C%2015cm%20x%2010cm%20x%201cm%0A%5Border%5D%20%2C%20Y%2C%20Acme%2C%20Glass%2C%2010%2C%205%2C%2020cm%20x%2010cm%20x%202cm%0A%5Border%5D%20%2C%20Z%2C%20Acme%2C%20Plastic%2C%20150%2C%20100%2C%20300mm%20x%2050mm%20x%205mm%0A%5Border%5D%20%2C%20Philosopher%27s%20Stone%20VX30%2C%20Corning%2C%20Magic%20Rock%2C%2020%2C%2010%2C%2020cm%20x%2010cm%20x%205cm</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::Label" x="1845" y="149" w="262" h="-1" measuredW="262" measuredH="26" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>Plate%20Type%20Ordering%20Information</text>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::StickyNote" x="1766" y="466" w="199" h="119" measuredW="109" measuredH="123" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Brings%20up%20a%20new%20page%20with%20ordering%20information%20or%20goes%20to%20the%20%27order%20link%27%20associated%20with%20the%20plate%20type</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Arrow" x="1394" y="223" w="413" h="71" measuredW="150" measuredH="100" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::Button" x="2117" y="508" w="-1" h="-1" measuredW="56" measuredH="27" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Close</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::Button" x="442" y="154" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Export</text>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::Button" x="368" y="154" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Import</text>
+      </controlProperties>
+    </control>
+    <control controlID="66" controlTypeID="__group__" x="967" y="1184" w="600" h="363" measuredW="600" measuredH="363" zOrder="42" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::TabBar" x="0" y="0" w="600" h="363" measuredW="192" measuredH="100" zOrder="0" locked="false" isInGroup="66">
+          <controlProperties>
+            <selectedIndex>1</selectedIndex>
+            <text>Simple%2C%20Advanced</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::DataGrid" x="21" y="125" w="341" h="134" measuredW="286" measuredH="111" zOrder="1" locked="false" isInGroup="66">
+          <controlProperties>
+            <align>center</align>
+            <hasHeader>true</hasHeader>
+            <hLines>false</hLines>
+            <text>Plate%2C%20ID/Barcode%2C%20File%20Check%2C%20Upload%20%28csv%29%0A1%20%2CXV12345%2C%20Validated%2C%20%5BUpload%5D%0A2%20%2C%2C%2C%20%5BUpload%5D%0A3%20%2C%2C%2C%20%5BUpload%5D</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="21" y="89" w="-1" h="-1" measuredW="315" measuredH="21" zOrder="2" locked="false" isInGroup="66">
+          <controlProperties>
+            <bold>false</bold>
+            <italic>true</italic>
+            <text>Remember%2C%20your%20plates%20are%3A%2020%20Rows%20and%2010%20Columns</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="21" y="55" w="-1" h="-1" measuredW="454" measuredH="24" zOrder="3" locked="false" isInGroup="66">
+          <controlProperties>
+            <size>16</size>
+            <text>Please%20provide%20a%20csv%20with%20the%20dosage%20mappings%20for%20each%20plate</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::StickyNote" x="145" y="175" w="123" h="114" measuredW="109" measuredH="123" zOrder="4" locked="false" isInGroup="66">
+          <controlProperties>
+            <text>Validate%20status%20checking%20if%20csv%20has%20proper%20rows%20and%20columns</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="83" controlTypeID="com.balsamiq.mockups::Arrow" x="255" y="175" w="135" h="341" measuredW="150" measuredH="100" zOrder="47" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::Arrow" x="455" y="177" w="94" h="331" measuredW="150" measuredH="100" zOrder="48" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>top</direction>
+        <leftArrow>false</leftArrow>
+        <rightArrow>true</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="85" controlTypeID="__group__" x="104" y="508" w="362" h="257" measuredW="362" measuredH="257" zOrder="46" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="314" h="171" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="85"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="123" y="129" w="-1" h="-1" measuredW="50" measuredH="27" zOrder="1" locked="false" isInGroup="85">
+          <controlProperties>
+            <text>Next</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="26" y="16" w="-1" h="-1" measuredW="143" measuredH="26" zOrder="2" locked="false" isInGroup="85">
+          <controlProperties>
+            <bold>true</bold>
+            <size>18</size>
+            <text>Import%20Plate%20Set</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::StickyNote" x="248" y="129" w="114" h="73" measuredW="109" measuredH="123" zOrder="3" locked="false" isInGroup="85">
+          <controlProperties>
+            <text>Create%20Plate%20set%20from%20json</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::TextInput" x="62" y="48" w="225" h="-1" measuredW="78" measuredH="27" zOrder="4" locked="false" isInGroup="85">
+          <controlProperties>
+            <text>Clone%20Set1</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="__group__" x="62" y="86" w="223" h="28" measuredW="223" measuredH="28" zOrder="5" locked="false" isInGroup="85">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::TextInput" x="0" y="0" w="163" h="-1" measuredW="117" measuredH="27" zOrder="0" locked="false" isInGroup="5">
+              <controlProperties>
+                <markup>true</markup>
+                <text>C%3A%5Cwe99%5Cps1.json</text>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="158" y="1" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="1" locked="false" isInGroup="5">
+              <controlProperties>
+                <markup>true</markup>
+                <text>Browse</text>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="23" y="51" w="-1" h="-1" measuredW="38" measuredH="21" zOrder="6" locked="false" isInGroup="85">
+          <controlProperties>
+            <text>Name%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="23" y="90" w="-1" h="-1" measuredW="23" measuredH="21" zOrder="7" locked="false" isInGroup="85">
+          <controlProperties>
+            <text>File%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="46" y="231" w="-1" h="-1" measuredW="143" measuredH="26" zOrder="8" locked="false" isInGroup="85">
+          <controlProperties>
+            <bold>true</bold>
+            <size>18</size>
+            <text>Import%20Plate%20Set</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="86" controlTypeID="__group__" x="484" y="508" w="368" h="141" measuredW="368" measuredH="141" zOrder="45" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="301" h="100" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="86"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::ComboBox" x="24" y="50" w="-1" h="-1" measuredW="144" measuredH="24" zOrder="1" locked="false" isInGroup="86">
+          <controlProperties>
+            <text>-%20Select%20Plate%20Set%20-</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="195" y="49" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="2" locked="false" isInGroup="86">
+          <controlProperties>
+            <text>Export</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="24" y="16" w="-1" h="-1" measuredW="143" measuredH="26" zOrder="3" locked="false" isInGroup="86">
+          <controlProperties>
+            <bold>true</bold>
+            <size>18</size>
+            <text>Export%20Plate%20Set</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::StickyNote" x="207" y="68" w="161" h="73" measuredW="109" measuredH="123" zOrder="4" locked="false" isInGroup="86">
+          <controlProperties>
+            <text>Create%20Json%20Export.%0AUpload%20Using%20Import</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::Label" x="1037" y="204" w="-1" h="-1" measuredW="254" measuredH="24" zOrder="49" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>What%20is%20the%20name%20of%20your%20plate%20set%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::TextInput" x="1310" y="204" w="257" h="-1" measuredW="117" measuredH="27" zOrder="50" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Lead%20To%20Gold%20Set</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::TextArea" x="136" y="727" w="393" h="231" measuredW="200" measuredH="140" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="94" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="163" y="990" w="733" h="751" measuredW="450" measuredH="400" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>WE99%0Ahttp%3A//www.we99isAwesome.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="95" controlTypeID="com.balsamiq.mockups::TabBar" x="188" y="1174" w="557" h="458" measuredW="192" measuredH="100" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Simple%2C%20Advanced</text>
+      </controlProperties>
+    </control>
+    <control controlID="96" controlTypeID="com.balsamiq.mockups::Label" x="191" y="1080" w="-1" h="-1" measuredW="271" measuredH="28" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>20</size>
+        <text>Just%20a%20few%20more%20questions%20...</text>
+      </controlProperties>
+    </control>
+    <control controlID="97" controlTypeID="com.balsamiq.mockups::Label" x="190" y="1127" w="-1" h="-1" measuredW="133" measuredH="24" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>How%20many%20Plates%3F</text>
+      </controlProperties>
+    </control>
+    <control controlID="98" controlTypeID="com.balsamiq.mockups::NumericStepper" x="354" y="1127" w="50" h="-1" measuredW="41" measuredH="24" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>3</text>
+      </controlProperties>
+    </control>
+    <control controlID="99" controlTypeID="com.balsamiq.mockups::DataGrid" x="217" y="1270" w="464" h="241" measuredW="223" measuredH="111" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Plate%2C%20ID/Barcode%2C%20Dosage%2C%20UOM%0A1%2C%20XV12345%2C%2020%2C%B5M%0A2%2C%2C%2C%0A3%2C%2C%2C</text>
+      </controlProperties>
+    </control>
+    <control controlID="100" controlTypeID="com.balsamiq.mockups::Label" x="217" y="1231" w="-1" h="-1" measuredW="273" measuredH="24" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>What%20are%20the%20dosages%20for%20each%20plate%3F</text>
+      </controlProperties>
+    </control>
+    <control controlID="101" controlTypeID="com.balsamiq.mockups::StickyNote" x="656" y="1241" w="148" h="106" measuredW="109" measuredH="123" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>if%20possible%20UOM%20Should%20be%20both%20typeable%20and%20dropdown%20selection</text>
+      </controlProperties>
+    </control>
+    <control controlID="102" controlTypeID="com.balsamiq.mockups::Button" x="361" y="1526" w="193" h="73" measuredW="135" measuredH="27" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Generate%20Plate%20Set</text>
+      </controlProperties>
+    </control>
+    <control controlID="103" controlTypeID="com.balsamiq.mockups::DataGrid" x="163" y="777" w="347" h="116" measuredW="124" measuredH="111" zOrder="51" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Plate%2C%20ID/Barcode%0A1%2C%20XV12345%0A2%2C%0A3%2C</text>
+      </controlProperties>
+    </control>
+    <control controlID="104" controlTypeID="com.balsamiq.mockups::Button" x="297" y="908" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="52" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Import</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
