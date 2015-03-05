@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response;
  *
  * @author mford
  */
-@Path("/plate")
+@Path("/experiment/{expId}/plate")
 @Api(value = "/plate",
         description = "Service for performing basic CRUD operations on a Plate")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -36,7 +36,7 @@ public interface PlateService {
     @PUT
     @ApiOperation(value = "Creates a new plate in our system.")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
-    Plate create(Plate plate);
+    Plate create(@PathParam("expId") Long experimentId, Plate plate);
 
     /**
      * Gets an existing plate or throws an exception with 404
@@ -48,7 +48,7 @@ public interface PlateService {
     @Path("/{id}")
     @ApiOperation(value = "Gets an existing plate or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
-    Plate get(@PathParam("id") Long id);
+    Plate get(@PathParam("expId") Long experimentId, @PathParam("id") Long id);
 
     /**
      * Updates an existing plate or throws an exception with a 404 if not found.
@@ -61,7 +61,7 @@ public interface PlateService {
     @Path("/{id}")
     @ApiOperation(value = "Updates an existing plate or throws an exception with a 404 if not found.")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
-    Plate update(@PathParam("id") Long id, Plate plate);
+    Plate update(@PathParam("expId") Long experimentId, @PathParam("id") Long id, Plate plate);
 
     /**
      * Deletes an existing plate or throws an exception with a 404 if not found
@@ -73,5 +73,5 @@ public interface PlateService {
     @Path("/{id}")
     @ApiOperation(value = "Deletes an existing plate or throws an exception with a 404 if not found")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
-    Response delete(@PathParam("id") Long id);
+    Response delete(@PathParam("expId") Long experimentId, @PathParam("id") Long id);
 }

@@ -6,14 +6,14 @@
 # the system could create a one-off for just this map and let the user fill in
 # the type details later.
 #
-0, 0, MEASURED, A
-0, 1, MEASURED, A
-0, 2, MEASURED, A
-0, 3, MEASURED, A
+0, 0, COMP, A
+0, 1, COMP, A
+0, 2, COMP, A
+0, 3, COMP, A
 0, 49, EMPTY,
-2, 0, MEASURED, B
-2, 1, MEASURED, B
-2, 2, MEASURED, B
-2, 3, MEASURED, B
+2, 0, COMP, B
+2, 1, COMP, B
+2, 2, COMP, B
+2, 3, COMP, B
 2, 49, EMPTY,
 200,200,EMPTY,

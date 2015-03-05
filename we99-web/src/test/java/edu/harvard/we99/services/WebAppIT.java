@@ -21,7 +21,8 @@ import java.io.File;
         ManageUserServiceST.class,
         GuestAccessST.class,
         CompoundServiceST.class,
-        PlateMapImportST.class
+        PlateMapImportST.class,
+        PlateResultServiceST.class
 })
 public class WebAppIT {
     public static final String WE99_URL = "http://localhost:8080/we99/services/rest";

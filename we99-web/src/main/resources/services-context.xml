@@ -93,11 +93,30 @@
 
     <bean id="math" class="edu.harvard.we99.services.MathServiceImpl"/>
 
+    <bean id="results" class="edu.harvard.we99.services.ResultServiceImpl">
+        <constructor-arg ref="resultStorage"/>
+        <constructor-arg ref="experimentStorage"/>
+    </bean>
+
+    <bean id="resultStorage" class="edu.harvard.we99.services.storage.ResultStorageImpl"/>
+
+    <bean id="plateService" class="edu.harvard.we99.services.PlateServiceImpl">
+        <constructor-arg ref="plateStorage"/>
+        <constructor-arg ref="experimentStorage"/>
+    </bean>
+    <bean id="plateStorage" class="edu.harvard.we99.services.storage.PlateStorageImpl"/>
+
+    <bean id="experimentService" class="edu.harvard.we99.services.ExperimentServiceImpl">
+        <constructor-arg ref="experimentStorage"/>
+    </bean>
+    <bean id="experimentStorage" class="edu.harvard.we99.services.storage.ExperimentStorageImpl"/>
+
     <!--suppress UnparsedCustomBeanInspection -->
     <jaxrs:server address="/rest" >
         <jaxrs:serviceBeans>
             <ref bean="plateTemplateService"/>
             <ref bean="plateTypeService"/>
+            <ref bean="plateService"/>
             <ref bean="protocolService"/>
             <ref bean="compoundService"/>
             <ref bean="createAccountService"/>
@@ -106,6 +125,8 @@
             <ref bean="roleService"/>
             <ref bean="manageUser"/>
             <ref bean="math"/>
+            <ref bean="results"/>
+            <ref bean="experimentService"/>
             <ref bean="swaggerResourceJSON" />
         </jaxrs:serviceBeans>
         <jaxrs:features>

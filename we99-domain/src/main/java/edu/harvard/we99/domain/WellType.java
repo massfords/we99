@@ -6,7 +6,7 @@ package edu.harvard.we99.domain;
  * @author mford
  */
 public enum WellType {
-    MEASURED,
+    COMP,
     POSITIVE,
     NEGATIVE,
     EMPTY

@@ -1,6 +1,6 @@
 package edu.harvard.we99.domain;
 
-import edu.harvard.we99.domain.jaxb.WellMapAdapter;
+import edu.harvard.we99.jaxb.WellMapAdapter;
 
 import javax.annotation.Generated;
 import javax.persistence.CascadeType;

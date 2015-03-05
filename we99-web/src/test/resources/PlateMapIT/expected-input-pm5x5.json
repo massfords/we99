@@ -7,7 +7,7 @@
           "col": 0
         },
         "label": "A",
-        "type": "MEASURED"
+        "type": "COMP"
       },
       {
         "coordinate": {
@@ -15,7 +15,7 @@
           "col": 1
         },
         "label": "A",
-        "type": "MEASURED"
+        "type": "COMP"
       },
       {
         "coordinate": {
@@ -23,7 +23,7 @@
           "col": 2
         },
         "label": "A",
-        "type": "MEASURED"
+        "type": "COMP"
       },
       {
         "coordinate": {
@@ -31,7 +31,7 @@
           "col": 3
         },
         "label": "A",
-        "type": "MEASURED"
+        "type": "COMP"
       },
       {
         "coordinate": {
@@ -47,7 +47,7 @@
           "col": 0
         },
         "label": "B",
-        "type": "MEASURED"
+        "type": "COMP"
       },
       {
         "coordinate": {
@@ -55,7 +55,7 @@
           "col": 1
         },
         "label": "B",
-        "type": "MEASURED"
+        "type": "COMP"
       },
       {
         "coordinate": {
@@ -63,7 +63,7 @@
           "col": 2
         },
         "label": "B",
-        "type": "MEASURED"
+        "type": "COMP"
       },
       {
         "coordinate": {
@@ -71,7 +71,7 @@
           "col": 3
         },
         "label": "B",
-        "type": "MEASURED"
+        "type": "COMP"
       },
       {
         "coordinate": {

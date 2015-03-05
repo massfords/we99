@@ -12,6 +12,17 @@
     <artifactId>we99-domain</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
+        <!-- allows usage of joda-time values as JPA fields -->
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+            <version>3.2.0.GA</version>
+        </dependency>
 
         <!-- for JAXRS annotations -->
         <dependency>

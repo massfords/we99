@@ -6,7 +6,9 @@ import edu.harvard.we99.security.User;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -31,6 +33,17 @@ public interface UserService {
     @GET
     @ApiOperation(value = "Returns the basic info for the user logged in")
     User whoami();
+
+    /**
+     * Updates the user entity
+     * @param id
+     * @param user
+     * @return
+     */
+    @POST
+    @Path("/{id}")
+    @ApiOperation(value = "Updates the user user entity")
+    User update(@PathParam("id") Long id, User user);
 
     /**
      * Lists all of the users in the system

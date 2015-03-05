@@ -38,6 +38,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User update(Long id, User user) {
+        // we don't want them to be able to change the role
+        user.setRole(null);
+        return storage.update(id, user);
+    }
+
+    @Override
     public List<User> list() {
         return storage.listAll();
     }

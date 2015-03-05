@@ -115,7 +115,7 @@ public class PlateMapST {
         Coordinate coordinate = new Coordinate(0, 0);
         WellMap well = new WellMap(coordinate)
                 .withLabel("well 0,0")
-                .withType(WellType.MEASURED);
+                .withType(WellType.COMP);
         pm.getWells().put(coordinate,well);
         PlateMap updated = plateMapService.update(pm.getId(), pm);
         String actual = toJsonString(updated);

@@ -39,6 +39,8 @@ public interface UserStorage extends CRUDStorage<User> {
      */
     List<User> find(String query);
 
+    String resetPassword(Long id);
+
     /**
      * Activates the user account by setting the password in place.
      * @param uuid

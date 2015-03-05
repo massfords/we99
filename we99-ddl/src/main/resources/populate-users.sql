@@ -29,6 +29,10 @@ insert into Permission(id, name) values (51, 'PERM_MODIFY_PROTOCOLS');
 
 insert into Permission(id, name) values (61, 'PERM_MODIFY_USERROLE');
 
+insert into Permission(id, name) values (70, 'PERM_READ_EXPERIMENTS');
+insert into Permission(id, name) values (71, 'PERM_MODIFY_EXPERIMENTS');
+
+
 -- Admins get all permissions
 -- Note: We're not taking advantage of Spring's Role hierarchy code. That always
 -- seemed a bit too complicated to me
@@ -43,6 +47,8 @@ insert into Role_Permission (Role_id, permissions_id) values (1,41);
 insert into Role_Permission (Role_id, permissions_id) values (1,50);
 insert into Role_Permission (Role_id, permissions_id) values (1,51);
 insert into Role_Permission (Role_id, permissions_id) values (1,61);
+insert into Role_Permission (Role_id, permissions_id) values (1,70);
+insert into Role_Permission (Role_id, permissions_id) values (1,71);
 
 -- Scientists get fewer permissions (currently this is everything except the
 -- ability to elevate someone to an admin)
@@ -56,6 +62,8 @@ insert into Role_Permission (Role_id, permissions_id) values (2,40);
 insert into Role_Permission (Role_id, permissions_id) values (2,41);
 insert into Role_Permission (Role_id, permissions_id) values (2,50);
 insert into Role_Permission (Role_id, permissions_id) values (2,51);
+insert into Role_Permission (Role_id, permissions_id) values (2,70);
+insert into Role_Permission (Role_id, permissions_id) values (2,71);
 
 -- Guests get nothing as of yet. This is really only used for initial testing.
 -- Proper guest access would require more granularity. Perhaps they can see
@@ -65,14 +73,15 @@ insert into Role_Permission (Role_id, permissions_id) values (3,20);
 insert into Role_Permission (Role_id, permissions_id) values (3,30);
 insert into Role_Permission (Role_id, permissions_id) values (3,40);
 insert into Role_Permission (Role_id, permissions_id) values (3,50);
+insert into Role_Permission (Role_id, permissions_id) values (3,70);
 
-insert into user (id, email, firstname, lastname, password, salt, role_id)
+insert into user (id, email, firstname, lastname, password, salt, role_id, passwordStatus)
 values (1, 'we99.2015@gmail.com', 'Test', 'User',
         '7c877c769756c1182dde9c9cde5e9fe38ae9d371ba080396d564a2e9b06a5433',
-        'salt', 1);
+        'salt', 1, 0);
 
 -- A dummy guest user for the purposes of testing the Guest privileges
-insert into user (id, email, firstname, lastname, password, salt, role_id)
+insert into user (id, email, firstname, lastname, password, salt, role_id, passwordStatus)
 values (2, 'we99.2015@example', 'Guest', 'User',
         '7c877c769756c1182dde9c9cde5e9fe38ae9d371ba080396d564a2e9b06a5433',
-        'salt', 3);
+        'salt', 3, 0);

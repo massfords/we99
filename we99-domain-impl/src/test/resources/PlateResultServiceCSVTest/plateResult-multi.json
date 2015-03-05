@@ -1,0 +1,234 @@
+{
+  "wellResults": [
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 0
+      },
+      "samples": [
+        {
+          "value": 0.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 0.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 0.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 1
+      },
+      "samples": [
+        {
+          "value": 11.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 11.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 11.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 1
+      },
+      "samples": [
+        {
+          "value": 1.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 1.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 1.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 2
+      },
+      "samples": [
+        {
+          "value": 12.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 12.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 12.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 2
+      },
+      "samples": [
+        {
+          "value": 2.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 2.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 2.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 3
+      },
+      "samples": [
+        {
+          "value": 13.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 13.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 13.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 3
+      },
+      "samples": [
+        {
+          "value": 3.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 3.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 3.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 4
+      },
+      "samples": [
+        {
+          "value": 14.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 14.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 14.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 4
+      },
+      "samples": [
+        {
+          "value": 4.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 4.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 4.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 0
+      },
+      "samples": [
+        {
+          "value": 10.0,
+          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 10.1,
+          "measuredAt": "2015-01-02T05:20:35.100-05:00",
+          "status": "INCLUDED"
+        },
+        {
+          "value": 10.2,
+          "measuredAt": "2015-01-02T05:20:40.100-05:00",
+          "status": "INCLUDED"
+        }
+      ]
+    }
+  ]
+}

@@ -13,7 +13,6 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import static edu.harvard.we99.security.InternalEmailService.prepareEmailMessage;
 
@@ -55,9 +54,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
     public Response sendPasswordEmail(String emailAddress, HttpServletRequest request) {
         try {
             User user = storage.findByEmail(emailAddress);
-            String uuid = UUID.randomUUID().toString();
-            user.setPassword(uuid);
-            storage.update(user.getId(), user);
+            String uuid = storage.resetPassword(user.getId());
 
             Email email = emailService.createEmail();
             email.setSubject("WE99 Password Reset");

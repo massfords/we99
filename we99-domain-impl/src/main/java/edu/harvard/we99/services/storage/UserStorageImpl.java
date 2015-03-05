@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Implmentation of the storage interface.
@@ -46,7 +47,11 @@ public class UserStorageImpl extends CRUDStorageImpl<User> implements UserStorag
     protected void updateFromCaller(User fromDb, User fromUser) {
         String password = fromUser.getPassword();
         if (StringUtils.isNotBlank(password)) {
-            fromDb.setPassword(password);
+            if (fromDb.getPasswordStatus() == User.PasswordStatus.assigned) {
+                String encodedPassword = passwordEncoder.encodePassword(
+                        password, fromDb.getSalt());
+                fromDb.setPassword(encodedPassword);
+            }
         }
         // todo - if this or others grow in size then we should use Orika or something similar
         fromDb.setFirstName(fromUser.getFirstName());
@@ -89,14 +94,29 @@ public class UserStorageImpl extends CRUDStorageImpl<User> implements UserStorag
         return q.getResultList();
     }
 
+    @Override
+    @Transactional
+    public String resetPassword(Long id) {
+        User user = em.find(User.class, id);
+        String tmpPassword = UUID.randomUUID().toString();
+        user.setPassword(tmpPassword);
+        em.merge(user);
+        user.setPasswordStatus(User.PasswordStatus.assigned);
+        return tmpPassword;
+    }
+
     @Override @Transactional
     public void activate(String uuid, String email, String unsaltedPassword) {
         User user = findByEmail(email);
         if (user.getPassword().equals(uuid)) {
-            user.setPassword(passwordEncoder.encodePassword(unsaltedPassword, user.getSalt()));
+            String encodedPassword = passwordEncoder.encodePassword(
+                    unsaltedPassword, user.getSalt());
+            user.setPassword(encodedPassword);
         } else {
             throw new IllegalStateException("user account already activated");
         }
+        user.setPasswordStatus(User.PasswordStatus.assigned);
+        em.merge(user);
     }
 
     @Override @Transactional
