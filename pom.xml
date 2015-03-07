@@ -31,7 +31,6 @@
         <module>we99-web</module>
         <module>we99-test</module>
         <module>we99-ddl</module>
-        <module>we99-web-ui</module>
         <module>we99-domain-impl</module>
     </modules>
 
