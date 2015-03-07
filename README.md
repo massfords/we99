@@ -52,29 +52,4 @@ Midterm exam is the presentation of our Statement of Work (SOW).
 Final exam is the presentation to the faculty panel. Our system must work as
 described in the SOW.
 
-# What do we need?
-(incomplete)
-- database to store plates/wells/config/results
-- web interface to create/configure plates/wells
-- web interface to load assay results
-- web interface to display assay analysis
--- code to analyze results
--- visualizations of results
-- authentication / authorization
-- storage of assay products
-
-# What language?
-- Java or Python for backend
-- Thick client or thin
-
-# What tools?
-- build process
-- database
-- plotting / charting / visualization
-- UML
-
-# Caveats
-- Git repo is public, but locked down for commits/pushes. Keep this in mind when making contributions.
-- Submissions are subject to the Apache 2.0 license. *Do not include incompatible code*
-
 
