@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.commons.io.IOUtils;
@@ -12,6 +13,7 @@ import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -37,6 +39,9 @@ public class PlateResultServiceST {
     private static ExperimentService experimentService;
     private static PlateService plateService;
     private static PlateType plateType;
+
+    @Rule
+    public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     @Parameterized.Parameters
     public static List<Object[]> params() throws Exception {
