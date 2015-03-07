@@ -27,6 +27,7 @@ class WellResult {
 
 class Sample {
     Double value
+    String label
     String comments
     DateTime measuredAt
     SampleStatus status

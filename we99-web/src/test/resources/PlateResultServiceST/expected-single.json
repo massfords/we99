@@ -8,6 +8,7 @@
       "samples": [
         {
           "value": 0.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }
@@ -21,6 +22,7 @@
       "samples": [
         {
           "value": 11.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }
@@ -34,6 +36,7 @@
       "samples": [
         {
           "value": 1.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }
@@ -47,6 +50,7 @@
       "samples": [
         {
           "value": 12.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }
@@ -60,6 +64,7 @@
       "samples": [
         {
           "value": 2.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }
@@ -73,6 +78,7 @@
       "samples": [
         {
           "value": 13.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }
@@ -86,6 +92,7 @@
       "samples": [
         {
           "value": 3.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }
@@ -99,6 +106,7 @@
       "samples": [
         {
           "value": 14.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }
@@ -112,6 +120,7 @@
       "samples": [
         {
           "value": 4.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }
@@ -125,6 +134,7 @@
       "samples": [
         {
           "value": 10.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         }

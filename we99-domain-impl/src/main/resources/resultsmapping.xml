@@ -17,6 +17,7 @@
             </segment>
             <segment name="samples" class="edu.harvard.we99.domain.results.Sample" collection="list">
                 <field name="value" required="true" trim="true"/>
+                <field name="label" required="false" trim="true"/>
                 <field name="measuredAt" required="false" trim="true"/>
             </segment>
         </record>

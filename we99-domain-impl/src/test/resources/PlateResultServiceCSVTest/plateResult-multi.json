@@ -8,16 +8,19 @@
       "samples": [
         {
           "value": 0.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 0.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 0.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
@@ -31,16 +34,19 @@
       "samples": [
         {
           "value": 11.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 11.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 11.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
@@ -54,16 +60,19 @@
       "samples": [
         {
           "value": 1.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 1.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 1.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
@@ -77,16 +86,19 @@
       "samples": [
         {
           "value": 12.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 12.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 12.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
@@ -100,16 +112,19 @@
       "samples": [
         {
           "value": 2.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 2.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 2.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
@@ -123,16 +138,19 @@
       "samples": [
         {
           "value": 13.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 13.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 13.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
@@ -146,16 +164,19 @@
       "samples": [
         {
           "value": 3.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 3.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 3.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
@@ -169,16 +190,19 @@
       "samples": [
         {
           "value": 14.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 14.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 14.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
@@ -192,16 +216,19 @@
       "samples": [
         {
           "value": 4.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 4.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 4.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
@@ -215,16 +242,19 @@
       "samples": [
         {
           "value": 10.0,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:30.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 10.1,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:35.100-05:00",
           "status": "INCLUDED"
         },
         {
           "value": 10.2,
+          "label": "",
           "measuredAt": "2015-01-02T05:20:40.100-05:00",
           "status": "INCLUDED"
         }
