@@ -1,0 +1,19 @@
+@startuml
+actor User
+User -> CreateAccountService: createAccount
+CreateAccountService -> UserStorage: createUser
+UserStorage --> CreateAccountService
+CreateAccountService -> SMTP: sendmail
+SMTP --> CreateAccountService
+CreateAccountService --> User
+User -> Gmail: check mail
+Gmail --> User : email with activation link
+User -> CreateAccountService: activateAccount by clicking link
+CreateAccountService --> User : prompt for a password
+User -> CreateAccountService : activate (with user pw)
+CreateAccountService -> PasswordEncoder : encode
+PasswordEncoder --> CreateAccountService : SHA256*1000
+CreateAccountService -> UserStorage: update user
+UserStorage --> CreateAccountService
+CreateAccountService --> User : ready for login
+@enduml

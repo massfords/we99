@@ -1,0 +1,16 @@
+@startuml
+actor User
+User -> SpringSecurity: /
+SpringSecurity --> User : login.html page
+User -> SpringSecurity : login w/ credentials
+SpringSecurity -> AuthenticationProvider : authenticate(user,pw)
+AuthenticationProvider -> CustomUserDetailsService : loadUser(user)
+CustomUserDetailsService -> UserStorage : load(user)
+UserStorage --> CustomUserDetailsService
+CustomerUserDetailsService --> AuthenticationProvider
+AuthenticationProvider -> PasswordEncoder : encode(pw, salt)
+PasswordEncoder --> AuthenticationProvider : SHA256*1000
+AuthenticationProvider -> AuthenticationProvider : compare(encoded,user.pw)
+AuthenticationProvider --> SpringSecurity
+SpringSecurity --> User : authenticated
+@enduml
