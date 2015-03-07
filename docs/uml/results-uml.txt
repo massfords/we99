@@ -1,25 +1,40 @@
 @startuml
 
-class WellResult --o PlateResult
-class WellResult -- Well
-class PlateResult -- Plate
-class Well --o Plate
-class PlateResultReader --o PlateResult : creates
 
-class WellResult{
- + int row
- + int col
- + double data
- + String resultType
+Experiment *-- "many" PlateResult
+PlateResult o-- "1" Plate
+WellResult *-- "many" Sample
+PlateResult *-- "many" WellResult
+
+class PlateResult {
+    DateTime created
+    DateTime lastModified
+    String comments
 }
 
-class PlateResult{
- + String name
- + Map <String, String> features
+class Experiment {
+    String name
+    DateTime created
 }
 
-interface PlateResultReader{
- PlateResult[] generateResults(String fileName, String fileContents)
+class Plate {
+    String barcode
+}
+
+class WellResult {
+    Coordinate coord
+}
+
+class Sample {
+    Double value
+    String comments
+    DateTime measuredAt
+    SampleStatus status
+}
+
+enum SampleStatus {
+    INCLUDED
+    EXCLUDED
 }
 
 @enduml

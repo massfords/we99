@@ -86,7 +86,7 @@ class Protocol {
 
 class Experiment {
     String name
-    Timestamp created
+    DateTime created
 }
 
 
