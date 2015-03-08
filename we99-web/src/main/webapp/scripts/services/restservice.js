@@ -8,7 +8,7 @@
  * Service in the we99App.
  */
 var app = angular.module('we99App');
-app.factory('Rest', ['$resource','RestURLs', function ($resource, RestURLs) {
+app.factory('RestService', ['$resource','RestURLs', function ($resource, RestURLs) {
     return {
         plateType: $resource(RestURLs.plateType),
         experiment: $resource(RestURLs.experiment)
