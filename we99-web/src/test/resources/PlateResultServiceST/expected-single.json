@@ -5,6 +5,7 @@
         "row": 0,
         "col": 0
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 0.0,
@@ -19,6 +20,7 @@
         "row": 1,
         "col": 1
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 11.0,
@@ -33,6 +35,7 @@
         "row": 0,
         "col": 1
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 1.0,
@@ -47,6 +50,7 @@
         "row": 1,
         "col": 2
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 12.0,
@@ -61,6 +65,7 @@
         "row": 0,
         "col": 2
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 2.0,
@@ -75,6 +80,7 @@
         "row": 1,
         "col": 3
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 13.0,
@@ -89,6 +95,7 @@
         "row": 0,
         "col": 3
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 3.0,
@@ -103,6 +110,7 @@
         "row": 1,
         "col": 4
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 14.0,
@@ -117,6 +125,7 @@
         "row": 0,
         "col": 4
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 4.0,
@@ -131,6 +140,7 @@
         "row": 1,
         "col": 0
       },
+      "resultStatus": "INCLUDED",
       "samples": [
         {
           "value": 10.0,

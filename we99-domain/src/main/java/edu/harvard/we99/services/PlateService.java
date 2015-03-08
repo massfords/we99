@@ -15,6 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * REST Service for performing basic CRUD operations on a Plate
@@ -29,6 +30,7 @@ import javax.ws.rs.core.Response;
 public interface PlateService {
     /**
      * Creates a new plate in our system.
+     * @param experimentId Parent experiment
      * @param plate New plate to add to the system
      * @return
      * @statuscode 415 If the Plate is missing any required fields
@@ -40,6 +42,7 @@ public interface PlateService {
 
     /**
      * Gets an existing plate or throws an exception with 404
+     * @param experimentId Parent experiment
      * @param id Plate's id field
      * @return
      * @statuscode 404 If the Plate is not found
@@ -52,6 +55,7 @@ public interface PlateService {
 
     /**
      * Updates an existing plate or throws an exception with a 404 if not found.
+     * @param experimentId Parent experiment
      * @param id Plate's id field
      * @param plate Plate to update
      * @return
@@ -65,6 +69,7 @@ public interface PlateService {
 
     /**
      * Deletes an existing plate or throws an exception with a 404 if not found
+     * @param experimentId Parent experiment
      * @param id Plate's id field
      * @return
      * @statuscode 404 If there is no Plate with this id
@@ -74,4 +79,14 @@ public interface PlateService {
     @ApiOperation(value = "Deletes an existing plate or throws an exception with a 404 if not found")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
     Response delete(@PathParam("expId") Long experimentId, @PathParam("id") Long id);
+
+    /**
+     * Lists all of the existing plate or throws an exception with 404
+     * @param experimentId Parent experiment
+     * @return
+     */
+    @GET
+    @ApiOperation(value = "Gets an existing plate or throws an exception with 404")
+    @PreAuthorize("hasRole('PERM_READ_PLATES')")
+    List<Plate> list(@PathParam("expId") Long experimentId);
 }

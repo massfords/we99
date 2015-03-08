@@ -11,7 +11,13 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/services-context.xml classpath:/application-context.xml classpath:/security-context.xml</param-value>
+        <param-value>
+            classpath:/dataSource-context.xml
+            classpath:/services-context.xml
+            classpath:/application-context.xml
+            classpath:/jaxrs-context.xml
+            classpath:/security-context.xml
+        </param-value>
     </context-param>
 
     <context-param>

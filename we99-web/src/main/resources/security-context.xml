@@ -31,16 +31,6 @@
     </sec:authentication-manager>
 
     <!--
-        Password encoder that's used by the authentication provider above to
-        produce a hash of the password. It's defined as a top level bean because
-        it's also used by the CreateAccountService as part of that workflow.
-    -->
-    <bean id="passwordEncoder"
-          class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
-        <constructor-arg value="256"/>
-    </bean>
-
-    <!--
         Standard spring security annotations for path based security.
 
         In general, everything is locked down with a few exceptions:

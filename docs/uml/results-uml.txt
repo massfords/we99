@@ -33,7 +33,7 @@ class Sample {
     SampleStatus status
 }
 
-enum SampleStatus {
+enum ResultStatus {
     INCLUDED
     EXCLUDED
 }

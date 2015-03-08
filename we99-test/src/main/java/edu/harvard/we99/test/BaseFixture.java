@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 
+import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -37,8 +39,13 @@ public class BaseFixture {
      * @throws IOException
      */
     public static String load(String path) throws IOException {
-        return IOUtils.toString(BaseFixture.class.getResourceAsStream(path));
+        return IOUtils.toString(stream(path));
     }
+
+    public static InputStream stream(String path) throws IOException {
+        return BaseFixture.class.getResourceAsStream(path);
+    }
+
 
     /**
      * Syntactic sugar
@@ -106,6 +113,10 @@ public class BaseFixture {
 
     public static String name(String prefix) {
         return prefix + UUID.randomUUID().toString();
+    }
+
+    public static void assertOk(Response response) {
+        assertEquals(200, response.getStatus());
     }
 
 }

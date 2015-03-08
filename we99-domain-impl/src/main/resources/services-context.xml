@@ -1,23 +1,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-       xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
-        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="edu.harvard.we99" />
-
-    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/WE99" expected-type="javax.sql.DataSource"/>
-    <jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">
-        <jdbc:script location="classpath:/drop-all-h2.sql"/>
-        <jdbc:script location="classpath:/we99.ddl"/>
-        <jdbc:script location="classpath:/populate-users.sql"/>
-    </jdbc:initialize-database>
 
     <bean id="plateTemplateService" class="edu.harvard.we99.services.PlateMapServiceImpl">
         <constructor-arg ref="plateTemplateStorage"/>
@@ -95,7 +82,7 @@
 
     <bean id="results" class="edu.harvard.we99.services.ResultServiceImpl">
         <constructor-arg ref="resultStorage"/>
-        <constructor-arg ref="experimentStorage"/>
+        <constructor-arg ref="plateStorage"/>
     </bean>
 
     <bean id="resultStorage" class="edu.harvard.we99.services.storage.ResultStorageImpl"/>
@@ -103,68 +90,27 @@
     <bean id="plateService" class="edu.harvard.we99.services.PlateServiceImpl">
         <constructor-arg ref="plateStorage"/>
         <constructor-arg ref="experimentStorage"/>
+        <constructor-arg ref="userProvider"/>
     </bean>
     <bean id="plateStorage" class="edu.harvard.we99.services.storage.PlateStorageImpl"/>
 
     <bean id="experimentService" class="edu.harvard.we99.services.ExperimentServiceImpl">
+        <constructor-arg ref="userProvider"/>
         <constructor-arg ref="experimentStorage"/>
     </bean>
     <bean id="experimentStorage" class="edu.harvard.we99.services.storage.ExperimentStorageImpl"/>
 
-    <!--suppress UnparsedCustomBeanInspection -->
-    <jaxrs:server address="/rest" >
-        <jaxrs:serviceBeans>
-            <ref bean="plateTemplateService"/>
-            <ref bean="plateTypeService"/>
-            <ref bean="plateService"/>
-            <ref bean="protocolService"/>
-            <ref bean="compoundService"/>
-            <ref bean="createAccountService"/>
-            <ref bean="forgotPasswordService"/>
-            <ref bean="userService"/>
-            <ref bean="roleService"/>
-            <ref bean="manageUser"/>
-            <ref bean="math"/>
-            <ref bean="results"/>
-            <ref bean="experimentService"/>
-            <ref bean="swaggerResourceJSON" />
-        </jaxrs:serviceBeans>
-        <jaxrs:features>
-            <bean class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationFeature"/>
-        </jaxrs:features>
-        <jaxrs:providers>
-            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider">
-                <constructor-arg>
-                    <bean class="edu.harvard.we99.util.JacksonMapper"/>
-                </constructor-arg>
-                <constructor-arg>
-                    <array>
-                        <value>JACKSON</value>
-                        <value>JAXB</value>
-                    </array>
-                </constructor-arg>
-            </bean>
-            <bean class="org.apache.cxf.jaxrs.validation.ValidationExceptionMapper"/>
-            <ref bean="resourceWriter" />
-            <ref bean="apiWriter" />
-        </jaxrs:providers>
-    </jaxrs:server>
-
-    <!-- Swagger Config -->
-    <bean id="swaggerResourceJSON" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON" />
-    <bean id="resourceWriter" class="com.wordnik.swagger.jaxrs.listing.ResourceListingProvider" />
-    <bean id="apiWriter" class="com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider" />
-
-    <bean id="swaggerConfig" class="com.wordnik.swagger.jaxrs.config.BeanConfig">
-        <property name="resourcePackage" value="edu.harvard.we99"/>
-        <property name="version" value="1.0.0"/>
-        <property name="basePath" value="http://localhost:8080/we99/services/rest"/>
-        <property name="title" value="WE-99"/>
-        <property name="description" value="Harvard Extension Capstone Course"/>
-        <property name="contact" value="we99.2015@gmail.com"/>
-        <property name="license" value="Apache 2.0 license"/>
-        <property name="licenseUrl" value="https://raw.githubusercontent.com/massfords/we99/master/LICENSE"/>
-        <property name="scan" value="true"/>
+    <bean id="userProvider" class="edu.harvard.we99.security.UserContextProviderImpl">
+        <constructor-arg ref="userStorage"/>
     </bean>
 
+    <!--
+        Password encoder that's used by the authentication provider above to
+        produce a hash of the password. It's defined as a top level bean because
+        it's also used by the CreateAccountService as part of that workflow.
+    -->
+    <bean id="passwordEncoder"
+          class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+        <constructor-arg value="256"/>
+    </bean>
 </beans>
