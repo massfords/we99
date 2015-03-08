@@ -27,12 +27,12 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
-      .when('/plateEditor', {
+      .when('/plate-editor', {
         templateUrl: 'views/plate-mgmt/plateeditor.html',
         controller: 'PlateEditorCtrl'
       })
-      .when('/templateEditor', {
-        templateUrl: 'views/plate-mgmt/templateeditor.html',
+      .when('/plate-type-editor', {
+        templateUrl: 'views/plate-mgmt/platetypeeditor.html',
         controller: 'TemplateEditorCtrl'
       })
       .when('/heatmap', {

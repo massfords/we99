@@ -8,7 +8,9 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('TemplateEditorCtrl', function ($scope) {
+  .controller('TemplateEditorCtrl', ['$scope', 'RestService', function ($scope, RestService) {
     $scope.title = "Select a Plate Template";
-
-  });
+    RestService.plateType.get(function(data){
+        console.log(data);
+    });
+  }]);
