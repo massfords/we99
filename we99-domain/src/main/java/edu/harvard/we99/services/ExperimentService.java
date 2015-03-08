@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.security.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
@@ -85,6 +86,55 @@ public interface ExperimentService {
     @GET
     @ApiOperation(value = "Gets an existing Experiment or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
-    List<Experiment> get();
+    List<Experiment> listExperiments();
+
+    /**
+     * Lists the members in the experiment
+     * @param id
+     * @return
+     */
+    @GET
+    @Path("/{id}/members")
+    @ApiOperation(value = "Lists the members of the experiment")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
+    public List<User> listMembers(@PathParam("id") Long id);
+
+    /**
+     * Adds the members to the experiment
+     * @param id
+     * @return
+     */
+    @POST
+    @Path("/{id}/members")
+    @ApiOperation(value = "Lists the members of the experiment")
+    @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
+    public Response setMembers(@PathParam("id") Long id, List<Long> userIds);
+
+    /**
+     * Adds a member to the experiement
+     * @param id
+     * @param userId
+     * @return
+     */
+    @PUT
+    @Path("/{id}/members/{userId}")
+    @ApiOperation(value = "Adds a member to the experiment")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
+    public Response addMember(@PathParam("id") Long id, @PathParam("userId") Long userId);
+
+    /**
+     * Removes a member from the experiment
+     * @param id
+     * @param userId
+     * @return
+     */
+    @DELETE
+    @Path("/{id}/members/{userId}")
+    @ApiOperation(value = "Removes a member of the experiment")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
+    public Response removeMember(@PathParam("id") Long id, @PathParam("userId") Long userId);
 
 }

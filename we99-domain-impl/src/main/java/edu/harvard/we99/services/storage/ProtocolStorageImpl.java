@@ -13,6 +13,6 @@ public class ProtocolStorageImpl extends CRUDStorageImpl<Protocol> {
 
     @Override
     protected void updateFromCaller(Protocol fromDb, Protocol fromUser) {
-
+        fromDb.setName(fromUser.getName());
     }
 }

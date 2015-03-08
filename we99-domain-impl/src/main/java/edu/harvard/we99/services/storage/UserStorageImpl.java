@@ -72,10 +72,10 @@ public class UserStorageImpl extends CRUDStorageImpl<User> implements UserStorag
 
     @Override
     public User findByEmail(String email) {
-        TypedQuery<User> findByUUID = em.createQuery("select u from User u where u.email=:email", User.class);
-        findByUUID.setParameter("email", email);
+        TypedQuery<User> query = em.createQuery("select u from User u where u.email=:email", User.class);
+        query.setParameter("email", email);
 
-        return findByUUID.getSingleResult();
+        return query.getSingleResult();
     }
 
     @Override

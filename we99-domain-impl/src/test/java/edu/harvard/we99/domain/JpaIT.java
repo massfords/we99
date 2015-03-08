@@ -1,17 +1,8 @@
 package edu.harvard.we99.domain;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import java.util.HashSet;
@@ -30,24 +21,7 @@ import static edu.harvard.we99.test.BaseFixture.name;
  *
  * @author mford
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"/test-context.xml","/application-context.xml"})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class JpaIT {
-
-    @Inject
-    private EntityManagerFactory emf;
-    private EntityManager em;
-
-    @Before
-    public void setUp() throws Exception {
-        this.em = emf.createEntityManager();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        this.em.close();
-    }
+public class JpaIT extends JpaSpringFixture {
 
     @Test
     public void plateTemplate() throws Exception {
@@ -57,7 +31,7 @@ public class JpaIT {
         PlateType type = makePlateType(10, 16);
 
         PlateMap pt = new PlateMap()
-                .withName("Template 1")
+                .withName(name("Map"))
                 .withDescription("My Description")
                 .withPlateType(type)
                 ;
@@ -74,7 +48,7 @@ public class JpaIT {
         beginTx();
 
         PlateMap pt = new PlateMap()
-                .withName("Template 1")
+                .withName(name("Map"))
                 .withDescription("My Description")
                 ;
 
@@ -92,7 +66,7 @@ public class JpaIT {
         PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
 
         PlateMap pm = new PlateMap()
-                .withName("Template 1")
+                .withName(name("Map"))
                 .withDescription("My Description")
                 .withPlateType(type)
                 ;
@@ -115,7 +89,7 @@ public class JpaIT {
         PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
 
         PlateMap pt = new PlateMap()
-                .withName("Template 1")
+                .withName(name("Map"))
                 .withDescription("My Description")
                 .withPlateType(type)
                 .withWells(new WellMap(100, 200)
@@ -132,7 +106,8 @@ public class JpaIT {
     public void compound() throws Exception {
         beginTx();
 
-        Compound compound = new Compound().withName("C1234");
+        Compound compound = new Compound()
+                .withName(name("Compound"));
 
         em.persist(compound);
 
@@ -142,7 +117,7 @@ public class JpaIT {
     @Test(expected = PersistenceException.class)
     public void compound_dupe() throws Exception {
         beginTx();
-        String compoundName = "C1234";
+        String compoundName = name("C1234");
         Compound compound = new Compound().withName(compoundName);
         em.persist(compound);
         commitTx();
@@ -159,16 +134,20 @@ public class JpaIT {
         int ROW_COUNT = 3;
         int COL_COUNT = 4;
 
+        Experiment xp = new Experiment(name("Exp"));
+
         PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
 
         Plate plate = new Plate()
-                .withName("Plate 1")
+                .withName(name("Plate"))
                 .withDescription("My Description")
                 .withPlateType(type)
+                .withExperiment(xp)
                 .withBarcode("1234");
 
         plate.withWells(makeWells(ROW_COUNT, COL_COUNT));
 
+        em.persist(xp);
         em.persist(type);
         em.persist(plate);
 
@@ -177,13 +156,6 @@ public class JpaIT {
     }
 
 
-    private void commitTx() {
-        em.getTransaction().commit();
-    }
-
-    private void beginTx() {
-        em.getTransaction().begin();
-    }
 
     private WellMap[] makeWellMaps(int rowCount, int colCount) {
         Set<WellMap> wells = new HashSet<>();
@@ -199,29 +171,6 @@ public class JpaIT {
         Assert.assertEquals(rowCount * colCount, wells.size());
 
         return wells.toArray(new WellMap[wells.size()]);
-    }
-
-    private Well[] makeWells(int rowCount, int colCount) {
-        Set<Well> wells = new HashSet<>();
-
-        for(int row=0; row< rowCount; row++) {
-            for(int col=0; col< colCount; col++) {
-                wells.add(
-                        new Well(row, col)
-                                .withType(WellType.EMPTY)
-                );
-            }
-        }
-        Assert.assertEquals(rowCount * colCount, wells.size());
-
-        return wells.toArray(new Well[wells.size()]);
-    }
-
-    private PlateType makePlateType(int ROW_COUNT, int COL_COUNT) {
-        return new PlateType()
-                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
-                .withName(name("plateType"))
-                .withManufacturer("Foo Company");
     }
 
 }

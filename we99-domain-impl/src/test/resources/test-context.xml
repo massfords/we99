@@ -10,6 +10,7 @@
     <jdbc:embedded-database id="dataSource" type="H2">
         <jdbc:script location="classpath:/drop-all-h2.sql"/>
         <jdbc:script location="classpath:/we99.ddl"/>
+        <jdbc:script location="classpath:/populate-users.sql"/>
     </jdbc:embedded-database>
 
     <bean id="binder" class="edu.harvard.we99.util.ContextBinder">
