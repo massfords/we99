@@ -7,6 +7,7 @@ import edu.harvard.we99.services.ExperimentService;
 import edu.harvard.we99.services.PlateService;
 import edu.harvard.we99.services.PlateTypeService;
 import edu.harvard.we99.services.ResultService;
+import edu.harvard.we99.test.EastCoastTimezoneRule;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -37,6 +38,8 @@ public class ResultServiceImplIT extends JpaSpringFixture {
     @Inject
     private PlateTypeService plateTypeService;
 
+    @Rule
+    public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     @Rule
     public AuthenticatedUserRule authenticatedUserRule =

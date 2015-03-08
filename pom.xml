@@ -10,6 +10,7 @@
     <version>0.1-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.version>4.1.4.RELEASE</spring.version>
         <spring.security>3.2.5.RELEASE</spring.security>
         <h2.version>1.4.185</h2.version>
