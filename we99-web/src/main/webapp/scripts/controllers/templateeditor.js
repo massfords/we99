@@ -9,9 +9,6 @@
  */
 angular.module('we99App')
   .controller('TemplateEditorCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    $scope.title = "Select a Plate Template";
+
   });
