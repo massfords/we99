@@ -106,7 +106,7 @@
                     </filesets>
                 </configuration>
             </plugin>
-            <plugin>
+<!--             <plugin>
                 <groupId>com.github.trecloux</groupId>
                 <artifactId>yeoman-maven-plugin</artifactId>
                 <version>0.4</version>
@@ -117,7 +117,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -129,7 +129,7 @@
                         </resource>
                     </webResources>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
