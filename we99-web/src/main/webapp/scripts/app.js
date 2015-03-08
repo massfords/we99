@@ -28,15 +28,15 @@ angular
         controller: 'AboutCtrl'
       })
       .when('/plateEditor', {
-        templateUrl: 'views/plateeditor.html',
+        templateUrl: 'views/plate-mgmt/plateeditor.html',
         controller: 'PlateEditorCtrl'
       })
       .when('/templateEditor', {
-        templateUrl: 'views/templateeditor.html',
+        templateUrl: 'views/plate-mgmt/templateeditor.html',
         controller: 'TemplateEditorCtrl'
       })
       .when('/heatmap', {
-        templateUrl: 'views/heatmap.html',
+        templateUrl: 'views/plate-analysis/heatmap.html',
         controller: 'HeatmapCtrl'
       })
       .otherwise({
