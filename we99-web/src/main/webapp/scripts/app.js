@@ -33,7 +33,7 @@ angular
       })
       .when('/plate-type-editor', {
         templateUrl: 'views/plate-mgmt/platetypeeditor.html',
-        controller: 'TemplateEditorCtrl'
+        controller: 'PlateTypeEditorCtrl'
       })
       .when('/heatmap', {
         templateUrl: 'views/plate-analysis/heatmap.html',
