@@ -6,12 +6,14 @@ import edu.harvard.we99.domain.results.StatusChange;
 import edu.harvard.we99.services.io.PlateResultCSVReader;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
+import org.apache.commons.io.IOUtils;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.StringReader;
 
 /**
  * @author mford
@@ -50,9 +52,17 @@ public class ResultServiceImpl implements ResultService {
         Plate plate = plateStorage.get(plateId);
         throwIfMissing(plate);
 
-        PlateResultCSVReader reader = new PlateResultCSVReader() ;
-        PlateResult pr = reader.read(new BufferedReader(new InputStreamReader(csv)));
+        String source;
+        try {
+            source = IOUtils.toString(csv);
+        } catch (IOException e) {
+            throw new WebApplicationException(Response.serverError().build());
+        }
+
+        PlateResultCSVReader reader = new PlateResultCSVReader();
+        PlateResult pr = reader.read(new BufferedReader(new StringReader(source)));
         pr.setPlate(plate);
+        pr.setSource(source);
         storage.create(pr);
         return pr;
     }
