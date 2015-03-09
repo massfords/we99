@@ -1,8 +1,9 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.lists.PlateResultEntries;
+import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.domain.results.PlateResult;
-import edu.harvard.we99.domain.results.PlateResultEntry;
 import edu.harvard.we99.domain.results.StatusChange;
 import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.io.PlateResultCSVReader;
@@ -16,7 +17,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.util.List;
 
 /**
  * @author mford
@@ -50,15 +50,15 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public List<PlateResult> listByPlate(Long experimentId, Long plateId) {
+    public PlateResults listByPlate(Long experimentId, Long plateId) {
         ucp.assertCallerIsMember(experimentId);
-        return storage.listAllByPlate(experimentId, plateId);
+        return new PlateResults(storage.listAllByPlate(experimentId, plateId));
     }
 
     @Override
-    public List<PlateResultEntry> listByExperiment(Long experimentId) {
+    public PlateResultEntries listByExperiment(Long experimentId) {
         ucp.assertCallerIsMember(experimentId);
-        return storage.listAllByExperiment(experimentId);
+        return new PlateResultEntries(storage.listAllByExperiment(experimentId));
     }
 
     @Override

@@ -5,6 +5,7 @@ import edu.harvard.we99.domain.ImportedPlateMap;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.domain.lists.PlateMaps;
 import edu.harvard.we99.services.io.PlateMapCSVReader;
 import edu.harvard.we99.services.storage.PlateMapStorage;
 import edu.harvard.we99.services.storage.PlateTypeStorage;
@@ -56,8 +57,8 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
     }
 
     @Override
-    public List<PlateMap> listAll() {
-        return plateMapStorage().listAll();
+    public PlateMaps listAll() {
+        return new PlateMaps(plateMapStorage().listAll());
     }
 
     private PlateMapStorage plateMapStorage() {

@@ -23,7 +23,7 @@ import static edu.harvard.we99.test.BaseFixture.name;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/services-context.xml", "/test-context.xml", "/application-context.xml"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-public class JpaSpringFixture {
+public abstract class JpaSpringFixture {
     @Inject
     private EntityManagerFactory emf;
     @Inject

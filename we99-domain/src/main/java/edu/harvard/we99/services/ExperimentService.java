@@ -3,7 +3,8 @@ package edu.harvard.we99.services;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Experiment;
-import edu.harvard.we99.security.User;
+import edu.harvard.we99.domain.lists.Experiments;
+import edu.harvard.we99.domain.lists.Users;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
@@ -86,7 +87,7 @@ public interface ExperimentService {
     @GET
     @ApiOperation(value = "Gets an existing Experiment or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
-    List<Experiment> listExperiments();
+    Experiments listExperiments();
 
     /**
      * Lists the members in the experiment
@@ -98,7 +99,7 @@ public interface ExperimentService {
     @ApiOperation(value = "Lists the members of the experiment")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
-    public List<User> listMembers(@PathParam("id") Long id);
+    public Users listMembers(@PathParam("id") Long id);
 
     /**
      * Adds the members to the experiment

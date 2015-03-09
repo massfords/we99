@@ -1,6 +1,7 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Compound;
+import edu.harvard.we99.domain.lists.Compounds;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.After;
@@ -11,7 +12,6 @@ import org.junit.Test;
 import javax.ws.rs.core.Response;
 import java.net.URL;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
@@ -74,7 +74,7 @@ public class CompoundServiceST {
             Compound created = compoundService.create(new Compound(name("comp-A-")));
             deleteMe.add(created.getId());
         }
-        List<Compound> list = compoundService.listAll();
+        Compounds list = compoundService.listAll();
         assertEquals(10, list.size());
         assertJsonEquals(load("/CompoundServiceST/list.json"), toJsonString(list),
                 Scrubbers.uuid.andThen(Scrubbers.pkey));

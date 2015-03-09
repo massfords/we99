@@ -1,12 +1,12 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * @author mford
@@ -50,8 +50,8 @@ public class PlateServiceImpl implements PlateService {
     }
 
     @Override
-    public List<Plate> list(Long experimentId) {
+    public Plates list(Long experimentId) {
         ucp.assertCallerIsMember(experimentId);
-        return storage.listAll(experimentId);
+        return new Plates(storage.listAll(experimentId));
     }
 }

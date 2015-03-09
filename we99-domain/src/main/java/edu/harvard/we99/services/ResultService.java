@@ -2,8 +2,9 @@ package edu.harvard.we99.services;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import edu.harvard.we99.domain.lists.PlateResultEntries;
+import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.domain.results.PlateResult;
-import edu.harvard.we99.domain.results.PlateResultEntry;
 import edu.harvard.we99.domain.results.StatusChange;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +18,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * REST Service for loading results from a CSV plus performing QA on the samples
@@ -59,7 +59,7 @@ public interface ResultService {
     @Consumes(MediaType.WILDCARD)
     @ApiOperation(value = "Gets all of the results for the given plate")
     @PreAuthorize("hasRole('PERM_READ_RESULTS')")
-    List<PlateResult> listByPlate(
+    PlateResults listByPlate(
                     @PathParam("expId") Long experimentId,
                     @PathParam("plateId") Long plateId);
 
@@ -67,7 +67,7 @@ public interface ResultService {
     @Consumes(MediaType.WILDCARD)
     @ApiOperation(value = "Gets all of the results for the given experiment")
     @PreAuthorize("hasRole('PERM_READ_RESULTS')")
-    List<PlateResultEntry> listByExperiment(
+    PlateResultEntries listByExperiment(
             @PathParam("expId") Long experimentId);
 
     /**

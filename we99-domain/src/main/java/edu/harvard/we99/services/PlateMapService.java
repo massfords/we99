@@ -4,6 +4,7 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.ImportedPlateMap;
 import edu.harvard.we99.domain.PlateMap;
+import edu.harvard.we99.domain.lists.PlateMaps;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -18,7 +19,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * REST Service for performing basic CRUD operations on a {@link edu.harvard.we99.domain.PlateMap}
@@ -102,6 +102,6 @@ public interface PlateMapService {
     @GET
     @ApiOperation(value = "Lists all existing map or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
-    List<PlateMap> listAll();
+    PlateMaps listAll();
 
 }

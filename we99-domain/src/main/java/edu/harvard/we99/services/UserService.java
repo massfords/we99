@@ -2,6 +2,7 @@ package edu.harvard.we99.services;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.User;
 
 import javax.ws.rs.Consumes;
@@ -12,7 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 /**
  * Service for interacting with User entities.
@@ -51,7 +51,7 @@ public interface UserService {
      */
     @GET
     @ApiOperation(value = "Lists all of the users in the system")
-    List<User> list();
+    Users list();
 
     /**
      * Returns the users that match against the given expression. We'll search across
@@ -62,6 +62,6 @@ public interface UserService {
     @Path("/find")
     @GET
     @ApiOperation(value = "Returns the users that match against the given expression")
-    List<User> find(@QueryParam("q")String query);
+    Users find(@QueryParam("q")String query);
 
 }

@@ -1,10 +1,10 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.domain.lists.PlateTypes;
 import edu.harvard.we99.services.storage.PlateTypeStorage;
 
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * Implementation of the PlateTypeService
@@ -24,7 +24,7 @@ public class PlateTypeServiceImpl extends BaseRESTServiceImpl<PlateType> impleme
     }
 
     @Override
-    public List<PlateType> listAll() {
-        return ((PlateTypeStorage)storage).listAll();
+    public PlateTypes listAll() {
+        return new PlateTypes(((PlateTypeStorage)storage).listAll());
     }
 }

@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Protocol;
+import edu.harvard.we99.domain.lists.Protocols;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
@@ -15,7 +16,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * REST Service for performing basic CRUD operations on a Protocol
@@ -79,6 +79,6 @@ public interface ProtocolService {
     @GET
     @ApiOperation(value = "Lists all existing protocol or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
-    List<Protocol> listAll();
+    Protocols listAll();
 
 }

@@ -1,10 +1,10 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Compound;
+import edu.harvard.we99.domain.lists.Compounds;
 import edu.harvard.we99.services.storage.CompoundStorage;
 
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * Handles the basic CRUD operations for Compounds
@@ -24,7 +24,7 @@ public class CompoundServiceImpl extends BaseRESTServiceImpl<Compound>  implemen
     }
 
     @Override
-    public List<Compound> listAll() {
-        return ((CompoundStorage)storage).listAll();
+    public Compounds listAll() {
+        return new Compounds(((CompoundStorage)storage).listAll());
     }
 }

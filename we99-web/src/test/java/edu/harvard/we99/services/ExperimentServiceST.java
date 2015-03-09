@@ -1,6 +1,7 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.AfterClass;
@@ -10,7 +11,6 @@ import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 import java.net.URL;
-import java.util.List;
 
 import static edu.harvard.we99.test.BaseFixture.assertOk;
 import static edu.harvard.we99.test.BaseFixture.name;
@@ -32,7 +32,7 @@ public class ExperimentServiceST {
         ClientFactory cf = new ClientFactory(url, WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW);
 
         es = cf.create(ExperimentService.class);
-        user = cf.create(UserService.class).find("we99.2015@example").get(0);
+        user = cf.create(UserService.class).find("we99.2015@example").getValues().get(0);
     }
 
     @AfterClass
@@ -51,8 +51,8 @@ public class ExperimentServiceST {
         Response response = es.addMember(xp.getId(), user.getId());
         assertOk(response);
 
-        List<User> members = es.listMembers(xp.getId());
-        assertThat(members).extracting("email").containsExactly("we99.2015@example", "we99.2015@gmail.com");
+        Users members = es.listMembers(xp.getId());
+        assertThat(members.getValues()).extracting("email").containsExactly("we99.2015@example", "we99.2015@gmail.com");
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ExperimentServiceST {
         response = es.removeMember(xp.getId(), user.getId());
         assertOk(response);
 
-        List<User> members = es.listMembers(xp.getId());
-        assertThat(members).extracting("email").containsExactly("we99.2015@gmail.com");
+        Users members = es.listMembers(xp.getId());
+        assertThat(members.getValues()).extracting("email").containsExactly("we99.2015@gmail.com");
     }
 }

@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.lists.Plates;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
@@ -15,7 +16,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * REST Service for performing basic CRUD operations on a Plate
@@ -88,5 +88,5 @@ public interface PlateService {
     @GET
     @ApiOperation(value = "Gets an existing plate or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
-    List<Plate> list(@PathParam("expId") Long experimentId);
+    Plates list(@PathParam("expId") Long experimentId);
 }

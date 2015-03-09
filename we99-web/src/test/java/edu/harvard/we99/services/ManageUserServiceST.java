@@ -1,5 +1,6 @@
 package edu.harvard.we99.services;
 
+import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.ManageUserService;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
@@ -8,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URL;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -55,9 +55,9 @@ public class ManageUserServiceST {
     }
 
     private User findGuestUser() {
-        List<User> found = us.find("Guest User");
+        Users found = us.find("Guest User");
         assertEquals(1, found.size());
-        return found.get(0);
+        return found.getValues().get(0);
     }
 
 }

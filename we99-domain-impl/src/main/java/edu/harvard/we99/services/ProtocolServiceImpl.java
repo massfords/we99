@@ -1,10 +1,10 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Protocol;
+import edu.harvard.we99.domain.lists.Protocols;
 import edu.harvard.we99.services.storage.ProtocolStorage;
 
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * @author mford
@@ -21,8 +21,8 @@ public class ProtocolServiceImpl extends BaseRESTServiceImpl<Protocol>  implemen
     }
 
     @Override
-    public List<Protocol> listAll() {
+    public Protocols listAll() {
         ProtocolStorage ps = (ProtocolStorage) storage;
-        return ps.listAll();
+        return new Protocols(ps.listAll());
     }
 }
