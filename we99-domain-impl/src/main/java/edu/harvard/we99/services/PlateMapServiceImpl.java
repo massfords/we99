@@ -6,7 +6,7 @@ import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.services.io.PlateMapCSVReader;
-import edu.harvard.we99.services.storage.CRUDStorage;
+import edu.harvard.we99.services.storage.PlateMapStorage;
 import edu.harvard.we99.services.storage.PlateTypeStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
 
     private final PlateTypeStorage pts;
 
-    public PlateMapServiceImpl(CRUDStorage<PlateMap> storage, PlateTypeStorage pts) {
+    public PlateMapServiceImpl(PlateMapStorage storage, PlateTypeStorage pts) {
         super(storage);
         this.pts = pts;
     }
@@ -53,6 +53,15 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
             log.error("error parsing csv", e);
             throw new WebApplicationException(Response.status(409).build());
         }
+    }
+
+    @Override
+    public List<PlateMap> listAll() {
+        return plateMapStorage().listAll();
+    }
+
+    private PlateMapStorage plateMapStorage() {
+        return (PlateMapStorage) storage;
     }
 
     /**

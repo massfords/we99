@@ -3,12 +3,15 @@ package edu.harvard.we99.services.storage;
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.WellMap;
 
+import javax.persistence.TypedQuery;
+import java.util.List;
+
 /**
  * Implementation of the PlanTemplateStorage
  *
  * @author mford
  */
-public class PlateMapStorageImpl extends CRUDStorageImpl<PlateMap> implements CRUDStorage<PlateMap> {
+public class PlateMapStorageImpl extends CRUDStorageImpl<PlateMap> implements PlateMapStorage {
 
     public PlateMapStorageImpl() {
         super(PlateMap.class);
@@ -29,5 +32,11 @@ public class PlateMapStorageImpl extends CRUDStorageImpl<PlateMap> implements CR
                 em.merge(well);
             }
         }
+    }
+
+    @Override
+    public List<PlateMap> listAll() {
+        TypedQuery<PlateMap> query = em.createQuery("select pm from PlateMap pm", PlateMap.class);
+        return query.getResultList();
     }
 }

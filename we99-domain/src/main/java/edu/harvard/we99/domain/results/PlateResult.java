@@ -22,6 +22,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
@@ -86,6 +87,11 @@ public class PlateResult extends BaseEntity {
     @Column(updatable = false)
     @NotNull
     private String source;
+
+    @PrePersist
+    private void prePersist() {
+        this.created = new DateTime();
+    }
 
     @PreUpdate
     private void preUpdate() {

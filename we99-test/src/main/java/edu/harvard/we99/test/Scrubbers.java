@@ -21,4 +21,12 @@ public class Scrubbers {
      * removes all fields named "id" and their value.
      */
     public static Function<String,String> pkey = s -> s.replaceAll("\"id\": *[0-9]+,", "");
+
+
+    /**
+     * removes all datetime values
+     */
+    public static Function<String,String> iso8601 = s -> s.replaceAll(
+            "[0-9]{4}-[0-2][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]\\.[0-9]{3}-[0-9]{2}:[0-5][0-9]", "iso8601");
+
 }

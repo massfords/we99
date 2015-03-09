@@ -2,7 +2,9 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.results.PlateResult;
+import edu.harvard.we99.domain.results.PlateResultEntry;
 import edu.harvard.we99.domain.results.StatusChange;
+import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.io.PlateResultCSVReader;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
@@ -14,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.util.List;
 
 /**
  * @author mford
@@ -22,15 +25,19 @@ public class ResultServiceImpl implements ResultService {
 
     private final ResultStorage storage;
     private final PlateStorage plateStorage;
+    private final UserContextProvider ucp;
 
-    public ResultServiceImpl(ResultStorage storage,
+    public ResultServiceImpl(UserContextProvider ucp,
+                             ResultStorage storage,
                              PlateStorage plateStorage) {
+        this.ucp = ucp;
         this.storage = storage;
         this.plateStorage = plateStorage;
     }
 
     @Override
     public PlateResult get(Long experimentId, Long plateId, Long id) {
+        ucp.assertCallerIsMember(experimentId);
         PlateResult plateResult = storage.get(id);
         // verify that the plateid and experiment id are what we expect
         if (!plateResult.getPlate().getId().equals(plateId)) {
@@ -43,7 +50,20 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
+    public List<PlateResult> listByPlate(Long experimentId, Long plateId) {
+        ucp.assertCallerIsMember(experimentId);
+        return storage.listAllByPlate(experimentId, plateId);
+    }
+
+    @Override
+    public List<PlateResultEntry> listByExperiment(Long experimentId) {
+        ucp.assertCallerIsMember(experimentId);
+        return storage.listAllByExperiment(experimentId);
+    }
+
+    @Override
     public PlateResult uploadResults(Long experimentId, Long plateId, InputStream csv) {
+        ucp.assertCallerIsMember(experimentId);
         // get the plate w/ the given id
         // read the csv into a PlateResult
         // assign the Plate / Experiment to the PlateResult
@@ -70,7 +90,7 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public Response updateStatus(Long experimentId, Long plateId, Long resultId,
                                  StatusChange statusChange) {
-        // todo check that the resultId belongs to this experiment and that the caller has access
+        ucp.assertCallerIsMember(experimentId);
         storage.updateStatus(resultId, statusChange.getCoordinate(), statusChange.getStatus());
         return Response.ok().build();
     }

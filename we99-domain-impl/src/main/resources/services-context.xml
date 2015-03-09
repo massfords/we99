@@ -81,6 +81,7 @@
     <bean id="math" class="edu.harvard.we99.services.MathServiceImpl"/>
 
     <bean id="results" class="edu.harvard.we99.services.ResultServiceImpl">
+        <constructor-arg ref="userProvider"/>
         <constructor-arg ref="resultStorage"/>
         <constructor-arg ref="plateStorage"/>
     </bean>

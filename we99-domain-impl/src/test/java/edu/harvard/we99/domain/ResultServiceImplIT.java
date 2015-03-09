@@ -8,6 +8,7 @@ import edu.harvard.we99.services.PlateService;
 import edu.harvard.we99.services.PlateTypeService;
 import edu.harvard.we99.services.ResultService;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
+import edu.harvard.we99.test.Scrubbers;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -64,7 +65,8 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 stream("/ResultServiceImplIT/results-single.csv"));
 
         // assert the results
-        assertJsonEquals(load("/ResultServiceImplIT/all-results.json"), toJsonString(plateResult));
+        assertJsonEquals(load("/ResultServiceImplIT/all-results.json"),
+                toJsonString(plateResult), Scrubbers.iso8601);
 
         // drop a well
         Response resp = resultService.updateStatus(exp.getId(), plate.getId(), plateResult.getId(),
@@ -76,7 +78,8 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 exp.getId(),
                 plate.getId(),
                 plateResult.getId());
-        assertJsonEquals(load("/ResultServiceImplIT/one-removed.json"), toJsonString(oneWellRemoved));
+        assertJsonEquals(load("/ResultServiceImplIT/one-removed.json"),
+                toJsonString(oneWellRemoved), Scrubbers.iso8601);
 
         // restore a well
         resp = resultService.updateStatus(exp.getId(), plate.getId(),plateResult.getId(),
@@ -88,7 +91,8 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 exp.getId(),
                 plate.getId(),
                 plateResult.getId());
-        assertJsonEquals(load("/ResultServiceImplIT/all-results.json"), toJsonString(allWellsBack));
+        assertJsonEquals(load("/ResultServiceImplIT/all-results.json"),
+                toJsonString(allWellsBack), Scrubbers.iso8601);
     }
 
     private void assertOk(Response resp) {

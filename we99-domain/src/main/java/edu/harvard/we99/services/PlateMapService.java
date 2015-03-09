@@ -18,6 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * REST Service for performing basic CRUD operations on a {@link edu.harvard.we99.domain.PlateMap}
@@ -92,4 +93,15 @@ public interface PlateMapService {
     @ApiOperation(value = "Processes the uploaded CSV and returns a PlateMap")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     ImportedPlateMap prototype(@Multipart("file") InputStream csv);
+
+    /**
+     * Lists all existing {@link edu.harvard.we99.domain.PlateMap}
+     * @return
+     * @statuscode 404 If there is no PlateMap with this id
+     */
+    @GET
+    @ApiOperation(value = "Lists all existing map or throws an exception with 404")
+    @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
+    List<PlateMap> listAll();
+
 }

@@ -15,6 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * REST Service for performing basic CRUD operations on a Protocol
@@ -70,4 +71,14 @@ public interface ProtocolService {
     @ApiOperation(value = "Deletes an existing protocol or throws an exception with a 404 if not found")
     @PreAuthorize("hasRole('PERM_MODIFY_PROTOCOLS')")
     Response delete(@PathParam("id") Long id);
+
+    /**
+     * Lists all existing protocol
+     * @return
+     */
+    @GET
+    @ApiOperation(value = "Lists all existing protocol or throws an exception with 404")
+    @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
+    List<Protocol> listAll();
+
 }

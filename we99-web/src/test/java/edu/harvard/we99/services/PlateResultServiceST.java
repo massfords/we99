@@ -4,6 +4,8 @@ import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.domain.results.PlateResult;
+import edu.harvard.we99.domain.results.PlateResultEntry;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
@@ -12,6 +14,7 @@ import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,6 +31,7 @@ import static edu.harvard.we99.test.BaseFixture.array;
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.test.BaseFixture.name;
+import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -38,6 +42,7 @@ public class PlateResultServiceST {
 
     private static ExperimentService experimentService;
     private static PlateService plateService;
+    private static ResultService resultService;
     private static PlateType plateType;
 
     @Rule
@@ -65,10 +70,13 @@ public class PlateResultServiceST {
         );
         plateService = cf.create(PlateService.class);
         experimentService = cf.create(ExperimentService.class);
+        resultService = cf.create(ResultService.class);
     }
 
     private final String input;
     private final String expected;
+    private Experiment experiment;
+    private Plate plate;
 
 
     public PlateResultServiceST(String input, String expected) {
@@ -76,15 +84,41 @@ public class PlateResultServiceST {
         this.expected = expected;
     }
 
-    @Test
-    public void results() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         // create an experiment
-        Experiment experiment = experimentService.create(new Experiment(name("experiment")));
+        experiment = experimentService.create(new Experiment(name("experiment")));
 
         // create a plate
-        Plate plate = plateService.create(experiment.getId(), new Plate(name("plate"), plateType));
+        plate = plateService.create(experiment.getId(), new Plate(name("plate"), plateType));
+    }
 
-        String path = String.format("/experiment/%d/plate/%d/results", experiment.getId(), plate.getId());
+    @Test
+    public void results() throws Exception {
+        Response response = postResults();
+        InputStream is = (InputStream) response.getEntity();
+        assertJsonEquals(load(expected), IOUtils.toString(is),
+                Scrubbers.uuid.andThen(Scrubbers.pkey).andThen(Scrubbers.iso8601));
+    }
+
+    @Test
+    public void listByPlate() throws Exception {
+        postResults();
+        List<PlateResult> plateResults = resultService.listByPlate(experiment.getId(), plate.getId());
+        assertJsonEquals(load("/PlateResultServiceST/listByPlate.json"), toJsonString(plateResults),
+                Scrubbers.iso8601.andThen(Scrubbers.uuid));
+    }
+
+    @Test
+    public void listByExperiment() throws Exception {
+        postResults();
+        List<PlateResultEntry> plateResults = resultService.listByExperiment(experiment.getId());
+        assertJsonEquals(load("/PlateResultServiceST/listByExperiment.json"), toJsonString(plateResults),
+                Scrubbers.iso8601.andThen(Scrubbers.uuid));
+    }
+
+    private Response postResults() {
+        String path = String.format("/experiment/%d/results/%d", experiment.getId(), plate.getId());
         WebClient client = WebClient.create(WebAppIT.WE99_URL + path,
                 WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW, null);
         client.type("multipart/form-data");
@@ -92,11 +126,8 @@ public class PlateResultServiceST {
         Attachment att = new Attachment("file", getClass().getResourceAsStream(input), cd);
         Response response = client.post(new MultipartBody(att));
         assertEquals(200, response.getStatus());
-
-        InputStream is = (InputStream) response.getEntity();
-        assertJsonEquals(load(expected), IOUtils.toString(is), Scrubbers.uuid.andThen(Scrubbers.pkey));
+        return response;
     }
-
 
 
 }
