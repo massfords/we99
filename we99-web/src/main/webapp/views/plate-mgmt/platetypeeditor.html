@@ -1,14 +1,14 @@
-<div class="select-template" ng-switch-when="select-template" ng-controller="PlateTypeEditorCtrl">
+<div class="select-template" ng-controller="PlateTypeEditorCtrl">
   <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
     <thead>
       <tr>
         <th colspan="5"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
       </tr>
       <tr>
-        <th st-sort="firstName">first name</th>
-        <th st-sort="lastName">last name</th>
-        <th st-sort="birthDate">birth date</th>
-        <th st-sort="balance">balance</th>
+        <th st-sort="name">Name</th>
+        <th st-sort="createdBy">Created By</th>
+        <th st-sort="size">Size</th>
+        <th st-sort="selected">Select</th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
       <td>{{row.birthDate}}</td>
       <td>{{row.balance}}</td>
       <td>
-        <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
+        <button type="button" class="btn btn-sm btn-danger" ng-click="removeItem(row)">
           <i class="glyphicon glyphicon-remove-circle">
           </i>
         </button>
@@ -26,7 +26,20 @@
     </tr>
     </tbody>
   </table>
-  <button type="button" ng-click="addRandomItem(row)" class="btn btn-sm btn-success">
-    <i class="glyphicon glyphicon-plus"></i> Add random item
-  </button>
+  <div class="btn-group" dropdown is-open="showAddTypeOptions">
+    <button type="button" class="btn btn-small btn-success dropdown-toggle"
+            dropdown-toggle="true">
+      <i class="glyphicon glyphicon-plus">
+        Add<span class="caret"></span>
+      </i>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li ng-repeat="option in getPlateTypeOptions()">
+        <a ng-click="showAddPlateTypeWizard(option)">{{option.name}}</a>
+      </li>
+      <hr>
+      <li><a ng-click="showAddPlateTypeWizard()">Custom</a></li>
+      <li><a ng-click="showAddPlateTypeWizard({name:'from file', fromFile:true})">From File</a></li>
+    </ul>
+  </div>
 </div>

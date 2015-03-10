@@ -40,8 +40,8 @@
 
             <ul class="nav navbar-nav">
               <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/templateEditor">Template Editor</a></li>
-              <li><a ng-href="#/plateEditor">Plate Editor</a></li>
+              <li><a ng-href="#/plate-type-editor">Plate Type Editor</a></li>
+              <li><a ng-href="#/plate-editor">Plate Editor</a></li>
               <li><a ng-href="#/heatmap">Heatmap</a></li>
               <li><a ng-href="#/about">About</a></li>
               <li><a ng-href="#/">Contact</a></li>
@@ -55,6 +55,7 @@
     <div ng-view=""></div>
     </div>
 
+    <br>
     <div class="footer">
       <div class="container">
         <p><span class="glyphicon glyphicon-heart"></span> from the West-East team</p>
@@ -85,6 +86,8 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -95,6 +98,7 @@
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/plateeditor.js"></script>
         <script src="scripts/controllers/platetypeeditor.js"></script>
+        <script src="scripts/controllers/addplatetype.js"></script>
         <script src="scripts/controllers/heatmap.js"></script>
         <script src="scripts/services/restservice.js"></script>
         <!-- endbuild -->
