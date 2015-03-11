@@ -10,7 +10,11 @@
 var app = angular.module('we99App');
 app.factory('RestService', ['$resource','RestURLs', function ($resource, RestURLs) {
     return {
-        plateType: $resource(RestURLs.plateType),
-        experiment: $resource(RestURLs.experiment)
-    }
+        plateType: $resource(RestURLs.plateType,{}, {
+            query: {method: "GET", isArray: false},
+            put: {method: "PUT", isArray: false}
+        }),
+        experiment: $resource(RestURLs.experiment,{},{})
+    };
 }]);
+
