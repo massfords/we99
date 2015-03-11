@@ -1,22 +1,22 @@
 'use strict';
 
-describe('Controller: PlatetypeeditorCtrl', function () {
+describe('Controller: PlateTypeEditorCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('mainApp'));
+  beforeEach(module('we99App'));
 
-  var PlatetypeeditorCtrl,
+  var PlateTypeEditorCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    PlatetypeeditorCtrl = $controller('PlatetypeeditorCtrl', {
+    PlateTypeEditorCtrl = $controller('PlateTypeEditorCtrl', {
       $scope: scope
     });
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+    expect(scope.getPlateTypeOptions().length).toBeGreaterThan(2);
   });
 });

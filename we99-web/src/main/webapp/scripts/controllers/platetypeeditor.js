@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name we99App.controller:TemplateeditorCtrl
+ * @name we99App.controller:PlateTypeEditorCtrl
  * @description
- * # TemplateeditorCtrl
+ * # PlateTypeEditorCtrl
  * Controller of the we99App
  */
 angular.module('we99App')

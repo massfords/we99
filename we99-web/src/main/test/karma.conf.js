@@ -33,7 +33,7 @@ module.exports = function(config) {
       'webapp/bower_components/angular-mocks/angular-mocks.js',
       'webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       // endbower
-      'app/scripts/**/*.js',
+      'webapp/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],

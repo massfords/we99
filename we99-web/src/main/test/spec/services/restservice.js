@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Service: restService', function () {
+describe('Service: RestService', function () {
 
   // load the service's module
   beforeEach(module('we99App'));
 
   // instantiate service
   var restService;
-  beforeEach(inject(function (_restService_) {
-    restService = _restService_;
+  beforeEach(inject(function (_RestService_) {
+    restService = _RestService_;
   }));
 
   it('should do something', function () {

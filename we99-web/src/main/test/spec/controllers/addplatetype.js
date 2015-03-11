@@ -1,22 +1,22 @@
 'use strict';
 
-describe('Controller: TemplateeditorCtrl', function () {
+describe('Controller: AddPlateTypeCtrl', function () {
 
   // load the controller's module
   beforeEach(module('we99App'));
 
-  var TemplateeditorCtrl,
+  var AddPlateTypeCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    TemplateeditorCtrl = $controller('TemplateeditorCtrl', {
+    AddPlateTypeCtrl = $controller('AddPlateTypeCtrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
-  });
+  //it('should attach a list of awesomeThings to the scope', function () {
+  //  expect(scope.awesomeThings.length).toBe(3);
+  //});
 });
