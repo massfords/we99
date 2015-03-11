@@ -1,28 +1,32 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WE-99 Create Account</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.css" />
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 <body>
-<form method="POST" name="loginform" action="../services/rest/createAccount">
-    <table style="vertical-align: middle;">
-        <tr>
-            <td>First Name:</td>
-            <td><input type="text" name="firstName" /></td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td><input type="text" name="lastName" /></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" name="email" /></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Create Account" /></td>
-        </tr>
-    </table>
+<h2>WE-99 Create Account</h2>
+<div class="container" style="width: 400px; float: left;">
+<form method="POST" name="loginform" action="../services/rest/createAccount" role="form" >
+        <div class="form-group" style="padding-top: 5px">
+            <label class="col-sm-4" for="firstName">First Name:</label>
+            <input class="col-sm-8" type="text" id="firstName" placeholder="Enter first name" />
+        </div>
+        <div  class="form-group" style="padding-top: 5px">
+            <label class="col-sm-4" for="lastName">Last Name:</label>
+            <input class="col-sm-8" type="text" id="lastName" placeholder="Enter last name" />
+        </div>
+        <div  class="form-group" style="padding-top: 5px">
+            <label class="col-sm-4" for="email">Email:</label>
+            <input class="col-sm-8" type="text" id="email" placeholder="Enter email" />
+        </div>
+            <button class="btn btn-primary" type="submit" >Create Account</button>
 </form>
-<hr>
+</div>
 </body>
 </html>
