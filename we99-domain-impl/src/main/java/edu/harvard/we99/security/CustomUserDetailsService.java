@@ -1,5 +1,7 @@
 package edu.harvard.we99.security;
 
+import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,12 +31,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            TypedQuery<User> query = em.createQuery(
-                    "select u from User as u where u.email = :email", User.class);
+            TypedQuery<UserEntity> query = em.createQuery(
+                    "select u from UserEntity as u where u.email = :email", UserEntity.class);
             query.setParameter("email", username);
-            User domainUser = query.getSingleResult();
+            UserEntity u = query.getSingleResult();
 
-            SaltyUser user = new SaltyUser(domainUser);
+            SaltyUser user = new SaltyUser(u);
             return user;
         } catch (Exception e) {
             log.error("error resolving user with username {}", username);

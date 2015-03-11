@@ -1,5 +1,21 @@
 {
-  "created": "2015-03-09T10:25:38.395-04:00",
+  "plate": {
+    "name": "plateuuid",
+    "plateType": {
+      "name": "ptuuid",
+      "dim": {
+        "rows": 10,
+        "cols": 10
+      },
+      "manufacturer": "Foo Inc."
+    },
+    "experiment": {
+      "name": "experimentuuid",
+      "created": "iso8601"
+    },
+    "wells": []
+  },
+  "created": "iso8601",
   "wellResults": [
     {
       "coordinate": {
@@ -11,7 +27,7 @@
         {
           "value": 0.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -26,7 +42,7 @@
         {
           "value": 11.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -41,7 +57,7 @@
         {
           "value": 1.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -56,7 +72,7 @@
         {
           "value": 12.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -71,7 +87,7 @@
         {
           "value": 2.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -86,7 +102,7 @@
         {
           "value": 13.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -101,7 +117,7 @@
         {
           "value": 3.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -116,7 +132,7 @@
         {
           "value": 14.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -131,7 +147,7 @@
         {
           "value": 4.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -146,7 +162,7 @@
         {
           "value": 10.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]

@@ -7,11 +7,11 @@ import org.junit.runners.Parameterized;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.harvard.we99.test.BaseFixture.array;
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.util.JacksonUtil.fromString;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
+import static org.assertj.core.util.Arrays.array;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -28,7 +28,7 @@ public class JsonTest {
 
         params.add(
                 array(
-                new Compound("h20").withId(1234L),
+                        new Compound("h20").withId(1234L),
                 load("/JsonTest/compound.json")
                 ));
 
@@ -43,8 +43,7 @@ public class JsonTest {
         params.add(
                 array(
                         new Plate("plate1", type())
-                                .withBarcode("1234")
-                                .withDerivedFrom(456L),
+                                .withBarcode("1234"),
                         load("/JsonTest/plate-no-wells.json")
                 ));
 
@@ -52,8 +51,7 @@ public class JsonTest {
                 array(
                         new Plate("plate1", type())
                                 .withBarcode("1234")
-                                .withDerivedFrom(456L)
-                                .withWells(wells(2,3))
+                                .withWells(wells(2, 3))
                         ,
                         load("/JsonTest/plate-wells.json")
                 ));

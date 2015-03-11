@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>edu.harvard.we99</groupId>
-            <artifactId>we99-domain</artifactId>
+            <artifactId>we99-jpa</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

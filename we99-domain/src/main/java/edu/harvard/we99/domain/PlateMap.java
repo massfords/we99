@@ -3,13 +3,6 @@ package edu.harvard.we99.domain;
 import edu.harvard.we99.jaxb.WellMapAdapter;
 
 import javax.annotation.Generated;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.MapKey;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.LinkedHashMap;
@@ -18,7 +11,6 @@ import java.util.Map;
 /**
  * @author mford
  */
-@Entity
 public class PlateMap extends AbstractPlate<PlateMap> {
 
     /**
@@ -26,18 +18,10 @@ public class PlateMap extends AbstractPlate<PlateMap> {
      * Each well is uniquely identified by a row,col coordinate within this plate
      * so we'll store them according to their coordinate.
      */
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST) @Size(min = 0)
-    @MapKey(name="coordinate")
     @XmlJavaTypeAdapter(value=WellMapAdapter.class) // custom JAXB adapter to convert the map to an array an back again
     @XmlElement(name="wells")
     private Map<Coordinate, WellMap> wellMaps = new LinkedHashMap<>();
 
-
-    @PrePersist
-    @PreUpdate
-    private void validate() {
-        checkWells(wellMaps.keySet());
-    }
 
     public PlateMap withWells(WellMap...wellMap) {
         for(WellMap wm : wellMap) {

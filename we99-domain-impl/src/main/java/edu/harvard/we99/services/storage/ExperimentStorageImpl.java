@@ -3,66 +3,113 @@ package edu.harvard.we99.services.storage;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.security.User;
+import edu.harvard.we99.security.UserContextProvider;
+import edu.harvard.we99.services.storage.entities.ExperimentEntity;
+import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.PlateEntity;
+import edu.harvard.we99.services.storage.entities.UserEntity;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * @author mford
  */
-public class ExperimentStorageImpl extends CRUDStorageImpl<Experiment> implements ExperimentStorage {
-    public ExperimentStorageImpl() {
-        super(Experiment.class);
+public class ExperimentStorageImpl implements ExperimentStorage {
+    @PersistenceContext
+    private EntityManager em;
+
+    private final UserContextProvider ucp;
+
+    public ExperimentStorageImpl(UserContextProvider ucp) {
+        this.ucp = ucp;
+    }
+
+
+    @Override
+    @Transactional
+    public Experiment create(Experiment xp) {
+        ExperimentEntity entity = Mappers.EXPERIMENTS.mapReverse(xp);
+        User user = ucp.get();
+
+        UserEntity ue = em.find(UserEntity.class, user.getId());
+        entity.addUser(ue);
+        em.persist(entity);
+        ue.addExperiment(entity);
+        em.merge(ue);
+        return Mappers.EXPERIMENTS.map(entity);
+    }
+
+    @Override
+    public Experiment get(Long id) throws EntityNotFoundException {
+        ExperimentEntity ee = em.find(ExperimentEntity.class, id);
+        return Mappers.EXPERIMENTS.map(ee);
     }
 
     @Override
     @Transactional
-    public Experiment create(Experiment entity) {
-        Experiment experiment = super.create(entity);
-        User user = experiment.getUsers().get(0);
-        user.addExperiment(experiment);
-        em.merge(user);
-        return experiment;
+    public Experiment update(Long id, Experiment type) throws EntityNotFoundException {
+        ExperimentEntity ee = em.find(ExperimentEntity.class, id);
+        Mappers.EXPERIMENTS.mapReverse(type, ee);
+        em.merge(ee);
+        return Mappers.EXPERIMENTS.map(ee);
     }
 
     @Override
-    protected void updateFromCaller(Experiment fromDb, Experiment fromUser) {
-        fromDb.setName(fromUser.getName());
-        fromDb.setProtocol(fromUser.getProtocol());
+    @Transactional
+    public void delete(Long id) {
+        ExperimentEntity ee = em.find(ExperimentEntity.class, id);
+        em.remove(ee);
     }
 
     @Override
     @Transactional
     public Plate addPlate(Long experimentId, Plate plate) {
-        Experiment exp = em.find(Experiment.class, experimentId);
-        plate.setExperiment(exp);
-        em.persist(plate);
-        return plate;
+        ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
+        PlateEntity pe = Mappers.PLATES.mapReverse(plate);
+        // add the wells
+        updateWells(plate, pe);
+        pe.setExperiment(ee);
+        em.persist(pe);
+        return Mappers.PLATES.map(pe);
     }
 
     @Override
     @Transactional
     public void removePlate(Long experimentId, Long plateId) {
-        Experiment exp = em.find(Experiment.class, experimentId);
-        Plate plate = em.find(Plate.class, plateId);
-        if (plate.getExperiment() == exp) {
-            em.remove(plate);
+        PlateEntity pe = em.find(PlateEntity.class, plateId);
+        if (pe.getExperiment().getId().equals(experimentId)) {
+            em.remove(pe);
         }
     }
 
     @Override
     public List<Experiment> listAll(User user) {
-        TypedQuery<Experiment> tq = em.createQuery("select e from Experiment e, User u where u member of e.members and u = :user", Experiment.class);
-        tq.setParameter("user", user);
-        return tq.getResultList();
+        TypedQuery<ExperimentEntity> tq = em.createQuery(
+                "select e from ExperimentEntity e, UserEntity u " +
+                        "where u member of e.members and u.email = :user",
+                ExperimentEntity.class);
+        tq.setParameter("user", user.getEmail());
+        List<ExperimentEntity> resultList = tq.getResultList();
+        List<Experiment> experiments = new ArrayList<>();
+        resultList.forEach(ee->experiments.add(Mappers.EXPERIMENTS.map(ee)));
+        return experiments;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<User> listMembers(Long experimentId) {
-        Experiment exp = em.find(Experiment.class, experimentId);
-        return exp.getUsers();
+        ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
+        Collection<UserEntity> values = ee.getMembers().values();
+        List<User> userList = new ArrayList<>(values.size());
+        values.forEach(u->userList.add(Mappers.USERS.map(u)));
+        return userList;
     }
 
     @Override
@@ -74,26 +121,27 @@ public class ExperimentStorageImpl extends CRUDStorageImpl<Experiment> implement
     @Override
     @Transactional
     public void addMember(Long experimentId, Long userId) {
-        User user = em.find(User.class, userId);
-        Experiment experiment = em.find(Experiment.class, experimentId);
-
-        experiment.addUser(user);
-        user.addExperiment(experiment);
-
-        em.merge(user);
-        em.merge(experiment);
+        UserEntity ue = em.find(UserEntity.class, userId);
+        ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
+        ee.addUser(ue);
+        ue.addExperiment(ee);
+        em.merge(ue);
+        em.merge(ee);
     }
 
     @Override
     @Transactional
     public void removeMember(Long experimentId, Long userId) {
-        User user = em.find(User.class, userId);
-        Experiment experiment = em.find(Experiment.class, experimentId);
+        UserEntity ue = em.find(UserEntity.class, userId);
+        ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
+        ee.removeUser(ue);
+        ue.removeExperiment(ee);
+        em.merge(ue);
+        em.merge(ee);
+    }
 
-        experiment.removeUser(user);
-        user.removeExperiment(experiment);
-
-        em.merge(user);
-        em.merge(experiment);
+    private void updateWells(Plate plate, PlateEntity pe) {
+        plate.getWells().values().forEach(w -> pe.addWell(Mappers.WELL.mapReverse(w)));
+        pe.getWells().values().forEach(em::merge);
     }
 }

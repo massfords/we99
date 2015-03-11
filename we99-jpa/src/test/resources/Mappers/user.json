@@ -1,0 +1,11 @@
+{
+  "id": 250,
+  "email": "foo@example.com",
+  "firstName": "Jon",
+  "lastName": "Smith",
+  "role": {
+    "id": 500,
+    "name": "junit",
+    "permissions": []
+  }
+}

@@ -2,7 +2,6 @@ package edu.harvard.we99.domain;
 
 import javax.annotation.Generated;
 import javax.persistence.Embedded;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +18,6 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author mford
  */
-@Entity
 public class Dose extends BaseEntity {
     /**
      * Primary key for this entity is generated

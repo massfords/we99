@@ -1,5 +1,7 @@
 package edu.harvard.we99.security;
 
+import edu.harvard.we99.services.storage.entities.RoleEntity;
+import edu.harvard.we99.services.storage.entities.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,12 +25,12 @@ public class SaltyUser extends User {
      */
     private final String salt;
 
-    public SaltyUser(edu.harvard.we99.security.User domainUser) {
-        super(domainUser.getEmail(), domainUser.getPassword(), toGrantedAuthorities(domainUser.getRole()));
-        this.salt = domainUser.getSalt();
+    public SaltyUser(UserEntity u) {
+        super(u.getEmail(), u.getPassword(), toGrantedAuthorities(u.getRole()));
+        this.salt = u.getSalt();
     }
 
-    private static Collection<? extends GrantedAuthority> toGrantedAuthorities(Role role) {
+    private static Collection<? extends GrantedAuthority> toGrantedAuthorities(RoleEntity role) {
         // behold, the power of lambdas
         return role.getPermissions().values()
                 .stream()

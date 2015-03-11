@@ -3,13 +3,6 @@ package edu.harvard.we99.security;
 import edu.harvard.we99.domain.BaseEntity;
 
 import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,18 +14,10 @@ import javax.validation.constraints.NotNull;
  *
  * @author mford
  */
-@Entity
-@Table(uniqueConstraints = {@UniqueConstraint( columnNames = {"name"})})
 public class Permission extends BaseEntity {
-    /**
-     * Primary key is generated
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(updatable = false)
     private String name;
 
     public Permission() {}

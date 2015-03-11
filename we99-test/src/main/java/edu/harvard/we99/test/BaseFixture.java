@@ -48,15 +48,6 @@ public class BaseFixture {
 
 
     /**
-     * Syntactic sugar
-     * @param args
-     * @return
-     */
-    public static Object[] array(Object...args) {
-        return args;
-    }
-
-    /**
      * Asserts that the two JSON strings are equal
      * @param expected
      * @param actual

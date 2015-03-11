@@ -99,7 +99,9 @@
         <constructor-arg ref="userProvider"/>
         <constructor-arg ref="experimentStorage"/>
     </bean>
-    <bean id="experimentStorage" class="edu.harvard.we99.services.storage.ExperimentStorageImpl"/>
+    <bean id="experimentStorage" class="edu.harvard.we99.services.storage.ExperimentStorageImpl">
+        <constructor-arg ref="userProvider"/>
+    </bean>
 
     <bean id="userProvider" class="edu.harvard.we99.security.UserContextProviderImpl">
         <constructor-arg ref="userStorage"/>

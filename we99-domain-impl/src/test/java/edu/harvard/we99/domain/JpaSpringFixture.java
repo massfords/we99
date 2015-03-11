@@ -1,6 +1,8 @@
 package edu.harvard.we99.domain;
 
 import edu.harvard.we99.services.storage.UserStorage;
+import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
+import edu.harvard.we99.services.storage.entities.WellEntity;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -52,24 +54,24 @@ public abstract class JpaSpringFixture {
         return userStorage;
     }
 
-    protected static Well[] makeWells(int rowCount, int colCount) {
-        Set<Well> wells = new HashSet<>();
+    protected static WellEntity[] makeWellEntities(int rowCount, int colCount) {
+        Set<WellEntity> wells = new HashSet<>();
 
         for(int row=0; row< rowCount; row++) {
             for(int col=0; col< colCount; col++) {
                 wells.add(
-                        new Well(row, col)
+                        new WellEntity(row, col)
                                 .withType(WellType.EMPTY)
                 );
             }
         }
         Assert.assertEquals(rowCount * colCount, wells.size());
 
-        return wells.toArray(new Well[wells.size()]);
+        return wells.toArray(new WellEntity[wells.size()]);
     }
 
-    protected static PlateType makePlateType(int ROW_COUNT, int COL_COUNT) {
-        return new PlateType()
+    protected static PlateTypeEntity makePlateType(int ROW_COUNT, int COL_COUNT) {
+        return new PlateTypeEntity()
                 .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
                 .withName(name("plateType"))
                 .withManufacturer("Foo Company");

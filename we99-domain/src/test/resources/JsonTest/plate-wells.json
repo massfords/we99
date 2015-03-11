@@ -7,7 +7,6 @@
     },
     "manufacturer": "Foo Inc."
   },
-  "derivedFrom": 456,
   "barcode": "1234",
   "wells": [
     {

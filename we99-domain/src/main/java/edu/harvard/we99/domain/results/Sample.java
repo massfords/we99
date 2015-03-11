@@ -2,14 +2,9 @@ package edu.harvard.we99.domain.results;
 
 import edu.harvard.we99.domain.BaseEntity;
 import edu.harvard.we99.jaxb.DateTimeAdapter;
-import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.annotation.Generated;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -17,14 +12,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * A value produced from the device's analysis for a specific well in the plate.
  * @author mford
  */
-@Entity
 public class Sample extends BaseEntity {
 
-    /**
-     * Primary key field is auto generated
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -46,7 +35,6 @@ public class Sample extends BaseEntity {
     /**
      * The time that the sample was recorded by the device (may be null)
      */
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @XmlJavaTypeAdapter(DateTimeAdapter.class)
     private DateTime measuredAt;
 

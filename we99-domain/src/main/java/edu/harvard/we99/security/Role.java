@@ -3,17 +3,6 @@ package edu.harvard.we99.security;
 import edu.harvard.we99.domain.BaseEntity;
 
 import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKey;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Map;
@@ -25,24 +14,20 @@ import java.util.TreeMap;
  *
  * @author mford
  */
-@Entity
-@Table(uniqueConstraints = {@UniqueConstraint( columnNames = {"name"})})
 public class Role extends BaseEntity {
 
-    /**
-     * Primary key is generated
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(updatable = false)
-    @Embedded
     private RoleName name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @MapKey(name="name")
+    public Role() {
+    }
+
+    public Role(RoleName roleName) {
+        this.name = roleName;
+    }
+
     @XmlJavaTypeAdapter(PermissionsAdapter.class)
     private Map<String,Permission> permissions = new TreeMap<>();
 

@@ -1,0 +1,25 @@
+{
+  "id": 300,
+  "name": "pme",
+  "description": "foo123",
+  "plateType": {
+    "id": 250,
+    "name": "foo",
+    "dim": {
+      "rows": 10,
+      "cols": 20
+    },
+    "manufacturer": "Man1"
+  },
+  "wells": [
+    {
+      "id": 800,
+      "coordinate": {
+        "row": 4,
+        "col": 5
+      },
+      "label": "ABC",
+      "type": "COMP"
+    }
+  ]
+}

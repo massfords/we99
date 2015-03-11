@@ -11,10 +11,10 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.harvard.we99.test.BaseFixture.array;
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
+import static org.assertj.core.util.Arrays.array;
 
 /**
  * @author mford

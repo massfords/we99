@@ -1,0 +1,27 @@
+{
+  "id": 300,
+  "name": "pe",
+  "description": "foo123",
+  "plateType": {
+    "id": 250,
+    "name": "foo",
+    "dim": {
+      "rows": 10,
+      "cols": 20
+    },
+    "manufacturer": "Man1"
+  },
+  "barcode": "456D",
+  "wells": [
+    {
+      "id": 1234,
+      "coordinate": {
+        "row": 1,
+        "col": 2
+      },
+      "label": "A",
+      "type": "COMP",
+      "contents": []
+    }
+  ]
+}

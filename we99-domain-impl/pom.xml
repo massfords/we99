@@ -12,28 +12,6 @@
     <artifactId>we99-domain-impl</artifactId>
 
     <dependencies>
-
-        <!--
-            Used to parse CSV files into beans
-        -->
-        <dependency>
-            <groupId>org.beanio</groupId>
-            <artifactId>beanio</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-
-        <!-- CXF Dependencies -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-rs-client</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>edu.harvard.we99</groupId>
             <artifactId>we99-domain</artifactId>
@@ -45,9 +23,28 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>edu.harvard.we99</groupId>
+            <artifactId>we99-jpa</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--
+            Used to parse CSV files into beans
+        -->
+        <dependency>
+            <groupId>org.beanio</groupId>
+            <artifactId>beanio</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

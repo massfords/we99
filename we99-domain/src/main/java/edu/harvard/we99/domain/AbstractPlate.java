@@ -1,83 +1,34 @@
 package edu.harvard.we99.domain;
 
 import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PersistenceException;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 /**
  * Base class for Plate and PlateTemplates
  *
  * @author mford
  */
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class AbstractPlate<T extends AbstractPlate> extends BaseEntity {
-    /**
-     * Primary key field is auto generated
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
      * Name provided by the user must be unique within the db
      */
     @NotNull
-    @Column(unique = true)
     private String name;
 
     /**
      * Optional user provided description
      */
-    @Column(length = 1024)
     private String description;
 
     /**
      * Every plate has a plate type that identifies its size, orientation, and manufacturer.
      * There may be 100's of these plate types in the system
      */
-    @ManyToOne
-    @NotNull @JoinColumn(updatable = false)
+    @NotNull
     private PlateType plateType;
 
-    /**
-     * Validation check that we don't have an invalid coordinate for a Well that
-     * cannot exist within this plate based on its plate type.
-     */
-    protected void checkWells(Set<Coordinate> coords) {
-        // get the max row and max col
-        if (getPlateType() != null) {
-            // note: checking for plateType != null to avoid a NPE as we're only
-            // interested in validating the well coordinates here. The EntityManager
-            // will handle the validation that we actually have a PlateType,
-            // although after this call.
-            int maxRow = 0;
-            int maxCol = 0;
-            for(Coordinate coord : coords) {
-                maxRow = Math.max(maxRow, coord.getRow());
-                maxCol = Math.max(maxCol, coord.getCol());
-            }
-
-            PlateDimension maxSpecified = new PlateDimension(maxRow, maxCol);
-
-            if (!getPlateType().getDim().greaterThan(maxSpecified)) {
-                String message = "Coordinates for wells must be with 0x0 and %dx%d";
-                String formattedErrorMessage = String.format(
-                        message, getPlateType().getDim().getRows(), getPlateType().getDim().getCols());
-                throw new PersistenceException(formattedErrorMessage);
-            }
-        }
-    }
 
     // All of the fluent methods here would be marked as @Generated except I had
     // to tweak them to support the generics

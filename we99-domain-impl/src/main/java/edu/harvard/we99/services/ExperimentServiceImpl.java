@@ -3,7 +3,6 @@ package edu.harvard.we99.services;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.lists.Experiments;
 import edu.harvard.we99.domain.lists.Users;
-import edu.harvard.we99.security.User;
 import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 
@@ -20,13 +19,6 @@ public class ExperimentServiceImpl extends BaseRESTServiceImpl<Experiment>  impl
     public ExperimentServiceImpl(UserContextProvider ucp, ExperimentStorage storage) {
         super(storage);
         this.ucp = ucp;
-    }
-
-    @Override
-    public Experiment create(Experiment type) {
-        User user = ucp.get();
-        type.addUser(user);
-        return super.create(type);
     }
 
     @Override

@@ -1,6 +1,251 @@
 {
   "id": 1,
-  "created": "2015-03-09T10:31:26.629-04:00",
+  "plate": {
+    "id": 1,
+    "name": "Plateuuid",
+    "plateType": {
+      "id": 1,
+      "name": "PlateTypeuuid",
+      "dim": {
+        "rows": 5,
+        "cols": 5
+      },
+      "manufacturer": "Manuuid"
+    },
+    "experiment": {
+      "id": 1,
+      "name": "xpuuid",
+      "created": "iso8601"
+    },
+    "wells": [
+      {
+        "id": 1,
+        "coordinate": {
+          "row": 0,
+          "col": 0
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 2,
+        "coordinate": {
+          "row": 2,
+          "col": 2
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 3,
+        "coordinate": {
+          "row": 4,
+          "col": 4
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 4,
+        "coordinate": {
+          "row": 0,
+          "col": 1
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 5,
+        "coordinate": {
+          "row": 2,
+          "col": 3
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 6,
+        "coordinate": {
+          "row": 0,
+          "col": 2
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 7,
+        "coordinate": {
+          "row": 2,
+          "col": 4
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 8,
+        "coordinate": {
+          "row": 0,
+          "col": 3
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 9,
+        "coordinate": {
+          "row": 0,
+          "col": 4
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 10,
+        "coordinate": {
+          "row": 3,
+          "col": 0
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 11,
+        "coordinate": {
+          "row": 3,
+          "col": 1
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 12,
+        "coordinate": {
+          "row": 1,
+          "col": 0
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 13,
+        "coordinate": {
+          "row": 3,
+          "col": 2
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 14,
+        "coordinate": {
+          "row": 1,
+          "col": 1
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 15,
+        "coordinate": {
+          "row": 3,
+          "col": 3
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 16,
+        "coordinate": {
+          "row": 1,
+          "col": 2
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 17,
+        "coordinate": {
+          "row": 3,
+          "col": 4
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 18,
+        "coordinate": {
+          "row": 1,
+          "col": 3
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 19,
+        "coordinate": {
+          "row": 1,
+          "col": 4
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 20,
+        "coordinate": {
+          "row": 4,
+          "col": 0
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 21,
+        "coordinate": {
+          "row": 4,
+          "col": 1
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 22,
+        "coordinate": {
+          "row": 2,
+          "col": 0
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 23,
+        "coordinate": {
+          "row": 4,
+          "col": 2
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 24,
+        "coordinate": {
+          "row": 2,
+          "col": 1
+        },
+        "type": "EMPTY",
+        "contents": []
+      },
+      {
+        "id": 25,
+        "coordinate": {
+          "row": 4,
+          "col": 3
+        },
+        "type": "EMPTY",
+        "contents": []
+      }
+    ]
+  },
+  "created": "iso8601",
   "wellResults": [
     {
       "id": 1,
@@ -14,7 +259,7 @@
           "id": 1,
           "value": 0.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -31,7 +276,7 @@
           "id": 2,
           "value": 11.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -48,7 +293,7 @@
           "id": 3,
           "value": 1.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -65,7 +310,7 @@
           "id": 4,
           "value": 12.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -82,7 +327,7 @@
           "id": 5,
           "value": 2.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -99,7 +344,7 @@
           "id": 6,
           "value": 13.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -116,7 +361,7 @@
           "id": 7,
           "value": 3.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -133,7 +378,7 @@
           "id": 8,
           "value": 14.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -150,7 +395,7 @@
           "id": 9,
           "value": 4.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
@@ -167,7 +412,7 @@
           "id": 10,
           "value": 10.0,
           "label": "",
-          "measuredAt": "2015-01-02T05:20:30.100-05:00",
+          "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]

@@ -1,5 +1,6 @@
 package edu.harvard.we99.services;
 
+import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.PlateResultEntries;
 import edu.harvard.we99.domain.lists.PlateResults;
@@ -69,9 +70,6 @@ public class ResultServiceImpl implements ResultService {
         // assign the Plate / Experiment to the PlateResult
         // persist all to the storage
 
-        Plate plate = plateStorage.get(plateId);
-        throwIfMissing(plate);
-
         String source;
         try {
             source = IOUtils.toString(csv);
@@ -81,10 +79,9 @@ public class ResultServiceImpl implements ResultService {
 
         PlateResultCSVReader reader = new PlateResultCSVReader();
         PlateResult pr = reader.read(new BufferedReader(new StringReader(source)));
-        pr.setPlate(plate);
+        pr.setPlate(new Plate().withId(plateId).withExperiment(new Experiment().withId(experimentId)));
         pr.setSource(source);
-        storage.create(pr);
-        return pr;
+        return storage.create(pr);
     }
 
     @Override
@@ -93,9 +90,5 @@ public class ResultServiceImpl implements ResultService {
         ucp.assertCallerIsMember(experimentId);
         storage.updateStatus(resultId, statusChange.getCoordinate(), statusChange.getStatus());
         return Response.ok().build();
-    }
-
-    private void throwIfMissing(Object object) {
-        if (object == null) throw new WebApplicationException(Response.status(404).build());
     }
 }

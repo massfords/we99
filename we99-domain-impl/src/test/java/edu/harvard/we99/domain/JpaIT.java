@@ -1,5 +1,11 @@
 package edu.harvard.we99.domain;
 
+import edu.harvard.we99.services.storage.entities.CompoundEntity;
+import edu.harvard.we99.services.storage.entities.ExperimentEntity;
+import edu.harvard.we99.services.storage.entities.PlateEntity;
+import edu.harvard.we99.services.storage.entities.PlateMapEntity;
+import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
+import edu.harvard.we99.services.storage.entities.WellMapEntity;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,9 +34,9 @@ public class JpaIT extends JpaSpringFixture {
 
         beginTx();
 
-        PlateType type = makePlateType(10, 16);
+        PlateTypeEntity type = makePlateType(10, 16);
 
-        PlateMap pt = new PlateMap()
+        PlateMapEntity pt = new PlateMapEntity()
                 .withName(name("Map"))
                 .withDescription("My Description")
                 .withPlateType(type)
@@ -47,7 +53,7 @@ public class JpaIT extends JpaSpringFixture {
 
         beginTx();
 
-        PlateMap pt = new PlateMap()
+        PlateMapEntity pt = new PlateMapEntity()
                 .withName(name("Map"))
                 .withDescription("My Description")
                 ;
@@ -63,9 +69,9 @@ public class JpaIT extends JpaSpringFixture {
         int ROW_COUNT = 3;
         int COL_COUNT = 4;
 
-        PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
+        PlateTypeEntity type = makePlateType(ROW_COUNT, COL_COUNT);
 
-        PlateMap pm = new PlateMap()
+        PlateMapEntity pm = new PlateMapEntity()
                 .withName(name("Map"))
                 .withDescription("My Description")
                 .withPlateType(type)
@@ -86,13 +92,13 @@ public class JpaIT extends JpaSpringFixture {
         int ROW_COUNT = 3;
         int COL_COUNT = 4;
 
-        PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
+        PlateTypeEntity type = makePlateType(ROW_COUNT, COL_COUNT);
 
-        PlateMap pt = new PlateMap()
+        PlateMapEntity pt = new PlateMapEntity()
                 .withName(name("Map"))
                 .withDescription("My Description")
                 .withPlateType(type)
-                .withWells(new WellMap(100, 200)
+                .withWells(new WellMapEntity(100, 200)
                         .withType(WellType.EMPTY))
                 ;
 
@@ -106,7 +112,7 @@ public class JpaIT extends JpaSpringFixture {
     public void compound() throws Exception {
         beginTx();
 
-        Compound compound = new Compound()
+        CompoundEntity compound = new CompoundEntity()
                 .withName(name("Compound"));
 
         em.persist(compound);
@@ -118,12 +124,12 @@ public class JpaIT extends JpaSpringFixture {
     public void compound_dupe() throws Exception {
         beginTx();
         String compoundName = name("C1234");
-        Compound compound = new Compound().withName(compoundName);
+        CompoundEntity compound = new CompoundEntity().withName(compoundName);
         em.persist(compound);
         commitTx();
 
         beginTx();
-        em.persist(new Compound().withName(compoundName));
+        em.persist(new CompoundEntity().withName(compoundName));
         commitTx();
     }
 
@@ -134,43 +140,41 @@ public class JpaIT extends JpaSpringFixture {
         int ROW_COUNT = 3;
         int COL_COUNT = 4;
 
-        Experiment xp = new Experiment(name("Exp"));
+        ExperimentEntity xp = new ExperimentEntity(name("Exp"));
 
-        PlateType type = makePlateType(ROW_COUNT, COL_COUNT);
+        PlateTypeEntity type = makePlateType(ROW_COUNT, COL_COUNT);
 
-        Plate plate = new Plate()
+        PlateEntity plate = new PlateEntity()
                 .withName(name("Plate"))
                 .withDescription("My Description")
                 .withPlateType(type)
                 .withExperiment(xp)
                 .withBarcode("1234");
 
-        plate.withWells(makeWells(ROW_COUNT, COL_COUNT));
+        plate.withWells(makeWellEntities(ROW_COUNT, COL_COUNT));
 
         em.persist(xp);
         em.persist(type);
         em.persist(plate);
 
         commitTx();
-
     }
 
 
 
-    private WellMap[] makeWellMaps(int rowCount, int colCount) {
-        Set<WellMap> wells = new HashSet<>();
+    private WellMapEntity[] makeWellMaps(int rowCount, int colCount) {
+        Set<WellMapEntity> wells = new HashSet<>();
 
         for(int row=0; row< rowCount; row++) {
             for(int col=0; col< colCount; col++) {
                 wells.add(
-                        new WellMap(row, col)
+                        new WellMapEntity(row, col)
                                 .withType(WellType.EMPTY)
                 );
             }
         }
         Assert.assertEquals(rowCount * colCount, wells.size());
 
-        return wells.toArray(new WellMap[wells.size()]);
+        return wells.toArray(new WellMapEntity[wells.size()]);
     }
-
 }

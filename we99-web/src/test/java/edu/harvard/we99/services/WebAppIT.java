@@ -23,6 +23,7 @@ import java.io.File;
         CompoundServiceST.class,
         PlateMapImportST.class,
         PlateResultServiceST.class,
+        PlateResultServiceListingST.class,
         ExperimentServiceST.class
 })
 public class WebAppIT {
