@@ -5,7 +5,6 @@ import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.RoleEntity;
 import edu.harvard.we99.services.storage.entities.UserEntity;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +15,8 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 /**
  * Implmentation of the storage interface.
@@ -69,7 +70,7 @@ public class UserStorageImpl implements UserStorage {
         UserEntity ue = em.find(UserEntity.class, id);
         Mappers.USERS.mapReverse(fromUser, ue);
         String password = fromUser.getPassword();
-        if (StringUtils.isNotBlank(password)) {
+        if (isNotBlank(password)) {
             if (ue.getPasswordStatus() == UserEntity.PasswordStatus.assigned) {
                 String encodedPassword = passwordEncoder.encodePassword(
                         password, ue.getSalt());
