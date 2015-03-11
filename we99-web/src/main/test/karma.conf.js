@@ -30,8 +30,8 @@ module.exports = function(config) {
       'webapp/bower_components/angular-touch/angular-touch.js',
       'webapp/bower_components/d3/d3.js',
       'webapp/bower_components/angular-smart-table/dist/smart-table.js',
-      'webapp/bower_components/angular-mocks/angular-mocks.js',
       'webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'webapp/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'webapp/scripts/**/*.js',
       'test/mock/**/*.js',
