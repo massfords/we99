@@ -18,5 +18,8 @@
     "angular-mocks": "^1.3.0"
   },
   "appPath": "webapp",
-  "moduleName": "we99App"
+  "moduleName": "we99App",
+  "resolutions": {
+    "angular": "1.3.14"
+  }
 }
