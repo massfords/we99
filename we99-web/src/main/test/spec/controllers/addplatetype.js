@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: PlateeditorCtrl', function () {
+describe('Controller: AddPlateTypeCtrl', function () {
 
   // load the controller's module
   beforeEach(module('we99App'));
 
-  var PlateeditorCtrl,
+  var AddPlateTypeCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    PlateeditorCtrl = $controller('PlateeditorCtrl', {
+    AddPlateTypeCtrl = $controller('AddPlateTypeCtrl', {
       $scope: scope
     });
   }));

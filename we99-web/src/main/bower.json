@@ -12,10 +12,10 @@
     "angular-touch": "^1.3.0",
     "d3": "~3.5.5",
     "angular-smart-table": "~1.4.12"
-
   },
   "devDependencies": {
-    "angular-mocks": "^1.3.0"
+    "angular-mocks": "^1.3.0",
+    "angular-bootstrap": "~0.12.1"
   },
   "appPath": "webapp",
   "moduleName": "we99App"

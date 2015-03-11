@@ -49,6 +49,7 @@
     <sec:http pattern="/css/**" security="none"/>
     <sec:http pattern="/lib/**" security="none"/>
     <sec:http pattern="/js/**" security="none"/>
+    <sec:http pattern="/bower_components/**" security="none"/>
     <sec:http pattern="/createAccount.html" security="none"/>
     <sec:http pattern="/**" auto-config='true' use-expressions="true" authentication-manager-ref="basic"
               access-decision-manager-ref="adm" disable-url-rewriting="true">

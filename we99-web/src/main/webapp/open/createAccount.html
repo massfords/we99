@@ -1,28 +1,34 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>WE-99 Create Account</title>
+	<title>WE-99 Create Account</title>    
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.css" />
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 <body>
-<form method="POST" name="loginform" action="../services/rest/createAccount">
-    <table style="vertical-align: middle;">
-        <tr>
-            <td>First Name:</td>
-            <td><input type="text" name="firstName" /></td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td><input type="text" name="lastName" /></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" name="email" /></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Create Account" /></td>
-        </tr>
-    </table>
-</form>
-<hr>
+
+<div class="container" style="width: 400px; float: left;">
+<h2>WE-99 Create Account</h2>
+  <form method="POST" name="loginform" action="../services/rest/createAccount" role="form" >
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+    </div>
+    <div class="form-group">
+      <label for="emailAddress">Email:</label>
+      <input type="email" class="form-control" id="emailAddress" placeholder="Enter email">
+    </div>
+    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+  </form>
+</div>
 </body>
 </html>
