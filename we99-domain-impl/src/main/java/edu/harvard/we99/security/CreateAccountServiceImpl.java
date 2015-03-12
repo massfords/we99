@@ -1,5 +1,7 @@
 package edu.harvard.we99.security;
 
+import edu.harvard.we99.config.EmailFilter;
+import edu.harvard.we99.config.ReadOnlySettings;
 import edu.harvard.we99.services.storage.UserStorage;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
@@ -39,19 +41,15 @@ public class CreateAccountServiceImpl implements CreateAccountService {
      */
     private final InternalEmailService emailService;
 
-    /**
-     * Filter to accepting new user registrations. The provided email must
-     * satisfy this filter. If not, the account registration is rejected.
-     */
-    private final EmailFilter emailFilter;
+    private final ReadOnlySettings settings;
 
     public CreateAccountServiceImpl(
-            EmailFilter emailFilter,
+            ReadOnlySettings settings,
             InternalEmailService emailService,
             UserStorage storage) {
         this.storage = storage;
         this.emailService = emailService;
-        this.emailFilter = emailFilter;
+        this.settings = settings;
     }
 
     @Override
@@ -62,6 +60,8 @@ public class CreateAccountServiceImpl implements CreateAccountService {
         // insert a new user using the given params
         // if successful, send them an email with the password as a link
         // if not successful, return an error code
+
+        EmailFilter emailFilter = settings.getEmailFilter();
 
         if (!emailFilter.test(emailAddress)) {
             log.error("email disallowed by filter: {}", emailAddress);

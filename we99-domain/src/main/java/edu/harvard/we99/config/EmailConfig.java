@@ -1,33 +1,38 @@
-package edu.harvard.we99.security;
+package edu.harvard.we99.config;
 
 import javax.annotation.Generated;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  * Config bean for sending emails
  *
  * @author mford
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class EmailConfig {
     /**
      * The SMTP host that delivers the message
      */
-    private final String host;
+    private String host = "smtp.gmail.com";
     /**
      * The port for the host. Likely 587 since we're assuming TLS enabled
      */
-    private final int port;
+    private int port = 587;
     /**
      * Username for authenticating to the host. For gmail, this is your email addy
      */
-    private final String username;
+    private String username  = "we99.2015@gmail.com";
     /**
      * Password for authenticating to the host. For gmail, this is your email pw
      */
-    private final String password;
+    private String password;
     /**
      * The from address to use when delivering messages.
      */
-    private final String from;
+    private String from = "we99.2015@gmail.com";
+
+    public EmailConfig() {}
 
     public EmailConfig(String host, int port, String username, String password, String from) {
         this.host = host;

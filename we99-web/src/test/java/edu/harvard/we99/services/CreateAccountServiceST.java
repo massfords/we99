@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URL;
+import java.util.function.Function;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.extractUUID;
@@ -64,8 +65,10 @@ public class CreateAccountServiceST {
         String uuid = extractUUID(body);
         User user = cas.activateAccount(uuid, email);
         assertNotNull(user);
+        Function<String, String> scrubber = Scrubbers.uuid.andThen(Scrubbers.pkey)
+                .andThen(Scrubbers.perms);
         assertJsonEquals(load("/CreateAccountServiceST/user.json"),
-                toJsonString(user), Scrubbers.uuid.andThen(Scrubbers.pkey));
+                toJsonString(user), scrubber);
 
         // 5. set the password for the account
         String password = "password1234";
@@ -78,6 +81,6 @@ public class CreateAccountServiceST {
         User me = userService.whoami();
         assertNotNull(me);
         assertJsonEquals(load("/CreateAccountServiceST/user.json"),
-                toJsonString(me), Scrubbers.uuid.andThen(Scrubbers.pkey));
+                toJsonString(me), scrubber);
     }
 }

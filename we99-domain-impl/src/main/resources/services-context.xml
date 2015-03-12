@@ -6,6 +6,14 @@
 
     <context:component-scan base-package="edu.harvard.we99" />
 
+    <bean id="appSettings" class="edu.harvard.we99.config.AppSettingsServiceImpl">
+        <constructor-arg ref="appSettingsStorage"/>
+    </bean>
+    <bean id="roSettings" class="edu.harvard.we99.config.ReadOnlySettingsImpl">
+        <constructor-arg ref="appSettingsStorage"/>
+    </bean>
+    <bean id="appSettingsStorage" class="edu.harvard.we99.services.storage.AppSettingsStorageImpl"/>
+
     <bean id="plateTemplateService" class="edu.harvard.we99.services.PlateMapServiceImpl">
         <constructor-arg ref="plateTemplateStorage"/>
         <constructor-arg ref="plateTypeStorage"/>
@@ -29,11 +37,11 @@
     </bean>
 
     <bean id="emailService" class="edu.harvard.we99.security.InternalEmailService">
-        <constructor-arg ref="emailConfig"/>
+        <constructor-arg ref="roSettings"/>
     </bean>
 
     <bean id="createAccountService" class="edu.harvard.we99.security.CreateAccountServiceImpl">
-        <constructor-arg ref="emailFilter"/>
+        <constructor-arg ref="roSettings"/>
         <constructor-arg ref="emailService"/>
         <constructor-arg ref="userStorage"/>
     </bean>
@@ -49,25 +57,6 @@
     </bean>
     <bean id="protocolStorage" class="edu.harvard.we99.services.storage.ProtocolStorageImpl"/>
 
-
-    <bean id="emailFilter" class="edu.harvard.we99.security.EmailFilter">
-        <!--
-            We'll allow any emails to be registered by default. It seems
-            reasonable that an organization may want to limit the emails to a
-            single domain. If that's the case, then the admin should enter the
-            necessary regex pattern here.
-        -->
-        <constructor-arg value=".*"/>
-    </bean>
-
-
-    <bean id="emailConfig" class="edu.harvard.we99.security.EmailConfig">
-        <constructor-arg index="0" value="smtp.gmail.com"/>
-        <constructor-arg index="1" value="587"/>
-        <constructor-arg index="2" value="we99.2015@gmail.com"/>
-        <constructor-arg index="3" value="***********"/>
-        <constructor-arg index="4" value="we99.2015@gmail.com"/>
-    </bean>
 
     <bean id="userService" class="edu.harvard.we99.services.UserServiceImpl">
         <constructor-arg ref="userStorage"/>

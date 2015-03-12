@@ -1,5 +1,8 @@
 package edu.harvard.we99.security;
 
+import edu.harvard.we99.config.EmailConfig;
+import edu.harvard.we99.config.ReadOnlySettings;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
@@ -21,10 +24,10 @@ public class InternalEmailService {
      * Config for sending emails. This is something that should be configured
      * at install time.
      */
-    private final EmailConfig emailConfig;
+    private final ReadOnlySettings settings;
 
-    public InternalEmailService(EmailConfig emailConfig) {
-        this.emailConfig = emailConfig;
+    public InternalEmailService(ReadOnlySettings settings) {
+        this.settings = settings;
     }
 
     /**
@@ -34,11 +37,18 @@ public class InternalEmailService {
      * @throws org.apache.commons.mail.EmailException
      */
     public Email createEmail() throws EmailException {
+
+        EmailConfig emailConfig = settings.getEmail();
+
+        if (StringUtils.isEmpty(emailConfig.getHost())) {
+            throw new EmailException("email service not configured");
+        }
+
         Email email = new SimpleEmail();
 //        email.setDebug(true);
-        email.setHostName(this.emailConfig.getHost());
-        email.setSmtpPort(this.emailConfig.getPort());
-        email.setAuthenticator(new DefaultAuthenticator(this.emailConfig.getUsername(), this.emailConfig.getPassword()));
+        email.setHostName(emailConfig.getHost());
+        email.setSmtpPort(emailConfig.getPort());
+        email.setAuthenticator(new DefaultAuthenticator(emailConfig.getUsername(), emailConfig.getPassword()));
         email.setStartTLSEnabled(true);
         email.setFrom(emailConfig.getFrom());
         return email;

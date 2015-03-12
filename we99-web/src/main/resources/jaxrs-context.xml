@@ -24,6 +24,7 @@
             <ref bean="math"/>
             <ref bean="results"/>
             <ref bean="experimentService"/>
+            <ref bean="appSettings"/>
             <ref bean="swaggerResourceJSON" />
         </jaxrs:serviceBeans>
         <jaxrs:features>

@@ -35,6 +35,9 @@ insert into Permissions(id, name) values (71, 'PERM_MODIFY_EXPERIMENTS');
 insert into Permissions(id, name) values (80, 'PERM_READ_RESULTS');
 insert into Permissions(id, name) values (81, 'PERM_MODIFY_RESULTS');
 
+insert into Permissions(id, name) values (90, 'PERM_READ_SETTINGS');
+insert into Permissions(id, name) values (91, 'PERM_MODIFY_SETTINGS');
+
 -- Admins get all permissions
 -- Note: We're not taking advantage of Spring's Role hierarchy code. That always
 -- seemed a bit too complicated to me
@@ -53,6 +56,8 @@ insert into roles_permissions (roles_id, permissions_id) values (1,70);
 insert into roles_permissions (roles_id, permissions_id) values (1,71);
 insert into roles_permissions (roles_id, permissions_id) values (1,80);
 insert into roles_permissions (roles_id, permissions_id) values (1,81);
+insert into roles_permissions (roles_id, permissions_id) values (1,90);
+insert into roles_permissions (roles_id, permissions_id) values (1,91);
 
 -- Scientists get fewer permissions (currently this is everything except the
 -- ability to elevate someone to an admin)

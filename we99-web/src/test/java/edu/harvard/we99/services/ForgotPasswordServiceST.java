@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URL;
+import java.util.function.Function;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.extractUUID;
@@ -69,8 +70,10 @@ public class ForgotPasswordServiceST {
         String uuid = extractUUID(body);
         User user = fps.verifyResetInfo(uuid, email);
         assertNotNull(user);
+        Function<String, String> scrubber = Scrubbers.uuid
+                .andThen(Scrubbers.pkey).andThen(Scrubbers.perms);
         assertJsonEquals(load("/ForgotPasswordServiceST/user.json"),
-                toJsonString(user), Scrubbers.uuid.andThen(Scrubbers.pkey));
+                toJsonString(user), scrubber);
 
         // 5. set the password for the account
         String password = "pass";
@@ -83,6 +86,6 @@ public class ForgotPasswordServiceST {
         User me = userService.whoami();
         assertNotNull(me);
         assertJsonEquals(load("/ForgotPasswordServiceST/user.json"),
-                toJsonString(me), Scrubbers.uuid.andThen(Scrubbers.pkey));
+                toJsonString(me), scrubber);
     }
 }
