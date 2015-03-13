@@ -34,7 +34,7 @@ public interface PlateTypeService {
      * @return
      */
     @PUT
-    @ApiOperation(value = "Creates a new PlateType")
+    @ApiOperation("Creates a new PlateType")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATETYPES')")
     PlateType create(PlateType type);
 
@@ -46,7 +46,7 @@ public interface PlateTypeService {
      */
     @GET
     @Path("/{id}")
-    @ApiOperation(value = "Gets an existing PlateType or throws an exception with a 404")
+    @ApiOperation("Gets an existing PlateType or throws an exception with a 404")
     @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
     PlateType get(@PathParam("id")Long id);
 
@@ -59,7 +59,7 @@ public interface PlateTypeService {
      */
     @POST
     @Path("/{id}")
-    @ApiOperation(value = "Updates an existing PlateType or throws an exception with a 404")
+    @ApiOperation("Updates an existing PlateType or throws an exception with a 404")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATETYPES')")
     PlateType update(@PathParam("id") Long id, PlateType type);
 
@@ -71,7 +71,7 @@ public interface PlateTypeService {
      */
     @DELETE
     @Path("/{id}")
-    @ApiOperation(value = "Deletes an existing PlateType or throws an exception with a 404")
+    @ApiOperation("Deletes an existing PlateType or throws an exception with a 404")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATETYPES')")
     Response delete(@PathParam("id") Long id);
 
@@ -79,7 +79,7 @@ public interface PlateTypeService {
      * Lists all of the {@link edu.harvard.we99.domain.PlateType} in the system
      */
     @GET
-    @ApiOperation(value = "Lists all of the plate types in the system")
+    @ApiOperation("Lists all of the plate types in the system")
     @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
     PlateTypes listAll();
 }

@@ -4,9 +4,10 @@ import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.ResultStatus;
 import edu.harvard.we99.domain.results.StatusChange;
 import edu.harvard.we99.services.ExperimentService;
-import edu.harvard.we99.services.PlateService;
 import edu.harvard.we99.services.PlateTypeService;
-import edu.harvard.we99.services.ResultService;
+import edu.harvard.we99.services.experiments.PlateResource;
+import edu.harvard.we99.services.experiments.PlateResultResource;
+import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
 import org.junit.Assert;
@@ -32,13 +33,7 @@ import static org.junit.Assert.assertEquals;
 public class ResultServiceImplIT extends JpaSpringFixture {
 
     @Inject
-    private ResultService resultService;
-
-    @Inject
     private ExperimentService experimentService;
-
-    @Inject
-    private PlateService plateService;
 
     @Inject
     private PlateTypeService plateTypeService;
@@ -58,15 +53,16 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                         .withName(name("PlateType"))
                         .withDim(new PlateDimension(5,5))
                         .withManufacturer(name("Man")));
-        Plate plate = plateService.create(exp.getId(),
+        PlatesResource pr = experimentService.getExperiment(exp.getId()).getPlates();
+        Plate plate = pr.create(
                 new Plate()
                         .withName(name("Plate"))
                         .withWells(makeWells(5, 5))
                         .withPlateType(pt)
         );
 
-        PlateResult plateResult = resultService.uploadResults(exp.getId(), plate.getId(),
-                stream("/ResultServiceImplIT/results-single.csv"));
+        PlateResource plates = pr.getPlates(plate.getId());
+        PlateResult plateResult = plates.uploadResults(stream("/ResultServiceImplIT/results-single.csv"));
 
         Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey);
         // assert the results
@@ -74,28 +70,23 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 toJsonString(plateResult), scrubber);
 
         // drop a well
-        Response resp = resultService.updateStatus(exp.getId(), plate.getId(), plateResult.getId(),
-                new StatusChange(new Coordinate(0,0), ResultStatus.EXCLUDED));
+        PlateResultResource resultResource = plates.getResults().getPlateResult(plateResult.getId());
+        Response resp = resultResource.updateStatus(
+                new StatusChange(new Coordinate(0, 0), ResultStatus.EXCLUDED));
         assertOk(resp);
 
         // assert the results again
-        PlateResult oneWellRemoved = resultService.get(
-                exp.getId(),
-                plate.getId(),
-                plateResult.getId());
+        PlateResult oneWellRemoved = resultResource.get();
         assertJsonEquals(load("/ResultServiceImplIT/one-removed.json"),
                 toJsonString(oneWellRemoved), scrubber);
 
         // restore a well
-        resp = resultService.updateStatus(exp.getId(), plate.getId(),plateResult.getId(),
+        resp = resultResource.updateStatus(
                 new StatusChange(new Coordinate(0,0), ResultStatus.INCLUDED));
         assertOk(resp);
 
         // assert the results again
-        PlateResult allWellsBack = resultService.get(
-                exp.getId(),
-                plate.getId(),
-                plateResult.getId());
+        PlateResult allWellsBack = resultResource.get();
         assertJsonEquals(load("/ResultServiceImplIT/all-results.json"),
                 toJsonString(allWellsBack), scrubber);
     }

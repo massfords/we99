@@ -38,7 +38,7 @@ public interface PlateMapService {
      * @statuscode 415 If the PlateMap is missing a required field
      */
     @PUT
-    @ApiOperation(value = "Creates a new plate map in our system.")
+    @ApiOperation("Creates a new plate map in our system.")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     PlateMap create(PlateMap template);
 
@@ -50,7 +50,7 @@ public interface PlateMapService {
      */
     @GET
     @Path("/{id}")
-    @ApiOperation(value = "Gets an existing map or throws an exception with 404")
+    @ApiOperation("Gets an existing map or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
     PlateMap get(@PathParam("id")Long id);
 
@@ -63,7 +63,7 @@ public interface PlateMapService {
      */
     @POST
     @Path("/{id}")
-    @ApiOperation(value = "Updates an existing map or throws an exception with a 404 if not found.")
+    @ApiOperation("Updates an existing map or throws an exception with a 404 if not found.")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     PlateMap update(@PathParam("id") Long id, PlateMap plateMap);
 
@@ -75,7 +75,7 @@ public interface PlateMapService {
      */
     @DELETE
     @Path("/{id}")
-    @ApiOperation(value = "Deletes an existing map or throws an exception with a 404 if not found")
+    @ApiOperation("Deletes an existing map or throws an exception with a 404 if not found")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     Response delete(@PathParam("id") Long id);
 
@@ -90,7 +90,7 @@ public interface PlateMapService {
      */
     @POST
     @Consumes("multipart/form-data")
-    @ApiOperation(value = "Processes the uploaded CSV and returns a PlateMap")
+    @ApiOperation("Processes the uploaded CSV and returns a PlateMap")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     ImportedPlateMap prototype(@Multipart("file") InputStream csv);
 
@@ -100,7 +100,7 @@ public interface PlateMapService {
      * @statuscode 404 If there is no PlateMap with this id
      */
     @GET
-    @ApiOperation(value = "Lists all existing map or throws an exception with 404")
+    @ApiOperation("Lists all existing map or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
     PlateMaps listAll();
 

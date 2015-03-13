@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
@@ -21,8 +22,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class PlateResultsFixture {
     protected final ExperimentService experimentService;
-    protected final PlateService plateService;
-    protected final ResultService resultService;
     protected final PlateType plateType;
 
     public PlateResultsFixture() throws Exception {
@@ -37,9 +36,7 @@ public class PlateResultsFixture {
                         .withName(name("pt"))
                         .withManufacturer("Foo Inc.")
         );
-        plateService = cf.create(PlateService.class);
         experimentService = cf.create(ExperimentService.class);
-        resultService = cf.create(ResultService.class);
     }
 
     protected Experiment createExperiment() throws Exception {
@@ -47,12 +44,15 @@ public class PlateResultsFixture {
     }
 
     protected Plate createPlate(Experiment experiment) {
-        return plateService.create(experiment.getId(), new Plate(name("plate"),
+        ExperimentResource er = experimentService.getExperiment(experiment.getId());
+        return er.getPlates().create(new Plate(name("plate"),
                 plateType));
     }
 
     protected Response postResults(Plate plate, String file) {
-        String path = String.format("/experiment/%d/results/%d", plate.getExperiment().getId(), plate.getId());
+        String path = String.format("/experiment/%d/plates/%d/results",
+                plate.getExperiment().getId(),
+                plate.getId());
         WebClient client = WebClient.create(WebAppIT.WE99_URL + path,
                 WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW, null);
         client.type("multipart/form-data");

@@ -3,55 +3,45 @@ package edu.harvard.we99.services;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.lists.Experiments;
 import edu.harvard.we99.security.UserContextProvider;
-import edu.harvard.we99.services.experiments.MemberResource;
-import edu.harvard.we99.services.experiments.MemberResourceImpl;
+import edu.harvard.we99.services.experiments.ExperimentResource;
+import edu.harvard.we99.services.experiments.ExperimentResourceImpl;
 import edu.harvard.we99.services.storage.ExperimentStorage;
-
-import javax.ws.rs.core.Response;
+import edu.harvard.we99.services.storage.PlateStorage;
+import edu.harvard.we99.services.storage.ResultStorage;
 
 /**
  * @author mford
  */
-public class ExperimentServiceImpl extends BaseRESTServiceImpl<Experiment>  implements ExperimentService {
+public class ExperimentServiceImpl implements ExperimentService {
 
-    private UserContextProvider ucp;
+    private final UserContextProvider ucp;
+    private final ExperimentStorage storage;
+    private final PlateStorage plateStorage;
+    private final ResultStorage resultStorage;
 
-    public ExperimentServiceImpl(UserContextProvider ucp, ExperimentStorage storage) {
-        super(storage);
+    public ExperimentServiceImpl(UserContextProvider ucp,
+                                 ExperimentStorage storage,
+                                 PlateStorage plateStorage,
+                                 ResultStorage resultStorage) {
+        this.storage = storage;
         this.ucp = ucp;
+        this.plateStorage = plateStorage;
+        this.resultStorage = resultStorage;
     }
 
     @Override
-    public Experiment get(Long id) {
-        ucp.assertCallerIsMember(id);
-        return super.get(id);
-    }
-
-    @Override
-    public Experiment update(Long id, Experiment plateMap) {
-        ucp.assertCallerIsMember(id);
-        return super.update(id, plateMap);
-    }
-
-    @Override
-    public Response delete(Long id) {
-        ucp.assertCallerIsMember(id);
-        deleteImpl(id);
-        return Response.ok().build();
+    public Experiment create(Experiment experiment) {
+        return storage.create(experiment);
     }
 
     @Override
     public Experiments listExperiments() {
-        return new Experiments(storage().listAll(ucp.get()));
+        return new Experiments(storage.listAll(ucp.get()));
     }
 
     @Override
-    public MemberResource getMembers(Long id) {
+    public ExperimentResource getExperiment(Long id) {
         ucp.assertCallerIsMember(id);
-        return new MemberResourceImpl(id, storage());
-    }
-
-    private ExperimentStorage storage() {
-        return (ExperimentStorage) storage;
+        return new ExperimentResourceImpl(id, storage, plateStorage, resultStorage);
     }
 }

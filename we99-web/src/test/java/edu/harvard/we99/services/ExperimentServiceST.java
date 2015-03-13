@@ -49,7 +49,7 @@ public class ExperimentServiceST {
 
     @Test
     public void addMember() throws Exception {
-        MemberResource mr = es.getMembers(xp.getId());
+        MemberResource mr = es.getExperiment(xp.getId()).getMembers();
         Response response = mr.addMember(user.getId());
         assertOk(response);
 
@@ -59,7 +59,7 @@ public class ExperimentServiceST {
 
     @Test
     public void removeMember() throws Exception {
-        MemberResource mr = es.getMembers(xp.getId());
+        MemberResource mr = es.getExperiment(xp.getId()).getMembers();
         Response response = mr.addMember(user.getId());
         assertOk(response);
         response = mr.removeMember(user.getId());

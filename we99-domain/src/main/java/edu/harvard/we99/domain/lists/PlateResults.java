@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class PlateResults extends AbstractList<PlateResult> {
     public PlateResults() {}
-    public PlateResults(List< PlateResult > values) {
+    public PlateResults(List<PlateResult> values) {
         super(values);
     }
 }

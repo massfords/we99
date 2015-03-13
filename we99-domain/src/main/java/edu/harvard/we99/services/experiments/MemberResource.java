@@ -1,5 +1,6 @@
 package edu.harvard.we99.services.experiments;
 
+import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.lists.Users;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,14 +19,14 @@ import java.util.List;
 /**
  * @author mford
  */
-@Path("/")
+@Api(hidden = true, value = "/", description = "Adds/Removes members from the experiment")
 public interface MemberResource {
     /**
      * Lists the members in the experiment
      * @return
      */
     @GET
-    @ApiOperation(value = "Lists the members of the experiment")
+    @ApiOperation("Lists the members of the experiment")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
     public Users listMembers();
@@ -35,7 +36,7 @@ public interface MemberResource {
      * @return
      */
     @POST
-    @ApiOperation(value = "Lists the members of the experiment")
+    @ApiOperation("Sets the members of the experiment")
     @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
     public Response setMembers(List<Long> userIds);
 
@@ -46,7 +47,7 @@ public interface MemberResource {
      */
     @PUT
     @Path("/{userId}")
-    @ApiOperation(value = "Adds a member to the experiment")
+    @ApiOperation("Adds a member to the experiment")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
     public Response addMember(@PathParam("userId") Long userId);
@@ -58,9 +59,8 @@ public interface MemberResource {
      */
     @DELETE
     @Path("/{userId}")
-    @ApiOperation(value = "Removes a member of the experiment")
+    @ApiOperation("Removes a member of the experiment")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
     public Response removeMember(@PathParam("userId") Long userId);
-
 }

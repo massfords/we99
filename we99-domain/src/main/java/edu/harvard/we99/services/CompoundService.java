@@ -35,7 +35,7 @@ public interface CompoundService {
      * @statuscode 415 If the compound name is not unique
      */
     @PUT
-    @ApiOperation(value = "Create a new Compound")
+    @ApiOperation("Create a new Compound")
     @PreAuthorize("hasRole('PERM_MODIFY_COMPOUNDS')")
     Compound create(Compound compound);
 
@@ -47,7 +47,7 @@ public interface CompoundService {
      */
     @GET
     @Path("/{id}")
-    @ApiOperation(value = "Gets an existing compound or throws an exception with 404")
+    @ApiOperation("Gets an existing compound or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_COMPOUNDS')")
     Compound get(@PathParam("id")Long id);
 
@@ -60,7 +60,7 @@ public interface CompoundService {
      */
     @POST
     @Path("/{id}")
-    @ApiOperation(value = "Updates an existing compound or throws an exception with a 404 if not found.")
+    @ApiOperation("Updates an existing compound or throws an exception with a 404 if not found.")
     @PreAuthorize("hasRole('PERM_MODIFY_COMPOUNDS')")
     Compound update(@PathParam("id") Long id, Compound compound);
 
@@ -73,7 +73,7 @@ public interface CompoundService {
      */
     @DELETE
     @Path("/{id}")
-    @ApiOperation(value = "Deletes an existing compound or throws an exception with a 404 if not found")
+    @ApiOperation("Deletes an existing compound or throws an exception with a 404 if not found")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_MODIFY_COMPOUNDS')")
     Response delete(@PathParam("id") Long id);
@@ -82,7 +82,7 @@ public interface CompoundService {
      * Gets the list of the compounds in the system
      */
     @GET
-    @ApiOperation(value = "Gets the list of compounds")
+    @ApiOperation("Gets the list of compounds")
     @PreAuthorize("hasRole('PERM_READ_COMPOUNDS')")
     Compounds listAll();
 }

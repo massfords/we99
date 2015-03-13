@@ -59,7 +59,7 @@ public interface CreateAccountService {
      */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @ApiOperation(value = "A self service for users to create their own account.")
+    @ApiOperation("A self service for users to create their own account.")
     Response createAccount(@FormParam("email") String email,
                           @FormParam("firstName") String firstName,
                           @FormParam("lastName") String lastName,
@@ -78,7 +78,7 @@ public interface CreateAccountService {
     @Path("/verify/{uuid}")
     @GET
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    @ApiOperation(value = "Fetches the user associated with this registration key")
+    @ApiOperation("Fetches the user associated with this registration key")
     User activateAccount(@PathParam("uuid") String uuid,
                          @QueryParam("email") String email);
 
@@ -100,7 +100,7 @@ public interface CreateAccountService {
     @Path("/verify/{uuid}")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @ApiOperation(value = "Accepts a password for the given user account.")
+    @ApiOperation("Accepts a password for the given user account.")
     Response activateAccount(@PathParam("uuid") String uuid,
                          @FormParam("email") String email,
                          @FormParam("password") String password);

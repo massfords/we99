@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.PlateResultEntries;
 import edu.harvard.we99.domain.lists.PlateResults;
+import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
 import org.junit.AfterClass;
@@ -54,14 +55,18 @@ public class PlateResultServiceListingST {
 
     @Test
     public void listByPlate() throws Exception {
-        PlateResults plateResults = resultsFixture.resultService.listByPlate(experiment.getId(), plate.getId());
+        ExperimentResource er = resultsFixture.experimentService.getExperiment(experiment.getId());
+
+        PlateResults plateResults = er.getPlates().getPlates(plate.getId()).getResults().listByPlate();
         assertJsonEquals(load("/PlateResultServiceST/listByPlate.json"), toJsonString(plateResults),
                 Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey));
     }
 
     @Test
     public void listByExperiment() throws Exception {
-        PlateResultEntries plateResults = resultsFixture.resultService.listByExperiment(experiment.getId());
+        ExperimentResource er = resultsFixture.experimentService.getExperiment(experiment.getId());
+
+        PlateResultEntries plateResults = er.listResults();
         assertJsonEquals(load("/PlateResultServiceST/listByExperiment.json"), toJsonString(plateResults),
                 Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey));
     }

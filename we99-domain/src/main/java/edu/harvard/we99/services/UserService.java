@@ -31,7 +31,7 @@ public interface UserService {
      */
     @Path("/me")
     @GET
-    @ApiOperation(value = "Returns the basic info for the user logged in")
+    @ApiOperation("Returns the basic info for the user logged in")
     User whoami();
 
     /**
@@ -42,7 +42,7 @@ public interface UserService {
      */
     @POST
     @Path("/{id}")
-    @ApiOperation(value = "Updates the user user entity")
+    @ApiOperation("Updates the user user entity")
     User update(@PathParam("id") Long id, User user);
 
     /**
@@ -50,7 +50,7 @@ public interface UserService {
      * @return
      */
     @GET
-    @ApiOperation(value = "Lists all of the users in the system")
+    @ApiOperation("Lists all of the users in the system")
     Users list();
 
     /**
@@ -61,7 +61,7 @@ public interface UserService {
      */
     @Path("/find")
     @GET
-    @ApiOperation(value = "Returns the users that match against the given expression")
+    @ApiOperation("Returns the users that match against the given expression")
     Users find(@QueryParam("q")String query);
 
 }

@@ -13,7 +13,6 @@
         <jaxrs:serviceBeans>
             <ref bean="plateTemplateService"/>
             <ref bean="plateTypeService"/>
-            <ref bean="plateService"/>
             <ref bean="protocolService"/>
             <ref bean="compoundService"/>
             <ref bean="createAccountService"/>
@@ -22,7 +21,6 @@
             <ref bean="roleService"/>
             <ref bean="manageUser"/>
             <ref bean="math"/>
-            <ref bean="results"/>
             <ref bean="experimentService"/>
             <ref bean="appSettings"/>
             <ref bean="swaggerResourceJSON" />

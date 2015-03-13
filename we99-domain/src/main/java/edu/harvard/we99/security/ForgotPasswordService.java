@@ -54,7 +54,7 @@ public interface ForgotPasswordService {
      */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @ApiOperation(value = "Generates a temporary password and link for the user " +
+    @ApiOperation("Generates a temporary password and link for the user " +
             "and emails them a link to set a new password")
     Response sendPasswordEmail(@FormParam("email") String email,
                                @Context HttpServletRequest request);
@@ -70,7 +70,7 @@ public interface ForgotPasswordService {
     @Path("/{uuid}")
     @GET
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    @ApiOperation(value = "Fetches the user associated with this forgot password key")
+    @ApiOperation("Fetches the user associated with this forgot password key")
     User verifyResetInfo(@PathParam("uuid") String uuid,
                          @QueryParam("email") String email);
 
@@ -92,7 +92,7 @@ public interface ForgotPasswordService {
     @Path("/{uuid}")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @ApiOperation(value = "Accepts a password for the given user account.")
+    @ApiOperation("Accepts a password for the given user account.")
     Response setNewPassword(@PathParam("uuid") String uuid,
                              @FormParam("email") String email,
                              @FormParam("password") String password);

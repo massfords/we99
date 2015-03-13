@@ -27,7 +27,7 @@ public interface AppSettingsService {
      */
     @GET
     @Path("/email/config")
-    @ApiOperation(value = "Gets the current email config")
+    @ApiOperation("Gets the current email config")
     @PreAuthorize("hasRole('PERM_READ_SETTINGS')")
     EmailConfig getEmail();
 
@@ -37,7 +37,7 @@ public interface AppSettingsService {
      */
     @POST
     @Path("/email/config")
-    @ApiOperation(value = "Updates the email config")
+    @ApiOperation("Updates the email config")
     @PreAuthorize("hasRole('PERM_MODIFY_SETTINGS')")
     Response setEmail(EmailConfig config);
 
@@ -47,7 +47,7 @@ public interface AppSettingsService {
      */
     @GET
     @Path("/email/filter")
-    @ApiOperation(value = "Gets the current email filter")
+    @ApiOperation("Gets the current email filter")
     @PreAuthorize("hasRole('PERM_READ_SETTINGS')")
     EmailFilter getEmailFilter();
 
@@ -57,7 +57,7 @@ public interface AppSettingsService {
      */
     @POST
     @Path("/email/filter")
-    @ApiOperation(value = "Updates the email filter")
+    @ApiOperation("Updates the email filter")
     @PreAuthorize("hasRole('PERM_MODIFY_SETTINGS')")
     Response setEmailFilter(EmailFilter filter);
 }
