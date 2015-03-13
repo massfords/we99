@@ -3,6 +3,7 @@ package edu.harvard.we99.services;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.User;
+import edu.harvard.we99.services.experiments.MemberResource;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,21 +49,23 @@ public class ExperimentServiceST {
 
     @Test
     public void addMember() throws Exception {
-        Response response = es.addMember(xp.getId(), user.getId());
+        MemberResource mr = es.getMembers(xp.getId());
+        Response response = mr.addMember(user.getId());
         assertOk(response);
 
-        Users members = es.listMembers(xp.getId());
+        Users members = mr.listMembers();
         assertThat(members.getValues()).extracting("email").containsExactly("we99.2015@example", "we99.2015@gmail.com");
     }
 
     @Test
     public void removeMember() throws Exception {
-        Response response = es.addMember(xp.getId(), user.getId());
+        MemberResource mr = es.getMembers(xp.getId());
+        Response response = mr.addMember(user.getId());
         assertOk(response);
-        response = es.removeMember(xp.getId(), user.getId());
+        response = mr.removeMember(user.getId());
         assertOk(response);
 
-        Users members = es.listMembers(xp.getId());
+        Users members = mr.listMembers();
         assertThat(members.getValues()).extracting("email").containsExactly("we99.2015@gmail.com");
     }
 }

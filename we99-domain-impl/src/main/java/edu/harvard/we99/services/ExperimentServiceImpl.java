@@ -2,12 +2,12 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.lists.Experiments;
-import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.UserContextProvider;
+import edu.harvard.we99.services.experiments.MemberResource;
+import edu.harvard.we99.services.experiments.MemberResourceImpl;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * @author mford
@@ -46,30 +46,9 @@ public class ExperimentServiceImpl extends BaseRESTServiceImpl<Experiment>  impl
     }
 
     @Override
-    public Users listMembers(Long id) {
+    public MemberResource getMembers(Long id) {
         ucp.assertCallerIsMember(id);
-        return new Users(storage().listMembers(id));
-    }
-
-    @Override
-    public Response setMembers(Long id, List<Long> userIds) {
-        ucp.assertCallerIsMember(id);
-        storage().addMembers(id, userIds);
-        return Response.ok().build();
-    }
-
-    @Override
-    public Response addMember(Long id, Long userId) {
-        ucp.assertCallerIsMember(id);
-        storage().addMember(id, userId);
-        return Response.ok().build();
-    }
-
-    @Override
-    public Response removeMember(Long id, Long userId) {
-        ucp.assertCallerIsMember(id);
-        storage().removeMember(id, userId);
-        return Response.ok().build();
+        return new MemberResourceImpl(id, storage());
     }
 
     private ExperimentStorage storage() {

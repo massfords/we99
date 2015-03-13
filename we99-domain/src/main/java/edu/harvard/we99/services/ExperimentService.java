@@ -4,7 +4,7 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.lists.Experiments;
-import edu.harvard.we99.domain.lists.Users;
+import edu.harvard.we99.services.experiments.MemberResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
@@ -17,7 +17,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * @author mford
@@ -89,53 +88,7 @@ public interface ExperimentService {
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
     Experiments listExperiments();
 
-    /**
-     * Lists the members in the experiment
-     * @param id
-     * @return
-     */
-    @GET
     @Path("/{id}/members")
-    @ApiOperation(value = "Lists the members of the experiment")
-    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
-    public Users listMembers(@PathParam("id") Long id);
-
-    /**
-     * Adds the members to the experiment
-     * @param id
-     * @return
-     */
-    @POST
-    @Path("/{id}/members")
-    @ApiOperation(value = "Lists the members of the experiment")
-    @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
-    public Response setMembers(@PathParam("id") Long id, List<Long> userIds);
-
-    /**
-     * Adds a member to the experiement
-     * @param id
-     * @param userId
-     * @return
-     */
-    @PUT
-    @Path("/{id}/members/{userId}")
-    @ApiOperation(value = "Adds a member to the experiment")
-    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
-    public Response addMember(@PathParam("id") Long id, @PathParam("userId") Long userId);
-
-    /**
-     * Removes a member from the experiment
-     * @param id
-     * @param userId
-     * @return
-     */
-    @DELETE
-    @Path("/{id}/members/{userId}")
-    @ApiOperation(value = "Removes a member of the experiment")
-    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
-    public Response removeMember(@PathParam("id") Long id, @PathParam("userId") Long userId);
+    MemberResource getMembers(@PathParam("id")Long id);
 
 }
