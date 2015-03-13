@@ -1,1 +1,32 @@
+<style>
+
+  #list-box{
+    width: 150px;
+    height: 500px;
+    float:left;
+    border: 1px solid black;
+    padding: 2px;
+    overflow-y: scroll;
+    position: relative;
+  }
+
+  #display-box{
+    width: 400px;
+    display: inline;
+    height: 800px;
+    float: left;
+  }
+
+</style>
+
 <p>This is the heatmap view.</p>
+<div id="controls">
+  Select Result To View:
+  <select ng-model="result" ng-options="opt as opt.label for opt in resultOptions">
+  </select>
+</div>
+<div id="list-box" ></div>
+<div id="display-box"></div>
+
+
+

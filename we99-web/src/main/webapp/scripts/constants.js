@@ -4,5 +4,6 @@ var app = angular.module('we99App');
 var restBase = 'services/rest/';
 app.constant('RestURLs', {
     plateType: restBase + 'plateType/',
-    experiment: restBase + 'experiment/'
+    experiment: restBase + 'experiment/',
+    result: restBase + 'results/'
 });
