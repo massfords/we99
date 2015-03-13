@@ -14,7 +14,8 @@ app.factory('RestService', ['$resource','RestURLs', function ($resource, RestURL
             query: {method: "GET", isArray: false},
             put: {method: "PUT", isArray: false}
         }),
-        experiment: $resource(RestURLs.experiment,{},{})
+        experiment: $resource(RestURLs.experiment,{},{}),
+        results: $resource(RestURLs.result,{}, {})
     };
 }]);
 
