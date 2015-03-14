@@ -40,10 +40,13 @@ public class WebAppIT {
     @BeforeClass
     public static void initWebApp() throws Exception {
 
-        for(File file : new File("target").listFiles(pathname -> {
-            return pathname.getName().endsWith(".db");
-        })) {
-            FileUtils.forceDelete(file);
+        File dbDir = new File("target/db");
+        if (dbDir.isDirectory()) {
+            for(File file : dbDir.listFiles(pathname -> {
+                return pathname.getName().endsWith(".db");
+            })) {
+                FileUtils.forceDelete(file);
+            }
         }
 
 

@@ -6,6 +6,7 @@ import edu.harvard.we99.services.storage.entities.WellEntity;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,6 +32,11 @@ public abstract class JpaSpringFixture {
     @Inject
     private UserStorage userStorage;
     protected EntityManager em;
+
+    @BeforeClass
+    public static void init() throws Exception {
+        System.setProperty("we99_force_db", "true");
+    }
 
     @Before
     public void setUp() throws Exception {

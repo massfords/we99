@@ -7,15 +7,33 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="edu.harvard.we99" />
+
+    <bean id="we99DbInspector" class="edu.harvard.we99.domain.DbVersionInspector">
+        <constructor-arg ref="dataSource"/>
+        <constructor-arg value="we99_force_db"/>
+    </bean>
+
     <jdbc:embedded-database id="dataSource" type="H2">
         <jdbc:script location="classpath:/drop-all-h2.sql"/>
         <jdbc:script location="classpath:/we99.ddl"/>
-        <jdbc:script location="classpath:/populate-users.sql"/>
     </jdbc:embedded-database>
+
+    <jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS"
+                              enabled="#{we99DbInspector.dbInitRequired}">
+        <jdbc:script location="classpath:/drop-all-h2.sql"/>
+        <jdbc:script location="classpath:/we99.ddl"/>
+    </jdbc:initialize-database>
+
+    <bean id="we99DbPopulator" class="edu.harvard.we99.domain.DbPopulator">
+        <constructor-arg ref="entityManagerFactory"/>
+        <constructor-arg ref="we99DbInspector"/>
+        <constructor-arg ref="passwordEncoder"/>
+    </bean>
 
     <bean id="binder" class="edu.harvard.we99.util.ContextBinder">
         <constructor-arg index="0" value="java:comp/env/jdbc/WE99"/>
         <constructor-arg index="1" ref="dataSource"/>
     </bean>
+
 </beans>
 

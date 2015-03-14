@@ -22,6 +22,12 @@ public class PermissionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public PermissionEntity() {}
+
+    public PermissionEntity(String name) {
+        this.name = name;
+    }
+
     @NotNull
     @Column(updatable = false, unique = true)
     private String name;

@@ -35,6 +35,12 @@ public class RoleEntity {
     @Embedded
     private RoleName name;
 
+    public RoleEntity() {}
+
+    public RoleEntity(String name) {
+        this.name = new RoleName(name);
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
     @MapKey(name="name")
     private Map<String,PermissionEntity> permissions = new TreeMap<>();

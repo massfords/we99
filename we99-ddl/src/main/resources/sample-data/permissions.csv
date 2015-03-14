@@ -1,0 +1,17 @@
+PERM_READ_COMPOUNDS, Admin, Scientist, Guest
+PERM_MODIFY_COMPOUNDS, Admin, Scientist
+PERM_READ_PLATES, Admin, Scientist, Guest
+PERM_MODIFY_PLATES, Admin, Scientist
+PERM_READ_PLATEMAPS, Admin, Scientist, Guest
+PERM_MODIFY_PLATEMAPS, Admin, Scientist
+PERM_READ_PLATETYPES, Admin, Scientist, Guest
+PERM_MODIFY_PLATETYPES, Admin, Scientist
+PERM_READ_PROTOCOLS, Admin, Scientist, Guest
+PERM_MODIFY_PROTOCOLS, Admin, Scientist
+PERM_MODIFY_USERROLE, Admin, Scientist
+PERM_READ_EXPERIMENTS, Admin, Scientist, Guest
+PERM_MODIFY_EXPERIMENTS, Admin, Scientist
+PERM_READ_RESULTS, Admin, Scientist, Guest
+PERM_MODIFY_RESULTS, Admin
+PERM_READ_SETTINGS, Admin, Scientist, Guest
+PERM_MODIFY_SETTINGS, Admin, Scientist

@@ -39,4 +39,30 @@
             <field name="name" required="true" trim="true"/>
         </record>
     </stream>
+
+    <stream name="permissions" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <record name="permission" class="edu.harvard.we99.domain.PermissionMapping">
+            <field name="permission" required="true" trim="true"/>
+            <field name="roles" required="true" trim="true" type="string" collection="list" minOccurs="1" maxOccurs="unbounded" />
+        </record>
+    </stream>
+
+    <stream name="users" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <record name="user" class="edu.harvard.we99.domain.UserMapping">
+            <field name="email" required="true" trim="true"/>
+            <field name="firstName" required="true" trim="true"/>
+            <field name="lastName" required="true" trim="true"/>
+            <field name="role" required="true" trim="true"/>
+            <field name="password" required="true" trim="true"/>
+        </record>
+    </stream>
+
 </beanio>

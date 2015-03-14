@@ -21,12 +21,12 @@
                             enabled="#{we99DbInspector.dbInitRequired}">
     <jdbc:script location="classpath:/drop-all-h2.sql"/>
     <jdbc:script location="classpath:/we99.ddl"/>
-    <jdbc:script location="classpath:/populate-users.sql"/>
   </jdbc:initialize-database>
 
   <bean id="we99DbPopulator" class="edu.harvard.we99.domain.DbPopulator">
     <constructor-arg ref="entityManagerFactory"/>
     <constructor-arg ref="we99DbInspector"/>
+    <constructor-arg ref="passwordEncoder"/>
   </bean>
 
 </beans>
