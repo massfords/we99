@@ -12,11 +12,27 @@
     <artifactId>we99-ddl</artifactId>
 
     <dependencies>
+        <!--
+            Used to parse CSV files into beans
+        -->
+        <dependency>
+            <groupId>org.beanio</groupId>
+            <artifactId>beanio</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <!--
+            h2 dependency needed to generate the DDL but nothign else
+        -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
+
+        <!--
+            This provides the entities
+        -->
         <dependency>
             <groupId>edu.harvard.we99</groupId>
             <artifactId>we99-jpa</artifactId>
@@ -28,7 +44,7 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <includes><include>*</include></includes>
+                <includes><include>**</include></includes>
             </resource>
             <resource>
                 <directory>target/sql/hibernate4</directory>

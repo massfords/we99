@@ -1,5 +1,7 @@
 package edu.harvard.we99.security;
 
+import edu.harvard.we99.services.storage.entities.RoleEntity;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -16,9 +18,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<RoleName> getRoleNames() {
-        List<Role> roles = em.createQuery(
-                "select r from Role r", Role.class).getResultList();
+        List<RoleEntity> roles = em.createQuery(
+                "select r from RoleEntity r", RoleEntity.class).getResultList();
 
-        return roles.stream().map(Role::getName).collect(Collectors.toList());
+        return roles.stream().map(RoleEntity::getName).collect(Collectors.toList());
     }
 }

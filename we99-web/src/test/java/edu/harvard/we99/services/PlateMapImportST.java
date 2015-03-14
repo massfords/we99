@@ -81,7 +81,8 @@ public class PlateMapImportST {
         assertEquals(200, response.getStatus());
 
         InputStream is = (InputStream) response.getEntity();
-        assertJsonEquals(load(expected), IOUtils.toString(is), Scrubbers.uuid.andThen(Scrubbers.pkey));
+        String json = IOUtils.toString(is);
+        assertJsonEquals(load(expected), json, Scrubbers.uuid.andThen(Scrubbers.pkey));
     }
 
 }

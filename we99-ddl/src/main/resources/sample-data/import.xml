@@ -1,0 +1,42 @@
+<beanio xmlns="http://www.beanio.org/2012/03"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03">
+
+    <!-- 'format' identifies the type of stream -->
+    <stream name="plateTypes" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <record name="plateTypes" class="edu.harvard.we99.services.storage.entities.PlateTypeEntity">
+            <field name="name" required="true" trim="true"/>
+            <segment name="dim" class="edu.harvard.we99.domain.PlateDimension">
+                <field name="rows" required="true" trim="true"/>
+                <field name="cols" required="true" trim="true"/>
+            </segment>
+            <field name="manufacturer" required="true" trim="true"/>
+            <field name="link" required="false" trim="true"/>
+            <field name="description" required="false" trim="true"/>
+        </record>
+    </stream>
+
+    <stream name="compounds" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <record name="compounds" class="edu.harvard.we99.services.storage.entities.CompoundEntity">
+            <field name="name" required="true" trim="true"/>
+        </record>
+    </stream>
+
+    <stream name="protocols" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <record name="protocols" class="edu.harvard.we99.services.storage.entities.ProtocolEntity">
+            <field name="name" required="true" trim="true"/>
+        </record>
+    </stream>
+</beanio>
