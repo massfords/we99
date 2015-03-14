@@ -8,8 +8,8 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-    .controller('PlateTypeEditorCtrl', ['$scope','$modal','RestService',
-        function ($scope,$modal,RestService) {
+    .controller('PlateTypeEditorCtrl', ['$scope','$modal', 'RestService',
+        function ($scope,$modal, RestService) {
           var kNewPlateTypeOptions = [
             // Add remove static option 'templates' here
             {name: '6-Well',    rows: 2, cols:3},
@@ -51,9 +51,8 @@ angular.module('we99App')
 
           /* HELPERS */
           function refreshPlateTypesList (){
-              $scope.plateTypes = RestService.plateType.query(function done(){
-                  console.log("Plate Types Loaded");
-                  console.log($scope.plateTypes);
+              $scope.plateTypes = RestService.plateType.query(function done() {
+                $scope.displayPlateTypes = [].concat($scope.plateTypes);
               });
           }
 
