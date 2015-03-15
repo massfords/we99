@@ -2,7 +2,7 @@ Welcome ${firstName} ${lastName}!
 
 Click the following link to verify your new account:
 
-${protocol}://${host}:${port}/${context}/open/createAccount-verify.html?uuid=${uuid}&email=${email}
+${protocol}://${host}:${port}/${context}/confirm-account.html?uuid=${uuid}&email=${email}
 
 Thanks,
 

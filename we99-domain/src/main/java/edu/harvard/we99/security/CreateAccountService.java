@@ -5,12 +5,9 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -40,6 +37,7 @@ import javax.ws.rs.core.Response;
 @Path("/createAccount")
 @Api(value = "/createAccount",
         description = "Service for creating new user accounts")
+@Consumes(MediaType.APPLICATION_JSON)
 public interface CreateAccountService {
     /**
      * A self service for users to create their own account.
@@ -48,9 +46,7 @@ public interface CreateAccountService {
      * attempt to provide a full identity management suite. It's likely that this
      * service would be swapped out for something else like a SSO and/or central
      * identity management service. Perhaps OpenAM?
-     * @param email
-     * @param firstName
-     * @param lastName
+     * @param user
      * @param request
      * @return 307 if the tmp account can be created as you'll be redirected to
      *          the registration success page, 409 if the email's already taken
@@ -58,29 +54,23 @@ public interface CreateAccountService {
      * @statuscode 404 if there is no user with this email
      */
     @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @ApiOperation("A self service for users to create their own account.")
-    Response createAccount(@FormParam("email") String email,
-                          @FormParam("firstName") String firstName,
-                          @FormParam("lastName") String lastName,
-                          @Context HttpServletRequest request);
+    Response createAccount(User user, @Context HttpServletRequest request);
 
 
     /**
      * Fetches the user associated with this registration key or returns an error
      * if there is no account with this key that needs activating.
      * @param uuid
-     * @param email
+     * @param user
      * @return the user to populate the form to set their password or a 404 if there
      *         is no user account awaiting activation.
      * @statuscode 404 if there is no user with this email / uuid
      */
     @Path("/verify/{uuid}")
-    @GET
-    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @POST
     @ApiOperation("Fetches the user associated with this registration key")
-    User activateAccount(@PathParam("uuid") String uuid,
-                         @QueryParam("email") String email);
+    User verifyAccount(@PathParam("uuid") String uuid, User user);
 
     /**
      * Accepts a password for the given user account. Verifies that the UUID matches
@@ -88,21 +78,16 @@ public interface CreateAccountService {
      *
      * After receiving a 200 from this call, the user should be able to login with
      * their email and password.
-     * @param uuid
-     * @param email
-     * @param password - value that we'll SHA-256 hash (with user specific salt)
+     * @param user - with a password value that we'll SHA-256 hash (with user specific salt)
      *                 for their password
      * @return 200 to indicate success, 404 if the account was already activated.
      *         possibly other codes in the future if password strength rules are applied
      * @statuscode 404 if there is no user with this email / uuid
      * @statuscode 200 if successful
      */
-    @Path("/verify/{uuid}")
+    @Path("/activate/{uuid}")
     @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @ApiOperation("Accepts a password for the given user account.")
-    Response activateAccount(@PathParam("uuid") String uuid,
-                         @FormParam("email") String email,
-                         @FormParam("password") String password);
+    Response activateAccount(@PathParam("uuid") String uuid, User user);
 
 }

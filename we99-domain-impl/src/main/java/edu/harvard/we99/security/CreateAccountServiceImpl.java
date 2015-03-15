@@ -14,8 +14,6 @@ import javax.validation.ConstraintViolationException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,9 +51,7 @@ public class CreateAccountServiceImpl implements CreateAccountService {
     }
 
     @Override
-    public Response createAccount(String emailAddress,
-                                  String firstName,
-                                  String lastName,
+    public Response createAccount(User createMe,
                                   HttpServletRequest request) {
         // insert a new user using the given params
         // if successful, send them an email with the password as a link
@@ -63,13 +59,15 @@ public class CreateAccountServiceImpl implements CreateAccountService {
 
         EmailFilter emailFilter = settings.getEmailFilter();
 
-        if (!emailFilter.test(emailAddress)) {
-            log.error("email disallowed by filter: {}", emailAddress);
+        if (!emailFilter.test(createMe.getEmail())) {
+            log.error("email disallowed by filter: {}", createMe.getEmail());
             throw new WebApplicationException(Response.status(403).build());
         }
 
+        Long userId = null;
         try {
-            User user = storage.create(new User(emailAddress, firstName, lastName));
+            User user = storage.create(createMe);
+            userId = user.getId();
 
             Email email = emailService.createEmail();
             email.setSubject("Welcome to WE99");
@@ -91,29 +89,25 @@ public class CreateAccountServiceImpl implements CreateAccountService {
                     EmailTemplates.newUserEmail, params);
 
             email.setMsg(emailBody);
-            email.addTo(emailAddress);
+            email.addTo(user.getEmail());
             email.send();
 
-            return Response.temporaryRedirect(new URI("../../open/registrationSent.html")).build();
+            return Response.ok().build();
         } catch(PersistenceException | ConstraintViolationException e) {
             return Response.status(409).build();
-        } catch (EmailException e) {
-            log.error("Error sending email to {}", emailAddress, e);
+        } catch (EmailException | IOException e) {
+            log.error("Error sending email to {}", createMe.getEmail(), e);
+            if (userId != null) {
+                storage.delete(userId);
+            }
             return Response.serverError().build();
-        } catch (IOException e) {
-            log.error("Error loading email resource. Check the classpath for newUserEmail.txt", e);
-            return Response.serverError().build();
-        } catch (URISyntaxException e) {
-            // seems like we would never get this.
-            log.error("can't build the uri?", e);
-            return Response.ok().build();
         }
     }
 
     @Override
-    public User activateAccount(String uuid, String email) {
+    public User verifyAccount(String uuid, User user) {
         try {
-            return storage.findByUUID(uuid, email);
+            return storage.findByUUID(uuid, user.getEmail());
         } catch(Exception e) {
             log.error("error finding user with reg key {}", uuid, e);
             throw new WebApplicationException(Response.status(404).build());
@@ -121,9 +115,9 @@ public class CreateAccountServiceImpl implements CreateAccountService {
     }
 
     @Override
-    public Response activateAccount(String uuid, String email, String password) {
+    public Response activateAccount(String uuid, User user) {
         try {
-            storage.activate(uuid, email, password);
+            storage.activate(uuid, user.getEmail(), user.getPassword());
             return Response.ok().build();
         } catch(Exception e) {
             log.error("error finding user with reg key {}", uuid, e);

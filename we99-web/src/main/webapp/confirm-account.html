@@ -1,0 +1,77 @@
+<html ng-app="we99Login">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>WE-99 Login Page</title>
+  <link rel="stylesheet"
+        href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <img src="images/we99-logo.jpg">
+    </div>
+    <div class="col-md-1">
+      &nbsp;
+    </div>
+    <div class="col-md-6" ng-controller="SignUpController" ng-init="loadUser()">
+      <h3>Activate your account</h3>
+
+      <div class="row">
+        <div class="col-md-6">
+          <label for="suFirstName">First Name</label>
+          <input type="text" id="suFirstName"
+                 name="firstName" class="form-control"
+                 ng-model="user.firstName"/>
+        </div>
+        <div class="col-md-6">
+          <label for="suLastName">Last Name</label>
+          <input type="text" placeholder="Last Name" id="suLastName"
+                 name="lastName" class="form-control"
+                 ng-model="user.lastName"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <label for="suEmail">Email</label>
+          <input type="text" placeholder="Email" id="suEmail"
+                 name="email" class="form-control" ng-model="user.email"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <label for="suPassword">Password</label>
+          <input type="password" id="suPassword"
+                 class="form-control" ng-model="user.password"/>
+        </div>
+      </div>
+      <div class="row">
+        &nbsp;
+      </div>
+      <div class="row form-group">
+        <div class="col-md-6">
+          <input type="submit" value="Activate" class="btn-success btn-lg"
+                 ng-click="activate()"/>
+        </div>
+
+        <div class="col-md-6">
+          <div class="alert alert-success" ng-show="showSuccessAlert">
+            <button type="button" class="close"
+                    data-ng-click="switchBool('showSuccessAlert')">×
+            </button>
+            <strong>Success</strong> {{successTextAlert}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="scripts/login.js"></script>
+<script src="lib/URI.js" charset="utf-8"></script>
+
+</body>
+</html>

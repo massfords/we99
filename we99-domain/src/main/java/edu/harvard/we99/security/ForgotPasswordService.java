@@ -5,12 +5,9 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -40,23 +37,23 @@ import javax.ws.rs.core.Response;
 @Path("/forgotPassword")
 @Api(value = "/forgotPassword",
         description = "Service that allows users to reset their password if they forget it")
+@Consumes(MediaType.APPLICATION_JSON)
 public interface ForgotPasswordService {
 
     /**
      * Generates a temporary password and link for the user and emails them a
      * link to set a new password.
      *
-     * @param email
+     * @param user
      * @param request
      * @return
      * @statuscode 200 to indicate success
      * @statuscode 404 if there is no email with this
      */
     @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @ApiOperation("Generates a temporary password and link for the user " +
             "and emails them a link to set a new password")
-    Response sendPasswordEmail(@FormParam("email") String email,
+    Response sendPasswordEmail(User user,
                                @Context HttpServletRequest request);
 
     /**
@@ -67,12 +64,11 @@ public interface ForgotPasswordService {
      * @return the user to populate the form to set their password or a 404 if there
      *         is no user account awaiting activation.
      */
-    @Path("/{uuid}")
-    @GET
+    @Path("/verify/{uuid}")
+    @POST
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @ApiOperation("Fetches the user associated with this forgot password key")
-    User verifyResetInfo(@PathParam("uuid") String uuid,
-                         @QueryParam("email") String email);
+    User verifyResetInfo(@PathParam("uuid") String uuid, User email);
 
     /**
      * Accepts a password for the given user account. Verifies that the UUID matches
@@ -81,20 +77,15 @@ public interface ForgotPasswordService {
      * After receiving a 200 from this call, the user should be able to login with
      * their email and password.
      * @param uuid
-     * @param email
-     * @param password - value that we'll SHA-256 hash (with user specific salt)
+     * @param user - User with pw value that we'll SHA-256 hash (with user specific salt)
      *                 for their password
      * @return 200 to indicate success, 404 if the account was already activated.
      *         possibly other codes in the future if password strength rules are applied
      * @statuscode 200 to indicate success
      * @statuscode 404 if the account was already activated.
      */
-    @Path("/{uuid}")
+    @Path("/update/{uuid}")
     @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @ApiOperation("Accepts a password for the given user account.")
-    Response setNewPassword(@PathParam("uuid") String uuid,
-                             @FormParam("email") String email,
-                             @FormParam("password") String password);
-
+    Response setNewPassword(@PathParam("uuid") String uuid, User user);
 }

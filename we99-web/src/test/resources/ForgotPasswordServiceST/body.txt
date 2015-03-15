@@ -2,7 +2,7 @@ Hello Test User!
 
 Click the following link to reset your password:
 
-http://localhost:8080/we99/open/resetPassword-verify.html?uuid=uuid&email=we99.2015@gmail.com
+http://localhost:8080/we99/password-reset.html?uuid=uuid&email=we99.2015@gmail.com
 
 Thanks,
 

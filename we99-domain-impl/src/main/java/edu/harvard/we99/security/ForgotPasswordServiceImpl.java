@@ -51,9 +51,9 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
     }
 
     @Override
-    public Response sendPasswordEmail(String emailAddress, HttpServletRequest request) {
+    public Response sendPasswordEmail(User userFromCaller, HttpServletRequest request) {
         try {
-            User user = storage.findByEmail(emailAddress);
+            User user = storage.findByEmail(userFromCaller.getEmail());
             String uuid = storage.resetPassword(user.getId());
 
             Email email = emailService.createEmail();
@@ -66,14 +66,14 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
                     EmailTemplates.forgotPassword, params);
 
             email.setMsg(emailBody);
-            email.addTo(emailAddress);
+            email.addTo(user.getEmail());
             email.send();
 
             return Response.ok().build();
         } catch(PersistenceException e) {
             throw new WebApplicationException(Response.status(404).build());
         } catch (EmailException e) {
-            log.error("Error sending email to {}", emailAddress, e);
+            log.error("Error sending email to {}", userFromCaller.getEmail(), e);
             return Response.serverError().build();
         } catch (IOException e) {
             log.error("Error loading email resource. Check the classpath for newUserEmail.txt", e);
@@ -82,12 +82,12 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
     }
 
     @Override
-    public User verifyResetInfo(String uuid, String email) {
-        return cas.activateAccount(uuid, email);
+    public User verifyResetInfo(String uuid, User user) {
+        return cas.verifyAccount(uuid, user);
     }
 
     @Override
-    public Response setNewPassword(String uuid, String email, String password) {
-        return cas.activateAccount(uuid, email, password);
+    public Response setNewPassword(String uuid, User user) {
+        return cas.activateAccount(uuid, user);
     }
 }

@@ -53,4 +53,10 @@ public class UserServiceImpl implements UserService {
     public Users find(String query) {
         return new Users(storage.find(query));
     }
+
+    @Override
+    public Response removeUser(Long id) {
+        storage.delete(id);
+        return Response.ok().build();
+    }
 }

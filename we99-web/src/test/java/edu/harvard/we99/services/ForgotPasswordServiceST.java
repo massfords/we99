@@ -1,7 +1,7 @@
 package edu.harvard.we99.services;
 
-import edu.harvard.we99.security.User;
 import edu.harvard.we99.security.ForgotPasswordService;
+import edu.harvard.we99.security.User;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.commons.io.IOUtils;
@@ -10,7 +10,6 @@ import org.jvnet.mock_javamail.Mailbox;
 
 import javax.mail.Message;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URL;
 import java.util.function.Function;
@@ -50,12 +49,11 @@ public class ForgotPasswordServiceST {
 
         // notice that no password is needed
         ClientFactory cf = new ClientFactory(new URL(WebAppIT.WE99_URL), null, null);
-        cf.setMediaType(MediaType.APPLICATION_FORM_URLENCODED_TYPE);
         ForgotPasswordService fps = cf.create(ForgotPasswordService.class);
 
         // 2. hit the forgot password service
         String email = "we99.2015@gmail.com";
-        Response response = fps.sendPasswordEmail(email, request);
+        Response response = fps.sendPasswordEmail(new User().withEmail(email), request);
         assertEquals(200, response.getStatus());
 
         // 3. assert that the email received has the link in it
@@ -68,7 +66,7 @@ public class ForgotPasswordServiceST {
 
         // 4. assert that we can verify the new account
         String uuid = extractUUID(body);
-        User user = fps.verifyResetInfo(uuid, email);
+        User user = fps.verifyResetInfo(uuid, new User().withEmail(email));
         assertNotNull(user);
         Function<String, String> scrubber = Scrubbers.uuid
                 .andThen(Scrubbers.pkey).andThen(Scrubbers.perms);
@@ -77,7 +75,8 @@ public class ForgotPasswordServiceST {
 
         // 5. set the password for the account
         String password = "pass";
-        Response actived = fps.setNewPassword(uuid, email, password);
+        Response actived = fps.setNewPassword(uuid,
+                new User().withEmail(email).withPassword(password));
         assertEquals(200, actived.getStatus());
 
         // 6. get our user bean to verify that we now have access

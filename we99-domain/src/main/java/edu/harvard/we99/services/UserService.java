@@ -6,6 +6,7 @@ import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.User;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Service for interacting with User entities.
@@ -45,6 +47,8 @@ public interface UserService {
     @ApiOperation("Updates the user user entity")
     User update(@PathParam("id") Long id, User user);
 
+    // todo - need to add PreAuthorize for all of these
+
     /**
      * Lists all of the users in the system
      * @return
@@ -63,5 +67,11 @@ public interface UserService {
     @GET
     @ApiOperation("Returns the users that match against the given expression")
     Users find(@QueryParam("q")String query);
+
+    @DELETE
+    @Path("/{id}")
+    @ApiOperation("Deletes the user from the system")
+    @Consumes(MediaType.WILDCARD)
+    Response removeUser(@PathParam("id")Long id);
 
 }

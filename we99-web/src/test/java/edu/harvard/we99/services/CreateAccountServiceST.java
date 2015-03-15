@@ -10,7 +10,6 @@ import org.jvnet.mock_javamail.Mailbox;
 
 import javax.mail.Message;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URL;
 import java.util.function.Function;
@@ -44,14 +43,13 @@ public class CreateAccountServiceST {
 
         // notice that no password is needed
         ClientFactory cf = new ClientFactory(new URL(WebAppIT.WE99_URL), null, null);
-        cf.setMediaType(MediaType.APPLICATION_FORM_URLENCODED_TYPE);
         CreateAccountService cas = cf.create(CreateAccountService.class);
 
         // 2. register a new email address
         String email = name("junit@");
-        Response response = cas.createAccount(email,
-                "Mark", "Ford", request);
-        assertEquals(307, response.getStatus());
+        Response response = cas.createAccount(new User(email,
+                "Mark", "Ford"), request);
+        assertEquals(200, response.getStatus());
 
         // 3. assert that the email received has the link in it
         Mailbox messages = Mailbox.get(email);
@@ -63,7 +61,7 @@ public class CreateAccountServiceST {
 
         // 4. assert that we can verify the new account
         String uuid = extractUUID(body);
-        User user = cas.activateAccount(uuid, email);
+        User user = cas.verifyAccount(uuid, new User().withEmail(email));
         assertNotNull(user);
         Function<String, String> scrubber = Scrubbers.uuid.andThen(Scrubbers.pkey)
                 .andThen(Scrubbers.perms);
@@ -72,7 +70,8 @@ public class CreateAccountServiceST {
 
         // 5. set the password for the account
         String password = "password1234";
-        Response actived = cas.activateAccount(uuid, email, password);
+        Response actived = cas.activateAccount(uuid,
+                new User().withEmail(email).withPassword(password));
         assertEquals(200, actived.getStatus());
 
         // 6. get our user bean to verify that we now have access

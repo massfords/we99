@@ -4,6 +4,8 @@ import edu.harvard.we99.domain.BaseEntity;
 
 import javax.annotation.Generated;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +16,7 @@ import java.util.Set;
  *
  * @author mford
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User extends BaseEntity {
 
     private Long id;
