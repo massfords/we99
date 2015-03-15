@@ -1,0 +1,91 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1102" measuredH="598" mockupW="1030" mockupH="559">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="72" y="39" w="1030" h="559" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%20Web%20Page%0Ahttp%3A//www.we99.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::DataGrid" x="72" y="149" w="1030" h="53" measuredW="386" measuredH="54" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Name%20%5E%2C%20Created%20by%20%5Ev%2C%20Size%2C%20Status%0A%2C%20John%20Wayne%2C%2096%20Well%2C%20Unidentified%20Fields%0A%7B20L%2C%2010C%2C%2010C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::SubTitle" x="328" y="119" w="-1" h="-1" measuredW="544" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create%20Template%20From%20File%20-%20myExcelTemplate.csv</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::SearchBox" x="88" y="120" w="-1" h="-1" measuredW="120" measuredH="25" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::TextInput" x="78" y="168" w="195" h="-1" measuredW="174" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>John%27s_old_2003_template</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::SubTitle" x="395" y="210" w="-1" h="-1" measuredW="335" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Please%20Map%20Unidentified%20Fields</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::DataGrid" x="72" y="243" w="775" h="195" measuredW="261" measuredH="174" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Label%20From%20File%2C%20Well%20Type%0AAB12%2C%2C%0ASD52%2C%2C%0ART21%2C%2C%0AmyPositveControl1%2C%0AmyNegativeControl1%2C%0A%7B25C%2C%2025C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::ComboBox" x="603" y="263" w="102" h="-1" measuredW="74" measuredH="24" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>COMP1</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::ComboBox" x="603" y="293" w="102" h="-1" measuredW="77" measuredH="24" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>COMP2</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::ComboBox" x="603" y="328" w="102" h="-1" measuredW="77" measuredH="24" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>COMP3</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::ComboBox" x="603" y="359" w="102" h="-1" measuredW="63" measuredH="24" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>POS1</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::ComboBox" x="603" y="390" w="102" h="-1" measuredW="62" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>NEG1</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::iPadPopover" x="862" y="247" w="-1" h="-1" measuredW="222" measuredH="187" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <popoverArrowPosition>2</popoverArrowPosition>
+        <popoverArrowSide>left</popoverArrowSide>
+        <text>John%20Wayne%27s%20Convention%0A%20%0ACompound%20%3D%20COMP%20%23%0APositive%20Control%20%3D%20POS%20%23%0ANegative%20Contol%20%3D%20NEG%20%23</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Button" x="914" y="491" w="-1" h="-1" measuredW="52" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Button" x="981" y="491" w="-1" h="-1" measuredW="110" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save%20and%20View</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::StickyNote" x="88" y="420" w="793" h="149" measuredW="109" measuredH="123" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>18</size>
+        <text>Templates%20can%20be%20imported%20from%20file.%20The%20system%20will%20assign%20lables%20based%20on%20a%20default%20or%20user%20defined%20convention.%20If%20there%20are%20fields%20in%20the%20file%20that%20do%20not%20match%20the%20convention%20the%20user%20will%20be%20asked%20to%20map%20the%20label%20from%20the%20file%20to%20the%20convention.%20System%20needs%20to%20know%20if%20the%20label%20is%20a%20unique%20compound%2C%20a%20positive%20countrol%20%2C%20or%20a%20negative%20control</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

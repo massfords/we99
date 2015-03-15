@@ -1,0 +1,41 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="763" measuredH="513" mockupW="643" mockupH="447">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="120" y="66" w="643" h="447" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::HRule" x="174" y="122" w="343" h="-1" measuredW="100" measuredH="10" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="174" y="87" w="325" h="-1" measuredW="325" measuredH="26" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>Cure%20for%20Cancer%20-%20Experimet%20Plate%20Sets</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TabBar" x="156" y="147" w="547" h="366" measuredW="193" measuredH="100" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Plates%2C%20Chemicals</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Button" x="575" y="202" w="99" h="27" measuredW="99" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <state>disabled</state>
+        <text>Add%20New%20Set</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Link" x="312" y="151" w="-1" h="-1" measuredW="51" measuredH="19" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Settings</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::DataGrid" x="174" y="244" w="500" h="269" measuredW="262" measuredH="171" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Date%20%5Ev%2C%20Plate%20%5Ev%2C%20Results%20%5Ev%2C%20View%20%5Ev%0Axx/xx/xx%2C%20plate1%2C%20loaded%2C%20%5BView%5D%0Axx/xx/xx%2C%20plate2%2C%20loaded%2C%20%5BView%5D%0Axx/xx/xx%2C%20plate3%2C%20loaded%2C%20%5BView%5D%0Axx/xx/xx%2C%20plate4%2C%20ready%20to%20test%2C%20%5BView%5D%20%0Axx/xx/xx%2C%20plate5%2C%20ready%20to%20test%2C%20%5BView%5D%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="492" y="202" w="74" h="27" measuredW="61" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <markup>true</markup>
+        <text>Export</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
