@@ -47,7 +47,7 @@ angular.module('we99App')
                     name: model.name,
                     description: model.description,
                     manufacturer: model.manufacturer,
-                    material: model.material,
+                    //material: model.material,
                     link: model.orderingLink,
                     //orderingNotes: model.orderingNotes,
                     dim: {
@@ -59,6 +59,10 @@ angular.module('we99App')
         }
         /** Verification before sending to server */
         function preVerification() {
+            if (!$scope.plateType.name || $scope.plateType.name.length === 0){
+              return false;
+            }
+
             return true;
         }
   }]);
