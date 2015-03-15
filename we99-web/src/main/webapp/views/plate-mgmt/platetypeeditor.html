@@ -8,21 +8,20 @@
         <th st-sort="manufacturer">Manufacturer</th>
         <th st-sort="selected">Delete</th>
       </tr>
+     <tr>
+      <th colspan="5"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
+    </tr>
     </thead>
     <tbody>
-    <tr>
-      <th colspan="5"><input st-search="name" class="form-control" placeholder="Search ..." type="search"/></th>
-    </tr>
     <tr ng-repeat="row in displayPlateTypes">
       <td>{{row.name}}</td>
       <td>{{row.description}}</td>
       <td>{{row.dim.rows + ' x ' + row.dim.cols}}</td>
       <td>{{row.manufacturer}}</td>
       <td>
-        <i class="glyphicon glyphicon-cancel" ng-click="removeItem(row)"></i>
-        <button type="button" class="btn btn-sm btn-success" ng-click="selectItem(row)">
-          <i class="glyphicon glyphicon-ok"></i>
-        </button>
+        <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
+			<i class="glyphicon glyphicon-remove-circle"></i>
+		</button>
       </td>
     </tr>
     </tbody>

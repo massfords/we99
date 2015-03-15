@@ -25,6 +25,9 @@ angular.module('we99App')
 
 	  var authenticate = function(callback) {
 
+		  if(true){
+			  return;
+		  }
 	    $http.get('/services/rest/me').success(function(data) {
 	    	console.log(data);
 	      if (data) {
