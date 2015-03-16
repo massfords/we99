@@ -1,0 +1,14 @@
+.add-plate-type .form-group-body {
+  padding: 5px 3px 3px 10px;
+  background-color: #efefef;
+}
+
+.add-plate-type .form-group-title {
+  padding: 5px 5px 5px 5px;
+  color: #ffffff;
+  background-color: #808080;
+}
+
+.add-plate-type input[type="number"] {
+  width:60px;
+}

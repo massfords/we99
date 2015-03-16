@@ -1,8 +1,53 @@
 <div class="modal-header">
   <h3 class="modal-title">Add Plate Template</h3>
 </div>
-<div class="modal-body">
+<div class="add-plate-type modal-body">
+  <form class="">
+    <!--
+      name
+      description
+      rows cols
+      manufacturer
+      material
+      orderingComments
+      orderingLink
 
+
+     -->
+    <div class="form-group">
+      <div class="form-group-title">Plate Type Details:</div>
+      <div class="form-group-body">
+        <label>Name:</label>
+          <input type="text" class="form-control" ng-model="plateType.name" placeholder="Name" /> <br>
+        <label>Description:</label>
+          <textarea class="form-control" ng-model="plateType.description" placeholder="Enter description"></textarea><br>
+        <label>Manufacturer:</label>
+          <input type="text" class="form-control" ng-model="plateType.manufacturer" placeholder="Manufacturer" /><br>
+        <label>Material:</label>
+          <input type="text" class="form-control" ng-model="plateType.material" placeholder="Material" /><br>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-group-title">Dimensions:</div>
+      <div class="form-group-body">
+        <label>Rows: </label>
+          <input type="number" ng-model="plateType.rows" maxlength="3" size="3"/> wells  &times;
+        <label>Cols: </label>
+          <input type="number" ng-model="plateType.cols" maxlength="3" size="3"/> wells <br>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-group-title">Ordering / Restocking Details:</div>
+      <div class="form-group-body">
+        <label>Ordering URL:</label>
+          <input type="url" class="form-control" ng-model="plateType.orderingLink" placeholder="http://..." /><br>
+        <label>Ordering Instructions:</label>
+          <textarea ng-model="plateType.orderingNotes"
+                    class="form-control"
+                    placeholder="Place instructions on ordering more plates from the manufacturer..."></textarea>
+      </div>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
   <button class="btn btn-primary" ng-click="addPlateType()">Create</button>
