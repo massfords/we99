@@ -1,0 +1,18 @@
+<p>This is the plate-mgmt/importPlateMap view.</p>
+ Drop File:
+    <!-- not sure if i should include application/csv as well -->
+    <div ng-file-drop ng-file-select ng-model="files" class="drop-box" 
+        drag-over-class="dragover" ng-multiple="true" allow-dir="true"
+        accept="text/csv">Drop csv files here or click to upload</div>
+    <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
+    <ul>
+        <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
+    </ul>
+    
+    <div>
+    <!-- Just a basic text output for response for now, better implementation to come later -->
+    <label for="output">Response:</label>
+     <textarea id="output" rows=5 style="width: 100%;" readonly>
+     {{uploadOutput}}
+     </textarea>
+    </div>

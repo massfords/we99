@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
-    'smart-table'
+    'smart-table',
+    'angularFileUpload'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -48,6 +49,14 @@ angular
       .when('/experiment/create', {
         templateUrl: 'views/experiment/create.html',
         controller: 'ExperimentCreateCtrl'
+      })
+      .when('/plate-mgmt/importPlateMap', {
+        templateUrl: 'views/plate-mgmt/importplatemap.html',
+        controller: 'PlateMgmtImportplatemapCtrl'
+      })
+      .when('/admin/settings', {
+        templateUrl: 'views/admin/settings.html',
+        controller: 'AdminSettingsCtrl'
       })
       .otherwise({
         redirectTo: '/experiment'

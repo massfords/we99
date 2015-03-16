@@ -8,7 +8,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ExperimentCreateCtrl', function ($scope, RestService) {
+  .controller('ExperimentCreateCtrl', function ($scope, $location, RestService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -46,6 +46,9 @@ angular.module('we99App')
     	
     	
     	RestService.createExperiment($scope.newExp)
+    		.success(function(resp){
+    			$location.path('/experiment')
+    		})
     		.error(function(resp){
     			alert('Error: could not create experiment');
     		});

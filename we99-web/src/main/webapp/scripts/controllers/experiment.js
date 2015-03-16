@@ -15,7 +15,8 @@ angular.module('we99App')
       'Karma'
     ];
     
-    $http.get('services/rest/experiment')
+    //retrieve list of experiments
+    RestService.getExperiments()
     	.success(function(response){
     		$scope.experiments=response.values;
     		$scope.displayExperiments=[].concat($scope.experiments);
@@ -24,14 +25,18 @@ angular.module('we99App')
     		$scope.errorText="Could not retrieve experiments list.";
     		});
     
+    //delete experiment from database
     $scope.removeItem=function(row){
-    	$http.delete('services/rest/experiment/'+row.id)
+    	RestService.deleteExperiment(row.id)
     		.success(function(response){
-	    		var index=$scope.experiments.indexOf(row);
-	    		$scope.experiments.splice(index);
+	    		for(var i=0;i<$scope.experiments.length;i++){
+	    			if($scope.experiments[i].id===row.id)
+	    				$scope.experiments.splice(i,1);
+	    				break;
+	    			}
     		})
     		.error(function(response){
-    		
+    		   console.log('Error: '+response);
     		});
     }
     
