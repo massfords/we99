@@ -45,6 +45,9 @@
             <ref bean="resourceWriter" />
             <ref bean="apiWriter" />
         </jaxrs:providers>
+        <jaxrs:invoker>
+          <bean class="edu.harvard.we99.security.PreAuthorizeInvoker"/>
+        </jaxrs:invoker>
     </jaxrs:server>
 
     <!-- Swagger Config -->
