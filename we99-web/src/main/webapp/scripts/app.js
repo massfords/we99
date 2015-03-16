@@ -41,7 +41,15 @@ angular
         templateUrl: 'views/plate-analysis/heatmap.html',
         controller: 'HeatmapCtrl'
       })
+      .when('/experiment', {
+        templateUrl: 'views/experiment/experimentList.html',
+        controller: 'ExperimentListCtrl'
+      })
+      .when('/experiment/create', {
+        templateUrl: 'views/experiment/create.html',
+        controller: 'ExperimentCreateCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/experiment'
       });
   });

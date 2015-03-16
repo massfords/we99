@@ -9,6 +9,20 @@ body {
   padding: 0;
 }
 
+/* need to add this for sort arrows in smart-table */
+.st-sort-ascent:before{
+    content: '\25B2';
+}
+
+.st-sort-descent:before{
+    content: '\25BC';
+}
+
+.st-selected {
+    background: none repeat scroll 0% 0% #216EFF !important;
+    color: #FFF !important;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,

@@ -1,0 +1,45 @@
+<h2>Available Experiments</h2>
+<div>
+<table st-table="displayExperiments" st-safe-src="experiments" class="table table-striped">
+    <thead>
+      <tr>
+        <th st-sort="name">Name</th>
+        <th st-sort="description">Description</th>
+        <th st-sort="status">Status</th>
+        <th>Plates</th>
+        <th st-sort="name">Protocol</th>
+        
+        <th>Files</th>
+        <th st-sort="selected">Delete</th>
+      </tr>
+     <tr>
+      <th colspan="7"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in displayExperiments">
+      <td>{{row.name}}</td>
+      <td>{{row.description}}</td>
+            <!-- TODO: Fix links -->
+      <td><a ng-href="#">{{row.status}}</a></td>
+      <td><a ng-href="#">Plates</a></td>
+      <td>{{row.protocol}}</td>
+      <td><a ng-href="#">Files</a></td>
+      <td>
+        <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
+			<i class="glyphicon glyphicon-remove-circle"></i>
+		</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  
+  <!-- <button class="btn btn-primary" ng-click="newExperiment()">Add New</button> -->
+  <div><a class="btn btn-primary" ng-href="#/experiment/create">Add New</a></div>
+
+  <div class="row">
+	  <div class="alert alert-danger" ng-show="errorText">
+	  {{errorText}}
+	  </div>
+  </div>
+  </div>
