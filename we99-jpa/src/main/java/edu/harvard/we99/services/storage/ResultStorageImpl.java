@@ -66,6 +66,7 @@ public class ResultStorageImpl implements ResultStorage {
     @Override
     @Transactional
     public PlateResult create(PlateResult type) {
+        assert type.getId() == null;
         PlateResultEntity pre = Mappers.PLATERESULT.mapReverse(type);
 
         PlateEntity plate = getPlate(type);

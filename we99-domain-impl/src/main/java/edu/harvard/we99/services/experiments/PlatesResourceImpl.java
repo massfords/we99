@@ -24,6 +24,7 @@ public class PlatesResourceImpl implements PlatesResource {
 
     @Override
     public Plate create(Plate plate) {
+        plate.setId(null);
         plate.setExperiment(new Experiment().withId(experimentId));
         return plateStorage.create(plate);
     }

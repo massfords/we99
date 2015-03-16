@@ -1,12 +1,10 @@
 package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.Experiment;
-import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
-import edu.harvard.we99.services.storage.entities.PlateEntity;
 import edu.harvard.we99.services.storage.entities.UserEntity;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +33,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     @Override
     @Transactional
     public Experiment create(Experiment xp) {
+        assert xp.getId()==null;
         ExperimentEntity entity = Mappers.EXPERIMENTS.mapReverse(xp);
         User user = ucp.get();
 
@@ -66,27 +65,6 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     public void delete(Long id) {
         ExperimentEntity ee = em.find(ExperimentEntity.class, id);
         em.remove(ee);
-    }
-
-    @Override
-    @Transactional
-    public Plate addPlate(Long experimentId, Plate plate) {
-        ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
-        PlateEntity pe = Mappers.PLATES.mapReverse(plate);
-        // add the wells
-        updateWells(plate, pe);
-        pe.setExperiment(ee);
-        em.persist(pe);
-        return Mappers.PLATES.map(pe);
-    }
-
-    @Override
-    @Transactional
-    public void removePlate(Long experimentId, Long plateId) {
-        PlateEntity pe = em.find(PlateEntity.class, plateId);
-        if (pe.getExperiment().getId().equals(experimentId)) {
-            em.remove(pe);
-        }
     }
 
     @Override
@@ -138,10 +116,5 @@ public class ExperimentStorageImpl implements ExperimentStorage {
         ue.removeExperiment(ee);
         em.merge(ue);
         em.merge(ee);
-    }
-
-    private void updateWells(Plate plate, PlateEntity pe) {
-        plate.getWells().values().forEach(w -> pe.addWell(Mappers.WELL.mapReverse(w)));
-        pe.getWells().values().forEach(em::merge);
     }
 }

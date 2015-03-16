@@ -32,6 +32,7 @@ public class ProtocolStorageImpl implements ProtocolStorage {
     @Override
     @Transactional
     public Protocol create(Protocol type) {
+        assert type.getId() == null;
         ProtocolEntity pe = Mappers.PROTOCOL.mapReverse(type);
         em.persist(pe);
         return Mappers.PROTOCOL.map(pe);

@@ -43,6 +43,7 @@ public class UserStorageImpl implements UserStorage {
     @Override
     @Transactional
     public User create(User user) {
+        assert user.getId() == null;
         // by default, new users get put into the Scientist role. It's up to
         // someone else to elevate them.
         TypedQuery<RoleEntity> query = em.createQuery("select r from RoleEntity r where r.name=:name", RoleEntity.class);

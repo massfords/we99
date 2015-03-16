@@ -23,6 +23,7 @@ public abstract class BaseRESTServiceImpl<T extends BaseEntity> {
     }
 
     public T create(T type) {
+        type.setId(null);
         return storage.create(type);
     }
 

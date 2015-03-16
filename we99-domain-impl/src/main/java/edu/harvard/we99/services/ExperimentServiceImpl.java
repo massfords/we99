@@ -31,6 +31,7 @@ public class ExperimentServiceImpl implements ExperimentService {
 
     @Override
     public Experiment create(Experiment experiment) {
+        experiment.setId(null);
         return storage.create(experiment);
     }
 

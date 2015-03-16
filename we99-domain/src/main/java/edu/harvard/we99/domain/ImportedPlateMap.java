@@ -14,6 +14,7 @@ public class ImportedPlateMap {
     private PlateMap plateMap;
     private List<PlateType> matchingPlateTypes = new ArrayList<>();
 
+    @SuppressWarnings("UnusedDeclaration")
     public ImportedPlateMap() {}
 
     public ImportedPlateMap(PlateMap plateMap, List<PlateType> list) {

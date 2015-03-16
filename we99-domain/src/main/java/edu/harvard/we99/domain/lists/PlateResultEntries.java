@@ -8,6 +8,7 @@ import java.util.List;
  * @author mford
  */
 public class PlateResultEntries extends AbstractList<PlateResultEntry> {
+    @SuppressWarnings("UnusedDeclaration")
     public PlateResultEntries() {}
     public PlateResultEntries(List<PlateResultEntry> values) {
         super(values);

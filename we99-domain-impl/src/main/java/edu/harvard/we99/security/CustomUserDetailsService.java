@@ -1,6 +1,5 @@
 package edu.harvard.we99.security;
 
-import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
