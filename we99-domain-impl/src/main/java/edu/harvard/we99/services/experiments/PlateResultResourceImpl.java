@@ -12,16 +12,12 @@ import javax.ws.rs.core.Response;
  */
 public class PlateResultResourceImpl implements PlateResultResource {
     private final ResultStorage resultStorage;
-    private final Long experimentId;
-    private final Long plateId;
-    private final Long resultId;
+    private Long experimentId;
+    private Long plateId;
+    private Long resultId;
 
-    public PlateResultResourceImpl(Long experimentId, Long plateId, Long resultId,
-                                   ResultStorage resultStorage) {
+    public PlateResultResourceImpl(ResultStorage resultStorage) {
         this.resultStorage = resultStorage;
-        this.resultId = resultId;
-        this.experimentId = experimentId;
-        this.plateId = plateId;
     }
 
     @Override
@@ -41,5 +37,20 @@ public class PlateResultResourceImpl implements PlateResultResource {
     public Response updateStatus(StatusChange statusChange) {
         resultStorage.updateStatus(resultId, statusChange.getCoordinate(), statusChange.getStatus());
         return Response.ok().build();
+    }
+
+    @Override
+    public void setExperimentId(Long experimentId) {
+        this.experimentId = experimentId;
+    }
+
+    @Override
+    public void setPlateId(Long plateId) {
+        this.plateId = plateId;
+    }
+
+    @Override
+    public void setResultId(Long resultId) {
+        this.resultId = resultId;
     }
 }

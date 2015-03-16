@@ -1,9 +1,15 @@
 package edu.harvard.we99.services;
 
+import edu.harvard.we99.domain.Compound;
+import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.User;
+import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.services.experiments.MemberResource;
+import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,6 +18,8 @@ import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 import static edu.harvard.we99.test.BaseFixture.assertOk;
 import static edu.harvard.we99.test.BaseFixture.name;
@@ -45,6 +53,24 @@ public class ExperimentServiceST {
     @Before
     public void setUp() throws Exception {
         xp = es.create(new Experiment(name("Experiment")));
+    }
+
+    @Test
+    public void listPlates() throws Exception {
+        // no assertions here, just making sure we can invoke all w/o exceptions
+        Set<Compound> compounds = new HashSet<>();
+        for(Experiment e : es.listExperiments().getValues()) {
+            ExperimentResource er = es.getExperiment(e.getId());
+            PlatesResource pr = er.getPlates();
+            for(Plate p : pr.list().getValues()) {
+                for(Well well : p.getWells().values()) {
+                    for(Dose d : well.getContents()) {
+                        compounds.add(d.getCompound());
+                    }
+                }
+            }
+        }
+        System.out.println("# of compounds found :" + compounds.size());
     }
 
     @Test

@@ -26,4 +26,8 @@ public interface PlateResultsResource {
     @Path("/{resultId}")
     @ApiOperation("Models the results for a single plate")
     PlateResultResource getPlateResult(@PathParam("resultId") Long resultId);
+
+    void setExperimentId(Long experimentId);
+
+    void setPlateId(Long plateId);
 }

@@ -40,4 +40,7 @@ public interface PlatesResource {
     @Path("/{plateId}")
     @ApiOperation("Gets the plate by its id")
     PlateResource getPlates(@PathParam("plateId")Long plateId);
+
+    Long getId();
+    void setId(Long id);
 }

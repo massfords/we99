@@ -35,6 +35,7 @@
         <module>we99-domain-impl</module>
         <module>we99-jpa</module>
         <module>we99-util</module>
+        <module>we99-sample-data</module>
     </modules>
 
     <dependencyManagement>

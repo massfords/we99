@@ -24,7 +24,7 @@ import static edu.harvard.we99.test.BaseFixture.name;
  * @author mford
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"/services-context.xml", "/test-context.xml", "/application-context.xml"})
+@ContextConfiguration({"/services-context.xml", "/test-context.xml", "/application-context.xml", "/resources-context.xml"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public abstract class JpaSpringFixture {
     @Inject

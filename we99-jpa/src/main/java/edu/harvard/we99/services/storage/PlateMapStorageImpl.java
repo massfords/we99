@@ -23,6 +23,7 @@ public class PlateMapStorageImpl implements PlateMapStorage {
     private EntityManager em;
 
     @Override
+    @Transactional(readOnly = true)
     public List<PlateMap> listAll() {
         TypedQuery<PlateMapEntity> query = em.createQuery("select pm from PlateMapEntity pm", PlateMapEntity.class);
         List<PlateMap> list = new ArrayList<>();
@@ -42,6 +43,7 @@ public class PlateMapStorageImpl implements PlateMapStorage {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PlateMap get(Long id) throws EntityNotFoundException {
         PlateMapEntity pme = em.find(PlateMapEntity.class, id);
         return Mappers.PLATEMAP.map(pme);

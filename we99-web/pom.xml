@@ -12,6 +12,11 @@
 	<packaging>war</packaging>
 
 	<dependencies>
+        <dependency>
+            <groupId>edu.harvard.we99</groupId>
+            <artifactId>we99-sample-data</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>

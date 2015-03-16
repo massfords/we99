@@ -67,4 +67,7 @@ public interface PlateResource {
     @ApiOperation("Gets the results for the given plate")
     PlateResultsResource getResults();
 
+    void setExperimentId(Long experimentId);
+
+    void setPlateId(Long plateId);
 }

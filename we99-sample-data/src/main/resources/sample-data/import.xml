@@ -65,4 +65,16 @@
         </record>
     </stream>
 
+    <stream name="experiments" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <record name="experiment" class="edu.harvard.we99.domain.ExperimentMapping">
+            <field name="name" required="true" trim="true"/>
+            <field name="status" required="true" trim="true"/>
+            <field name="protocol" required="true" trim="true"/>
+            <field name="desc" required="true" trim="true"/>
+        </record>
+    </stream>
 </beanio>
