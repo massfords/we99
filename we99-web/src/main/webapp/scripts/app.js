@@ -54,6 +54,10 @@ angular
         templateUrl: 'views/plate-mgmt/importplatemap.html',
         controller: 'PlateMgmtImportplatemapCtrl'
       })
+      .when('/admin/settings', {
+        templateUrl: 'views/admin/settings.html',
+        controller: 'AdminSettingsCtrl'
+      })
       .otherwise({
         redirectTo: '/experiment'
       });
