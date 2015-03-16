@@ -1,12 +1,9 @@
 {
   "values": [
     {
-      "id": 2,
       "plate": {
-        "id": 2,
         "name": "plateuuid",
         "plateType": {
-          "id": 11,
           "name": "ptuuid",
           "dim": {
             "rows": 10,
@@ -15,8 +12,8 @@
           "manufacturer": "Foo Inc."
         },
         "experiment": {
-          "id": 2,
           "name": "experimentuuid",
+          "status": "PRIVATE",
           "created": "iso8601"
         },
         "wells": []
@@ -24,7 +21,6 @@
       "created": "iso8601",
       "wellResults": [
         {
-          "id": 11,
           "coordinate": {
             "row": 0,
             "col": 0
@@ -32,7 +28,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 11,
               "value": 0.0,
               "label": "",
               "measuredAt": "iso8601",
@@ -41,7 +36,6 @@
           ]
         },
         {
-          "id": 12,
           "coordinate": {
             "row": 1,
             "col": 1
@@ -49,7 +43,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 12,
               "value": 11.0,
               "label": "",
               "measuredAt": "iso8601",
@@ -58,7 +51,6 @@
           ]
         },
         {
-          "id": 13,
           "coordinate": {
             "row": 0,
             "col": 1
@@ -66,7 +58,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 13,
               "value": 1.0,
               "label": "",
               "measuredAt": "iso8601",
@@ -75,7 +66,6 @@
           ]
         },
         {
-          "id": 14,
           "coordinate": {
             "row": 1,
             "col": 2
@@ -83,7 +73,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 14,
               "value": 12.0,
               "label": "",
               "measuredAt": "iso8601",
@@ -92,7 +81,6 @@
           ]
         },
         {
-          "id": 15,
           "coordinate": {
             "row": 0,
             "col": 2
@@ -100,7 +88,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 15,
               "value": 2.0,
               "label": "",
               "measuredAt": "iso8601",
@@ -109,7 +96,6 @@
           ]
         },
         {
-          "id": 16,
           "coordinate": {
             "row": 1,
             "col": 3
@@ -117,7 +103,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 16,
               "value": 13.0,
               "label": "",
               "measuredAt": "iso8601",
@@ -126,7 +111,6 @@
           ]
         },
         {
-          "id": 17,
           "coordinate": {
             "row": 0,
             "col": 3
@@ -134,7 +118,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 17,
               "value": 3.0,
               "label": "",
               "measuredAt": "iso8601",
@@ -143,7 +126,6 @@
           ]
         },
         {
-          "id": 18,
           "coordinate": {
             "row": 1,
             "col": 4
@@ -151,7 +133,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 18,
               "value": 14.0,
               "label": "",
               "measuredAt": "iso8601",
@@ -160,7 +141,6 @@
           ]
         },
         {
-          "id": 19,
           "coordinate": {
             "row": 0,
             "col": 4
@@ -168,7 +148,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 19,
               "value": 4.0,
               "label": "",
               "measuredAt": "iso8601",
@@ -177,7 +156,6 @@
           ]
         },
         {
-          "id": 20,
           "coordinate": {
             "row": 1,
             "col": 0
@@ -185,7 +163,6 @@
           "resultStatus": "INCLUDED",
           "samples": [
             {
-              "id": 20,
               "value": 10.0,
               "label": "",
               "measuredAt": "iso8601",

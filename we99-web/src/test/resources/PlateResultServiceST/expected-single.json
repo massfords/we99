@@ -11,6 +11,7 @@
     },
     "experiment": {
       "name": "experimentuuid",
+      "status": "PRIVATE",
       "created": "iso8601"
     },
     "wells": []

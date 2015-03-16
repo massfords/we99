@@ -1,10 +1,7 @@
 {
-  "id": 1,
   "plate": {
-    "id": 1,
     "name": "Plateuuid",
     "plateType": {
-      "id": 1,
       "name": "PlateTypeuuid",
       "dim": {
         "rows": 5,
@@ -13,13 +10,12 @@
       "manufacturer": "Manuuid"
     },
     "experiment": {
-      "id": 1,
       "name": "xpuuid",
+      "status": "PRIVATE",
       "created": "iso8601"
     },
     "wells": [
       {
-        "id": 1,
         "coordinate": {
           "row": 0,
           "col": 0
@@ -28,7 +24,6 @@
         "contents": []
       },
       {
-        "id": 2,
         "coordinate": {
           "row": 2,
           "col": 2
@@ -37,7 +32,6 @@
         "contents": []
       },
       {
-        "id": 3,
         "coordinate": {
           "row": 4,
           "col": 4
@@ -46,7 +40,6 @@
         "contents": []
       },
       {
-        "id": 4,
         "coordinate": {
           "row": 0,
           "col": 1
@@ -55,7 +48,6 @@
         "contents": []
       },
       {
-        "id": 5,
         "coordinate": {
           "row": 2,
           "col": 3
@@ -64,7 +56,6 @@
         "contents": []
       },
       {
-        "id": 6,
         "coordinate": {
           "row": 0,
           "col": 2
@@ -73,7 +64,6 @@
         "contents": []
       },
       {
-        "id": 7,
         "coordinate": {
           "row": 2,
           "col": 4
@@ -82,7 +72,6 @@
         "contents": []
       },
       {
-        "id": 8,
         "coordinate": {
           "row": 0,
           "col": 3
@@ -91,7 +80,6 @@
         "contents": []
       },
       {
-        "id": 9,
         "coordinate": {
           "row": 0,
           "col": 4
@@ -100,7 +88,6 @@
         "contents": []
       },
       {
-        "id": 10,
         "coordinate": {
           "row": 3,
           "col": 0
@@ -109,7 +96,6 @@
         "contents": []
       },
       {
-        "id": 11,
         "coordinate": {
           "row": 3,
           "col": 1
@@ -118,7 +104,6 @@
         "contents": []
       },
       {
-        "id": 12,
         "coordinate": {
           "row": 1,
           "col": 0
@@ -127,7 +112,6 @@
         "contents": []
       },
       {
-        "id": 13,
         "coordinate": {
           "row": 3,
           "col": 2
@@ -136,7 +120,6 @@
         "contents": []
       },
       {
-        "id": 14,
         "coordinate": {
           "row": 1,
           "col": 1
@@ -145,7 +128,6 @@
         "contents": []
       },
       {
-        "id": 15,
         "coordinate": {
           "row": 3,
           "col": 3
@@ -154,7 +136,6 @@
         "contents": []
       },
       {
-        "id": 16,
         "coordinate": {
           "row": 1,
           "col": 2
@@ -163,7 +144,6 @@
         "contents": []
       },
       {
-        "id": 17,
         "coordinate": {
           "row": 3,
           "col": 4
@@ -172,7 +152,6 @@
         "contents": []
       },
       {
-        "id": 18,
         "coordinate": {
           "row": 1,
           "col": 3
@@ -181,7 +160,6 @@
         "contents": []
       },
       {
-        "id": 19,
         "coordinate": {
           "row": 1,
           "col": 4
@@ -190,7 +168,6 @@
         "contents": []
       },
       {
-        "id": 20,
         "coordinate": {
           "row": 4,
           "col": 0
@@ -199,7 +176,6 @@
         "contents": []
       },
       {
-        "id": 21,
         "coordinate": {
           "row": 4,
           "col": 1
@@ -208,7 +184,6 @@
         "contents": []
       },
       {
-        "id": 22,
         "coordinate": {
           "row": 2,
           "col": 0
@@ -217,7 +192,6 @@
         "contents": []
       },
       {
-        "id": 23,
         "coordinate": {
           "row": 4,
           "col": 2
@@ -226,7 +200,6 @@
         "contents": []
       },
       {
-        "id": 24,
         "coordinate": {
           "row": 2,
           "col": 1
@@ -235,7 +208,6 @@
         "contents": []
       },
       {
-        "id": 25,
         "coordinate": {
           "row": 4,
           "col": 3
@@ -248,7 +220,6 @@
   "created": "iso8601",
   "wellResults": [
     {
-      "id": 1,
       "coordinate": {
         "row": 0,
         "col": 0
@@ -256,7 +227,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 1,
           "value": 0.0,
           "label": "",
           "measuredAt": "iso8601",
@@ -265,7 +235,6 @@
       ]
     },
     {
-      "id": 2,
       "coordinate": {
         "row": 1,
         "col": 1
@@ -273,7 +242,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 2,
           "value": 11.0,
           "label": "",
           "measuredAt": "iso8601",
@@ -282,7 +250,6 @@
       ]
     },
     {
-      "id": 3,
       "coordinate": {
         "row": 0,
         "col": 1
@@ -290,7 +257,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 3,
           "value": 1.0,
           "label": "",
           "measuredAt": "iso8601",
@@ -299,7 +265,6 @@
       ]
     },
     {
-      "id": 4,
       "coordinate": {
         "row": 1,
         "col": 2
@@ -307,7 +272,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 4,
           "value": 12.0,
           "label": "",
           "measuredAt": "iso8601",
@@ -316,7 +280,6 @@
       ]
     },
     {
-      "id": 5,
       "coordinate": {
         "row": 0,
         "col": 2
@@ -324,7 +287,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 5,
           "value": 2.0,
           "label": "",
           "measuredAt": "iso8601",
@@ -333,7 +295,6 @@
       ]
     },
     {
-      "id": 6,
       "coordinate": {
         "row": 1,
         "col": 3
@@ -341,7 +302,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 6,
           "value": 13.0,
           "label": "",
           "measuredAt": "iso8601",
@@ -350,7 +310,6 @@
       ]
     },
     {
-      "id": 7,
       "coordinate": {
         "row": 0,
         "col": 3
@@ -358,7 +317,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 7,
           "value": 3.0,
           "label": "",
           "measuredAt": "iso8601",
@@ -367,7 +325,6 @@
       ]
     },
     {
-      "id": 8,
       "coordinate": {
         "row": 1,
         "col": 4
@@ -375,7 +332,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 8,
           "value": 14.0,
           "label": "",
           "measuredAt": "iso8601",
@@ -384,7 +340,6 @@
       ]
     },
     {
-      "id": 9,
       "coordinate": {
         "row": 0,
         "col": 4
@@ -392,7 +347,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 9,
           "value": 4.0,
           "label": "",
           "measuredAt": "iso8601",
@@ -401,7 +355,6 @@
       ]
     },
     {
-      "id": 10,
       "coordinate": {
         "row": 1,
         "col": 0
@@ -409,7 +362,6 @@
       "resultStatus": "INCLUDED",
       "samples": [
         {
-          "id": 10,
           "value": 10.0,
           "label": "",
           "measuredAt": "iso8601",
