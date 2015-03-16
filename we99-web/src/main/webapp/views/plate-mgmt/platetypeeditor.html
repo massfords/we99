@@ -6,7 +6,7 @@
         <th st-sort="description">Description</th>
         <th st-sort="dim.rows">Rows x Cols (Wells)</th>
         <th st-sort="manufacturer">Manufacturer</th>
-        <th st-sort="selected">Delete</th>
+        <th st-sort="selected">Action</th>
       </tr>
      <tr>
       <th colspan="5"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
@@ -19,9 +19,8 @@
       <td>{{row.dim.rows + ' x ' + row.dim.cols}}</td>
       <td>{{row.manufacturer}}</td>
       <td>
-        <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
 			<i class="glyphicon glyphicon-remove-circle"></i>
-		</button>
+			<i class="glyphicon glyphicon-ok"></i>
       </td>
     </tr>
     </tbody>
