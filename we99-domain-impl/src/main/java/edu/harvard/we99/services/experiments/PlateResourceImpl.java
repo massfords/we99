@@ -18,18 +18,15 @@ import java.io.StringReader;
 /**
  * @author mford
  */
-public class PlateResourceImpl implements PlateResource {
+public abstract class PlateResourceImpl implements PlateResource {
 
-    private final Long experimentId;
-    private final Long plateId;
+    private Long experimentId;
+    private Long plateId;
     private final PlateStorage plateStorage;
     private final ResultStorage resultStorage;
 
-    public PlateResourceImpl(Long experimentId, Long plateId,
-                             PlateStorage plateStorage,
+    public PlateResourceImpl(PlateStorage plateStorage,
                              ResultStorage resultStorage) {
-        this.plateId = plateId;
-        this.experimentId = experimentId;
         this.plateStorage = plateStorage;
         this.resultStorage = resultStorage;
     }
@@ -73,6 +70,21 @@ public class PlateResourceImpl implements PlateResource {
 
     @Override
     public PlateResultsResource getResults() {
-        return new PlateResultsResourceImpl(experimentId, plateId, resultStorage);
+        PlateResultsResource prr = createPlateResultsResource();
+        prr.setExperimentId(experimentId);
+        prr.setPlateId(plateId);
+        return prr;
+    }
+
+    protected abstract PlateResultsResource createPlateResultsResource();
+
+    @Override
+    public void setExperimentId(Long experimentId) {
+        this.experimentId = experimentId;
+    }
+
+    @Override
+    public void setPlateId(Long plateId) {
+        this.plateId = plateId;
     }
 }

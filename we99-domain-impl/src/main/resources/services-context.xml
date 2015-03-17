@@ -76,8 +76,7 @@
     <bean id="experimentService" class="edu.harvard.we99.services.ExperimentServiceImpl">
         <constructor-arg ref="userProvider"/>
         <constructor-arg ref="experimentStorage"/>
-        <constructor-arg ref="plateStorage"/>
-        <constructor-arg ref="resultStorage"/>
+        <lookup-method name="createExperimentResource" bean="experimentResource"/>
     </bean>
     <bean id="experimentStorage" class="edu.harvard.we99.services.storage.ExperimentStorageImpl">
         <constructor-arg ref="userProvider"/>

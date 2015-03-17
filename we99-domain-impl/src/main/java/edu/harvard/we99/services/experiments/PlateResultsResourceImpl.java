@@ -6,16 +6,14 @@ import edu.harvard.we99.services.storage.ResultStorage;
 /**
  * @author mford
  */
-public class PlateResultsResourceImpl implements PlateResultsResource {
+public abstract class PlateResultsResourceImpl implements PlateResultsResource {
 
-    private final Long experimentId;
-    private final Long plateId;
+    private Long experimentId;
+    private Long plateId;
     private final ResultStorage resultStorage;
 
-    public PlateResultsResourceImpl(Long experimentId, Long plateId, ResultStorage resultStorage) {
-        this.plateId = plateId;
+    public PlateResultsResourceImpl(ResultStorage resultStorage) {
         this.resultStorage = resultStorage;
-        this.experimentId = experimentId;
     }
 
     @Override
@@ -25,7 +23,22 @@ public class PlateResultsResourceImpl implements PlateResultsResource {
 
     @Override
     public PlateResultResource getPlateResult(Long resultId) {
-        return new PlateResultResourceImpl(experimentId, plateId,
-                resultId, resultStorage);
+        PlateResultResource prr = createPlateResultResource();
+        prr.setExperimentId(experimentId);
+        prr.setPlateId(plateId);
+        prr.setResultId(resultId);
+        return prr;
+    }
+
+    protected abstract PlateResultResource createPlateResultResource();
+
+    @Override
+    public void setExperimentId(Long experimentId) {
+        this.experimentId = experimentId;
+    }
+
+    @Override
+    public void setPlateId(Long plateId) {
+        this.plateId = plateId;
     }
 }

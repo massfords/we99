@@ -69,4 +69,7 @@ public interface ExperimentResource {
     @PreAuthorize("hasRole('PERM_READ_RESULTS')")
     PlateResultEntries listResults();
 
+    public Long getId();
+
+    public void setId(Long id);
 }

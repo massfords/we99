@@ -1,0 +1,35 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="edu.harvard.we99" />
+
+    <bean id="experimentResource" class="edu.harvard.we99.services.experiments.ExperimentResourceImpl" scope="prototype">
+        <constructor-arg ref="experimentStorage"/>
+        <constructor-arg ref="resultStorage"/>
+        <lookup-method name="createMemberResource" bean="memberResource"/>
+        <lookup-method name="createPlatesResource" bean="platesResource"/>
+    </bean>
+    <bean id="memberResource" class="edu.harvard.we99.services.experiments.MemberResourceImpl" scope="prototype">
+        <constructor-arg ref="experimentStorage"/>
+    </bean>
+    <bean id="platesResource" class="edu.harvard.we99.services.experiments.PlatesResourceImpl" scope="prototype">
+        <constructor-arg ref="plateStorage"/>
+        <lookup-method name="createPlateResource" bean="plateResource"/>
+    </bean>
+    <bean id="plateResource" class="edu.harvard.we99.services.experiments.PlateResourceImpl" scope="prototype">
+        <constructor-arg index="0" ref="plateStorage"/>
+        <constructor-arg index="1" ref="resultStorage"/>
+        <lookup-method name="createPlateResultsResource" bean="plateResultsResource"/>
+    </bean>
+    <bean id="plateResultsResource" class="edu.harvard.we99.services.experiments.PlateResultsResourceImpl">
+        <constructor-arg ref="resultStorage"/>
+        <lookup-method name="createPlateResultResource" bean="plateResultResource"/>
+    </bean>
+    <bean id="plateResultResource" class="edu.harvard.we99.services.experiments.PlateResultResourceImpl">
+        <constructor-arg ref="resultStorage"/>
+    </bean>
+
+</beans>

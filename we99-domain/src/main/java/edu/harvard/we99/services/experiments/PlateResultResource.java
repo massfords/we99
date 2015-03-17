@@ -31,4 +31,10 @@ public interface PlateResultResource {
     @ApiOperation("Status change on a well within the results.")
     @PreAuthorize("hasRole('PERM_MODIFY_RESULTS')")
     Response updateStatus(StatusChange statusChange);
+
+    void setExperimentId(Long experimentId);
+
+    void setPlateId(Long plateId);
+
+    void setResultId(Long resultId);
 }
