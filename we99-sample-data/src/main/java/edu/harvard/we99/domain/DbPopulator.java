@@ -1,17 +1,23 @@
 package edu.harvard.we99.domain;
 
+import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.services.storage.entities.CompoundEntity;
+import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.PermissionEntity;
+import edu.harvard.we99.services.storage.entities.PlateEntity;
 import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
 import edu.harvard.we99.services.storage.entities.ProtocolEntity;
 import edu.harvard.we99.services.storage.entities.RoleEntity;
 import edu.harvard.we99.services.storage.entities.UserEntity;
+import edu.harvard.we99.services.storage.entities.WellEntity;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -49,9 +55,74 @@ public class DbPopulator {
             loadCoreData(sf, em);
             Map<String,RoleEntity> roles = loadPermissionData(sf, em);
             loadUsers(sf, em, roles);
+            loadExperiments(sf, em);
         } finally {
             em.close();
         }
+    }
+
+    private void loadExperiments(StreamFactory sf, EntityManager em) throws IOException {
+        // get the corning plate type
+        List<ExperimentMapping> experimentMappings = loadData(
+                ExperimentMapping.class, sf,
+                "/sample-data/experiments.csv", "experiments");
+
+        em.getTransaction().begin();
+
+        TypedQuery<UserEntity> query = em.createQuery("select u from UserEntity u where u.role.name = :rolename", UserEntity.class);
+        query.setParameter("rolename", RoleName.BuiltIn.Admin.asName());
+        List<UserEntity> userEntities = query.getResultList();
+
+        PlateTypeEntity pte = em.createQuery("select pte from PlateTypeEntity pte", PlateTypeEntity.class).getResultList().get(0);
+
+
+
+        for(ExperimentMapping expMapping : experimentMappings) {
+            ExperimentEntity ee = new ExperimentEntity(expMapping.getName())
+                    .withDescription(expMapping.getDesc())
+                    .withStatus(expMapping.getStatus())
+                    .withProtocol(selectProtocol(em, expMapping));
+            userEntities.forEach(ee::addUser);
+            em.persist(ee);
+            userEntities.forEach(ue -> ue.addExperiment(ee));
+            userEntities.forEach(em::merge);
+
+            // add some plates to the experiment
+            for(int i=0; i<3; i++) {
+                PlateEntity pe = new PlateEntity()
+                        .withName("plate " + i + " for exp " + ee.getId())
+                        .withBarcode("abc" + i)
+                        .withExperiment(ee)
+                        .withPlateType(pte);
+                em.persist(pe);
+                for(int row=0; row<pte.getDim().getRows(); row++) {
+                    for(int col=0; col<pte.getDim().getCols(); col++) {
+                        WellEntity we = new WellEntity(row, col);
+                        we.withLabel("well" + row + "," + col);
+                        we.withType(WellType.EMPTY);
+                        pe.withWells(we);
+                        em.persist(we);
+                        em.merge(pe);
+                    }
+                }
+            }
+        }
+
+        em.getTransaction().commit();
+    }
+
+    private ProtocolEntity selectProtocol(EntityManager em, ExperimentMapping expMapping) {
+        ProtocolEntity pe;
+        try {
+            TypedQuery<ProtocolEntity> query = em.createQuery(
+                    "select pe from ProtocolEntity as pe where pe.name=:name", ProtocolEntity.class);
+            query.setParameter("name", expMapping.getProtocol());
+            pe = query.getSingleResult();
+        } catch(NoResultException e) {
+            pe = new ProtocolEntity(expMapping.getProtocol());
+            em.persist(pe);
+        }
+        return pe;
     }
 
     private void loadUsers(StreamFactory sf, EntityManager em, Map<String,RoleEntity> roles) throws IOException {

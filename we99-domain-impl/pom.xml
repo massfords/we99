@@ -14,6 +14,11 @@
     <dependencies>
         <dependency>
             <groupId>edu.harvard.we99</groupId>
+            <artifactId>we99-sample-data</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.harvard.we99</groupId>
             <artifactId>we99-domain</artifactId>
             <version>${project.version}</version>
         </dependency>

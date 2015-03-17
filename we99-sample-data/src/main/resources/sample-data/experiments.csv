@@ -1,0 +1,11 @@
+# -----------------------------------------------------------------------------
+#
+# List of Experiments to import
+#
+# name, status, protocol, desc
+# -----------------------------------------------------------------------------
+experiment uno, PRIVATE, Alpha, Experiment using the Alpha protocol
+experiment dos, PRIVATE, Beta, Experiment using the Beta protocol
+experiment tres, PRIVATE, Gamma, Experiment using the Gamma protocol
+experiment cuatro, PUBLIC, Delta, Experiment using the Delta protocol
+experiment cinco, PUBLIC, Omega, Experiment using the Omega protocol

@@ -12,14 +12,6 @@
     <artifactId>we99-ddl</artifactId>
 
     <dependencies>
-        <!--
-            Used to parse CSV files into beans
-        -->
-        <dependency>
-            <groupId>org.beanio</groupId>
-            <artifactId>beanio</artifactId>
-            <version>2.1.0</version>
-        </dependency>
 
         <!--
             h2 dependency needed to generate the DDL but nothign else

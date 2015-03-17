@@ -1,7 +1,9 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Compound;
+import edu.harvard.we99.test.DisableLogging;
 import edu.harvard.we99.util.ClientFactory;
+import org.apache.cxf.jaxrs.impl.WebApplicationExceptionMapper;
 import org.junit.Test;
 
 import javax.ws.rs.WebApplicationException;
@@ -19,6 +21,7 @@ public class GuestAccessST {
     @Test
     public void test() throws Exception {
 
+        DisableLogging.turnOff(WebApplicationExceptionMapper.class);
         ClientFactory cf = new ClientFactory(new URL(WebAppIT.WE99_URL),
                 "we99.2015@example", "pass");
         CompoundService cs = cf.create(CompoundService.class);
@@ -29,6 +32,9 @@ public class GuestAccessST {
             // why is this sometimes 401 and sometimes 403?
             int code = e.getResponse().getStatus();
             assertTrue("Expected to get a Forbidden exception", 401==code || 403==code);
+        } finally {
+            DisableLogging.restoreAll();
         }
+
     }
 }

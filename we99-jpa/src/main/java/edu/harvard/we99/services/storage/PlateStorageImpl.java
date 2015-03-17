@@ -22,6 +22,7 @@ public class PlateStorageImpl implements PlateStorage {
     private EntityManager em;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Plate> listAll(Long experimentId) {
         TypedQuery<PlateEntity> query = em.createQuery(
                 "select p from PlateEntity p where p.experiment.id=:id", PlateEntity.class);
