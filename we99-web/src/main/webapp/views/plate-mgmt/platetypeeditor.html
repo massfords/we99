@@ -1,4 +1,6 @@
-<div class="select-template" ng-controller="PlateTypeEditorCtrl">
+<div class="select-template">
+  <h2>Select A Plate Type</h2>
+
   <table st-table="displayPlateTypes" st-safe-src="plateTypes" class="table table-striped">
     <thead>
       <tr>
@@ -25,6 +27,8 @@
     </tr>
     </tbody>
   </table>
+
+  <!-- Add Button -->
   <div class="btn-group" dropdown is-open="showAddTypeOptions">
     <button type="button" class="btn btn-small btn-success dropdown-toggle"
             dropdown-toggle="true">
@@ -38,7 +42,8 @@
       </li>
       <hr>
       <li><a ng-click="showAddPlateTypeWizard()">Custom</a></li>
-      <li><a ng-click="showAddPlateTypeWizard({name:'from file', fromFile:true})">From File</a></li>
+      <!-- TODO maybe add from file functionality Later -->
+      <!--<li><a ng-click="showAddPlateTypeWizard({name:'from file', fromFile:true})">From File</a></li>-->
     </ul>
   </div>
 </div>

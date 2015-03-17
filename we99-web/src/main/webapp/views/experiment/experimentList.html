@@ -1,6 +1,6 @@
-<h2>Available Experiments</h2>
-<div>
-<table st-table="displayExperiments" st-safe-src="experiments" class="table table-striped">
+<div class="select-experiment">
+  <h2>Available Experiments</h2>
+  <table st-table="displayExperiments" st-safe-src="experiments" class="table table-striped">
     <thead>
       <tr>
         <th st-sort="name">Name</th>
@@ -8,7 +8,7 @@
         <th st-sort="status">Status</th>
         <th>Plates</th>
         <th st-sort="name">Protocol</th>
-        
+
         <th>Files</th>
         <th st-sort="selected">Delete</th>
       </tr>
@@ -33,7 +33,7 @@
     </tr>
     </tbody>
   </table>
-  
+
   <!-- <button class="btn btn-primary" ng-click="newExperiment()">Add New</button> -->
   <div><a class="btn btn-primary" ng-href="#/experiment/create">Add New</a></div>
 

@@ -110,3 +110,23 @@ body {
     border-bottom: 0;
   }
 }
+
+/* add scrollable to table class to limit size and make scrollbar */
+table {
+  height:500px;
+}
+tbody {
+  overflow-y: scroll;
+}
+
+/* Glyphicon pretty stuff */
+
+.glyphicon-remove-circle:hover {
+  color:red;
+  font-size: 110%;
+}
+
+.glyphicon-ok:hover {
+  color:limegreen;
+  font-size: 110%;
+}

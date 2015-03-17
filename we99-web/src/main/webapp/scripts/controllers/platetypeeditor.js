@@ -36,7 +36,7 @@ angular.module('we99App')
                   templateUrl: 'views/plate-mgmt/add-plate-type.html',
                   controller: 'AddPlateTypeCtrl',
                   resolve:{
-                      option: option
+                      option: function(){return option;}
                   }
               });
               modalInstance.result.then(function(returnVal){
