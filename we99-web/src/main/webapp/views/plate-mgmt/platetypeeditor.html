@@ -8,7 +8,7 @@
         <th st-sort="description">Description</th>
         <th st-sort="dim.rows">Rows x Cols (Wells)</th>
         <th st-sort="manufacturer">Manufacturer</th>
-        <th st-sort="selected">Action</th>
+        <th>Action</th>
       </tr>
      <tr>
       <th colspan="5"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
@@ -21,8 +21,8 @@
       <td>{{row.dim.rows + ' x ' + row.dim.cols}}</td>
       <td>{{row.manufacturer}}</td>
       <td>
-			<i class="glyphicon glyphicon-remove-circle"></i>
-			<i class="glyphicon glyphicon-ok"></i>
+			<i class="glyphicon glyphicon-remove-circle" ng-click="removePlateType(row)"></i>
+			<i class="glyphicon glyphicon-ok" ng-click="selectPlateType(row)"></i>
       </td>
     </tr>
     </tbody>

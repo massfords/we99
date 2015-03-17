@@ -30,7 +30,7 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
         //
         // $http style calls.
         //
-        
+
         //experiments
         getExperiments:  function(){
         	return $http.get(RestURLs.experiment);
@@ -44,24 +44,38 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
         deleteExperiment: function(id){
         	return $http.delete(RestURLs.experiment+'/'+id);
         },
-        
+
         //users
         getUsers:  function(){
         	return $http.get(RestURLs.user);
         },
-        
+
         //protocol
         getProtocols:  function(){
         	return $http.get(RestURLs.protocol);
-        },
-        
-    };
+        }
 
-  /** For lists made into objects, turn them back into arrays.
-   * Assumes the call object attribute is 'values'
-   */
-  function valuesToArray(data) {
-    return JSON.parse(data).values;
-  }
+    };
 }]);
 
+
+/** REST linked resource model for Plate Type */
+app.factory('PlateTypeModel', ['$resource', 'RestURLs', function ($resource, RestURLs) {
+  return $resource(RestURLs.plateType, {id:'@id'}, {
+    query: {
+      method: "GET",
+      isArray: true,
+      // Get an array back to exhibit expected query behavior
+      transformResponse: valuesToArray
+    },
+    create: {
+      method: "PUT" // Server takes put for creation
+    }
+  });
+}]);
+
+/* HELPER FUNCTIONS */
+
+function valuesToArray(data) {
+  return JSON.parse(data).values;
+}

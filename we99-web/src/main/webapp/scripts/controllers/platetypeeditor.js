@@ -8,8 +8,8 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-    .controller('PlateTypeEditorCtrl', ['$scope','$modal', 'RestService',
-        function ($scope,$modal, RestService) {
+    .controller('PlateTypeEditorCtrl', ['$scope','$modal', 'PlateTypeModel',
+        function ($scope,$modal, PlateTypeModel) {
           var kNewPlateTypeOptions = [
             // Add remove static option 'templates' here
             {name: '6-Well',    rows: 2, cols:3},
@@ -40,7 +40,7 @@ angular.module('we99App')
                   }
               });
               modalInstance.result.then(function(returnVal){
-                  refreshPlateTypesList();
+                  refreshPlateTypesList(); // Refreshes plate types when add screen closed
               });
           };
 
@@ -49,9 +49,16 @@ angular.module('we99App')
               return kNewPlateTypeOptions;
           };
 
+          /** Removes Plate Type From db*/
+          $scope.removePlateType = function(plateTypeObj){
+            plateTypeObj.$delete({id:plateTypeObj.id}, function done(){
+              refreshPlateTypesList();
+            });
+          };
+
           /* HELPERS */
           function refreshPlateTypesList (){
-              $scope.plateTypes = RestService.plateType.query(function done() {
+              $scope.plateTypes = PlateTypeModel.query(function done() {
                 $scope.displayPlateTypes = [].concat($scope.plateTypes);
               });
           }

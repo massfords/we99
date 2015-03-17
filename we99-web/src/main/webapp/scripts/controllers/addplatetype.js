@@ -8,8 +8,8 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('AddPlateTypeCtrl', ['$scope', '$modalInstance', 'RestService', 'option',
-    function ($scope, $modalInstance, RestService, option) {
+  .controller('AddPlateTypeCtrl', ['$scope', '$modalInstance', 'PlateTypeModel', 'option',
+    function ($scope, $modalInstance, PlateTypeModel, option) {
       $scope.plateType = {
         id: 'TBD',
         name: '',
@@ -23,7 +23,7 @@ angular.module('we99App')
       };
 
       // handle preselected options
-      if (!option.isCustom){
+      if (!option.isCustom) {
         $scope.plateType.name = option.name + " Plate";
         $scope.plateType.rows = option.rows;
         $scope.plateType.cols = option.cols;
@@ -42,8 +42,11 @@ angular.module('we99App')
         console.log("Requesting new PlateType:");
         var reqBody = makePostObject($scope.plateType);
         console.log(reqBody);
-        RestService.plateType.put(reqBody); // server takes put for creation
-        $modalInstance.close();
+        PlateTypeModel.create(reqBody, function done(){
+          $modalInstance.close();
+        }, function error(){
+          $modalInstance.close();
+        });
       };
 
       /** Gets scope variables and produces an object to send in post body */
@@ -73,13 +76,29 @@ angular.module('we99App')
         assert(Array.isArray(errors));
         // Name
         if (!$scope.plateType.name || $scope.plateType.name.length === 0) {
-          errors.push("Plate type needs a name");
+          if (errors) {
+            errors.push("Plate type needs a name");
+          } else {
+            return false;
+          }
         }
         // Dimensions
         if (plateTypeValues.rows <= 0 && plateTypeValues.cols <= 0) {
-          errors.push("Invalid plate type dimensions");
+          if (errors) {
+            errors.push("Invalid plate type dimensions");
+          } else {
+            return false;
+          }
         }
-
-        return errors.length === 0;
+        return !errors || errors.length === 0;
       }
-    }]);
+
+    }]); // End Controller
+
+/** Assert Warning Function */
+function assert(predicate, msg) {
+  if (!predicate) {
+    msg = "[ASSERT ERROR]: " + msg ? msg : "Assertion Failed";
+    console.error(msg);
+  }
+}
