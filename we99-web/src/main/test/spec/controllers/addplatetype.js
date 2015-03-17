@@ -1,8 +1,7 @@
 'use strict';
 
 describe('Controller: AddPlateTypeCtrl', function () {
-
-  // load the controller's module
+// load the controller's module
   beforeEach(module('we99App'));
 
   var AddPlateTypeCtrl,
@@ -16,7 +15,7 @@ describe('Controller: AddPlateTypeCtrl', function () {
     });
   }));
 
-  //it('should attach a list of awesomeThings to the scope', function () {
-  //  expect(scope.awesomeThings.length).toBe(3);
+  //it('should grab the list of plate types', function () {
+  //  expect($scope.plateTypes)
   //});
 });
