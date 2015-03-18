@@ -8,8 +8,87 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('HeatmapCtrl', ["$scope", "RestService", function ($scope, RestService) {
+  .controller('HeatmapCtrl', ["$scope", "RestService", "d3Service", function ($scope, RestService, d3Service) {
 
+    // Stores the index of the presently selected value in the display box.
+    var selectedIndex = 0;
+
+    // Stores the presently selected result value.
+    var resultValueIndex = 0;
+
+    // Stores the data set.
+    var dataSetLink = null;
+
+    // Links to display elements.
+    var listBox = d3.select("#list-box");
+    var displayBox = d3.select("#display-box");
+
+
+    /**
+     * Render the display box.
+     *
+     * @param data The data to be rendered in the display box.
+     */
+    function renderDisplayBox(resultValueIndex, selectedIndex){
+      displayBox.html("");
+      console.log(resultValueIndex, selectedIndex);
+      d3Service.renderSingleHeatMap({
+        location: "#display-box",
+        data: dataSetLink[resultValueIndex][selectedIndex].data,
+        title: dataSetLink[resultValueIndex][selectedIndex].name,
+        onCellClick: function(d) {
+          dataSetLink[resultValueIndex][selectedIndex].data[d.wellIndex].included =
+            !dataSetLink[resultValueIndex][selectedIndex].data[d.wellIndex].included;
+          renderDisplayBox(resultValueIndex, selectedIndex);
+        }
+      });
+    }
+
+    /**
+     * Render the entire display.
+     *
+     * @param dataSets The set of data to be rendered.
+     */
+    function renderAll(dataSets){
+
+      dataSetLink = dataSets;
+
+      listBox.html("");
+      var renderTargets = [];
+      var listMaps = listBox.selectAll("svg")
+        .data(dataSetLink[resultValueIndex])
+        .enter()
+        .append("svg")
+        .attr("width","120")
+        .attr("height","150")
+        .attr("id", function(d, i) {
+          var id = "list-map-" + i;
+          renderTargets.push(id);
+          return id;
+        })
+        .on('click', function(d, i) {
+          selectedIndex = i;
+          renderDisplayBox(resultValueIndex, selectedIndex);
+        } );
+
+      for(var i = 0; i < renderTargets.length; i++){
+
+        d3Service.renderSingleHeatMap({
+          location: "#" + renderTargets[i],
+          data: dataSetLink[resultValueIndex][i].data,
+          title: dataSetLink[resultValueIndex][i].name,
+          mapFormat: {
+            margin: 8,
+            fixedsize_x: 90,
+            fixedsize_y: 90
+          }
+        });
+
+      }
+
+      renderDisplayBox(resultValueIndex, selectedIndex);
+
+    }
 
     // Default Data
     var colName = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
@@ -37,136 +116,31 @@ angular.module('we99App')
       resultOptions: resultOptions,
       dataSets: allDataSets.map(function (dataSet) {
         return  dataSet.map(function (d) {
-            return {
+            var result = {
               colName: colName,
               rowName: rowName,
               data: d,
-              name: "A" + String(Math.random())
+              name: "A" + String(Math.round(Math.random() * 400)),
+              z: Math.round(Math.random() * 100) / 100,
+              z_prime: Math.round(Math.random() * 100) / 100
             };
+            result.name = result.name + " (z=" + result.z + ") (z'=" + result.z_prime + ")";
+          return result;
           })
       })
     };
 
 
-    // Start of real controller stuff.
-    var heatmaps = new function(){
-
-      var self = this;
-
-      var itemSize = 9,
-        cellSize = itemSize-1,
-        windowHeight = 500,
-        margin = {top:20,right:20,bottom:20,left:25};
-
-      var listSvg = d3.select("#list-box")
-        .append("svg")
-        .attr("width", 100)
-        .attr("height", windowHeight);
-
-      var displaySvg = d3.select('#display-box')
-        .append('svg')
-        .attr("width", 600)
-        .attr("height", windowHeight);
-
-      var colorScale = null;
-
-      self.renderOne = function(d){
-
-        displaySvg.html("");
-        var myData = d;
-        var rect =  displaySvg
-          .append('g')
-          .selectAll('rect')
-          .data(d.data)
-          .enter()
-          .append('rect')
-          .attr('width',cellSize * 3)
-          .attr('height',cellSize * 3)
-          .attr('x',function(d) {return 10 + (d.col * itemSize * 3) + 1; })
-          .attr('y',function(d) {return 10 + (d.row * itemSize * 3) + 1; })
-          .attr('fill',function(d) {return colorScale(d.value); })
-          .style("stroke", function(d) { if(d.included) return 'black'; else return 'red';})
-          .on('click', function(d) {
-            d.included = !d.included;
-            self.renderOne(myData);
-          });
-
-        displaySvg.selectAll('text')
-          .data( [d] )
-          .enter()
-          .append('text')
-          .attr('x', '10')
-          .attr('y', '300' )
-          .text( function(d) {return d.name ;} );
-      };
-
-      self.renderThumbnails = function(data){
-
-        listSvg.html("");
-
-        // Compute Legend Values
-        var nums = [];
-        data.forEach(function(arr) {
-         arr.data.forEach(function(d){ nums.push(d.value); });
-        });
-
-        var min = d3.min(nums);
-
-        var max = d3.max(nums);
-
-        colorScale = d3.scale.linear()
-          .range(['lightgreen', 'darkgreen'])
-          .domain([min, max]);
-
-        var count = 0;
-        data.forEach(function(myData){
-
-          var height = 11 * cellSize,
-              width = 11 * cellSize;
-
-          var heatmap = listSvg
-            .append('g')
-            .attr('width', width)
-            .attr('height', height);
-
-          var ty = (height + 35) * count;
-
-          heatmap.on("click", change);
-          function change() {
-            self.renderOne(myData);
-          }
-
-          var rect = heatmap.selectAll('rect')
-            .data(myData.data)
-            .enter()
-            .append('rect')
-            .attr('width',cellSize)
-            .attr('height',cellSize)
-            .attr('x',function(d) {return (d.col * itemSize) + 5 ; })
-            .attr('y',function(d) {return ( ty ) + (d.row * itemSize) + 20; })
-            .attr('fill',function(d) {return colorScale(d.value); });
-
-          heatmap.append('text')
-            .attr('x', '1')
-            .attr('y', ty + (cellSize * 11 ) + 35 )
-            .text( myData.name );
-
-          count = count + 1;
-
-        });
-
-        listSvg.attr("height", ( count * cellSize * 11) + 35 );
-      }
-    };
-
-    // Controller Code
+    // Result options.
     $scope.resultOptions = sampleJsonData.resultOptions.map(function(d,i){
       return {label: d, value: i};
     });
     $scope.result = $scope.resultOptions[0];
 
+    // Watch for the
     $scope.$watch('result', function(newValue, oldValue) {
-      heatmaps.renderThumbnails(sampleJsonData.dataSets[newValue.value]);
+      resultValueIndex = newValue.value;
+      renderAll(sampleJsonData.dataSets);
     });
 
   }]
