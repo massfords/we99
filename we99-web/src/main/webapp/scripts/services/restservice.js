@@ -10,12 +10,12 @@
 var app = angular.module('we99App');
 app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,$http, RestURLs) {
     return {
-        
-    	
+
+
     	//
     	// $resource-style calls
     	//
-    	
+
     	plateType: $resource(RestURLs.plateType,{}, {
             query: {method: "GET",
                     isArray: true,
@@ -26,7 +26,7 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
         }),
         //experiment: $resource(RestURLs.experiment,{},{}),
         results: $resource(RestURLs.result,{}, {}),
-        
+
         //
         // $http style calls.
         //
@@ -77,5 +77,9 @@ app.factory('PlateTypeModel', ['$resource', 'RestURLs', function ($resource, Res
 /* HELPER FUNCTIONS */
 
 function valuesToArray(data) {
-  return JSON.parse(data).values;
+  if (data) {
+    return JSON.parse(data).values;
+  } else {
+    return null;
+  }
 }
