@@ -63,7 +63,7 @@ angular.module('we99Login', [
     };
 
     $scope.sendPasswordReset = function() {
-      var promise = $http.post('services/rest/forgotPassword', $scope.user);
+      var promise = $http.post(kRestServer + 'forgotPassword', $scope.user);
       promise.then(function() {
         $scope.successTextAlert = "Check your email for a password reset link.";
         $scope.showSuccessAlert = true;
@@ -84,7 +84,7 @@ angular.module('we99Login', [
       $scope.user.email = queryParams['email'];
       $scope.uuid = queryParams['uuid'];
 
-      var promise = $http.post('services/rest/forgotPassword/verify/uuid'+$scope.uuid, $scope.user);
+      var promise = $http.post(kRestServer + 'forgotPassword/verify/uuid'+$scope.uuid, $scope.user);
       promise.then(function(resp) {
         $scope.user = resp.data;
       }, function(resp) {
@@ -93,7 +93,7 @@ angular.module('we99Login', [
     };
 
     $scope.activate = function() {
-      var promise = $http.post('services/rest/forgotPassword/update/'+$scope.uuid, $scope.user);
+      var promise = $http.post(kRestServer + 'forgotPassword/update/'+$scope.uuid, $scope.user);
       promise.then(function() {
         $scope.successTextAlert = "Password reset, redirecting to login page";
         $scope.showSuccessAlert = true;
