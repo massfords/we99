@@ -2,7 +2,14 @@ angular.module('we99Login', [
 
 ])
   .constant('kRestServer', '/we99/services/rest/')
-  .controller('SignUpController', function ($scope, $http, $timeout, kRestServer) {
+  .constant('kSignupErrorCode', {
+    401: "Access Forbidden.",
+    409: "Email address already in use.",
+    500: "Error registering. Have the admin check email connection."
+  })
+
+
+  .controller('SignUpController', function ($scope, $http, $timeout, kRestServer, kSignupErrorCode) {
 
     $scope.signUp = function() {
       var promise = $http.post(kRestServer + 'createAccount', $scope.user);
@@ -10,11 +17,8 @@ angular.module('we99Login', [
         $scope.successTextAlert = "Check your email for the activation link.";
         $scope.showSuccessAlert = true;
       }, function(resp) {
-        if (resp.status === 409) {
-          $scope.dangerTextAlert = "Email address already in use.";
-          $scope.showDangerAlert = true;
-        } else if (resp.status === 500) {
-          $scope.dangerTextAlert = "Error registering. Have the admin check email connection.";
+        if (kSignupErrorCode.hasOwnProperty(resp.status)) {
+          $scope.dangerTextAlert = kSignupErrorCode[resp.status];
           $scope.showDangerAlert = true;
         } else {
           alert("Unexpected error:"+ resp);
