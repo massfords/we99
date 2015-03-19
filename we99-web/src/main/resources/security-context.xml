@@ -57,17 +57,17 @@
   <sec:http pattern="/styles/**" security="none"/>
   <sec:http pattern="/views/**" security="none"/>
 
-  <sec:http pattern="/log*" security="none"/>
+  <sec:http pattern="/login/**" security="none"/>
   <sec:http pattern="/password*" security="none"/>
-  <sec:http pattern="/confirm-account.html" security="none"/>
+  <sec:http pattern="/login/confirm-account.html" security="none"/>
   <sec:http pattern="/**" auto-config='true' use-expressions="true"
             authentication-manager-ref="basic"
             access-decision-manager-ref="adm" disable-url-rewriting="true">
     <sec:intercept-url pattern="j_spring*" method="GET" access="permitAll"/>
     <sec:intercept-url pattern="/**" method="GET" access="isAuthenticated()"/>
-    <sec:form-login login-page="/login.html"
-                    authentication-failure-url="/login.html?error"/>
-    <sec:logout logout-success-url="/loggedOut.html"/>
+    <sec:form-login login-page="/login/login.html"
+                    authentication-failure-url="/login/login.html?error"/>
+    <sec:logout logout-success-url="/login/loggedOut.html"/>
   </sec:http>
   <sec:global-method-security pre-post-annotations="enabled"/>
 

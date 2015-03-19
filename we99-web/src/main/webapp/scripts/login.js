@@ -42,7 +42,7 @@ angular.module('we99Login', [
         $scope.successTextAlert = "Redirecting to login page...";
         $scope.showSuccessAlert = true;
         $timeout(function() {
-          window.location = "login.html";
+          window.location = "../login/login.html";
         }, 3000);
       }, function(resp) {
         if (resp.status === 409) {
@@ -93,7 +93,7 @@ angular.module('we99Login', [
         $scope.successTextAlert = "Password reset, redirecting to login page";
         $scope.showSuccessAlert = true;
         $timeout(function() {
-          window.location = "login.html";
+          window.location = "../login/login.html";
         }, 3000);
       }, function(resp) {
           alert("Unexpected error:"+ resp);
