@@ -2,7 +2,7 @@ Welcome Mark Ford!
 
 Click the following link to verify your new account:
 
-http://localhost:8080/we99/confirm-account.html?uuid=uuid&email=junit@uuid
+http://localhost:8080/we99/login/confirm-account.html?uuid=uuid&email=junit@uuid
 
 Thanks,
 
