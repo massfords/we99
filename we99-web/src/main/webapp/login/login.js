@@ -1,10 +1,11 @@
 angular.module('we99Login', [
 
 ])
-  .controller('SignUpController', function ($scope, $http, $timeout) {
+  .constant('kRestServer', '/we99/services/rest/')
+  .controller('SignUpController', function ($scope, $http, $timeout, kRestServer) {
 
     $scope.signUp = function() {
-      var promise = $http.post('services/rest/createAccount', $scope.user);
+      var promise = $http.post(kRestServer + 'createAccount', $scope.user);
       promise.then(function() {
         $scope.successTextAlert = "Check your email for the activation link.";
         $scope.showSuccessAlert = true;
@@ -28,7 +29,7 @@ angular.module('we99Login', [
       $scope.user.email = queryParams['email'];
       $scope.uuid = queryParams['uuid'];
 
-      var promise = $http.post('services/rest/createAccount/verify/'+$scope.uuid, $scope.user);
+      var promise = $http.post('/we99/services/rest/createAccount/verify/'+$scope.uuid, $scope.user);
       promise.then(function(resp) {
         $scope.user = resp.data;
       }, function(resp) {
@@ -42,7 +43,7 @@ angular.module('we99Login', [
         $scope.successTextAlert = "Redirecting to login page...";
         $scope.showSuccessAlert = true;
         $timeout(function() {
-          window.location = "../login/login.html";
+          window.location = "login.html";
         }, 3000);
       }, function(resp) {
         if (resp.status === 409) {
@@ -93,7 +94,7 @@ angular.module('we99Login', [
         $scope.successTextAlert = "Password reset, redirecting to login page";
         $scope.showSuccessAlert = true;
         $timeout(function() {
-          window.location = "../login/login.html";
+          window.location = "login.html";
         }, 3000);
       }, function(resp) {
           alert("Unexpected error:"+ resp);
@@ -118,6 +119,8 @@ angular.module('we99Login', [
       $scope[value] = !$scope[value];
     };
 
-
+    /* Validation */
+    // REGEX PATTERNS
+    $scope.regexNamePattern = /^[a-z]*$/i;
   })
 ;
