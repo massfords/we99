@@ -1,19 +1,21 @@
 <style>
 
   #list-box{
-    height:175px;
-    width:800px;
-    border: 1px solid black;
+    height:200px;
+    border: 1px solid lightgray;
     padding: 2px;
-    overflow-x: scroll;
     position: relative;
   }
 
   #display-box{
-    width: 800px;
-    display: inline;
-    height: 800px;
+    margin-left: auto;
+    margin-right: auto;
     margin: 10px;
+    height: 215px;
+    width: 225px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
   }
 
   #list-box .heatmap-title{
@@ -22,20 +24,25 @@
   }
 
   #list-box svg:hover{
-    border: 2px solid #dcdcdc;
+    border: 2px solid black;
+
+  }
+
+  #list-box svg{
+
   }
 
 
 </style>
 
-<p>Results View</p>
+<div id="display-wrapper"><svg id="display-box"></svg></div>
 <div id="controls">
-  Select Result To View:
-  <select ng-model="result" ng-options="opt as opt.label for opt in resultOptions">
-  </select>
+  Select Experiment:
+  <select ng-model="selectedExperiment"  ng-options="opt as opt.name for opt in experiments"></select>
 </div>
+
 <div id="list-box" ></div>
-<div><svg id="display-box"></svg></div>
+
 
 
 
