@@ -47,6 +47,7 @@ public interface ProtocolService {
     @Path("/{id}")
     @ApiOperation("Gets an existing protocol or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Protocol get(@PathParam("id") Long id);
 
     /**
@@ -70,6 +71,7 @@ public interface ProtocolService {
     @Path("/{id}")
     @ApiOperation("Deletes an existing protocol or throws an exception with a 404 if not found")
     @PreAuthorize("hasRole('PERM_MODIFY_PROTOCOLS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Response delete(@PathParam("id") Long id);
 
     /**
@@ -79,6 +81,7 @@ public interface ProtocolService {
     @GET
     @ApiOperation("Lists all existing protocol or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Protocols listAll();
 
 }

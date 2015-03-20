@@ -48,6 +48,7 @@ public interface PlateTypeService {
     @Path("/{id}")
     @ApiOperation("Gets an existing PlateType or throws an exception with a 404")
     @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateType get(@PathParam("id")Long id);
 
     /**
@@ -73,6 +74,7 @@ public interface PlateTypeService {
     @Path("/{id}")
     @ApiOperation("Deletes an existing PlateType or throws an exception with a 404")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATETYPES')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Response delete(@PathParam("id") Long id);
 
     /**
@@ -81,5 +83,6 @@ public interface PlateTypeService {
     @GET
     @ApiOperation("Lists all of the plate types in the system")
     @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateTypes listAll();
 }

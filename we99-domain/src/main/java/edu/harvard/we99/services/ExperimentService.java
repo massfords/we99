@@ -43,6 +43,7 @@ public interface ExperimentService {
     @GET
     @ApiOperation("Lists all of the experiements that the caller has access to")
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Experiments listExperiments();
 
     @ApiOperation("Gets an specific experiement")

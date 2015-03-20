@@ -3,7 +3,9 @@ package edu.harvard.we99.services;
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.test.DisableLogging;
 import edu.harvard.we99.util.ClientFactory;
+import org.apache.cxf.interceptor.AbstractFaultChainInitiatorObserver;
 import org.apache.cxf.jaxrs.impl.WebApplicationExceptionMapper;
+import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.junit.Test;
 
 import javax.ws.rs.WebApplicationException;
@@ -21,7 +23,9 @@ public class GuestAccessST {
     @Test
     public void test() throws Exception {
 
-        DisableLogging.turnOff(WebApplicationExceptionMapper.class);
+        DisableLogging.turnOff(WebApplicationExceptionMapper.class,
+                PhaseInterceptorChain.class,
+                AbstractFaultChainInitiatorObserver.class);
         ClientFactory cf = new ClientFactory(new URL(WebAppIT.WE99_URL),
                 "we99.2015@example", "pass");
         CompoundService cs = cf.create(CompoundService.class);

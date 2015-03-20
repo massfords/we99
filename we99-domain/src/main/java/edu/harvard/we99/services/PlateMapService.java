@@ -52,6 +52,7 @@ public interface PlateMapService {
     @Path("/{id}")
     @ApiOperation("Gets an existing map or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateMap get(@PathParam("id")Long id);
 
     /**
@@ -77,6 +78,7 @@ public interface PlateMapService {
     @Path("/{id}")
     @ApiOperation("Deletes an existing map or throws an exception with a 404 if not found")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Response delete(@PathParam("id") Long id);
 
     /**
@@ -102,6 +104,7 @@ public interface PlateMapService {
     @GET
     @ApiOperation("Lists all existing map or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateMaps listAll();
 
 }

@@ -49,6 +49,7 @@ public interface CompoundService {
     @Path("/{id}")
     @ApiOperation("Gets an existing compound or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_COMPOUNDS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Compound get(@PathParam("id")Long id);
 
     /**

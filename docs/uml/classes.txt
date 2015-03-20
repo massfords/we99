@@ -4,6 +4,9 @@ AbstractPlate <|-- Plate
 AbstractPlate <|-- PlateMap
 AbstractPlate o-- "1" PlateType
 Plate *-- "many" Well
+Plate *-- "0|1" PlateResult
+PlateResult *-- WellResult
+WellResult *-- "many" Sample
 AbstractWell <|-- Well
 AbstractWell <|-- WellMap
 Well *-- "many" Dose
@@ -89,5 +92,27 @@ class Experiment {
     DateTime created
 }
 
+class Sample {
+    Double value
+    String label
+    String comments
+    DateTime measuredAt
+    SampleStatus status
+}
+
+class WellResult {
+    Coordinate coord
+}
+
+enum ResultStatus {
+    INCLUDED
+    EXCLUDED
+}
+
+class PlateResult {
+    DateTime created
+    DateTime lastModified
+    String comments
+}
 
 @enduml
