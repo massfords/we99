@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
@@ -62,6 +63,7 @@ public class ExperimentsMapperTest {
                 .withName("exp")
                 .withProtocol(protocolEntity)
                 .withCreated(new DateTime("2015-01-02T10:30:20Z"))
+                .withLabels(Arrays.asList(new LabelEntity("foo", "bar")))
                 .withMembers(Collections.singletonMap("foo@example.com",
                         new UserEntity("foo@example.com", "Foo", "User")
                                 .withId(200L)));

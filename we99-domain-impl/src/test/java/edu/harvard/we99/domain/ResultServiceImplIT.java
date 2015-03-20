@@ -10,7 +10,6 @@ import edu.harvard.we99.services.experiments.PlateResultResource;
 import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -106,7 +105,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 );
             }
         }
-        Assert.assertEquals(rowCount * colCount, wells.size());
+        assertEquals(rowCount * colCount, wells.size());
 
         return wells.toArray(new Well[wells.size()]);
     }

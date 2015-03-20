@@ -5,7 +5,16 @@
         "row": 0,
         "col": 0
       },
-      "label": "A1",
+      "labels": [
+        {
+          "name": "foo",
+          "value": "A1"
+        },
+        {
+          "name": "bar",
+          "value": "B1"
+        }
+      ],
       "type": "COMP"
     },
     {
@@ -13,7 +22,16 @@
         "row": 0,
         "col": 1
       },
-      "label": "A1",
+      "labels": [
+        {
+          "name": "foo",
+          "value": "A1"
+        },
+        {
+          "name": "bar",
+          "value": "B1"
+        }
+      ],
       "type": "COMP"
     },
     {
@@ -21,7 +39,16 @@
         "row": 0,
         "col": 2
       },
-      "label": "A1",
+      "labels": [
+        {
+          "name": "foo",
+          "value": "A1"
+        },
+        {
+          "name": "bar",
+          "value": "B1"
+        }
+      ],
       "type": "COMP"
     },
     {
@@ -29,7 +56,16 @@
         "row": 0,
         "col": 3
       },
-      "label": "A1",
+      "labels": [
+        {
+          "name": "foo",
+          "value": "A1"
+        },
+        {
+          "name": "bar",
+          "value": "B1"
+        }
+      ],
       "type": "COMP"
     },
     {
@@ -37,7 +73,7 @@
         "row": 0,
         "col": 4
       },
-      "label": "",
+      "labels": [],
       "type": "EMPTY"
     },
     {
@@ -45,7 +81,16 @@
         "row": 2,
         "col": 0
       },
-      "label": "B1",
+      "labels": [
+        {
+          "name": "foo",
+          "value": "B1"
+        },
+        {
+          "name": "bar",
+          "value": "B2"
+        }
+      ],
       "type": "COMP"
     },
     {
@@ -53,7 +98,16 @@
         "row": 2,
         "col": 1
       },
-      "label": "B1",
+      "labels": [
+        {
+          "name": "foo",
+          "value": "B1"
+        },
+        {
+          "name": "bar",
+          "value": "B2"
+        }
+      ],
       "type": "COMP"
     },
     {
@@ -61,7 +115,16 @@
         "row": 2,
         "col": 2
       },
-      "label": "B1",
+      "labels": [
+        {
+          "name": "foo",
+          "value": "B1"
+        },
+        {
+          "name": "bar",
+          "value": "B2"
+        }
+      ],
       "type": "COMP"
     },
     {
@@ -69,7 +132,16 @@
         "row": 2,
         "col": 3
       },
-      "label": "B1",
+      "labels": [
+        {
+          "name": "foo",
+          "value": "B1"
+        },
+        {
+          "name": "bar",
+          "value": "B2"
+        }
+      ],
       "type": "COMP"
     },
     {
@@ -77,7 +149,7 @@
         "row": 2,
         "col": 4
       },
-      "label": "",
+      "labels": [],
       "type": "EMPTY"
     }
   ]

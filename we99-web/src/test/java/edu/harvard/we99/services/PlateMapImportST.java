@@ -73,7 +73,8 @@ public class PlateMapImportST {
 
     @Test
     public void prototype() throws Exception {
-        WebClient client = WebClient.create(WebAppIT.WE99_URL + "/plateMap", WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW, null);
+        WebClient client = WebClient.create(WebAppIT.WE99_URL + "/plateMap",
+                WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW, null);
         client.type("multipart/form-data");
         ContentDisposition cd = new ContentDisposition("attachment;filename=pmap.csv");
         Attachment att = new Attachment("file", getClass().getResourceAsStream(input), cd);

@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.Amount;
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.Label;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateMap;
@@ -40,6 +41,7 @@ public class Mappers {
     public static final BoundMapperFacade<PlateResultEntity,PlateResult> PLATERESULT;
     public static final BoundMapperFacade<WellEntity,Well> WELL;
     public static final BoundMapperFacade<WellResultsEntity,WellResults> WELLRESULT;
+    public static final BoundMapperFacade<LabelEntity,Label> LABEL;
 
     private static final MapperFactory mapperFactory =
             new DefaultMapperFactory.Builder().build();
@@ -78,6 +80,7 @@ public class Mappers {
         mapperFactory
                 .classMap(ExperimentEntity.class, Experiment.class)
                 .mapNullsInReverse(false)
+                .fieldAToB("labels", "labels")
                 .byDefault()
                 .register();
         mapperFactory
@@ -85,6 +88,7 @@ public class Mappers {
                 .mapNullsInReverse(false)
                 .fieldAToB("wells", "wells")
                 .fieldAToB("experiment", "experiment")
+                .fieldAToB("labels", "labels")
                 .byDefault()
                 .register();
         mapperFactory
@@ -96,6 +100,7 @@ public class Mappers {
         mapperFactory
                 .classMap(WellEntity.class, Well.class)
                 .mapNullsInReverse(false)
+                .fieldAToB("labels", "labels")
                 .byDefault()
                 .register();
         mapperFactory
@@ -106,6 +111,7 @@ public class Mappers {
         mapperFactory
                 .classMap(WellMapEntity.class, WellMap.class)
                 .mapNullsInReverse(false)
+                .fieldAToB("labels", "labels")
                 .byDefault()
                 .register();
         mapperFactory
@@ -125,6 +131,11 @@ public class Mappers {
                 .fieldAToB("plate", "plate")
                 .byDefault()
                 .register();
+        mapperFactory
+                .classMap(LabelEntity.class, Label.class)
+                .mapNullsInReverse(false)
+                .byDefault()
+                .register();
 
         COMPOUND = mapperFactory.getMapperFacade(CompoundEntity.class, Compound.class);
         EXPERIMENTS = mapperFactory.getMapperFacade(ExperimentEntity.class, Experiment.class);
@@ -137,6 +148,6 @@ public class Mappers {
         PLATERESULT = mapperFactory.getMapperFacade(PlateResultEntity.class, PlateResult.class);
         WELL = mapperFactory.getMapperFacade(WellEntity.class, Well.class);
         WELLRESULT = mapperFactory.getMapperFacade(WellResultsEntity.class, WellResults.class);
+        LABEL = mapperFactory.getMapperFacade(LabelEntity.class, Label.class);
     }
-
 }

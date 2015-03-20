@@ -4,9 +4,11 @@ AbstractPlate <|-- Plate
 AbstractPlate <|-- PlateMap
 AbstractPlate o-- "1" PlateType
 Plate *-- "many" Well
+Plate *-- "many" Label
 Plate *-- "0|1" PlateResult
 PlateResult *-- WellResult
 WellResult *-- "many" Sample
+AbstractWell *-- "many" Label
 AbstractWell <|-- Well
 AbstractWell <|-- WellMap
 Well *-- "many" Dose
@@ -14,6 +16,7 @@ Dose o-- "1" Compound
 PlateMap *-- "many" WellMap
 Experiment *-- "many" Plate
 Experiment o-- "1" Protocol
+Experiment *-- "many" Label
 
 class Plate {
     String barcode
@@ -113,6 +116,11 @@ class PlateResult {
     DateTime created
     DateTime lastModified
     String comments
+}
+
+class Label {
+    String name
+    String value
 }
 
 @enduml

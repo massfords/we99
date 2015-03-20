@@ -15,7 +15,12 @@
         "row": 0,
         "col": 0
       },
-      "label": "well 0,0",
+      "labels": [
+        {
+          "name": "loc",
+          "value": "well 0,0"
+        }
+      ],
       "type": "COMP"
     }
   ]

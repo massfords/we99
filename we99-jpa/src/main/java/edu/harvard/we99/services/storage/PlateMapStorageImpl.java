@@ -1,6 +1,8 @@
 package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.PlateMap;
+import edu.harvard.we99.domain.WellMap;
+import edu.harvard.we99.services.storage.entities.LabelEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PlateMapEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the PlanTemplateStorage
@@ -71,7 +74,15 @@ public class PlateMapStorageImpl implements PlateMapStorage {
         // basic props are set via the mapper, need to map the wells manually
         // because we need to preserve the existing hibernate collections
         pme.getWells().clear();
-        type.getWells().values().forEach(wm->pme.add(Mappers.WELLMAP.mapReverse(wm)));
+        type.getWells().values().forEach(wm -> pme.add(Mappers.WELLMAP.mapReverse(wm)));
+        pme.getWells().values().forEach(we->we.getLabels().clear());
+        for(WellMap wm : type.getWells().values()) {
+            List<LabelEntity> labels = wm.getLabels().stream().map(Mappers.LABEL::mapReverse).collect(Collectors.toList());
+            labels.forEach(lbl->lbl.setId(null));
+            labels.forEach(em::merge);
+            pme.getWells().get(wm.getCoordinate()).withLabels(labels);
+        }
+
         pme.getWells().values().forEach(em::merge);
     }
 }

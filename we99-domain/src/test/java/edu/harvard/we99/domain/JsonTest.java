@@ -95,7 +95,7 @@ public class JsonTest {
         for(int row = 0; row<rows; row++) {
             for(int col=0; col<cols; col++) {
                 wells[cols*row+col] = new Well(row, col)
-                        .withLabel("well " + row + "," + col)
+                        .withLabel("loc", "well " + row + "," + col)
                         .withType(WellType.EMPTY);
             }
         }

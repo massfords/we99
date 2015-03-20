@@ -6,7 +6,12 @@
           "row": 0,
           "col": 0
         },
-        "label": "A",
+        "labels": [
+          {
+            "name": "lbl1",
+            "value": "A"
+          }
+        ],
         "type": "COMP"
       },
       {
@@ -14,7 +19,12 @@
           "row": 0,
           "col": 1
         },
-        "label": "A",
+        "labels": [
+          {
+            "name": "lbl1",
+            "value": "A"
+          }
+        ],
         "type": "COMP"
       },
       {
@@ -22,7 +32,12 @@
           "row": 0,
           "col": 2
         },
-        "label": "A",
+        "labels": [
+          {
+            "name": "lbl1",
+            "value": "A"
+          }
+        ],
         "type": "COMP"
       },
       {
@@ -30,7 +45,12 @@
           "row": 0,
           "col": 3
         },
-        "label": "A",
+        "labels": [
+          {
+            "name": "lbl1",
+            "value": "A"
+          }
+        ],
         "type": "COMP"
       },
       {
@@ -38,7 +58,7 @@
           "row": 0,
           "col": 49
         },
-        "label": "",
+        "labels": [],
         "type": "EMPTY"
       },
       {
@@ -46,7 +66,12 @@
           "row": 2,
           "col": 0
         },
-        "label": "B",
+        "labels": [
+          {
+            "name": "lbl1",
+            "value": "B"
+          }
+        ],
         "type": "COMP"
       },
       {
@@ -54,7 +79,12 @@
           "row": 2,
           "col": 1
         },
-        "label": "B",
+        "labels": [
+          {
+            "name": "lbl1",
+            "value": "B"
+          }
+        ],
         "type": "COMP"
       },
       {
@@ -62,7 +92,12 @@
           "row": 2,
           "col": 2
         },
-        "label": "B",
+        "labels": [
+          {
+            "name": "lbl1",
+            "value": "B"
+          }
+        ],
         "type": "COMP"
       },
       {
@@ -70,7 +105,12 @@
           "row": 2,
           "col": 3
         },
-        "label": "B",
+        "labels": [
+          {
+            "name": "lbl1",
+            "value": "B"
+          }
+        ],
         "type": "COMP"
       },
       {
@@ -78,7 +118,7 @@
           "row": 2,
           "col": 49
         },
-        "label": "",
+        "labels": [],
         "type": "EMPTY"
       },
       {
@@ -86,7 +126,7 @@
           "row": 200,
           "col": 200
         },
-        "label": "",
+        "labels": [],
         "type": "EMPTY"
       }
     ]

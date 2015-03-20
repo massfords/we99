@@ -14,7 +14,12 @@
         "row": 0,
         "col": 0
       },
-      "label": "well 0,0",
+      "labels": [
+        {
+          "name": "loc",
+          "value": "well 0,0"
+        }
+      ],
       "type": "EMPTY",
       "contents": []
     },
@@ -23,7 +28,12 @@
         "row": 0,
         "col": 1
       },
-      "label": "well 0,1",
+      "labels": [
+        {
+          "name": "loc",
+          "value": "well 0,1"
+        }
+      ],
       "type": "EMPTY",
       "contents": []
     },
@@ -32,7 +42,12 @@
         "row": 0,
         "col": 2
       },
-      "label": "well 0,2",
+      "labels": [
+        {
+          "name": "loc",
+          "value": "well 0,2"
+        }
+      ],
       "type": "EMPTY",
       "contents": []
     },
@@ -41,7 +56,12 @@
         "row": 1,
         "col": 0
       },
-      "label": "well 1,0",
+      "labels": [
+        {
+          "name": "loc",
+          "value": "well 1,0"
+        }
+      ],
       "type": "EMPTY",
       "contents": []
     },
@@ -50,7 +70,12 @@
         "row": 1,
         "col": 1
       },
-      "label": "well 1,1",
+      "labels": [
+        {
+          "name": "loc",
+          "value": "well 1,1"
+        }
+      ],
       "type": "EMPTY",
       "contents": []
     },
@@ -59,7 +84,12 @@
         "row": 1,
         "col": 2
       },
-      "label": "well 1,2",
+      "labels": [
+        {
+          "name": "loc",
+          "value": "well 1,2"
+        }
+      ],
       "type": "EMPTY",
       "contents": []
     }

@@ -36,9 +36,4 @@ public class WellEntity extends AbstractWellEntity<WellEntity> {
     public void setContents(Set<DoseEntity> contents) {
         this.contents = contents;
     }
-
-    public WellEntity dose(DoseEntity dose) {
-        getContents().add(dose);
-        return this;
-    }
 }

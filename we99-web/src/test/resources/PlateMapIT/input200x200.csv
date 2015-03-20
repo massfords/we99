@@ -1,4 +1,4 @@
-#row, col, well-type, label
+#row, col, well-type, label, value
 #
 # This is a sparse CSV. We don't need to define entries for every single cell.
 # The PlateMap import code will look at the max dimension and determine which
@@ -6,14 +6,14 @@
 # the system could create a one-off for just this map and let the user fill in
 # the type details later.
 #
-0, 0, COMP, A
-0, 1, COMP, A
-0, 2, COMP, A
-0, 3, COMP, A
-0, 49, EMPTY,
-2, 0, COMP, B
-2, 1, COMP, B
-2, 2, COMP, B
-2, 3, COMP, B
-2, 49, EMPTY,
-200,200,EMPTY,
+0, 0, COMP, lbl1, A
+0, 1, COMP, lbl1, A
+0, 2, COMP, lbl1, A
+0, 3, COMP, lbl1, A
+0, 49, EMPTY
+2, 0, COMP, lbl1, B
+2, 1, COMP, lbl1, B
+2, 2, COMP, lbl1, B
+2, 3, COMP, lbl1, B
+2, 49, EMPTY
+200,200,EMPTY

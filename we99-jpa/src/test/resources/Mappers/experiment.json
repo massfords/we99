@@ -1,6 +1,12 @@
 {
   "id": 500,
   "name": "exp",
+  "labels": [
+    {
+      "name": "foo",
+      "value": "bar"
+    }
+  ],
   "created": "2015-01-02T05:30:20.000-05:00",
   "protocol": {
     "id": 200,

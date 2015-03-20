@@ -98,7 +98,7 @@ public class DbPopulator {
                 for(int row=0; row<pte.getDim().getRows(); row++) {
                     for(int col=0; col<pte.getDim().getCols(); col++) {
                         WellEntity we = new WellEntity(row, col);
-                        we.withLabel("well" + row + "," + col);
+                        we.withLabel("loc", "well" + row + "," + col);
                         we.withType(WellType.EMPTY);
                         pe.withWells(we);
                         em.persist(we);
