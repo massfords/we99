@@ -53,8 +53,23 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
         //protocol
         getProtocols:  function(){
         	return $http.get(RestURLs.protocol);
+        },
+        
+        //email filter
+        getEmailFilter: function(){
+        	return $http.get(RestURLs.emailFilter);
+        },
+        
+        updateEmailFilter: function(){
+        	return $http.post(RestURLs.emailFilter);
+        },
+        //server settings
+        getServerSettings: function(){
+        	return $http.get(RestURLs.serverSettings);
+        },
+        updateServerSettings: function(){
+        	return $http.post(RestURLs.serverSettings);
         }
-
     };
 }]);
 
