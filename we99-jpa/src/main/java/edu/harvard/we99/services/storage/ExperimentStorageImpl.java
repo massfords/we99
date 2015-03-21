@@ -1,6 +1,8 @@
 package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.lists.Experiments;
+import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
@@ -15,6 +17,9 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static edu.harvard.we99.services.EntityListingSettings.pageSize;
+import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
  * @author mford
@@ -68,26 +73,37 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     }
 
     @Override
-    public List<Experiment> listAll(User user) {
+    public Experiments listAll(User user, Integer page) {
         TypedQuery<ExperimentEntity> tq = em.createQuery(
                 "select e from ExperimentEntity e, UserEntity u " +
                         "where u member of e.members and u.email = :user",
                 ExperimentEntity.class);
+        tq.setFirstResult(pageToFirstResult(page));
+        tq.setMaxResults(pageSize());
         tq.setParameter("user", user.getEmail());
         List<ExperimentEntity> resultList = tq.getResultList();
         List<Experiment> experiments = new ArrayList<>();
         resultList.forEach(ee->experiments.add(Mappers.EXPERIMENTS.map(ee)));
-        return experiments;
+        return new Experiments(count(user.getEmail()), page, experiments);
+    }
+
+    private Long count(String email) {
+        TypedQuery<Long> tq = em.createQuery(
+                "select count(e) from ExperimentEntity e, UserEntity u " +
+                        "where u member of e.members and u.email = :user",
+                Long.class);
+        tq.setParameter("user", email);
+        return tq.getSingleResult();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> listMembers(Long experimentId) {
+    public Users listMembers(Long experimentId) {
         ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
         Collection<UserEntity> values = ee.getMembers().values();
         List<User> userList = new ArrayList<>(values.size());
         values.forEach(u->userList.add(Mappers.USERS.map(u)));
-        return userList;
+        return new Users(userList.size(), userList.size(), userList);
     }
 
     @Override

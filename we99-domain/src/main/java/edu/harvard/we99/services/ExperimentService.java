@@ -8,11 +8,13 @@ import edu.harvard.we99.services.experiments.ExperimentResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -44,7 +46,7 @@ public interface ExperimentService {
     @ApiOperation("Lists all of the experiements that the caller has access to")
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    Experiments listExperiments();
+    Experiments listExperiments(@QueryParam("page") @DefaultValue("0") Integer page);
 
     @ApiOperation("Gets an specific experiement")
     @Path("/{id}")

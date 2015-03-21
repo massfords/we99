@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Protocols extends AbstractList<Protocol> {
     public Protocols() {}
-    public Protocols(List<Protocol> values) {
-        super(values);
+    public Protocols(Long count, int page, List<Protocol> values) {
+        super(count, page, values);
     }
 }

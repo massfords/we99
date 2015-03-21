@@ -1,6 +1,7 @@
 package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.Protocol;
+import edu.harvard.we99.domain.lists.Protocols;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.ProtocolEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,9 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.harvard.we99.services.EntityListingSettings.pageSize;
+import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
+
 /**
  * @author mford
  */
@@ -21,12 +25,19 @@ public class ProtocolStorageImpl implements ProtocolStorage {
     private EntityManager em;
 
     @Override
-    public List<Protocol> listAll() {
+    public Protocols listAll(Integer page) {
         TypedQuery<ProtocolEntity> query = em.createQuery("select p from ProtocolEntity p", ProtocolEntity.class);
+        query.setMaxResults(pageSize());
+        query.setFirstResult(pageToFirstResult(page));
         List<ProtocolEntity> resultList = query.getResultList();
         List<Protocol> list = new ArrayList<>(resultList.size());
         resultList.forEach(pe->list.add(Mappers.PROTOCOL.map(pe)));
-        return list;
+        return new Protocols(count(), page, list);
+    }
+    private Long count() {
+        TypedQuery<Long> q = em.createQuery(
+                "select count(e) from ProtocolEntity e", Long.class);
+        return q.getSingleResult();
     }
 
     @Override

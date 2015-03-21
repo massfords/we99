@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class PlateTypes extends AbstractList<PlateType> {
     public PlateTypes() {}
-    public PlateTypes(List<PlateType> values) {
-        super(values);
+    public PlateTypes(Long count, int page, List<PlateType> values) {
+        super(count, page, values);
     }
 }

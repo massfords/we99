@@ -1,6 +1,7 @@
 package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.Coordinate;
+import edu.harvard.we99.domain.lists.PlateResultEntries;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.PlateResultEntry;
 import edu.harvard.we99.domain.results.ResultStatus;
@@ -14,7 +15,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.List;
+
+import static edu.harvard.we99.services.EntityListingSettings.pageSize;
+import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
  * @author mford
@@ -35,7 +38,7 @@ public class ResultStorageImpl implements ResultStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PlateResultEntry> listAllByExperiment(Long experimentId) {
+    public PlateResultEntries listAllByExperiment(Long experimentId, Integer page) {
         TypedQuery<PlateResultEntry> query = em.createQuery(
                 "select NEW edu.harvard.we99.domain.results.PlateResultEntry(" +
                         "pr.id, pr.created, pr.lastModified, p.name) " +
@@ -43,8 +46,21 @@ public class ResultStorageImpl implements ResultStorage {
                         "where pr.plate = p " +
                         "and p.experiment = exp " +
                         "and exp.id = :expId", PlateResultEntry.class);
+        query.setMaxResults(pageSize());
+        query.setFirstResult(pageToFirstResult(page));
         query.setParameter("expId", experimentId);
-        return query.getResultList();
+        return new PlateResultEntries(count(experimentId), page, query.getResultList());
+    }
+
+    private Long count(long experimentId) {
+        TypedQuery<Long> query = em.createQuery(
+                "select count(pr) " +
+                        "from PlateResultEntity pr, PlateEntity p, ExperimentEntity exp " +
+                        "where pr.plate = p " +
+                        "and p.experiment = exp " +
+                        "and exp.id = :expId", Long.class);
+        query.setParameter("expId", experimentId);
+        return query.getSingleResult();
     }
 
     @Override

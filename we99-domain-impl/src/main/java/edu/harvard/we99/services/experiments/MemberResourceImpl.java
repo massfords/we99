@@ -20,7 +20,7 @@ public class MemberResourceImpl implements MemberResource {
 
     @Override
     public Users listMembers() {
-        return new Users(storage.listMembers(id));
+        return storage.listMembers(id);
     }
 
     @Override

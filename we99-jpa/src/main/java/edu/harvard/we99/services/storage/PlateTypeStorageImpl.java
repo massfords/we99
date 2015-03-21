@@ -2,6 +2,7 @@ package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.domain.lists.PlateTypes;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
+
+import static edu.harvard.we99.services.EntityListingSettings.pageSize;
+import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
  * Implementation of the PlateTypeStorage interface
@@ -24,21 +28,39 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
     private EntityManager em;
 
     @Override
-    public List<PlateType> listAll() {
-        TypedQuery<PlateTypeEntity> query = em.createQuery("select pt from PlateTypeEntity pt", PlateTypeEntity.class);
+    public PlateTypes listAll(Integer page) {
+        TypedQuery<PlateTypeEntity> query = em.createQuery("select pt from PlateTypeEntity pt",
+                PlateTypeEntity.class);
+        query.setFirstResult(pageToFirstResult(page));
+        query.setMaxResults(pageSize());
         List<PlateTypeEntity> resultList = query.getResultList();
         List<PlateType> list = map(resultList);
-        return list;
+        return new PlateTypes(count(), page, list);
+    }
+    private Long count() {
+        TypedQuery<Long> q = em.createQuery(
+                "select count(e) from PlateTypeEntity e", Long.class);
+        return q.getSingleResult();
     }
 
     @Override
-    public List<PlateType> findGreaterThanOrEqualTo(PlateDimension dim) {
+    public PlateTypes findGreaterThanOrEqualTo(PlateDimension dim, Integer page) {
         TypedQuery<PlateTypeEntity> query = em.createQuery(
                 "select pt from PlateTypeEntity pt where pt.dim.rows>=:rows and pt.dim.cols>=:cols", PlateTypeEntity.class);
         query.setParameter("rows", dim.getRows());
         query.setParameter("cols", dim.getCols());
+        query.setFirstResult(pageToFirstResult(page));
+        query.setMaxResults(pageSize());
         List<PlateTypeEntity> resultList = query.getResultList();
-        return map(resultList);
+        return new PlateTypes(countDim(dim), page, map(resultList));
+    }
+    private Long countDim(PlateDimension dim) {
+        TypedQuery<Long> query = em.createQuery(
+                "select count(pt) from PlateTypeEntity pt where pt.dim.rows>=:rows and pt.dim.cols>=:cols",
+                Long.class);
+        query.setParameter("rows", dim.getRows());
+        query.setParameter("cols", dim.getCols());
+        return query.getSingleResult();
     }
 
     @Override

@@ -24,7 +24,8 @@ public class PlateTypeServiceImpl extends BaseRESTServiceImpl<PlateType> impleme
     }
 
     @Override
-    public PlateTypes listAll() {
-        return new PlateTypes(((PlateTypeStorage)storage).listAll());
+    public PlateTypes listAll(Integer page) {
+        PlateTypeStorage ps = (PlateTypeStorage) storage;
+        return ps.listAll(page);
     }
 }

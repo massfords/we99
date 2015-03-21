@@ -11,7 +11,7 @@ public class Compounds extends AbstractList<Compound> {
     public Compounds() {
     }
 
-    public Compounds(List<Compound> compounds) {
-        super(compounds);
+    public Compounds(Long totalCount, int page, List<Compound> compounds) {
+        super(totalCount, page, compounds);
     }
 }

@@ -4,8 +4,8 @@ import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.ImportedPlateMap;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateMap;
-import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.lists.PlateMaps;
+import edu.harvard.we99.domain.lists.PlateTypes;
 import edu.harvard.we99.services.io.PlateMapCSVReader;
 import edu.harvard.we99.services.storage.PlateMapStorage;
 import edu.harvard.we99.services.storage.PlateTypeStorage;
@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.List;
 
 /**
  * Implementation of the PlateTemplateService.
@@ -48,8 +47,8 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
         PlateMapCSVReader reader = new PlateMapCSVReader();
         try (Reader r = new BufferedReader(new InputStreamReader(is))) {
             PlateMap plateMap = reader.read(r);
-            List<PlateType> list = pts.findGreaterThanOrEqualTo(calcDim(plateMap));
-            return new ImportedPlateMap(plateMap, list);
+            PlateTypes list = pts.findGreaterThanOrEqualTo(calcDim(plateMap), 0);
+            return new ImportedPlateMap(plateMap, list.getValues());
         } catch (IOException e) {
             log.error("error parsing csv", e);
             throw new WebApplicationException(Response.status(409).build());
@@ -57,8 +56,8 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
     }
 
     @Override
-    public PlateMaps listAll() {
-        return new PlateMaps(plateMapStorage().listAll());
+    public PlateMaps listAll(Integer page) {
+        return plateMapStorage().listAll(page);
     }
 
     private PlateMapStorage plateMapStorage() {

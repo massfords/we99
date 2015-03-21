@@ -1,9 +1,8 @@
 package edu.harvard.we99.services.storage;
 
+import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
-
-import java.util.List;
 
 /**
  * Storage interface for reading/writing User objects to the system.
@@ -29,7 +28,7 @@ public interface UserStorage extends CRUDStorage<User> {
      */
     User findByEmail(String email);
 
-    List<User> listAll();
+    Users listAll(Integer page);
 
     /**
      * Returns all of the users that match the given query. The query is considered
@@ -37,7 +36,7 @@ public interface UserStorage extends CRUDStorage<User> {
      * @param query
      * @return
      */
-    List<User> find(String query);
+    Users find(String query, Integer page);
 
     String resetPassword(Long id);
 

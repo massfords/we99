@@ -1,7 +1,8 @@
 {
+  "totalCount": 1,
+  "page": 0,
   "values": [
     {
-      "id": 3,
       "created": "iso8601",
       "lastModified": null,
       "plateName": "plateuuid"

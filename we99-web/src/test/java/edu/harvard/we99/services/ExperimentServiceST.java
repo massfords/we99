@@ -41,7 +41,7 @@ public class ExperimentServiceST {
         ClientFactory cf = new ClientFactory(url, WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW);
 
         es = cf.create(ExperimentService.class);
-        user = cf.create(UserService.class).find("we99.2015@example").getValues().get(0);
+        user = cf.create(UserService.class).find("we99.2015@example", 0).getValues().get(0);
     }
 
     @AfterClass
@@ -59,10 +59,10 @@ public class ExperimentServiceST {
     public void listPlates() throws Exception {
         // no assertions here, just making sure we can invoke all w/o exceptions
         Set<Compound> compounds = new HashSet<>();
-        for(Experiment e : es.listExperiments().getValues()) {
+        for(Experiment e : es.listExperiments(0).getValues()) {
             ExperimentResource er = es.getExperiment(e.getId());
             PlatesResource pr = er.getPlates();
-            for(Plate p : pr.list().getValues()) {
+            for(Plate p : pr.list(0).getValues()) {
                 for(Well well : p.getWells().values()) {
                     for(Dose d : well.getContents()) {
                         compounds.add(d.getCompound());

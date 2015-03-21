@@ -1,6 +1,7 @@
 package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PlateEntity;
@@ -13,6 +14,9 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.harvard.we99.services.EntityListingSettings.pageSize;
+import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
+
 /**
  * @author mford
  */
@@ -23,14 +27,21 @@ public class PlateStorageImpl implements PlateStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Plate> listAll(Long experimentId) {
+    public Plates listAll(Long experimentId, Integer page) {
         TypedQuery<PlateEntity> query = em.createQuery(
                 "select p from PlateEntity p where p.experiment.id=:id", PlateEntity.class);
+        query.setMaxResults(pageSize());
+        query.setFirstResult(pageToFirstResult(page));
         query.setParameter("id", experimentId);
         List<PlateEntity> resultList = query.getResultList();
         List<Plate> list = new ArrayList<>(resultList.size());
         resultList.forEach(pe->list.add(Mappers.PLATES.map(pe)));
-        return list;
+        return new Plates(count(), page, list);
+    }
+    private Long count() {
+        TypedQuery<Long> q = em.createQuery(
+                "select count(e) from PlateEntity e", Long.class);
+        return q.getSingleResult();
     }
 
     @Override

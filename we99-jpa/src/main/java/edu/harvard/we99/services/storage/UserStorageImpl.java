@@ -1,5 +1,6 @@
 package edu.harvard.we99.services.storage;
 
+import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.storage.entities.Mappers;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static edu.harvard.we99.services.EntityListingSettings.pageSize;
+import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 /**
@@ -105,20 +108,39 @@ public class UserStorageImpl implements UserStorage {
     }
 
     @Override
-    public List<User> listAll() {
-        TypedQuery<UserEntity> findAll = em.createQuery("select u from UserEntity u order by u.lastName, u.firstName", UserEntity.class);
+    public Users listAll(Integer page) {
+        TypedQuery<UserEntity> findAll = em.createQuery(
+                "select u from UserEntity u order by u.lastName, u.firstName", UserEntity.class);
+        findAll.setMaxResults(pageSize());
+        findAll.setFirstResult(pageToFirstResult(page));
         List<UserEntity> resultList = findAll.getResultList();
-        return map(resultList);
+        return map(count(), page, resultList);
+    }
+    private Long count() {
+        TypedQuery<Long> q = em.createQuery(
+                "select count(ce) from UserEntity ce", Long.class);
+        return q.getSingleResult();
     }
 
     @Override
-    public List<User> find(String query) {
+    public Users find(String query, Integer page) {
         TypedQuery<UserEntity> q = em.createQuery("select u from UserEntity u where " +
                 "upper(concat(u.lastName, ' ', u.firstName)) like :query or " +
                 "upper(concat(u.firstName, ' ', u.lastName)) like :query or " +
                 "upper(u.email) like :query", UserEntity.class);
+        q.setMaxResults(pageSize());
+        q.setFirstResult(pageToFirstResult(page));
         q.setParameter("query", "%"+query.toUpperCase()+"%");
-        return map(q.getResultList());
+        return map(countSearch(query), page, q.getResultList());
+    }
+
+    private Long countSearch(String query) {
+        TypedQuery<Long> q = em.createQuery("select count(u) from UserEntity u where " +
+                "upper(concat(u.lastName, ' ', u.firstName)) like :query or " +
+                "upper(concat(u.firstName, ' ', u.lastName)) like :query or " +
+                "upper(u.email) like :query", Long.class);
+        q.setParameter("query", "%"+query.toUpperCase()+"%");
+        return q.getSingleResult();
     }
 
     @Override
@@ -159,10 +181,10 @@ public class UserStorageImpl implements UserStorage {
         em.merge(entity);
     }
 
-    private List<User> map(List<UserEntity> resultList) {
+    private Users map(Long count, int page, List<UserEntity> resultList) {
         List<User> list = new ArrayList<>(resultList.size());
         resultList.forEach(ue->list.add(Mappers.USERS.map(ue)));
-        return list;
+        return new Users(count, page, list);
     }
 
     private UserEntity findEntityByEmail(String email) {

@@ -1,12 +1,11 @@
 package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.Protocol;
-
-import java.util.List;
+import edu.harvard.we99.domain.lists.Protocols;
 
 /**
  * @author mford
  */
 public interface ProtocolStorage extends CRUDStorage<Protocol> {
-    List<Protocol> listAll();
+    Protocols listAll(Integer page);
 }

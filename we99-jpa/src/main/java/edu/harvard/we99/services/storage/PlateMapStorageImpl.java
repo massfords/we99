@@ -2,6 +2,7 @@ package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.WellMap;
+import edu.harvard.we99.domain.lists.PlateMaps;
 import edu.harvard.we99.services.storage.entities.LabelEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PlateMapEntity;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static edu.harvard.we99.services.EntityListingSettings.pageSize;
+import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
+
 /**
  * Implementation of the PlanTemplateStorage
  *
@@ -27,12 +31,21 @@ public class PlateMapStorageImpl implements PlateMapStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PlateMap> listAll() {
-        TypedQuery<PlateMapEntity> query = em.createQuery("select pm from PlateMapEntity pm", PlateMapEntity.class);
+    public PlateMaps listAll(Integer page) {
+        TypedQuery<PlateMapEntity> query = em.createQuery(
+                "select pm from PlateMapEntity pm", PlateMapEntity.class);
+        query.setFirstResult(pageToFirstResult(page));
+        query.setMaxResults(pageSize());
         List<PlateMap> list = new ArrayList<>();
         List<PlateMapEntity> resultList = query.getResultList();
         resultList.forEach(pme -> list.add(Mappers.PLATEMAP.map(pme)));
-        return list;
+        return new PlateMaps(count(), page, list);
+    }
+
+    private Long count() {
+        TypedQuery<Long> q = em.createQuery(
+                "select count(e) from PlateMapEntity e", Long.class);
+        return q.getSingleResult();
     }
 
     @Override
