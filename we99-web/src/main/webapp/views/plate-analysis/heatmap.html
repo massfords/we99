@@ -1,48 +1,120 @@
 <style>
 
-  #list-box{
-    height:200px;
+  #list-box {
+    height: 258px;
+    width: 618px;
     border: 1px solid lightgray;
-    padding: 2px;
+    padding: 6px;
     position: relative;
-  }
-
-  #display-box{
     margin-left: auto;
     margin-right: auto;
-    margin: 10px;
-    height: 215px;
-    width: 225px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
   }
 
-  #list-box .heatmap-title{
+  #display-box {
+    height: 300px;
+    width: 300px;
+    float: left;
+  }
+
+  #list-box .heatmap-title {
     font-size: 10px;
     text-anchor: left;
   }
 
-  #list-box svg:hover{
+  #list-box svg:hover {
     border: 2px solid black;
 
   }
 
-  #list-box svg{
-
+  #display-container {
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 700px;
+    maring-bottom: 15px;
   }
 
+  .assay-summary,
+  .legend{
+    border: 1px solid black;
+    float: left;
+  }
 
+  .assay-summary{
+    padding: 5px;
+    font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+    font-weight: 500;
+    background: linen;
+    margin-left: 5px;
+  }
+
+  .legend{
+    padding: 10px;
+    margin-right: 5px;
+  }
 </style>
-
-<div id="display-wrapper"><svg id="display-box"></svg></div>
 <div id="controls">
   Select Experiment:
-  <select ng-model="selectedExperiment"  ng-options="opt as opt.name for opt in experiments"></select>
+  <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
+  Coloring:
+  <select ng-model="coloring.colorOption" ng-options="opt as opt.colorName for opt in coloring.colorOptions"></select>
+</div>
+<div id="display-container">
+  <div class="legend">
+
+    <p>
+      <svg style="width: 25px; height: 25px">
+        <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)"></rect>
+        <text x="10" y="15" width="20" height="20" font-family="Arial Black" font-size="13.2" style="text-anchor: middle;">C</text>
+      </svg>
+      Control
+    </p>
+
+    <p>
+      <svg style="width: 25px; height: 25px">
+        <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(255,0,0)"></rect>
+        <text x="10" y="15" width="20" height="20" font-family="Arial Black" font-size="13.2" style="text-anchor: middle;">E</text>
+      </svg>
+      Excluded Well
+    </p>
+
+    <p>
+      <svg style="width: 25px; height: 25px">
+        <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(255,0,0)"></rect>
+        <text x="13" y="15" width="20" height="20" font-family="Arial Black" font-size="13.2" style="text-anchor: middle;">E/C</text>
+      </svg>
+      Excluded Control
+    </p>
+    <b>Heatmap Gradients:</b>
+    <p>
+
+      <svg id="gradients" style="width: 100px"></svg>
+    </p>
+  </div>
+  <div id="display-wrapper">
+    <svg id="display-box"></svg>
+  </div>
+  <div class="assay-summary">
+    <p>Plate: {{ data[selectedIndex].name }}</p>
+    <p>Z Factor: {{ data[selectedIndex].z }}</p>
+    <p>Z Prime: {{ data[selectedIndex].z_prime }}</p>
+    <p>POS Control Average: {{ data[selectedIndex].pos_avg }}</p>
+    <p>NEG Control Average: {{ data[selectedIndex].neg_avg }}</p>
+  </div>
+  <div style="clear: both;">
+  </div>
+</div>
+<div style="text-align: center">
+
+  Showing results {{ pagination.from }} to {{ pagination.to }} of {{ pagination.of}}
+  <button ng-click="doPaging('PREV')" type="button" class="btn btn-default" aria-label="Left Align">
+    <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+  </button>
+  <button ng-click="doPaging('NEXT')" type="button" class="btn btn-default" aria-label="Left Align">
+    <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+  </button>
+
 </div>
 
-<div id="list-box" ></div>
-
-
-
-
+<div id="list-box"></div>
