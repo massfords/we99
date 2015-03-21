@@ -1,15 +1,16 @@
 package edu.harvard.we99.services.storage;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.Protocol;
 import edu.harvard.we99.domain.lists.Protocols;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.ProtocolEntity;
+import edu.harvard.we99.services.storage.entities.QProtocolEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,18 +27,17 @@ public class ProtocolStorageImpl implements ProtocolStorage {
 
     @Override
     public Protocols listAll(Integer page) {
-        TypedQuery<ProtocolEntity> query = em.createQuery("select p from ProtocolEntity p", ProtocolEntity.class);
-        query.setMaxResults(pageSize());
-        query.setFirstResult(pageToFirstResult(page));
-        List<ProtocolEntity> resultList = query.getResultList();
+
+        JPAQuery query = new JPAQuery(em);
+        query.from(QProtocolEntity.protocolEntity);
+
+        long count = query.count();
+
+        query.limit(pageSize()).offset(pageToFirstResult(page));
+        List<ProtocolEntity> resultList = query.list(QProtocolEntity.protocolEntity);
         List<Protocol> list = new ArrayList<>(resultList.size());
         resultList.forEach(pe->list.add(Mappers.PROTOCOL.map(pe)));
-        return new Protocols(count(), page, list);
-    }
-    private Long count() {
-        TypedQuery<Long> q = em.createQuery(
-                "select count(e) from ProtocolEntity e", Long.class);
-        return q.getSingleResult();
+        return new Protocols(count, page, list);
     }
 
     @Override

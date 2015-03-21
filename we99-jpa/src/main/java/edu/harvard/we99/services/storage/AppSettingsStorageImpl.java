@@ -1,6 +1,8 @@
 package edu.harvard.we99.services.storage;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.services.storage.entities.AppSetting;
+import edu.harvard.we99.services.storage.entities.QAppSetting;
 import edu.harvard.we99.util.JacksonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
 import java.io.IOException;
 
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
@@ -59,14 +59,11 @@ public class AppSettingsStorageImpl implements AppSettingsStorage {
     }
 
     private AppSetting getAppSetting(Class<?> setting) {
-        TypedQuery<AppSetting> query = em.createQuery("select a from AppSetting a where a.name=:name", AppSetting.class);
-        query.setParameter("name", setting.getSimpleName());
-        try {
-            return query.getSingleResult();
-        } catch(PersistenceException e) {
-            log.debug("no entry for setting {}", setting.getSimpleName());
-            return null;
-        }
-    }
 
+        JPAQuery query = new JPAQuery(em);
+        QAppSetting appSetting = QAppSetting.appSetting;
+        query.from(appSetting).where(appSetting.name.eq(setting.getSimpleName()));
+
+        return query.uniqueResult(appSetting);
+    }
 }

@@ -1,15 +1,16 @@
 package edu.harvard.we99.services.storage;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.lists.Compounds;
 import edu.harvard.we99.services.storage.entities.CompoundEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.QCompoundEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,20 +30,15 @@ public class CompoundStorageImpl implements CompoundStorage {
 
     @Override
     public Compounds listAll(Integer page) {
-        TypedQuery<CompoundEntity> query = em.createQuery(
-                "select c from CompoundEntity c", CompoundEntity.class);
-        query.setFirstResult(pageToFirstResult(page));
-        query.setMaxResults(pageSize());
-        List<CompoundEntity> resultList = query.getResultList();
+
+        JPAQuery query = new JPAQuery(em);
+        query.from(QCompoundEntity.compoundEntity);
+        long count = query.count();
+        query.limit(pageSize()).offset(pageToFirstResult(page));
+        List<CompoundEntity> resultList = query.list(QCompoundEntity.compoundEntity);
         List<Compound> compounds = new ArrayList<>();
         resultList.forEach(ce->compounds.add(Mappers.COMPOUND.map(ce)));
-        return new Compounds(count(), pageSize(), compounds);
-    }
-
-    private Long count() {
-        TypedQuery<Long> q = em.createQuery(
-                "select count(ce) from CompoundEntity ce", Long.class);
-        return q.getSingleResult();
+        return new Compounds(count, pageSize(), compounds);
     }
 
     @Override

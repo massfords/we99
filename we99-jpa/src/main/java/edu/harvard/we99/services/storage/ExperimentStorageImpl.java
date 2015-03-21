@@ -1,5 +1,6 @@
 package edu.harvard.we99.services.storage;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.lists.Experiments;
 import edu.harvard.we99.domain.lists.Users;
@@ -7,13 +8,14 @@ import edu.harvard.we99.security.User;
 import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.QExperimentEntity;
+import edu.harvard.we99.services.storage.entities.QUserEntity;
 import edu.harvard.we99.services.storage.entities.UserEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -74,26 +76,19 @@ public class ExperimentStorageImpl implements ExperimentStorage {
 
     @Override
     public Experiments listAll(User user, Integer page) {
-        TypedQuery<ExperimentEntity> tq = em.createQuery(
-                "select e from ExperimentEntity e, UserEntity u " +
-                        "where u member of e.members and u.email = :user",
-                ExperimentEntity.class);
-        tq.setFirstResult(pageToFirstResult(page));
-        tq.setMaxResults(pageSize());
-        tq.setParameter("user", user.getEmail());
-        List<ExperimentEntity> resultList = tq.getResultList();
+        JPAQuery query = new JPAQuery(em);
+        QExperimentEntity exp = QExperimentEntity.experimentEntity;
+        QUserEntity ue = QUserEntity.userEntity;
+        query.from(exp, ue)
+                .where(exp.members.containsValue(ue)
+                        .and(ue.email.eq(user.getEmail())));
+
+        long count = query.count();
+        query.limit(pageSize()).offset(pageToFirstResult(page));
+        List<ExperimentEntity> resultList = query.list(exp);
         List<Experiment> experiments = new ArrayList<>();
         resultList.forEach(ee->experiments.add(Mappers.EXPERIMENTS.map(ee)));
-        return new Experiments(count(user.getEmail()), page, experiments);
-    }
-
-    private Long count(String email) {
-        TypedQuery<Long> tq = em.createQuery(
-                "select count(e) from ExperimentEntity e, UserEntity u " +
-                        "where u member of e.members and u.email = :user",
-                Long.class);
-        tq.setParameter("user", email);
-        return tq.getSingleResult();
+        return new Experiments(count, page, experiments);
     }
 
     @Override

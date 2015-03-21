@@ -1,17 +1,18 @@
 package edu.harvard.we99.services.storage;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.domain.lists.PlateMaps;
 import edu.harvard.we99.services.storage.entities.LabelEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PlateMapEntity;
+import edu.harvard.we99.services.storage.entities.QPlateMapEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,20 +33,16 @@ public class PlateMapStorageImpl implements PlateMapStorage {
     @Override
     @Transactional(readOnly = true)
     public PlateMaps listAll(Integer page) {
-        TypedQuery<PlateMapEntity> query = em.createQuery(
-                "select pm from PlateMapEntity pm", PlateMapEntity.class);
-        query.setFirstResult(pageToFirstResult(page));
-        query.setMaxResults(pageSize());
-        List<PlateMap> list = new ArrayList<>();
-        List<PlateMapEntity> resultList = query.getResultList();
-        resultList.forEach(pme -> list.add(Mappers.PLATEMAP.map(pme)));
-        return new PlateMaps(count(), page, list);
-    }
 
-    private Long count() {
-        TypedQuery<Long> q = em.createQuery(
-                "select count(e) from PlateMapEntity e", Long.class);
-        return q.getSingleResult();
+        JPAQuery query = new JPAQuery(em);
+        query.from(QPlateMapEntity.plateMapEntity);
+        long count = query.count();
+        query.limit(pageSize()).offset(pageToFirstResult(page));
+
+        List<PlateMap> list = new ArrayList<>();
+        List<PlateMapEntity> resultList = query.list(QPlateMapEntity.plateMapEntity);
+        resultList.forEach(pme -> list.add(Mappers.PLATEMAP.map(pme)));
+        return new PlateMaps(count, page, list);
     }
 
     @Override
