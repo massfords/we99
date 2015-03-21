@@ -63,7 +63,7 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
 	},
 	updateServerSettings: function(){
 		return $http.post(RestURLs.serverSettings);
-	}
+	},
 	
 	//users
     getUsers:  function(){
