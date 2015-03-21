@@ -1,8 +1,12 @@
 package edu.harvard.we99.services.storage;
 
+import com.mysema.query.jpa.impl.JPAQuery;
+import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.QRoleEntity;
+import edu.harvard.we99.services.storage.entities.QUserEntity;
 import edu.harvard.we99.services.storage.entities.RoleEntity;
 import edu.harvard.we99.services.storage.entities.UserEntity;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
@@ -11,11 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static edu.harvard.we99.services.EntityListingSettings.pageSize;
+import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 /**
@@ -46,9 +51,10 @@ public class UserStorageImpl implements UserStorage {
         assert user.getId() == null;
         // by default, new users get put into the Scientist role. It's up to
         // someone else to elevate them.
-        TypedQuery<RoleEntity> query = em.createQuery("select r from RoleEntity r where r.name=:name", RoleEntity.class);
-        query.setParameter("name", RoleName.BuiltIn.Scientist.asName());
-        RoleEntity scientistRole = query.getSingleResult();
+        JPAQuery query = new JPAQuery(em);
+        QRoleEntity roles = QRoleEntity.roleEntity;
+        query.from(roles).where(roles.name.eq(RoleName.BuiltIn.Scientist.asName()));
+        RoleEntity scientistRole = query.uniqueResult(roles);
         UserEntity ue = Mappers.USERS.mapReverse(user);
         ue.setRole(scientistRole);
         em.persist(ue);
@@ -91,11 +97,14 @@ public class UserStorageImpl implements UserStorage {
 
     @Override
     public User findByUUID(String uuid, String email) {
-        TypedQuery<UserEntity> findByUUID = em.createQuery("select u from UserEntity u where u.password = :uuid and u.email=:email", UserEntity.class);
-        findByUUID.setParameter("uuid", uuid);
-        findByUUID.setParameter("email", email);
 
-        return Mappers.USERS.map(findByUUID.getSingleResult());
+        JPAQuery query = new JPAQuery(em);
+        QUserEntity users = QUserEntity.userEntity;
+        query.from(users).where(users.password.eq(uuid).and(users.email.eq(email)));
+
+        UserEntity user = query.uniqueResult(users);
+        if (user == null) throw new EntityNotFoundException();
+        return Mappers.USERS.map(user);
     }
 
     @Override
@@ -105,20 +114,34 @@ public class UserStorageImpl implements UserStorage {
     }
 
     @Override
-    public List<User> listAll() {
-        TypedQuery<UserEntity> findAll = em.createQuery("select u from UserEntity u order by u.lastName, u.firstName", UserEntity.class);
-        List<UserEntity> resultList = findAll.getResultList();
-        return map(resultList);
+    public Users listAll(Integer page) {
+        JPAQuery query = new JPAQuery(em);
+        QUserEntity users = QUserEntity.userEntity;
+        query.from(users).orderBy(users.lastName.asc()).orderBy(users.firstName.asc());
+        long count = query.count();
+        query.limit(pageSize()).offset(pageToFirstResult(page));
+        List<UserEntity> resultList = query.list(users);
+        return map(count, page, resultList);
     }
 
     @Override
-    public List<User> find(String query) {
-        TypedQuery<UserEntity> q = em.createQuery("select u from UserEntity u where " +
-                "upper(concat(u.lastName, ' ', u.firstName)) like :query or " +
-                "upper(concat(u.firstName, ' ', u.lastName)) like :query or " +
-                "upper(u.email) like :query", UserEntity.class);
-        q.setParameter("query", "%"+query.toUpperCase()+"%");
-        return map(q.getResultList());
+    public Users find(String queryText, Integer page) {
+
+        String upperQuery = "%" + queryText.toUpperCase() + "%";
+
+        JPAQuery query = new JPAQuery(em);
+        QUserEntity users = QUserEntity.userEntity;
+        query.from(users)
+                .where(
+                        users.lastName.concat(", ").concat(users.firstName).toUpperCase().like(upperQuery)
+                        .or(users.firstName.concat(" ").concat(users.lastName).toUpperCase().like(upperQuery))
+                        .or(users.email.toUpperCase().like(upperQuery))
+                )
+        ;
+        long count = query.count();
+        query.limit(pageSize()).offset(pageToFirstResult(page));
+
+        return map(count, page, query.list(users));
     }
 
     @Override
@@ -152,22 +175,26 @@ public class UserStorageImpl implements UserStorage {
     public void assignRole(Long id, RoleName roleName) {
         UserEntity entity = em.find(UserEntity.class, id);
 
-        TypedQuery<RoleEntity> query = em.createQuery("select r from RoleEntity r where r.name=:name", RoleEntity.class);
-        query.setParameter("name", roleName);
-        RoleEntity role = query.getSingleResult();
+        JPAQuery query = new JPAQuery(em);
+        query.from(QRoleEntity.roleEntity).where(QRoleEntity.roleEntity.name.eq(roleName));
+
+        RoleEntity role = query.uniqueResult(QRoleEntity.roleEntity);
         entity.setRole(role);
         em.merge(entity);
     }
 
-    private List<User> map(List<UserEntity> resultList) {
+    private Users map(Long count, int page, List<UserEntity> resultList) {
         List<User> list = new ArrayList<>(resultList.size());
         resultList.forEach(ue->list.add(Mappers.USERS.map(ue)));
-        return list;
+        return new Users(count, page, list);
     }
 
     private UserEntity findEntityByEmail(String email) {
-        TypedQuery<UserEntity> query = em.createQuery("select u from UserEntity u where u.email=:email", UserEntity.class);
-        query.setParameter("email", email);
-        return query.getSingleResult();
+
+        JPAQuery query = new JPAQuery(em);
+        QUserEntity users = QUserEntity.userEntity;
+        query.from(users).where(users.email.eq(email));
+
+        return query.uniqueResult(users);
     }
 }

@@ -18,7 +18,12 @@
         "row": 4,
         "col": 5
       },
-      "label": "ABC",
+      "labels": [
+        {
+          "name": "lbl",
+          "value": "ABC"
+        }
+      ],
       "type": "COMP"
     }
   ]

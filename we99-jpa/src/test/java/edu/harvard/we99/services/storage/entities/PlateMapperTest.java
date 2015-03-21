@@ -82,7 +82,7 @@ public class PlateMapperTest {
         pe.getWells().put(coord, new WellEntity()
                 .withId(1234L)
                 .withType(WellType.COMP)
-                .withLabel("A")
+                .withLabel("A", "123")
                 .withCoordinate(new Coordinate(1, 2)));
         Plate map = Mappers.PLATES.map(pe);
         assertJsonEquals(load("/Mappers/plate.json"), toJsonString(map));

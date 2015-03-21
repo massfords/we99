@@ -45,13 +45,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users list() {
-        return new Users(storage.listAll());
+    public Users list(Integer page) {
+        return storage.listAll(page);
     }
 
     @Override
-    public Users find(String query) {
-        return new Users(storage.find(query));
+    public Users find(String query, Integer page) {
+        return storage.find(query, page);
     }
 
     @Override

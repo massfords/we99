@@ -9,72 +9,74 @@
  */
 var app = angular.module('we99App');
 app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,$http, RestURLs) {
-    return {
+  return {
 
 
-    	//
-    	// $resource-style calls
-    	//
+    //
+    // $resource-style calls
+    //
 
-    	plateType: $resource(RestURLs.plateType,{}, {
-            query: {method: "GET",
-                    isArray: true,
-                    // Get an array back to exhibit expected query behavior
-                    transformResponse: valuesToArray
-            },
-            put: {method: "PUT", isArray: false}
-        }),
-        //experiment: $resource(RestURLs.experiment,{},{}),
-        results: $resource(RestURLs.result,{}, {}),
+    plateType: $resource(RestURLs.plateType,{}, {
+      query: {method: "GET",
+        isArray: true,
+        // Get an array back to exhibit expected query behavior
+        transformResponse: valuesToArray
+      },
+      put: {method: "PUT", isArray: false}
+    }),
+    //experiment: $resource(RestURLs.experiment,{},{}),
+    results: $resource(RestURLs.result,{}, {}),
 
-        //
-        // $http style calls.
-        //
+    //
+    // $http style calls.
+    //
 
-        //experiments
-        getExperiments:  function(){
-        	return $http.get(RestURLs.experiment);
-        },
-        createExperiment: function(exp){
-        	return $http.put(RestURLs.experiment,exp);
-        },
-        saveExperiment: function(exp){
-        	return $http.post(RestURLs.experiment+'/'+exp.id,exp);
-        },
-        deleteExperiment: function(id){
-        	return $http.delete(RestURLs.experiment+'/'+id);
-        },
-        
-        getExperimentPlates: function(id){
-     	 return $http.get(RestURLs.experiment + '/' + id + "/plates")
+    //experiments
+    getExperiments:  function(){
+      return $http.get(RestURLs.experiment);
+    },
+    createExperiment: function(exp){
+      return $http.put(RestURLs.experiment,exp);
+    },
+    saveExperiment: function(exp){
+      return $http.post(RestURLs.experiment+'/'+exp.id,exp);
+    },
+    deleteExperiment: function(id){
+      return $http.delete(RestURLs.experiment+'/'+id);
     },
 
-        //users
-        getUsers:  function(){
-        	return $http.get(RestURLs.user);
-        },
+    getExperimentPlates: function(id){
+      return $http.get(RestURLs.experiment + '/' + id + "/plates")
+    },
+	
+	//email filter
+	getEmailFilter: function(){
+		return $http.get(RestURLs.emailFilter);
+	},
+	
+	updateEmailFilter: function(){
+		return $http.post(RestURLs.emailFilter);
+	},
+	//server settings
+	getServerSettings: function(){
+		return $http.get(RestURLs.serverSettings);
+	},
+	updateServerSettings: function(){
+		return $http.post(RestURLs.serverSettings);
+	}
+	
+	//users
+    getUsers:  function(){
+      return $http.get(RestURLs.user);
+    },
 
-        //protocol
-        getProtocols:  function(){
-        	return $http.get(RestURLs.protocol);
-        },
-        
-        //email filter
-        getEmailFilter: function(){
-        	return $http.get(RestURLs.emailFilter);
-        },
-        
-        updateEmailFilter: function(){
-        	return $http.post(RestURLs.emailFilter);
-        },
-        //server settings
-        getServerSettings: function(){
-        	return $http.get(RestURLs.serverSettings);
-        },
-        updateServerSettings: function(){
-        	return $http.post(RestURLs.serverSettings);
-        }
+    //protocol
+    getProtocols:  function(){
+      return $http.get(RestURLs.protocol);
+    }
+	
     };
+	
 }]);
 
 /** REST linked resource model for Plate Type */
@@ -91,7 +93,6 @@ app.factory('PlateTypeModel', ['$resource', 'RestURLs', function ($resource, Res
     }
   });
 }]);
-
 
 /* HELPER FUNCTIONS */
 

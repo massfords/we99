@@ -10,7 +10,6 @@ import edu.harvard.we99.services.experiments.PlateResultResource;
 import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -62,7 +61,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
         );
 
         PlateResource plates = pr.getPlates(plate.getId());
-        PlateResult plateResult = plates.uploadResults(stream("/ResultServiceImplIT/results-single.csv"));
+        PlateResult plateResult = plates.getPlateResult().uploadResults(stream("/ResultServiceImplIT/results-single.csv"));
 
         Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey);
         // assert the results
@@ -70,7 +69,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 toJsonString(plateResult), scrubber);
 
         // drop a well
-        PlateResultResource resultResource = plates.getResults().getPlateResult(plateResult.getId());
+        PlateResultResource resultResource = plates.getPlateResult();
         Response resp = resultResource.updateStatus(
                 new StatusChange(new Coordinate(0, 0), ResultStatus.EXCLUDED));
         assertOk(resp);
@@ -106,7 +105,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 );
             }
         }
-        Assert.assertEquals(rowCount * colCount, wells.size());
+        assertEquals(rowCount * colCount, wells.size());
 
         return wells.toArray(new Well[wells.size()]);
     }

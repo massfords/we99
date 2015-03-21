@@ -1,19 +1,24 @@
 angular.module('we99Login', [
 
 ])
-  .controller('SignUpController', function ($scope, $http, $timeout) {
+  .constant('kRestServer', '/we99/services/rest/')
+  .constant('kSignupErrorCode', {
+    401: "Access Forbidden.",
+    409: "Email address already in use.",
+    500: "Error registering. Have the admin check email connection."
+  })
+
+
+  .controller('SignUpController', function ($scope, $http, $timeout, kRestServer, kSignupErrorCode) {
 
     $scope.signUp = function() {
-      var promise = $http.post('services/rest/createAccount', $scope.user);
+      var promise = $http.post(kRestServer + 'createAccount', $scope.user);
       promise.then(function() {
         $scope.successTextAlert = "Check your email for the activation link.";
         $scope.showSuccessAlert = true;
       }, function(resp) {
-        if (resp.status === 409) {
-          $scope.dangerTextAlert = "Email address already in use.";
-          $scope.showDangerAlert = true;
-        } else if (resp.status === 500) {
-          $scope.dangerTextAlert = "Error registering. Have the admin check email connection.";
+        if (kSignupErrorCode.hasOwnProperty(resp.status)) {
+          $scope.dangerTextAlert = kSignupErrorCode[resp.status];
           $scope.showDangerAlert = true;
         } else {
           alert("Unexpected error:"+ resp);
@@ -28,7 +33,7 @@ angular.module('we99Login', [
       $scope.user.email = queryParams['email'];
       $scope.uuid = queryParams['uuid'];
 
-      var promise = $http.post('services/rest/createAccount/verify/'+$scope.uuid, $scope.user);
+      var promise = $http.post('/we99/services/rest/createAccount/verify/'+$scope.uuid, $scope.user);
       promise.then(function(resp) {
         $scope.user = resp.data;
       }, function(resp) {
@@ -58,7 +63,7 @@ angular.module('we99Login', [
     };
 
     $scope.sendPasswordReset = function() {
-      var promise = $http.post('services/rest/forgotPassword', $scope.user);
+      var promise = $http.post(kRestServer + 'forgotPassword', $scope.user);
       promise.then(function() {
         $scope.successTextAlert = "Check your email for a password reset link.";
         $scope.showSuccessAlert = true;
@@ -79,7 +84,7 @@ angular.module('we99Login', [
       $scope.user.email = queryParams['email'];
       $scope.uuid = queryParams['uuid'];
 
-      var promise = $http.post('services/rest/forgotPassword/verify/uuid'+$scope.uuid, $scope.user);
+      var promise = $http.post(kRestServer + 'forgotPassword/verify/uuid'+$scope.uuid, $scope.user);
       promise.then(function(resp) {
         $scope.user = resp.data;
       }, function(resp) {
@@ -88,7 +93,7 @@ angular.module('we99Login', [
     };
 
     $scope.activate = function() {
-      var promise = $http.post('services/rest/forgotPassword/update/'+$scope.uuid, $scope.user);
+      var promise = $http.post(kRestServer + 'forgotPassword/update/'+$scope.uuid, $scope.user);
       promise.then(function() {
         $scope.successTextAlert = "Password reset, redirecting to login page";
         $scope.showSuccessAlert = true;
@@ -118,6 +123,8 @@ angular.module('we99Login', [
       $scope[value] = !$scope[value];
     };
 
-
+    /* Validation */
+    // REGEX PATTERNS
+    $scope.regexNamePattern = /^[a-z]*$/i;
   })
 ;

@@ -35,11 +35,25 @@
   Provide the csv files with your compound assignments and their mappings: [ formatting details ]
     <div class="col-md-5 upload-compounds-table">
       <!-- Giant image Compounds table here -->
+      <div ng-file-drop ng-file-select ng-model="compoundTableFile" class="drop-box"
+           drag-over-class="dragover" ng-multiple="false" allow-dir="false"
+           accept="text/csv, text/*">Drop csv here <br>or<br> click to upload</div>
+      <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
+      <ul>
+        <li ng-repeat="f in compoundTableFile">{{f.name}}</li>
+      </ul>
       Upload Compounds Table (.csv)
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-5 upload-plate-map">
       <!-- Giant image Plate Map table here -->
+      <div ng-file-drop ng-file-select ng-model="plateMapFile" class="drop-box"
+           drag-over-class="dragover" ng-multiple="false" allow-dir="false"
+           accept="text/csv, text/*">Drop csv here <br>or<br> click to upload</div>
+      <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
+      <ul>
+        <li ng-repeat="f in plateMapFile">{{f.name}}</li>
+      </ul>
       Upload Plate mapping (csv)
     </div>
   </div>
@@ -60,11 +74,5 @@
               ng-switch-default
               ng-click="changeStep('step2')">Next</button>
     </nav>
-
-
-    <div class="import" ng-show="selected.plateType && selected.name">
-      <div class="col-md-">
-      </div>
-
 
 </div>

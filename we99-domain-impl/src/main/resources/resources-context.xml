@@ -20,13 +20,8 @@
         <lookup-method name="createPlateResource" bean="plateResource"/>
     </bean>
     <bean id="plateResource" class="edu.harvard.we99.services.experiments.PlateResourceImpl" scope="prototype">
-        <constructor-arg index="0" ref="plateStorage"/>
-        <constructor-arg index="1" ref="resultStorage"/>
-        <lookup-method name="createPlateResultsResource" bean="plateResultsResource"/>
-    </bean>
-    <bean id="plateResultsResource" class="edu.harvard.we99.services.experiments.PlateResultsResourceImpl">
-        <constructor-arg ref="resultStorage"/>
-        <lookup-method name="createPlateResultResource" bean="plateResultResource"/>
+        <constructor-arg ref="plateStorage"/>
+        <lookup-method name="createPlateResult" bean="plateResultResource"/>
     </bean>
     <bean id="plateResultResource" class="edu.harvard.we99.services.experiments.PlateResultResourceImpl">
         <constructor-arg ref="resultStorage"/>

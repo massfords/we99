@@ -10,7 +10,7 @@
 angular.module('we99App')
   .controller('AddPlateSetCtrl', function ($scope, $window, PlateTypeModel) {
     $scope.selected ={};
-    $scope.step = 'step2';
+    $scope.step = 'step1';
 
     $scope.changeStep = function(stepId) {
       console.log("CLicked " + stepId);

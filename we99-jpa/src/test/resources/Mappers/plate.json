@@ -12,6 +12,7 @@
     "manufacturer": "Man1"
   },
   "barcode": "456D",
+  "labels": [],
   "wells": [
     {
       "id": 1234,
@@ -19,7 +20,12 @@
         "row": 1,
         "col": 2
       },
-      "label": "A",
+      "labels": [
+        {
+          "name": "A",
+          "value": "123"
+        }
+      ],
       "type": "COMP",
       "contents": []
     }

@@ -114,7 +114,7 @@ public class PlateMapST {
         pm.setDescription("my modified description");
         Coordinate coordinate = new Coordinate(0, 0);
         WellMap well = new WellMap(coordinate)
-                .withLabel("well 0,0")
+                .withLabel("loc", "well 0,0")
                 .withType(WellType.COMP);
         pm.getWells().put(coordinate,well);
         PlateMap updated = plateMapService.update(pm.getId(), pm);

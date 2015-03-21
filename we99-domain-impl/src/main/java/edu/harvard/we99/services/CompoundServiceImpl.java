@@ -24,7 +24,8 @@ public class CompoundServiceImpl extends BaseRESTServiceImpl<Compound>  implemen
     }
 
     @Override
-    public Compounds listAll() {
-        return new Compounds(((CompoundStorage)storage).listAll());
+    public Compounds listAll(Integer page) {
+        CompoundStorage cs = (CompoundStorage) storage;
+        return cs.listAll(page);
     }
 }

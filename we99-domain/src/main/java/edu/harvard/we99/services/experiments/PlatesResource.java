@@ -6,10 +6,14 @@ import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.Plates;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 /**
  * @author mford
@@ -34,11 +38,13 @@ public interface PlatesResource {
     @GET
     @ApiOperation("Lists all of the plates for this experiment")
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
-    Plates list();
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    Plates list(@QueryParam("page") @DefaultValue("0") Integer page);
 
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Path("/{plateId}")
     @ApiOperation("Gets the plate by its id")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateResource getPlates(@PathParam("plateId")Long plateId);
 
     Long getId();

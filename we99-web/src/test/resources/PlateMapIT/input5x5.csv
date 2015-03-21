@@ -1,11 +1,11 @@
-#row, col, well-type, label
-0, 0, COMP, A
-0, 1, COMP, A
-0, 2, COMP, A
-0, 3, COMP, A
-0, 4, EMPTY,
-2, 0, COMP, B
-2, 1, COMP, B
-2, 2, COMP, B
-2, 3, COMP, B
-2, 4, EMPTY,
+#row, col, well-type, label, value
+0, 0, COMP, lbl1, A
+0, 1, COMP, lbl1, A
+0, 2, COMP, lbl1, A
+0, 3, COMP, lbl1, A
+0, 4, EMPTY
+2, 0, COMP, lbl1, B
+2, 1, COMP, lbl1, B
+2, 2, COMP, lbl1, B
+2, 3, COMP, lbl1, B
+2, 4, EMPTY

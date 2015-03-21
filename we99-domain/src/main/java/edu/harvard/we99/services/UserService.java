@@ -7,6 +7,7 @@ import edu.harvard.we99.security.User;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -34,6 +35,7 @@ public interface UserService {
     @Path("/me")
     @GET
     @ApiOperation("Returns the basic info for the user logged in")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     User whoami();
 
     /**
@@ -55,7 +57,8 @@ public interface UserService {
      */
     @GET
     @ApiOperation("Lists all of the users in the system")
-    Users list();
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    Users list(@QueryParam("page") @DefaultValue("0") Integer page);
 
     /**
      * Returns the users that match against the given expression. We'll search across
@@ -66,12 +69,13 @@ public interface UserService {
     @Path("/find")
     @GET
     @ApiOperation("Returns the users that match against the given expression")
-    Users find(@QueryParam("q")String query);
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    Users find(@QueryParam("q")String query, @QueryParam("page") @DefaultValue("0") Integer page);
 
     @DELETE
     @Path("/{id}")
     @ApiOperation("Deletes the user from the system")
-    @Consumes(MediaType.WILDCARD)
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Response removeUser(@PathParam("id")Long id);
 
 }

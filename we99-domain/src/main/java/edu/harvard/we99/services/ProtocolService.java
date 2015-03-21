@@ -8,12 +8,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -47,6 +49,7 @@ public interface ProtocolService {
     @Path("/{id}")
     @ApiOperation("Gets an existing protocol or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Protocol get(@PathParam("id") Long id);
 
     /**
@@ -70,6 +73,7 @@ public interface ProtocolService {
     @Path("/{id}")
     @ApiOperation("Deletes an existing protocol or throws an exception with a 404 if not found")
     @PreAuthorize("hasRole('PERM_MODIFY_PROTOCOLS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Response delete(@PathParam("id") Long id);
 
     /**
@@ -79,6 +83,7 @@ public interface ProtocolService {
     @GET
     @ApiOperation("Lists all existing protocol or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
-    Protocols listAll();
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    Protocols listAll(@QueryParam("page") @DefaultValue("0") Integer page);
 
 }

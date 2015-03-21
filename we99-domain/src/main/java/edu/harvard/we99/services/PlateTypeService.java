@@ -8,12 +8,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -48,6 +50,7 @@ public interface PlateTypeService {
     @Path("/{id}")
     @ApiOperation("Gets an existing PlateType or throws an exception with a 404")
     @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateType get(@PathParam("id")Long id);
 
     /**
@@ -73,6 +76,7 @@ public interface PlateTypeService {
     @Path("/{id}")
     @ApiOperation("Deletes an existing PlateType or throws an exception with a 404")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATETYPES')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Response delete(@PathParam("id") Long id);
 
     /**
@@ -81,5 +85,6 @@ public interface PlateTypeService {
     @GET
     @ApiOperation("Lists all of the plate types in the system")
     @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
-    PlateTypes listAll();
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    PlateTypes listAll(@QueryParam("page") @DefaultValue("0") Integer page);
 }

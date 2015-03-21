@@ -10,7 +10,7 @@ import java.util.List;
 public class PlateResultEntries extends AbstractList<PlateResultEntry> {
     @SuppressWarnings("UnusedDeclaration")
     public PlateResultEntries() {}
-    public PlateResultEntries(List<PlateResultEntry> values) {
-        super(values);
+    public PlateResultEntries(long count, int page, List<PlateResultEntry> values) {
+        super(count, page, values);
     }
 }

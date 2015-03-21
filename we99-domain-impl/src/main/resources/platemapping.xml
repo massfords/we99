@@ -15,7 +15,11 @@
                 <field name="col" required="true" trim="true"/>
             </segment>
             <field name="type" required="false" trim="true"/>
-            <field name="label" required="false" trim="true"/>
+            <segment name="labels" class="edu.harvard.we99.domain.Label"
+                     collection="list" minOccurs="0" maxOccurs="unbounded">
+                <field name="name" required="true" trim="true"/>
+                <field name="value" required="true" trim="true"/>
+            </segment>
         </record>
     </stream>
 </beanio>

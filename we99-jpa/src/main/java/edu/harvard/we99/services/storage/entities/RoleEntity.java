@@ -1,5 +1,6 @@
 package edu.harvard.we99.services.storage.entities;
 
+import com.mysema.query.annotations.QueryInit;
 import edu.harvard.we99.security.RoleName;
 
 import javax.annotation.Generated;

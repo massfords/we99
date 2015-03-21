@@ -79,7 +79,7 @@ public class PlateMapMapperTest {
                 coord,
                 new WellMapEntity(coord)
                         .withId(800L)
-                        .withLabel("ABC")
+                        .withLabel("lbl", "ABC")
                         .withType(WellType.COMP)
         );
         return pme;
@@ -88,7 +88,7 @@ public class PlateMapMapperTest {
     private WellMap makeWell() {
         return new WellMap(1, 2)
                 .withId(1234L)
-                .withType(WellType.COMP).withLabel("A");
+                .withType(WellType.COMP).withLabel("lbl", "A");
     }
 
     private PlateMap makePlateMap() {

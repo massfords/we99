@@ -65,4 +65,26 @@ angular
       .otherwise({
         redirectTo: '/experiment'
       });
+//})
+///** Intercept HTTP 401 Forbidden*/
+//.factory('Interceptor401', function(){
+//  var interceptor = {
+//    reponse: function(response) {
+//      if (response.status === 401) {
+//        console.log("Response 401");
+//      }
+//      return response;
+//    },
+//    responseError: function(rejection) {
+//      if (rejection.status === 401) {
+//        console.log("Response Error 401", rejection);
+//        $location.path('login').search('returnTo', login);
+//      }
+//    }
+//  };
+//  return interceptor;
+//})
+//.config(function($httpProvider) {
+//  $httpProvider.interceptors.push('Interceptor401');
+
   });

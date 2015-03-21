@@ -9,5 +9,7 @@ import java.util.List;
  */
 public class Users extends AbstractList<User> {
     public Users() {}
-    public Users(List<User> users) {super(users);}
+    public Users(long count, int page, List<User> users) {
+        super(count, page, users);
+    }
 }

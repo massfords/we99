@@ -67,15 +67,16 @@ public class CompoundServiceST {
     @Test
     public void list() throws Exception{
 
-        Compounds initial = compoundService.listAll();
+        Compounds initial = compoundService.listAll(0);
 
 
         for(int i=0; i<10; i++) {
             Compound created = compoundService.create(new Compound(name("comp-A-")));
             deleteMe.add(created.getId());
         }
-        Compounds list = compoundService.listAll();
-        assertEquals(10 + initial.size(), list.size());
+        Compounds list = compoundService.listAll(0);
+        assertEquals(100, list.size());
+        assertEquals(10 + initial.getTotalCount(), list.getTotalCount().longValue());
 //        assertJsonEquals(load("/CompoundServiceST/list.json"), toJsonString(list),
 //                Scrubbers.uuid.andThen(Scrubbers.pkey));
     }

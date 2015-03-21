@@ -8,9 +8,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -18,6 +21,8 @@ import javax.ws.rs.core.Response;
  * @author mford
  */
 @Api(hidden = true, value = "/", description = "Operations on a specific experiment")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public interface ExperimentResource {
     /**
      * Gets an existing Experiment or throws an exception with 404
@@ -27,6 +32,7 @@ public interface ExperimentResource {
     @GET
     @ApiOperation("Gets an existing Experiment or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Experiment get();
 
     /**
@@ -64,10 +70,10 @@ public interface ExperimentResource {
 
     @GET
     @Path("/results")
-    @Consumes(MediaType.WILDCARD)
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @ApiOperation("Gets all of the results for the experiment")
     @PreAuthorize("hasRole('PERM_READ_RESULTS')")
-    PlateResultEntries listResults();
+    PlateResultEntries listResults(@QueryParam("page") @DefaultValue("0") Integer page);
 
     public Long getId();
 

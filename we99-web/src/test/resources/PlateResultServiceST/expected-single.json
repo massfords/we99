@@ -11,9 +11,11 @@
     },
     "experiment": {
       "name": "experimentuuid",
+      "labels": [],
       "status": "PRIVATE",
       "created": "iso8601"
     },
+    "labels": [],
     "wells": []
   },
   "created": "iso8601",

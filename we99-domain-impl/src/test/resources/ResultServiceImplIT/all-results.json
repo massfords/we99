@@ -11,15 +11,18 @@
     },
     "experiment": {
       "name": "xpuuid",
+      "labels": [],
       "status": "PRIVATE",
       "created": "iso8601"
     },
+    "labels": [],
     "wells": [
       {
         "coordinate": {
           "row": 0,
           "col": 0
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -28,6 +31,7 @@
           "row": 2,
           "col": 2
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -36,6 +40,7 @@
           "row": 4,
           "col": 4
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -44,6 +49,7 @@
           "row": 0,
           "col": 1
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -52,6 +58,7 @@
           "row": 2,
           "col": 3
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -60,6 +67,7 @@
           "row": 0,
           "col": 2
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -68,6 +76,7 @@
           "row": 2,
           "col": 4
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -76,6 +85,7 @@
           "row": 0,
           "col": 3
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -84,6 +94,7 @@
           "row": 0,
           "col": 4
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -92,6 +103,7 @@
           "row": 3,
           "col": 0
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -100,6 +112,7 @@
           "row": 3,
           "col": 1
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -108,6 +121,7 @@
           "row": 1,
           "col": 0
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -116,6 +130,7 @@
           "row": 3,
           "col": 2
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -124,6 +139,7 @@
           "row": 1,
           "col": 1
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -132,6 +148,7 @@
           "row": 3,
           "col": 3
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -140,6 +157,7 @@
           "row": 1,
           "col": 2
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -148,6 +166,7 @@
           "row": 3,
           "col": 4
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -156,6 +175,7 @@
           "row": 1,
           "col": 3
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -164,6 +184,7 @@
           "row": 1,
           "col": 4
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -172,6 +193,7 @@
           "row": 4,
           "col": 0
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -180,6 +202,7 @@
           "row": 4,
           "col": 1
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -188,6 +211,7 @@
           "row": 2,
           "col": 0
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -196,6 +220,7 @@
           "row": 4,
           "col": 2
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -204,6 +229,7 @@
           "row": 2,
           "col": 1
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       },
@@ -212,6 +238,7 @@
           "row": 4,
           "col": 3
         },
+        "labels": [],
         "type": "EMPTY",
         "contents": []
       }
