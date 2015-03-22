@@ -8,23 +8,681 @@
       "id": 250,
       "name": "foo",
       "dim": {
-        "rows": 10,
-        "cols": 20
+        "rows": 5,
+        "cols": 5
       },
       "manufacturer": "Man1"
     },
     "barcode": "456D",
     "labels": [],
-    "wells": []
+    "wells": [
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      }
+    ]
   },
   "created": "2015-01-02T10:20:30.000-05:00",
   "comments": "comments",
   "wellResults": [
     {
-      "id": 789,
+      "id": 0,
       "coordinate": {
-        "row": 6,
-        "col": 7
+        "row": 0,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "coordinate": {
+        "row": 2,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "coordinate": {
+        "row": 4,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "coordinate": {
+        "row": 0,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "coordinate": {
+        "row": 2,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "coordinate": {
+        "row": 0,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "coordinate": {
+        "row": 2,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "coordinate": {
+        "row": 0,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "coordinate": {
+        "row": 0,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "coordinate": {
+        "row": 3,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "coordinate": {
+        "row": 3,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "coordinate": {
+        "row": 1,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "coordinate": {
+        "row": 3,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "coordinate": {
+        "row": 1,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "coordinate": {
+        "row": 3,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "coordinate": {
+        "row": 1,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "coordinate": {
+        "row": 3,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "coordinate": {
+        "row": 1,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "coordinate": {
+        "row": 1,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "coordinate": {
+        "row": 4,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "coordinate": {
+        "row": 4,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "coordinate": {
+        "row": 2,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "coordinate": {
+        "row": 4,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "coordinate": {
+        "row": 2,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "id": 12,
+          "value": 123.456,
+          "label": "ABCD",
+          "comments": "sample comments",
+          "measuredAt": "2015-02-03T04:05:30.000-05:00",
+          "status": "EXCLUDED"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "coordinate": {
+        "row": 4,
+        "col": 3
       },
       "resultStatus": "INCLUDED",
       "samples": [
@@ -38,5 +696,6 @@
         }
       ]
     }
-  ]
+  ],
+  "metrics": []
 }

@@ -14,7 +14,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
@@ -31,6 +30,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ResultServiceImplIT extends JpaSpringFixture {
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Inject
     private ExperimentService experimentService;
 
@@ -70,9 +70,8 @@ public class ResultServiceImplIT extends JpaSpringFixture {
 
         // drop a well
         PlateResultResource resultResource = plates.getPlateResult();
-        Response resp = resultResource.updateStatus(
+        resultResource.updateStatus(
                 new StatusChange(new Coordinate(0, 0), ResultStatus.EXCLUDED));
-        assertOk(resp);
 
         // assert the results again
         PlateResult oneWellRemoved = resultResource.get();
@@ -80,18 +79,13 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 toJsonString(oneWellRemoved), scrubber);
 
         // restore a well
-        resp = resultResource.updateStatus(
+        resultResource.updateStatus(
                 new StatusChange(new Coordinate(0,0), ResultStatus.INCLUDED));
-        assertOk(resp);
 
         // assert the results again
         PlateResult allWellsBack = resultResource.get();
         assertJsonEquals(load("/ResultServiceImplIT/all-results.json"),
                 toJsonString(allWellsBack), scrubber);
-    }
-
-    private void assertOk(Response resp) {
-        assertEquals(200, resp.getStatus());
     }
 
     protected static Well[] makeWells(int rowCount, int colCount) {

@@ -12,6 +12,7 @@ import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.Protocol;
 import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.WellMap;
+import edu.harvard.we99.domain.results.PlateMetrics;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.WellResults;
 import edu.harvard.we99.security.Role;
@@ -129,6 +130,11 @@ public class Mappers {
                 .mapNullsInReverse(false)
                 .fieldAToB("wellResults", "wellResults")
                 .fieldAToB("plate", "plate")
+                .byDefault()
+                .register();
+        mapperFactory
+                .classMap(PlateMetricsEntity.class, PlateMetrics.class)
+                .mapNullsInReverse(false)
                 .byDefault()
                 .register();
         mapperFactory

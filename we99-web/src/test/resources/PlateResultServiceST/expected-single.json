@@ -16,7 +16,908 @@
       "created": "iso8601"
     },
     "labels": [],
-    "wells": []
+    "wells": [
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 9,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 5,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 6,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 8
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 7,
+          "col": 9
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 0
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 1
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 2
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 3
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 4
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 5
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 6
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 8,
+          "col": 7
+        },
+        "labels": [],
+        "type": "COMP",
+        "contents": []
+      }
+    ]
   },
   "created": "iso8601",
   "wellResults": [
@@ -29,7 +930,7 @@
       "samples": [
         {
           "value": 0.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
@@ -44,7 +945,7 @@
       "samples": [
         {
           "value": 11.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
@@ -59,7 +960,7 @@
       "samples": [
         {
           "value": 1.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
@@ -74,7 +975,7 @@
       "samples": [
         {
           "value": 12.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
@@ -89,7 +990,7 @@
       "samples": [
         {
           "value": 2.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
@@ -104,7 +1005,7 @@
       "samples": [
         {
           "value": 13.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
@@ -119,7 +1020,7 @@
       "samples": [
         {
           "value": 3.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
@@ -134,7 +1035,7 @@
       "samples": [
         {
           "value": 14.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
@@ -149,7 +1050,7 @@
       "samples": [
         {
           "value": 4.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
@@ -164,11 +1065,20 @@
       "samples": [
         {
           "value": 10.0,
-          "label": "",
+          "label": "A",
           "measuredAt": "iso8601",
           "status": "INCLUDED"
         }
       ]
+    }
+  ],
+  "metrics": [
+    {
+      "label": "A",
+      "avgPositive": null,
+      "avgNegative": null,
+      "zee": 0.0,
+      "zeePrime": 0.0
     }
   ]
 }

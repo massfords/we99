@@ -12,7 +12,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.io.InputStream;
 
 /**
@@ -46,7 +45,7 @@ public interface PlateResultResource {
     @ApiOperation("Status change on a well within the results.")
     @PreAuthorize("hasRole('PERM_MODIFY_RESULTS')")
     @Consumes(MediaType.APPLICATION_JSON)
-    Response updateStatus(StatusChange statusChange);
+    PlateResult updateStatus(StatusChange statusChange);
 
     void setExperimentId(Long experimentId);
 

@@ -2,6 +2,7 @@ package edu.harvard.we99.services.storage.entities;
 
 import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.PlateDimension;
+import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.ResultStatus;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
@@ -28,7 +29,7 @@ public class PlateResultMapperTest {
 
     private final PlateTypeEntity plateTypeEntity =
             new PlateTypeEntity().withId(250L)
-                    .withDim(new PlateDimension(10, 20))
+                    .withDim(new PlateDimension(5, 5))
                     .withName("foo").withManufacturer("Man1");
 
     @Test
@@ -41,14 +42,22 @@ public class PlateResultMapperTest {
                 .withMeasuredAt(new DateTime("2015-02-03T04:05:30"))
                 .withStatus(ResultStatus.EXCLUDED)
                 .withValue(123.456D));
+
         Map<Coordinate, WellResultsEntity> resultsMap = new HashMap<>();
-        Coordinate coord = new Coordinate(6, 7);
-        resultsMap.put(coord,
-                new WellResultsEntity()
-                        .withId(789L)
-                        .withCoordinate(coord)
-                        .withResultStatus(ResultStatus.INCLUDED)
-                        .withSamples(samples));
+
+        long id=0;
+        for(int row=0; row<plateTypeEntity.getDim().getRows(); row++) {
+            for(int col=0; col<plateTypeEntity.getDim().getCols(); col++) {
+                Coordinate coord = new Coordinate(row, col);
+                resultsMap.put(coord,
+                        new WellResultsEntity()
+                                .withId(id++)
+                                .withCoordinate(coord)
+                                .withResultStatus(ResultStatus.INCLUDED)
+                                .withSamples(samples));
+            }
+        }
+
         PlateResultEntity pre = new PlateResultEntity()
                 .withId(100L)
                 .withComments("comments")
@@ -62,11 +71,21 @@ public class PlateResultMapperTest {
     }
 
     private PlateEntity makePlateEntity() {
-        return new PlateEntity()
+        PlateEntity plateEntity = new PlateEntity()
                 .withId(300L)
                 .withBarcode("456D")
                 .withDescription("foo123")
                 .withName("pe").withPlateType(plateTypeEntity);
+
+        Map<Coordinate,WellEntity> wells = new HashMap<>();
+        for(int row=0; row<plateEntity.getPlateType().getDim().getRows(); row++) {
+            for(int col=0; col<plateEntity.getPlateType().getDim().getCols(); col++) {
+                wells.put(new Coordinate(row, col), new WellEntity(row,col).withType(WellType.COMP));
+            }
+        }
+        plateEntity.setWells(wells);
+
+        return plateEntity;
     }
 
 }

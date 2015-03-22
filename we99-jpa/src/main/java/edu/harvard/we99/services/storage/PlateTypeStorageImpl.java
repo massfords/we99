@@ -59,7 +59,7 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
     @Override
     @Transactional
     public PlateType create(PlateType type) {
-        assert type.getId() == null;
+        type.setId(null);
         PlateTypeEntity pte = Mappers.PLATETYPE.mapReverse(type);
         em.persist(pte);
         return Mappers.PLATETYPE.map(pte);
