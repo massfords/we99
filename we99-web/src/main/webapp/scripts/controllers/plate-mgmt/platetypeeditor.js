@@ -18,11 +18,11 @@ angular.module('we99App')
             {name: '384-Well',  rows: 16, cols:24}];
 
           /* Models */
-          $scope.plateTypes = null;
-          $scope.title = "Select a Plate Type";
+          $scope.plateTypes = [];
           $scope.showAddTypeOptions = false; // 'Add' dropdown
 
           /* Actions */
+
           /** Modal popover showing addPlate Type Wizrad
            * @param option optional param for pre-populating rows or columns
            */
