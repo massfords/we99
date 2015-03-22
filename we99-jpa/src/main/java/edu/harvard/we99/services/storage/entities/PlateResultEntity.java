@@ -59,7 +59,7 @@ public class PlateResultEntity {
     /**
      * Reference to the plate that these results belong to
      */
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, optional = false, mappedBy = "results")
     @NotNull
     @JoinColumn(updatable = false)
     private PlateEntity plate;

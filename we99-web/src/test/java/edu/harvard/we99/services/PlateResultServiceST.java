@@ -2,9 +2,11 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
 import org.apache.commons.io.IOUtils;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
+import static edu.harvard.we99.test.BaseFixture.assertOk;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static org.assertj.core.util.Arrays.array;
 
@@ -68,6 +71,13 @@ public class PlateResultServiceST {
 
         // create a plate
         plate = resultsFixture.createPlate(experiment);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        ExperimentResource experiment = resultsFixture.experimentService.getExperiment(plate.getExperiment().getId());
+        Response r = experiment.delete();
+        assertOk(r);
     }
 
     @Test

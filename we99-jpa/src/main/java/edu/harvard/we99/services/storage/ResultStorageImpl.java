@@ -9,8 +9,6 @@ import edu.harvard.we99.domain.results.ResultStatus;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PlateEntity;
 import edu.harvard.we99.services.storage.entities.PlateResultEntity;
-import edu.harvard.we99.services.storage.entities.QExperimentEntity;
-import edu.harvard.we99.services.storage.entities.QPlateEntity;
 import edu.harvard.we99.services.storage.entities.QPlateResultEntity;
 import edu.harvard.we99.services.storage.entities.WellResultsEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,18 +45,17 @@ public class ResultStorageImpl implements ResultStorage {
 
         JPAQuery query = new JPAQuery(em);
         QPlateResultEntity results = QPlateResultEntity.plateResultEntity;
-        QPlateEntity plates = QPlateEntity.plateEntity;
-        QExperimentEntity exps = QExperimentEntity.experimentEntity;
-        query.from(results, plates, exps)
-                .where(results.plate.eq(plates)
-                        .and(plates.experiment.eq(exps)
-                                .and(exps.id.eq(experimentId))));
+        query.from(results).where(results.plate.experiment.id.eq(experimentId));
 
         long count = query.count();
         query.limit(pageSize()).offset(pageToFirstResult(page));
         List<PlateResultEntity> list = query.list(results);
-        List<PlateResultEntry> collect = list.stream().map(pre ->
-                new PlateResultEntry(pre.getId(), pre.getCreated(), pre.getLastModified(), pre.getPlate().getName())).collect(Collectors.toList());
+        List<PlateResultEntry> collect = list.stream()
+                .map(pre ->
+                new PlateResultEntry(pre.getId(), pre.getCreated(),
+                        pre.getLastModified(),
+                        pre.getPlate().getName()))
+                .collect(Collectors.toList());
         return new PlateResultEntries(count, page, collect);
     }
 
@@ -70,10 +67,12 @@ public class ResultStorageImpl implements ResultStorage {
 
         PlateEntity plate = getPlate(type);
         pre.setPlate(plate);
+        plate.setResults(pre);
 
         // need to copy the result wells manually
         updateWells(type, pre);
         em.persist(pre);
+        em.merge(plate);
         return mapToDomain(pre);
     }
 

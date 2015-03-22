@@ -71,7 +71,7 @@ public class ExperimentEntity {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<LabelEntity> labels = new HashSet<>();
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "experiment")
     @MapKey(name="id")
     private Map<Long,PlateEntity> plates = new HashMap<>();
 
