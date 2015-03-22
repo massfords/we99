@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h3 class="modal-title">Add Protocol</h3>
+</div>
+<form role="form" name="newProtocolForm">
+<div class="modal-body">
+ <div class="alert alert-danger" ng-show="errorText">
+  {{errorText}}
+  </div>           
+  <div class="form-group">
+    <label for="name">Protocol Name:</label>
+    <input type="text" class="form-control" id="name" name="name" ng-model="protocol.name" required/>
+  </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()" data-ng-disabled="newProtocolForm.$invalid">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
+  </form>

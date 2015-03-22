@@ -1,9 +1,8 @@
-<h2>Create New Experiment</h2>
-<p>This is the experiment/create view.</p>
+<h2>{{pageTitle}}</h2>
  <form role="form" name="newExpForm">
   <div class="form-group">
     <label for="name">Name:</label>
-    <input type="text" class="form-control" id="name" name="name" ng-model="newExp.name" required/>
+    <input type="text" class="form-control" id="name" name="name" ng-model="newExp.name" data-ng-disabled="editMode" required/>
   </div>
   <div class="form-group">
     <label for="description">Description:</label>
@@ -13,7 +12,8 @@
    <div class="form-group">
     <label for="protocol">Protocol:</label>
     <select id="protocol" ng-options="item as item.name for item in protocolValues" ng-model="newExp.protocol" required/>
-  </div> 
+  	<button ng-click="newProtocol()">Add Protocol</button>
+  </div>
   <div class="row">
   <div class="col-md-4">
   <!-- assigned -->
@@ -30,7 +30,7 @@
     </tbody>
   </table>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4" style="height:300px;">
   	<button class="btn btn-default" ng-click="assignUser()"><span class="glyphicon glyphicon-chevron-left"></span>Assign</button>
   	<button class="btn btn-default" ng-click="removeUser()"><span class="glyphicon glyphicon-chevron-right"></span>Remove</button>
   </div>
@@ -55,7 +55,7 @@
   </div>
 	<div class="form-group">
 		<input type="button" data-ng-disabled="newExpForm.$invalid"
-			class="btn btn-primary" ng-click="createExp()" value="Save" />
+			class="btn btn-primary" ng-click="saveExp()" value="Save" />
 	</div>
 </form>
 <div class="alert alert-danger" ng-show="errorText">

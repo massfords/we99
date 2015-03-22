@@ -8,52 +8,143 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ExperimentCreateCtrl', function ($scope, $location, RestService) {
+  .controller('ExperimentCreateCtrl', function ($scope,$routeParams, $location, $modal, RestService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-    
-    $scope.newExp={};
-    
-    RestService.getUsers()
+
+
+
+    refreshProtocolList();
+
+    // if given id, this is an edit of an existing experiment
+    if($routeParams.addeditId){
+      $scope.editMode=true;
+      $scope.pageTitle='Modify Experiment';
+      RestService.getExperimentById($routeParams.addeditId)
+        .success(function(resp){
+          $scope.newExp=resp;
+          refreshUsersList();
+        })
+    } //otw, this is a new experiment
+    else{
+      $scope.editMode=false;
+      $scope.pageTitle='Create New Experiment';
+      $scope.newExp={};
+      refreshUsersList();
+    }
+
+    // retrieves user list from db
+    function refreshUsersList(){
+
+      if($scope.newExp.id){
+        //get assigned users and all users to populate list
+        RestService.getExperimentMembers($scope.newExp.id)
+          .success(function(resp){
+            $scope.assignedUsers=resp.values;
+            $scope.displayAssignedUsers=[].concat($scope.assignedUsers);
+
+            RestService.getUsers().success(function(response){
+              var allUsers=response.values;
+              $scope.availUsers=[];
+              //find users that haven't already been assigned
+              for(var i=0;i<allUsers.length;i++){
+                var unique=true;
+                for (var j = 0; j < $scope.assignedUsers.length; j++)
+                  if ($scope.assignedUsers[j].id === allUsers[i].id){
+                    unique=false;
+                    break;
+                    }
+                if(unique)
+                  $scope.availUsers.push(allUsers[i]);
+              }
+              $scope.displayAvailUsers=[].concat($scope.availUsers);
+
+            })
+              .error(function(response){
+                $scope.errorText='Failed to load available users';
+              });
+          })
+          .error(function(response){
+            $scope.errorText='Failed to load current experiment users';
+          });
+      }
+      else{
+        //automatically assign current user
+        RestService.getCurrentUser()
+          .success(function(resp){
+            $scope.currentUser=resp;
+            RestService.getUsers().success(function(response){
+              $scope.availUsers=response.values;
+              var index=$scope.availUsers.indexOf($scope.currentUser);
+              $scope.availUsers.splice(index,1);
+              $scope.displayAvailUsers=[].concat($scope.availUsers);
+
+              $scope.assignedUsers=[$scope.currentUser];
+              $scope.displayAssignedUsers=[].concat($scope.assignedUsers);
+            })
+              .error(function(response){
+                $scope.errorText='Failed to load users';
+              });
+          })
+          .error(function(response){
+            $scope.errorText='Failed to load current user info';
+          });
+      }
+
+    }
+
+    // retrieves protocol list from db
+    function refreshProtocolList(){
+	    RestService.getProtocols()
 	    .success(function(response){
-	    	$scope.availUsers=response.values;
-	    	$scope.displayAvailUsers=[].concat($scope.availUsers);
-	    	
-	    	$scope.assignedUsers=[];
-	    	$scope.displayAssignedUsers=[];
+	    	$scope.protocolValues=response.values;
 	    })
 	    .error(function(response){
-	    	alert('Failed to load users');
+	    	$scope.errorText='Failed to load protocol list';
 	    });
-    
-    RestService.getProtocols()
-    .success(function(response){
-    	$scope.protocolValues=response.values;
-    })
-    .error(function(response){
-    	alert('Failed to load protocol');
-    });
-    
-    $scope.createExp=function(){
+    }
+
+
+
+
+
+    function saveMembers(expId,memberIds){
+      RestService.setExperimentMembers(expId, memberIds)
+        .success(function (resp) {
+          $location.path('/experiment')
+        })
+        .error(function (resp) {
+          $scope.errorText = 'Error: could not assign members to new experiment';
+        });
+    }
+
+    $scope.saveExp=function(){
     	if($scope.assignedUsers.length<=0){
-    		$scope.errorText="Experiments must have at least one assigned user"
+    		$scope.errorText="Experiments must have at least one assigned user";
     		return;
     	}
-    	$scope.newExp.assignedUsers=$scope.assignedUsers;
-    	
-    	
+    	//$scope.newExp.assignedUsers=$scope.assignedUsers;
+      var memberIds=[];
+      for(var i=0;i<$scope.assignedUsers.length;i++){
+        memberIds.push($scope.assignedUsers[i].id)
+      }
+
     	RestService.createExperiment($scope.newExp)
     		.success(function(resp){
-    			$location.path('/experiment')
+          if (memberIds.length != 0) {
+            saveMembers(resp.id,memberIds);
+          } else {
+            $location.path('/experiment');
+          }
     		})
     		.error(function(resp){
-    			alert('Error: could not create experiment');
+    			$scope.errorText='Error: could not save experiment';
     		});
     }
-    
+
     $scope.assignUser=function(){
     	for(var i=0;i<$scope.availUsers.length;i++){
     		if($scope.availUsers[i].isSelected){
@@ -64,15 +155,82 @@ angular.module('we99App')
     		}
     	}
     }
-    
+
     $scope.removeUser=function(){
     	for(var i=0;i<$scope.assignedUsers.length;i++){
     		if($scope.assignedUsers[i].isSelected){
     			//console.log('got one! '+i);
-    			var movedObj=$scope.assignedUsers.splice(i,1)[0];
-    			$scope.availUsers.push(movedObj);
-    			break;
+    			if($scope.assignedUsers[i].id===$scope.currentUser.id){
+    				$scope.errorText='You cannot remove yourself from an experiment.';
+    				break;
+    			}
+    			else{
+	    			var movedObj=$scope.assignedUsers.splice(i,1)[0];
+	    			$scope.availUsers.push(movedObj);
+	    			break;
+    			}
     		}
     	}
     }
+
+    //modal control
+    $scope.newProtocol = function () {
+
+        var modalInstance = $modal.open({
+          templateUrl: 'views/experiment/addprotocol.html',
+          controller: 'AddProtocolCtrl',
+          resolve: {
+            protocols: function () {
+              return $scope.protocolValues;
+            }
+          }
+        });
+
+        //when modal closes...
+        modalInstance.result.then(function (newProc) {
+        	if(newProc){
+        		console.log('modal rv: '+newProc);
+        		$scope.protocolValues.push(newProc);}
+        	//refreshProtocolList();
+        }, function () {
+          console.log('Modal dismissed at: ' + new Date());
+        });
+      };
+
   });
+
+///
+/// Modal Controller for Add Protocol
+///
+angular.module('we99App')
+.controller('AddProtocolCtrl', function ($scope, RestService, $modalInstance, protocols) {
+
+	  //get all previously created protocols to check for uniqueness
+	  $scope.protocols = protocols;
+
+
+	  $scope.ok = function () {
+
+		//throw error if name is not unique
+		for(var i=0;i<protocols.length;i++){
+			if(protocols[i].name===$scope.protocol.name){
+				$scope.errorText="New protocol name must be unique."
+				return;
+			}
+		}
+
+		//try to create new protocol with rest service
+		RestService.addProtocol($scope.protocol)
+			.success(function(resp){
+				$modalInstance.close(resp);
+			})
+			.error(function(resp){
+	  			$scope.errorText="Could not save new protocol";});
+
+
+	  };
+
+	  $scope.cancel = function () {
+	    $modalInstance.dismiss('cancel');
+	  };
+	});

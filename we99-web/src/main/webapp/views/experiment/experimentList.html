@@ -17,7 +17,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="row in displayExperiments">
+    <tr st-select-row="row" ng-repeat="row in displayExperiments">
       <td>{{row.name}}</td>
       <td>{{row.description}}</td>
             <!-- TODO: Fix links -->
@@ -35,7 +35,9 @@
   </table>
 
   <!-- <button class="btn btn-primary" ng-click="newExperiment()">Add New</button> -->
-  <div><a class="btn btn-primary" ng-href="#/experiment/create">Add New</a></div>
+  <div><a class="btn btn-primary" ng-href="#/experiment/addedit">Add New</a>
+      <button class="btn btn-primary" ng-click="editRow()" data-ng-disabled="!currentExperiment">Edit</button>
+  </div>
 
   <div class="row">
 	  <div class="alert alert-danger" ng-show="errorText">

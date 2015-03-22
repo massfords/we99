@@ -50,7 +50,7 @@ angular
         templateUrl: 'views/experiment/experimentList.html',
         controller: 'ExperimentListCtrl'
       })
-      .when('/experiment/create', {
+      .when('/experiment/addedit/:addeditId', {
         templateUrl: 'views/experiment/create.html',
         controller: 'ExperimentCreateCtrl'
       })

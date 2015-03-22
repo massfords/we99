@@ -35,8 +35,14 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     getExperiments:  function(){
       return $http.get(RestURLs.experiment);
     },
+    getExperimentById:  function(id){
+      return $http.get(RestURLs.experiment+'/'+id);
+    },
     createExperiment: function(exp){
-      return $http.put(RestURLs.experiment,exp);
+      if(exp.id)
+        return $http.post(RestURLs.experiment+'/'+exp.id,exp);
+      else
+        return $http.put(RestURLs.experiment,exp);
     },
     saveExperiment: function(exp){
       return $http.post(RestURLs.experiment+'/'+exp.id,exp);
@@ -44,22 +50,53 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     deleteExperiment: function(id){
       return $http.delete(RestURLs.experiment+'/'+id);
     },
-
+    setExperimentMembers: function(expId,memberIds){
+      return $http.post(RestURLs.experiment+'/'+expId+'/members',memberIds);
+    },
+    getExperimentMembers: function(expId){
+      return $http.get(RestURLs.experiment+'/'+expId+'/members');
+    },
     getExperimentPlates: function(id){
       return $http.get(RestURLs.experiment + '/' + id + "/plates")
     },
 
-    //users
+	//email filter
+	getEmailFilter: function(){
+		return $http.get(RestURLs.emailFilter);
+	},
+
+	updateEmailFilter: function(){
+		return $http.post(RestURLs.emailFilter);
+	},
+	//server settings
+	getServerSettings: function(){
+		return $http.get(RestURLs.serverSettings);
+	},
+	updateServerSettings: function(){
+		return $http.post(RestURLs.serverSettings);
+	},
+
+	//users
     getUsers:  function(){
       return $http.get(RestURLs.user);
     },
 
+    //returns currently logged-in User
+    getCurrentUser:  function(){
+        return $http.get(RestURLs.user+'/me');
+     },
+
     //protocol
     getProtocols:  function(){
       return $http.get(RestURLs.protocol);
+    },
+
+    addProtocol:  function(proc){
+      return $http.put(RestURLs.protocol,proc);
     }
 
-  };
+    };
+
 }]);
 
 /** REST linked resource model for Plate Type */
