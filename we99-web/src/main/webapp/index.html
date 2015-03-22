@@ -1,4 +1,5 @@
 <!doctype html>
+<!--suppress HtmlUnknownAnchorTarget -->
 <html class="no-js">
 <head>
 <meta charset="utf-8">
@@ -48,7 +49,8 @@
 								class="caret"></b></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a ng-href="#/experiment">Manage Experiments</a></li>
-                <li><a ng-href="#/add-plate-set">Add Plate Set</a></li>
+                                <li><a ng-href="#/plate-map-editor">Plate Map Editor</a></li>
+                                <li><a ng-href="#/add-plate-set">Add Plate Set</a></li>
 								<li><a ng-href="#/plate-type-editor">Plate Type Editor</a></li>
 								<li><a ng-href="#/plate-editor">Plate Editor</a></li>
 								<li><a ng-href="#/plate-mgmt/importPlateMap">Import Plate Map</a></li>
@@ -57,10 +59,11 @@
 							class="dropdown-toggle" data-toggle="dropdown">Analysis<b
 								class="caret"></b></a>
 							<ul class="dropdown-menu" role="menu">
-                <li><a ng-href="#/analysis/importResults">Upload Results</a></li>
+                                <li><a ng-href="#/analysis/importResults">Upload Results</a></li>
 								<li><a ng-href="#/heatmap">Heatmap</a></li>
-                <li><a ng-href="#/omnimap">Omnimap</a></li>
-							</ul></li>
+                                <li><a ng-href="#/omnimap">Omnimap</a></li>
+							</ul>
+                        </li>
 						<li class="dropdown" dropdown><a href="#" dropdown-toggle
 							class="dropdown-toggle" data-toggle="dropdown">Help<b
 								class="caret"></b></a>
@@ -68,15 +71,16 @@
 								<li><a ng-href="#/admin/settings">Server Settings</a></li>
 								<li><a ng-href="#/about">About</a></li>
 								<li><a ng-href="#/">Contact</a></li>
-							</ul></li>
-
+							</ul>
+                        </li>
 						<li><a href="/we99/swagger?url=http://localhost:8080/we99/services/rest/api-docs" target="_swagger">Swagger</a></li>
+            <!--suppress HtmlUnknownTarget -->
 						<li><a href="/we99/j_spring_security_logout">Log Out</a></li>
 					</ul>
 				</div>
 			</div>
-		</div>
-	</nav>
+		</nav>
+	</div>
 
 	<div class="container">
 		<div ng-view=""></div>
@@ -130,7 +134,7 @@
 	<script src="scripts/controllers/plate-mgmt/plateeditor.js"></script>
 	<script src="scripts/controllers/plate-mgmt/platetypeeditor.js"></script>
 	<script src="scripts/controllers/results/heatmap.js"></script>
-  <script src="scripts/controllers/results/omnimap.js"></script>
+    <script src="scripts/controllers/results/omnimap.js"></script>
 	<script src="scripts/services/restservice.js"></script>
 	<script src="scripts/controllers/navigation.js"></script>
 	<script src="scripts/controllers/plate-mgmt/addplatetype.js"></script>
@@ -140,7 +144,8 @@
   <script src="scripts/controllers/admin/settings.js"></script>
   <script src="scripts/controllers/plate-mgmt/addplateset.js"></script>
   <script src="scripts/data-vis.js"></script>
-<script src="scripts/controllers/analysis/importresults.js"></script>
+  <script src="scripts/controllers/analysis/importresults.js"></script>
+  <script src="scripts/controllers/plate-mgmt/platemapeditor.js"></script>
 	<!-- endbuild -->
 
 
