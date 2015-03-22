@@ -65,7 +65,7 @@ public class ResultStorageImpl implements ResultStorage {
     @Override
     @Transactional
     public PlateResult create(PlateResult type) {
-        assert type.getId() == null;
+        type.setId(null);
         PlateResultEntity pre = Mappers.PLATERESULT.mapReverse(type);
 
         PlateEntity plate = getPlate(type);
@@ -74,14 +74,14 @@ public class ResultStorageImpl implements ResultStorage {
         // need to copy the result wells manually
         updateWells(type, pre);
         em.persist(pre);
-        return Mappers.PLATERESULT.map(pre);
+        return mapToDomain(pre);
     }
 
     @Override
     @Transactional(readOnly = true)
     public PlateResult get(Long id) throws EntityNotFoundException {
         PlateResultEntity pre = getPlateResultEntity(id);
-        return Mappers.PLATERESULT.map(pre);
+        return mapToDomain(pre);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ResultStorageImpl implements ResultStorage {
         Mappers.PLATERESULT.mapReverse(type, pre);
         updateWells(type, pre);
         em.merge(pre);
-        return Mappers.PLATERESULT.map(pre);
+        return mapToDomain(pre);
     }
 
     @Override
@@ -124,5 +124,9 @@ public class ResultStorageImpl implements ResultStorage {
                 .where(QPlateResultEntity.plateResultEntity.plate.id.eq(id));
 
         return query.uniqueResult(QPlateResultEntity.plateResultEntity);
+    }
+
+    private PlateResult mapToDomain(PlateResultEntity pre) {
+        return Mappers.PLATERESULT.map(pre);
     }
 }

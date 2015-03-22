@@ -40,7 +40,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     @Override
     @Transactional
     public Experiment create(Experiment xp) {
-        assert xp.getId()==null;
+        xp.setId(null);
         ExperimentEntity entity = Mappers.EXPERIMENTS.mapReverse(xp);
         User user = ucp.get();
 

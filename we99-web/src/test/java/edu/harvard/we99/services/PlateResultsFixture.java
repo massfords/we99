@@ -4,6 +4,8 @@ import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.domain.Well;
+import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -13,6 +15,8 @@ import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 
 import javax.ws.rs.core.Response;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static edu.harvard.we99.test.BaseFixture.name;
 import static org.junit.Assert.assertEquals;
@@ -45,8 +49,20 @@ public class PlateResultsFixture {
 
     protected Plate createPlate(Experiment experiment) {
         ExperimentResource er = experimentService.getExperiment(experiment.getId());
-        return er.getPlates().create(new Plate(name("plate"),
-                plateType));
+        return er.getPlates().create(new Plate(name("plate"), plateType).withWells(makeWells(plateType)));
+    }
+
+    private Well[] makeWells(PlateType plateType) {
+        List<Well> wells = new ArrayList<>();
+
+        for(int row=0; row<plateType.getDim().getRows(); row++) {
+            for(int col=0; col<plateType.getDim().getCols(); col++) {
+                wells.add(new Well(row, col).withType(WellType.COMP).withLabel("A", "A"));
+            }
+        }
+
+        Well[] array = new Well[wells.size()];
+        return wells.toArray(array);
     }
 
     protected Response postResults(Plate plate, String file) {

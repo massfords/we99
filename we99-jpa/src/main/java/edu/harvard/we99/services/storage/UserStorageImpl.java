@@ -48,7 +48,7 @@ public class UserStorageImpl implements UserStorage {
     @Override
     @Transactional
     public User create(User user) {
-        assert user.getId() == null;
+        user.setId(null);
         // by default, new users get put into the Scientist role. It's up to
         // someone else to elevate them.
         JPAQuery query = new JPAQuery(em);

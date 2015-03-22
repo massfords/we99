@@ -396,5 +396,14 @@
         }
       ]
     }
+  ],
+  "metrics": [
+    {
+      "label": "",
+      "avgPositive": null,
+      "avgNegative": null,
+      "zee": null,
+      "zeePrime": null
+    }
   ]
 }

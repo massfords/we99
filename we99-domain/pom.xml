@@ -146,24 +146,24 @@
 
     <build>
         <plugins>
-            <!-- Used to produce documentation for our REST services -->
-            <plugin>
-                <groupId>com.qmino</groupId>
-                <artifactId>miredot-plugin</artifactId>
-                <version>1.5.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>restdoc</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <licence>
-                        UHJvamVjdHxlZHUuaGFydmFyZC53ZTk5LndlOTktZG9tYWlufDIwMTctMDItMjh8dHJ1ZSNNQzBDRlFDVEE0OE13SUlLYlJlOGdzS2JOaC9vTWF2Y09BSVVYZjlpalRkRnNGSHFSMmtlbk44WHNVMDYvZWc9
-                    </licence>
-                </configuration>
-            </plugin>
+            <!--&lt;!&ndash; Used to produce documentation for our REST services &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>com.qmino</groupId>-->
+                <!--<artifactId>miredot-plugin</artifactId>-->
+                <!--<version>1.5.1</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>restdoc</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<licence>-->
+                        <!--UHJvamVjdHxlZHUuaGFydmFyZC53ZTk5LndlOTktZG9tYWlufDIwMTctMDItMjh8dHJ1ZSNNQzBDRlFDVEE0OE13SUlLYlJlOGdzS2JOaC9vTWF2Y09BSVVYZjlpalRkRnNGSHFSMmtlbk44WHNVMDYvZWc9-->
+                    <!--</licence>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>com.mysema.maven</groupId>
                 <artifactId>apt-maven-plugin</artifactId>

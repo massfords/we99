@@ -48,7 +48,7 @@ public class PlateMapStorageImpl implements PlateMapStorage {
     @Override
     @Transactional
     public PlateMap create(PlateMap type) {
-        assert type.getId() == null;
+        type.setId(null);
         PlateMapEntity pme = Mappers.PLATEMAP.mapReverse(type);
         mapWellsManually(type, pme);
         em.persist(pme);

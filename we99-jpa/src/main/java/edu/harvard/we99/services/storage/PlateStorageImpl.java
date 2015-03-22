@@ -44,7 +44,7 @@ public class PlateStorageImpl implements PlateStorage {
     @Override
     @Transactional
     public Plate create(Plate type) {
-        assert type.getId() == null;
+        type.setId(null);
 
         ExperimentEntity ee = em.find(ExperimentEntity.class, type.getExperiment().getId());
 

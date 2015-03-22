@@ -46,7 +46,8 @@ public class PlateResultServiceST {
     @Parameterized.Parameters
     public static List<Object[]> params() throws Exception {
         List<Object[]> params = new ArrayList<>();
-        params.add(array("/PlateResultServiceST/results-single.csv", "/PlateResultServiceST/expected-single.json"));
+        params.add(array("/PlateResultServiceST/results-single.csv",
+                         "/PlateResultServiceST/expected-single.json"));
         return params;
     }
 

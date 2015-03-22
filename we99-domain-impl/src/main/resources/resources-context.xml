@@ -25,6 +25,7 @@
     </bean>
     <bean id="plateResultResource" class="edu.harvard.we99.services.experiments.PlateResultResourceImpl">
         <constructor-arg ref="resultStorage"/>
+        <constructor-arg ref="plateStorage"/>
     </bean>
 
 </beans>

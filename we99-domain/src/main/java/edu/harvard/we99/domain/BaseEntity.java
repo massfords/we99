@@ -16,5 +16,4 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class BaseEntity {
-    public abstract void setId(Long id);
 }

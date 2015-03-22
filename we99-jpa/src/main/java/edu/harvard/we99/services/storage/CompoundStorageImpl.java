@@ -44,7 +44,7 @@ public class CompoundStorageImpl implements CompoundStorage {
     @Override
     @Transactional
     public Compound create(Compound type) {
-        assert type.getId() == null;
+        type.setId(null);
         CompoundEntity entity = Mappers.COMPOUND.mapReverse(type);
         entity.setId(null);
         em.persist(entity);

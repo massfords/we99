@@ -1,10 +1,16 @@
 package edu.harvard.we99.services.experiments;
 
+import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.results.PlateMetrics;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.StatusChange;
+import edu.harvard.we99.domain.results.WellResults;
+import edu.harvard.we99.domain.results.analysis.NormalizationFunction;
+import edu.harvard.we99.domain.results.analysis.PlateMetricsFunction;
 import edu.harvard.we99.services.io.PlateResultCSVReader;
+import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
 import org.apache.commons.io.IOUtils;
 
@@ -15,17 +21,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author mford
  */
 public class PlateResultResourceImpl implements PlateResultResource {
     private final ResultStorage resultStorage;
+    private final PlateStorage plateStorage;
     private Long experimentId;
     private Long plateId;
 
-    public PlateResultResourceImpl(ResultStorage resultStorage) {
+    public PlateResultResourceImpl(ResultStorage resultStorage, PlateStorage plateStorage) {
         this.resultStorage = resultStorage;
+        this.plateStorage = plateStorage;
     }
 
     @Override
@@ -53,15 +65,41 @@ public class PlateResultResourceImpl implements PlateResultResource {
 
         PlateResultCSVReader reader = new PlateResultCSVReader();
         PlateResult pr = reader.read(new BufferedReader(new StringReader(source)));
-        pr.setPlate(new Plate().withId(plateId).withExperiment(new Experiment().withId(experimentId)));
+        pr.setPlate(new Plate().withId(plateId).withExperiment(
+                new Experiment().withId(experimentId)));
         pr.setSource(source);
+        pr.setMetrics(compute(pr));
         return resultStorage.create(pr);
     }
 
     @Override
-    public Response updateStatus(StatusChange statusChange) {
+    public PlateResult updateStatus(StatusChange statusChange) {
         resultStorage.updateStatus(plateId, statusChange.getCoordinate(), statusChange.getStatus());
-        return Response.ok().build();
+
+        PlateResult plateResult = resultStorage.get(plateId);
+        plateResult.setMetrics(compute(plateResult));
+
+        PlateResult updated = resultStorage.update(plateId, plateResult);
+
+        return updated;
+    }
+
+    private Map<String,PlateMetrics> compute(PlateResult result) {
+
+        Plate plate = plateStorage.get(plateId);
+
+        Map<Coordinate, WellResults> wellResults = result.getWellResults();
+
+        // normalize all of the wells
+        NormalizationFunction nf = new NormalizationFunction();
+        List<WellResults> wrList = new ArrayList<>(wellResults.values());
+        nf.apply(wrList);
+
+        // compute the average of the positive controls, negative controls, z, and z'
+        List<PlateMetrics> list = new PlateMetricsFunction(plate).apply(wrList);
+        Map<String,PlateMetrics> metrics = new HashMap<>();
+        list.forEach(pm -> metrics.put(pm.getLabel(), pm));
+        return metrics;
     }
 
     @Override
