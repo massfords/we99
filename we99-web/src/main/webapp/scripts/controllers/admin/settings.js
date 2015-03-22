@@ -37,10 +37,10 @@ angular.module('we99App')
     //save server settings
     $scope.saveServerSettings=function(){
     	RestService.updateServerSettings($scope.configSettings)
-	    	.success(function(resp){
+	    	.success(function(){
 	    		setInfo('Saved new server email settings.');
 	    	})
-	    	.error(function(resp){
+	    	.error(function(){
 	    		setError('Could not save email server settings.');
 	    	});
     }
@@ -48,10 +48,10 @@ angular.module('we99App')
     //save email filter settings
     $scope.saveEmailFilter=function(){
     	RestService.updateEmailFilter($scope.emailFilter)
-	    	.success(function(resp){
+	    	.success(function(){
 	    		setInfo('Saved email filter settings.');
 	    	})
-	    	.error(function(resp){
+	    	.error(function(){
 	    		setError('Could not save email filter settings.');
 	    	});
     }

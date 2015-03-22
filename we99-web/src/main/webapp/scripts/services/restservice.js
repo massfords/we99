@@ -69,10 +69,19 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     getUsers:  function(){
       return $http.get(RestURLs.user);
     },
-
+    
+    //returns currently logged-in User
+    getCurrentUser:  function(){
+        return $http.get(RestURLs.user+'/me');
+     },
+      
     //protocol
     getProtocols:  function(){
       return $http.get(RestURLs.protocol);
+    },
+    
+    addProtocol:  function(proc){
+      return $http.put(RestURLs.protocol,proc);
     }
 	
     };

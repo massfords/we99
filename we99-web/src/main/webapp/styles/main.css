@@ -91,7 +91,7 @@ body {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 960px;
   }
 
   /* Remove the padding we set earlier */
@@ -112,7 +112,7 @@ body {
 }
 
 /* add scrollable to table class to limit size and make scrollbar */
-table {
+.table-fixed-height {
   height:500px;
 }
 tbody {

@@ -13,6 +13,7 @@
    <div class="form-group">
     <label for="protocol">Protocol:</label>
     <select id="protocol" ng-options="item as item.name for item in protocolValues" ng-model="newExp.protocol" required/>
+  	<button ng-click="newProtocol()">Add Protocol</button>
   </div> 
   <div class="row">
   <div class="col-md-4">
@@ -30,7 +31,7 @@
     </tbody>
   </table>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4" style="height:300px;">
   	<button class="btn btn-default" ng-click="assignUser()"><span class="glyphicon glyphicon-chevron-left"></span>Assign</button>
   	<button class="btn btn-default" ng-click="removeUser()"><span class="glyphicon glyphicon-chevron-right"></span>Remove</button>
   </div>
