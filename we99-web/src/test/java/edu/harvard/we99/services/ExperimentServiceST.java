@@ -20,10 +20,12 @@ import javax.ws.rs.core.Response;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static edu.harvard.we99.test.BaseFixture.assertOk;
 import static edu.harvard.we99.test.BaseFixture.name;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author mford
@@ -64,9 +66,10 @@ public class ExperimentServiceST {
             PlatesResource pr = er.getPlates();
             for(Plate p : pr.list(0).getValues()) {
                 for(Well well : p.getWells().values()) {
-                    for(Dose d : well.getContents()) {
-                        compounds.add(d.getCompound());
-                    }
+                    compounds.addAll(well.getContents()
+                            .stream()
+                            .map(Dose::getCompound)
+                            .collect(Collectors.toList()));
                 }
             }
         }
@@ -93,5 +96,12 @@ public class ExperimentServiceST {
 
         Users members = mr.listMembers();
         assertThat(members.getValues()).extracting("email").containsExactly("we99.2015@gmail.com");
+    }
+
+    @Test
+    public void delete() throws Exception {
+        Long id = xp.getId();
+        Response r = es.getExperiment(id).delete();
+        assertEquals(200, r.getStatus());
     }
 }

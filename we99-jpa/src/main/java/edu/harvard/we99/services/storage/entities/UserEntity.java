@@ -73,7 +73,7 @@ public class UserEntity {
     @NotNull
     private RoleEntity role;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "members")
     @MapKey(name="id")
     private Map<Long, ExperimentEntity> experiments = new HashMap<>();
 
