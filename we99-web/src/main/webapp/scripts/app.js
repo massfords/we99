@@ -62,6 +62,10 @@ angular
         templateUrl: 'views/plate-mgmt/importplatemap.html',
         controller: 'PlateMgmtImportplatemapCtrl'
       })
+      .when('/plate-map-editor', {
+        templateUrl: 'views/plate-mgmt/platemapeditor.html',
+        controller: 'PlateMapEditorCtrl'
+      })
       .when('/admin/settings', {
         templateUrl: 'views/admin/settings.html',
         controller: 'AdminSettingsCtrl'

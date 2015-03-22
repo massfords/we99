@@ -112,7 +112,7 @@ body {
 }
 
 /* add scrollable to table class to limit size and make scrollbar */
-.table-fixed-height {
+.table-fixed-height table{
   height:500px;
 }
 tbody {

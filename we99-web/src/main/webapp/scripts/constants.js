@@ -3,6 +3,7 @@ var app = angular.module('we99App');
 // API
 var restBase = 'services/rest/';
 app.constant('RestURLs', {
+    plateMap: restBase + 'plateMap/:id',
     plateType: restBase + 'plateType/:id',
     experiment: restBase + 'experiment',
     protocol: restBase + 'protocol',

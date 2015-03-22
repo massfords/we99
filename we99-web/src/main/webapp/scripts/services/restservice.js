@@ -114,6 +114,22 @@ app.factory('PlateTypeModel', ['$resource', 'RestURLs', function ($resource, Res
   });
 }]);
 
+/** REST linked resource model for Plate Maps */
+app.factory('PlateMapModel', ['$resource', 'RestURLs', function ($resource, RestURLs) {
+  return $resource(RestURLs.plateMap, {id:'@id'}, {
+    listPlateMaps: {
+      method: "GET",
+      isArray: true,
+      // Get an array back to exhibit expected query behavior
+      transformResponse: valuesToArray
+    },
+    create: {
+      method: "PUT" // Server takes put for creation
+    }
+  });
+}]);
+
+
 /* HELPER FUNCTIONS */
 
 function valuesToArray(data) {

@@ -1,0 +1,37 @@
+<div class="list-platemaps">
+  <h2>List of Plate Maps</h2>
+
+  <table st-table="displayPlateMap" st-safe-src="plateMaps" class="table table-striped table-fixed-height">
+    <thead>
+    <tr>
+      <th st-sort="name">Name</th>
+      <th st-sort="description">Description</th>
+      <th st-sort="dim.rows">Rows x Cols (Wells)</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+      <th colspan="5"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="map in plateMaps">
+      <td>{{map.name}}</td>
+      <td>{{map.description}}</td>
+      <td>{{map.dim.rows + ' x ' + row.dim.cols}}</td>
+      <td>
+        <i class="glyphicon glyphicon-remove-circle" ng-click="removePlateType(row)"></i>
+        <i class="glyphicon glyphicon-search" ng-click="previewPlateMap(row)"></i>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Add Button -->
+  <button type="button" class="btn btn-small btn-success dropdown-toggle"
+          dropdown-toggle="true"
+          ng-click="showAddPlateMap()>
+    <i class="glyphicon glyphicon-plus">
+      Add<span class="caret"></span>
+    </i>
+  </button>
+</div>
