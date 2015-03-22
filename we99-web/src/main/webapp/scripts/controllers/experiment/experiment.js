@@ -25,15 +25,22 @@ angular.module('we99App')
     		$scope.errorText="Could not retrieve experiments list.";
     		});
 
+    $scope.editRow=function(){
+      for(var i=0;i<$scope.experiments.length;i++)
+        if ($scope.experiments[i].isSelected) {
+          $location.path('/experiment/addedit/' + $scope.experiments[i].id);
+          break;
+      }
+    }
     //delete experiment from database
     $scope.removeItem=function(row){
     	RestService.deleteExperiment(row.id)
     		.success(function(response){
-	    		for(var i=0;i<$scope.experiments.length;i++){
-	    			if($scope.experiments[i].id===row.id)
-	    				$scope.experiments.splice(i,1);
-	    				break;
-	    			}
+	    		for(var i=0;i<$scope.experiments.length;i++)
+            if ($scope.experiments[i].id === row.id) {
+              $scope.experiments.splice(i, 1);
+              break;
+          }
     		})
     		.error(function(response){
     		   console.log('Error: '+response);
