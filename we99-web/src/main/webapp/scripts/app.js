@@ -51,7 +51,7 @@ angular
         controller: 'ExperimentListCtrl'
       })
       .when('/experiment/addedit/:addeditId', {
-        templateUrl: 'views/experiment/create.html',
+        templateUrl: 'views/experiment/createExperiment.html',
         controller: 'ExperimentCreateCtrl'
       })
       .when('/plate-mgmt/importPlateMap', {
@@ -61,6 +61,10 @@ angular
       .when('/admin/settings', {
         templateUrl: 'views/admin/settings.html',
         controller: 'AdminSettingsCtrl'
+      })
+      .when('/analysis/importResults', {
+        templateUrl: 'views/plate-analysis/importresults.html',
+        controller: 'ImportResultsCtrl'
       })
       .otherwise({
         redirectTo: '/experiment'

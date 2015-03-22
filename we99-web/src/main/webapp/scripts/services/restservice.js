@@ -65,15 +65,15 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
 		return $http.get(RestURLs.emailFilter);
 	},
 
-	updateEmailFilter: function(){
-		return $http.post(RestURLs.emailFilter);
+	updateEmailFilter: function(filter){
+		return $http.post(RestURLs.emailFilter,filter);
 	},
 	//server settings
 	getServerSettings: function(){
 		return $http.get(RestURLs.serverSettings);
 	},
-	updateServerSettings: function(){
-		return $http.post(RestURLs.serverSettings);
+	updateServerSettings: function(emailConfig){
+		return $http.post(RestURLs.serverSettings,emailConfig);
 	},
 
 	//users

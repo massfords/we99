@@ -10,5 +10,8 @@ app.constant('RestURLs', {
     plateMap: restBase + 'plateMap',
     result: restBase + 'results/',
     serverSettings: restBase + 'settings/email/config',
-    emailFilter: restBase + 'settings/email/filter'
+    emailFilter: restBase + 'settings/email/filter',
+    resultsUpload: function(experimentId,plateId){
+      return restBase+'experiment/'+experimentId+'/plates/'+plateId+'/results';
+    }
 });
