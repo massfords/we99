@@ -1,0 +1,18 @@
+.order-more-modal dt{
+  margin-bottom: 0px;
+}
+.order-more-modal dd{
+  margin: 0 10px 2px 5px;
+}
+
+/** Marker after definition name. e.g.,':' */
+.order-more-modal dt::after {
+  content: ":";
+}
+
+.order-more-modal .order-instructions{
+  margin-top: 10px;
+  padding: 5px;
+  border: 2px ridge blue;
+  border-radius: 6px;
+}

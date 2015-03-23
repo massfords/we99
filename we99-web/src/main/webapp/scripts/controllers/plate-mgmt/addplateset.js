@@ -8,12 +8,11 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('AddPlateSetCtrl', function ($scope, $window, PlateTypeModel) {
+  .controller('AddPlateSetCtrl', function ($scope, $window, $modal, PlateTypeModel) {
     $scope.selected ={};
     $scope.step = 'step1';
 
     $scope.changeStep = function(stepId) {
-      console.log("CLicked " + stepId);
       $scope.step=stepId;
     };
 
@@ -27,4 +26,20 @@ angular.module('we99App')
       $window.history.back();
     };
 
+    /** Open order more plate types info popup */
+    $scope.openOrderMoreModal = function(plateType){
+      var modalInstance = $modal.open({
+        size:'lg',
+        templateUrl:'views/plate-mgmt/ordermoremodal.html',
+        controller: 'OrderMorePlateTypesCtrl',
+        resolve: {
+          plateType: function(){return plateType;}
+        }
+      });
+      //modalInstance.result.then(function(){;});
+    };
+
+  })
+  .controller('OrderMorePlateTypesCtrl', function($scope, plateType){
+    $scope.plateType = plateType;
   });
