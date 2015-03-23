@@ -31,7 +31,7 @@ class PlateType {
     String name
     String description
     String manufacturer
-    String link
+    String orderLink
     PlateDimension dim
 }
 
