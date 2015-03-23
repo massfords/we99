@@ -2,7 +2,7 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
-import edu.harvard.we99.domain.lists.PlateResultEntries;
+import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
@@ -55,9 +55,8 @@ public class PlateResultServiceListingST {
     public void listByExperiment() throws Exception {
         ExperimentResource er = resultsFixture.experimentService.getExperiment(experiment.getId());
 
-        PlateResultEntries plateResults = er.listResults(0);
+        PlateResults plateResults = er.listResults(0);
         assertJsonEquals(load("/PlateResultServiceST/listByExperiment.json"), toJsonString(plateResults),
                 Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey));
     }
-
 }

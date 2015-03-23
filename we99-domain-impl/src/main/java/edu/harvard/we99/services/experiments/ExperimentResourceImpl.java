@@ -1,7 +1,7 @@
 package edu.harvard.we99.services.experiments;
 
 import edu.harvard.we99.domain.Experiment;
-import edu.harvard.we99.domain.lists.PlateResultEntries;
+import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.services.BaseRESTServiceImpl;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
@@ -56,7 +56,7 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
     protected abstract PlatesResource createPlatesResource();
 
     @Override
-    public PlateResultEntries listResults(Integer page) {
+    public PlateResults listResults(Integer page) {
         return resultStorage.listAllByExperiment(id, page);
     }
 

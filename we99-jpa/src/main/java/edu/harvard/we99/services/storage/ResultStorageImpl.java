@@ -2,9 +2,8 @@ package edu.harvard.we99.services.storage;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.Coordinate;
-import edu.harvard.we99.domain.lists.PlateResultEntries;
+import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.domain.results.PlateResult;
-import edu.harvard.we99.domain.results.PlateResultEntry;
 import edu.harvard.we99.domain.results.ResultStatus;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PlateEntity;
@@ -41,7 +40,7 @@ public class ResultStorageImpl implements ResultStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public PlateResultEntries listAllByExperiment(Long experimentId, Integer page) {
+    public PlateResults listAllByExperiment(Long experimentId, Integer page) {
 
         JPAQuery query = new JPAQuery(em);
         QPlateResultEntity results = QPlateResultEntity.plateResultEntity;
@@ -50,13 +49,10 @@ public class ResultStorageImpl implements ResultStorage {
         long count = query.count();
         query.limit(pageSize()).offset(pageToFirstResult(page));
         List<PlateResultEntity> list = query.list(results);
-        List<PlateResultEntry> collect = list.stream()
-                .map(pre ->
-                new PlateResultEntry(pre.getId(), pre.getCreated(),
-                        pre.getLastModified(),
-                        pre.getPlate().getName()))
+        List<PlateResult> collected = list.stream()
+                .map(Mappers.PLATERESULT::map)
                 .collect(Collectors.toList());
-        return new PlateResultEntries(count, page, collect);
+        return new PlateResults(count, page, collected);
     }
 
     @Override

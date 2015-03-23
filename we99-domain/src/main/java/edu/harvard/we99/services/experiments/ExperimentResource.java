@@ -3,7 +3,7 @@ package edu.harvard.we99.services.experiments;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Experiment;
-import edu.harvard.we99.domain.lists.PlateResultEntries;
+import edu.harvard.we99.domain.lists.PlateResults;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
@@ -73,7 +73,7 @@ public interface ExperimentResource {
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @ApiOperation("Gets all of the results for the experiment")
     @PreAuthorize("hasRole('PERM_READ_RESULTS')")
-    PlateResultEntries listResults(@QueryParam("page") @DefaultValue("0") Integer page);
+    PlateResults listResults(@QueryParam("page") @DefaultValue("0") Integer page);
 
     public Long getId();
 
