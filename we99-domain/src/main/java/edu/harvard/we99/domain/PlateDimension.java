@@ -1,22 +1,16 @@
 package edu.harvard.we99.domain;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import javax.annotation.Generated;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Min;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author mford
  */
 @Embeddable
-@XmlAccessorType(XmlAccessType.FIELD)
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @XmlRootElement(name="dim")
-public class PlateDimension {
+public class PlateDimension extends BaseEntity {
     /**
      * The number of rows in the plate. Must be at least 1
      */
