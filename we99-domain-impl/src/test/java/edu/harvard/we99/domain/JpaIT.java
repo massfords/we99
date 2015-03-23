@@ -10,7 +10,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.persistence.PersistenceException;
-import javax.validation.ConstraintViolationException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,80 +29,37 @@ import static edu.harvard.we99.test.BaseFixture.name;
 public class JpaIT extends JpaSpringFixture {
 
     @Test
-    public void plateTemplate() throws Exception {
-
-        beginTx();
-
-        PlateTypeEntity type = makePlateType(10, 16);
-
-        PlateMapEntity pt = new PlateMapEntity()
-                .withName(name("Map"))
-                .withDescription("My Description")
-                .withPlateType(type)
-                ;
-
-        em.persist(type);
-        em.persist(pt);
-
-        commitTx();
-    }
-
-    @Test(expected = ConstraintViolationException.class)
-    public void plateTemplate_missingPlateType() throws Exception {
+    public void plateMap() throws Exception {
 
         beginTx();
 
         PlateMapEntity pt = new PlateMapEntity()
                 .withName(name("Map"))
                 .withDescription("My Description")
+                .withDim(new PlateDimension(10,16))
                 ;
 
         em.persist(pt);
+
         commitTx();
     }
 
     @Test
-    public void plateTemplate_withWells() throws Exception {
+    public void plateMap_withWells() throws Exception {
         beginTx();
 
         int ROW_COUNT = 3;
         int COL_COUNT = 4;
-
-        PlateTypeEntity type = makePlateType(ROW_COUNT, COL_COUNT);
 
         PlateMapEntity pm = new PlateMapEntity()
                 .withName(name("Map"))
                 .withDescription("My Description")
-                .withPlateType(type)
+                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
                 ;
 
         pm.withWells(makeWellMaps(ROW_COUNT, COL_COUNT));
 
-        em.persist(type);
         em.persist(pm);
-
-        commitTx();
-    }
-
-    @Test(expected = PersistenceException.class)
-    public void plateTemplate_wellOutOfBounds() throws Exception {
-        beginTx();
-
-        int ROW_COUNT = 3;
-        int COL_COUNT = 4;
-
-        PlateTypeEntity type = makePlateType(ROW_COUNT, COL_COUNT);
-
-        PlateMapEntity pt = new PlateMapEntity()
-                .withName(name("Map"))
-                .withDescription("My Description")
-                .withPlateType(type)
-                .withWells(new WellMapEntity(100, 200)
-                        .withType(WellType.EMPTY))
-                ;
-
-        em.persist(type);
-        em.persist(pt);
 
         commitTx();
     }

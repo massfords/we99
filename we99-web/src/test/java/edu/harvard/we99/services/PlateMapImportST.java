@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
@@ -72,13 +73,15 @@ public class PlateMapImportST {
     }
 
     @Test
-    public void prototype() throws Exception {
+    public void createFromUpload() throws Exception {
         WebClient client = WebClient.create(WebAppIT.WE99_URL + "/plateMap",
                 WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW, null);
         client.type("multipart/form-data");
-        ContentDisposition cd = new ContentDisposition("attachment;filename=pmap.csv");
-        Attachment att = new Attachment("file", getClass().getResourceAsStream(input), cd);
-        Response response = client.post(new MultipartBody(att));
+        Attachment att = new Attachment("file", getClass().getResourceAsStream(input),
+                new ContentDisposition("attachment;filename=pmap.csv"));
+        Attachment name = new Attachment("name", "text/plain", name("platemap"));
+        MultipartBody body = new MultipartBody(Arrays.asList(name, att));
+        Response response = client.post(body);
         assertEquals(200, response.getStatus());
 
         InputStream is = (InputStream) response.getEntity();

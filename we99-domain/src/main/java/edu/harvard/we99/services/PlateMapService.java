@@ -1,7 +1,10 @@
 package edu.harvard.we99.services;
 
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
 import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import edu.harvard.we99.domain.ImportedPlateMap;
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.lists.PlateMaps;
@@ -84,9 +87,8 @@ public interface PlateMapService {
     Response delete(@PathParam("id") Long id);
 
     /**
-     * Creates a prototype PlateMap from the given CSV contents. This still requires
-     * a user to select a PlateType after the initial upload before persisting the
-     * map to the db. Assuming that we can parse the value, we'll return it to the
+     * Creates a prototype PlateMap from the given CSV contents.
+     * Assuming that we can parse the value, we'll return it to the
      * caller in JSON format. We'll also bundle the map with a list of suggested
      * {@link edu.harvard.we99.domain.PlateType} that are suitable for use in the map.
      * @param csv
@@ -96,7 +98,11 @@ public interface PlateMapService {
     @Consumes("multipart/form-data")
     @ApiOperation("Processes the uploaded CSV and returns a PlateMap")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
-    ImportedPlateMap prototype(@Multipart("file") InputStream csv);
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="name", value = "name of the new plate map", required = true, dataType = "String", paramType = "form"),
+            @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
+    ImportedPlateMap create(@Multipart(value = "name", required = false) String name,
+                               @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
 
     /**
      * Lists all existing {@link edu.harvard.we99.domain.PlateMap}

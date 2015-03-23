@@ -1,13 +1,9 @@
 {
   "name": "plateMap-uuid",
   "description": "my test plate",
-  "plateType": {
-    "name": "plateTypeuuid",
-    "dim": {
-      "rows": 4,
-      "cols": 3
-    },
-    "manufacturer": "Foo Inc."
-  },
-  "wells": []
+  "wells": [],
+  "dim": {
+    "rows": 1,
+    "cols": 1
+  }
 }

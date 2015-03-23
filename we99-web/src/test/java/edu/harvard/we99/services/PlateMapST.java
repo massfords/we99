@@ -126,6 +126,6 @@ public class PlateMapST {
         return new PlateMap()
                 .withName(name("plateMap-"))
                 .withDescription("my test plate")
-                .withPlateType(plateType);
+                .withDim(plateType.getDim());
     }
 }

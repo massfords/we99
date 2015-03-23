@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.UUID;
 
 /**
  * Implementation of the PlateTemplateService.
@@ -43,12 +44,16 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
     }
 
     @Override
-    public ImportedPlateMap prototype(InputStream is) {
+    public ImportedPlateMap create(String name, InputStream is) {
         PlateMapCSVReader reader = new PlateMapCSVReader();
         try (Reader r = new BufferedReader(new InputStreamReader(is))) {
-            PlateMap plateMap = reader.read(r);
+            if (name == null) {
+                name = UUID.randomUUID().toString();
+            }
+            PlateMap plateMap = reader.read(r).withName(name);
+            PlateMap created = plateMapStorage().create(plateMap);
             PlateTypes list = pts.findGreaterThanOrEqualTo(calcDim(plateMap), 0);
-            return new ImportedPlateMap(plateMap, list.getValues());
+            return new ImportedPlateMap(created, list.getValues());
         } catch (IOException e) {
             log.error("error parsing csv", e);
             throw new WebApplicationException(Response.status(409).build());

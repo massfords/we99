@@ -1,5 +1,6 @@
 {
   "plateMap": {
+    "name": "platemapuuid",
     "wells": [
       {
         "coordinate": {
@@ -121,7 +122,11 @@
         "labels": [],
         "type": "EMPTY"
       }
-    ]
+    ],
+    "dim": {
+      "rows": 3,
+      "cols": 5
+    }
   },
   "matchingPlateTypes": [
     {

@@ -2,15 +2,6 @@
   "id": 300,
   "name": "pme",
   "description": "foo123",
-  "plateType": {
-    "id": 250,
-    "name": "foo",
-    "dim": {
-      "rows": 10,
-      "cols": 20
-    },
-    "manufacturer": "Man1"
-  },
   "wells": [
     {
       "id": 800,
@@ -26,5 +17,9 @@
       ],
       "type": "COMP"
     }
-  ]
+  ],
+  "dim": {
+    "rows": 5,
+    "cols": 6
+  }
 }

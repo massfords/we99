@@ -1,14 +1,6 @@
 {
   "name": "plateMap-uuid",
   "description": "my modified description",
-  "plateType": {
-    "name": "plateTypeuuid",
-    "dim": {
-      "rows": 4,
-      "cols": 3
-    },
-    "manufacturer": "Foo Inc."
-  },
   "wells": [
     {
       "coordinate": {
@@ -23,5 +15,9 @@
       ],
       "type": "COMP"
     }
-  ]
+  ],
+  "dim": {
+    "rows": 1,
+    "cols": 1
+  }
 }

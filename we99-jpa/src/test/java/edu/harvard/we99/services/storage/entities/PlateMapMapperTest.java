@@ -3,7 +3,6 @@ package edu.harvard.we99.services.storage.entities;
 import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateMap;
-import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.domain.WellType;
 import org.junit.Test;
@@ -20,14 +19,6 @@ import static org.junit.Assert.assertSame;
  * @author mford
  */
 public class PlateMapMapperTest {
-    private final PlateType plateType = new PlateType().withId(250L)
-            .withDim(new PlateDimension(10, 20))
-            .withName("foo").withManufacturer("Man1");
-
-    private final PlateTypeEntity plateTypeEntity =
-            new PlateTypeEntity().withId(250L)
-                    .withDim(new PlateDimension(10, 20))
-                    .withName("foo").withManufacturer("Man1");
 
     @Test
     public void domainToEntity_new() throws Exception {
@@ -38,7 +29,6 @@ public class PlateMapMapperTest {
         assertEquals(pm.getId(), pme.getId());
         assertEquals("plateMap", pme.getName());
         assertEquals("desc", pme.getDescription());
-        assertEquals(250L, pme.getPlateType().getId().longValue());
         // wells are copied over manually
         assertEquals(0, pme.getWells().size());
     }
@@ -56,7 +46,6 @@ public class PlateMapMapperTest {
         // name/desc are mapped
         assertEquals(pm.getName(), pme.getName());
         assertEquals(pm.getDescription(), pme.getDescription());
-        assertEquals(pm.getPlateType().getId(), pme.getPlateType().getId());
 
         // we're copying the wells manually so the map shouldn't have changed
         assertSame(wells, pme.getWells());
@@ -73,7 +62,7 @@ public class PlateMapMapperTest {
         PlateMapEntity pme = new PlateMapEntity()
                 .withId(300L)
                 .withDescription("foo123")
-                .withName("pme").withPlateType(plateTypeEntity);
+                .withName("pme").withDim(new PlateDimension(5,6));
         Coordinate coord = new Coordinate(4, 5);
         pme.getWells().put(
                 coord,
@@ -96,7 +85,6 @@ public class PlateMapMapperTest {
                 .withName("plateMap")
                 .withDescription("desc")
                 .withId(100L)
-                .withPlateType(plateType)
                 .withWells(makeWell());
     }
 }
