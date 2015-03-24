@@ -91,6 +91,7 @@ public interface PlateMapService {
      * Assuming that we can parse the value, we'll return it to the
      * caller in JSON format. We'll also bundle the map with a list of suggested
      * {@link edu.harvard.we99.domain.PlateType} that are suitable for use in the map.
+     * @param name
      * @param csv
      * @statuscode 409 If we don't understand the format of the CSV
      */

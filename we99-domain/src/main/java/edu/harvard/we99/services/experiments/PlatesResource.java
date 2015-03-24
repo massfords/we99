@@ -1,19 +1,25 @@
 package edu.harvard.we99.services.experiments;
 
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
 import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.Plates;
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.io.InputStream;
 
 /**
  * @author mford
@@ -30,6 +36,28 @@ public interface PlatesResource {
     @ApiOperation("Creates a new plate for the experiment.")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
     Plate create(Plate plate);
+
+    /**
+     * Creates a new plate from the merged PlateMap/Compound-Mapping file
+     * Assuming that we can parse the value, we'll return it to the
+     * caller in JSON format.
+     * @param name
+     * @param plateTypeName
+     * @param csv
+     * @statuscode 409 If we don't understand the format of the CSV
+     */
+    @POST
+    @Consumes("multipart/form-data")
+    @ApiOperation("Processes the uploaded CSV and returns a PlateMap")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="name", value = "name of the new plate", required = true, dataType = "String", paramType = "form"),
+            @ApiImplicitParam(name="plateTypeName", value = "name of the plate type", required = true, dataType = "String", paramType = "form"),
+            @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
+    Plate create(@Multipart(value = "name", required = false) String name,
+                 @Multipart(value = "plateTypeName", required = false) String plateTypeName,
+                            @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
+
 
     /**
      * Lists all of the existing plate or throws an exception with 404

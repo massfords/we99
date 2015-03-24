@@ -1,6 +1,8 @@
 package edu.harvard.we99.services.storage;
 
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.ParamExpression;
+import com.mysema.query.types.expr.Param;
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.lists.Compounds;
 import edu.harvard.we99.services.storage.entities.CompoundEntity;
@@ -12,7 +14,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageSize;
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
@@ -39,6 +44,28 @@ public class CompoundStorageImpl implements CompoundStorage {
         List<Compound> compounds = new ArrayList<>();
         resultList.forEach(ce->compounds.add(Mappers.COMPOUND.map(ce)));
         return new Compounds(count, pageSize(), compounds);
+    }
+
+    @Override
+    @Transactional
+    public Map<Compound, Long> resolveIds(Set<Compound> compounds) {
+        Map<Compound, Long> resolvedMap = new HashMap<>();
+        JPAQuery query = new JPAQuery(em);
+        ParamExpression<String> param = new Param<>(String.class);
+        query.from(QCompoundEntity.compoundEntity).where(QCompoundEntity.compoundEntity.name.eq(param));
+        for(Compound c : compounds) {
+            query.set(param, c.getName());
+            CompoundEntity resolved = query.uniqueResult(QCompoundEntity.compoundEntity);
+            if (resolved != null) {
+                resolvedMap.put(new Compound(resolved.getName()), resolved.getId());
+            } else {
+                CompoundEntity ce = new CompoundEntity(null, c.getName());
+                em.persist(ce);
+                resolved = ce;
+            }
+            resolvedMap.put(new Compound(resolved.getName()), resolved.getId());
+        }
+        return resolvedMap;
     }
 
     @Override

@@ -1,0 +1,187 @@
+{
+  "wells": [
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 0
+      },
+      "labels": [
+        {
+          "name": "A",
+          "value": "123"
+        }
+      ],
+      "type": "NEGATIVE",
+      "contents": [
+        {
+          "amount": {
+            "number": 5,
+            "units": "PICO"
+          },
+          "compound": {"name": "H20"}
+        },
+        {
+          "amount": {
+            "number": 1,
+            "units": "PICO"
+          },
+          "compound": {"name": "NaCl"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 1
+      },
+      "labels": [
+        {
+          "name": "A1",
+          "value": "123"
+        }
+      ],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1,
+            "units": "PICO"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 2
+      },
+      "labels": [
+        {
+          "name": "A1",
+          "value": "123"
+        }
+      ],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1,
+            "units": "PICO"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 3
+      },
+      "labels": [
+        {
+          "name": "A1",
+          "value": "123"
+        }
+      ],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1,
+            "units": "PICO"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 0
+      },
+      "labels": [
+        {
+          "name": "B",
+          "value": "123"
+        }
+      ],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1,
+            "units": "PICO"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 1
+      },
+      "labels": [
+        {
+          "name": "B",
+          "value": "123"
+        }
+      ],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1,
+            "units": "PICO"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 2
+      },
+      "labels": [
+        {
+          "name": "B",
+          "value": "123"
+        }
+      ],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1,
+            "units": "PICO"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 3
+      },
+      "labels": [
+        {
+          "name": "B",
+          "value": "123"
+        }
+      ],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1,
+            "units": "PICO"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    }
+  ]
+}

@@ -15,4 +15,6 @@ public interface PlateTypeStorage extends CRUDStorage<PlateType> {
      * @param dim
      */
     PlateTypes findGreaterThanOrEqualTo(PlateDimension dim, Integer page);
+
+    PlateType getByName(String plateTypeName);
 }

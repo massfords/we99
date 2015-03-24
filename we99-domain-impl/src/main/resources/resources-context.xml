@@ -17,6 +17,8 @@
     </bean>
     <bean id="platesResource" class="edu.harvard.we99.services.experiments.PlatesResourceImpl" scope="prototype">
         <constructor-arg ref="plateStorage"/>
+        <constructor-arg ref="compoundStorage"/>
+        <constructor-arg ref="plateTypeStorage"/>
         <lookup-method name="createPlateResource" bean="plateResource"/>
     </bean>
     <bean id="plateResource" class="edu.harvard.we99.services.experiments.PlateResourceImpl" scope="prototype">

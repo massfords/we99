@@ -42,6 +42,13 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
     }
 
     @Override
+    public PlateType getByName(String plateTypeName) {
+        JPAQuery query = new JPAQuery(em);
+        query.from(QPlateTypeEntity.plateTypeEntity).where(QPlateTypeEntity.plateTypeEntity.name.eq(plateTypeName));
+        return Mappers.PLATETYPE.map(query.uniqueResult(QPlateTypeEntity.plateTypeEntity));
+    }
+
+    @Override
     public PlateTypes findGreaterThanOrEqualTo(PlateDimension dim, Integer page) {
 
         JPAQuery query = new JPAQuery(em);

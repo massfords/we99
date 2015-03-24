@@ -3,23 +3,25 @@
         xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03">
 
     <!-- 'format' identifies the type of stream -->
-    <stream name="wellMaps" format="csv">
+    <stream name="well" format="csv">
         <parser>
             <property name="comments" value="#"/>
             <property name="whitespaceAllowed" value="true"/>
         </parser>
         <!-- Detail records are bound to example.Contact -->
-        <record name="wellMap" class="edu.harvard.we99.domain.WellMap">
+        <record name="well" class="edu.harvard.we99.services.io.WellRow">
             <segment name="coordinate" class="edu.harvard.we99.domain.Coordinate">
                 <field name="row" required="true" trim="true"/>
                 <field name="col" required="true" trim="true"/>
             </segment>
-            <field name="type" required="false" trim="true"/>
-            <segment name="labels" class="edu.harvard.we99.domain.Label"
-                     collection="java.util.LinkedHashSet" minOccurs="0" maxOccurs="unbounded">
+            <field name="type" required="true" trim="true"/>
+            <segment name="label" class="edu.harvard.we99.domain.Label">
                 <field name="name" required="true" trim="true"/>
                 <field name="value" required="true" trim="true"/>
             </segment>
+            <field name="compoundName" required="true" trim="true"/>
+            <field name="amount" required="true" trim="true"/>
+            <field name="units" required="true" trim="true"/>
         </record>
     </stream>
 </beanio>
