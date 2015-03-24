@@ -22,6 +22,7 @@ import java.io.File;
         GuestAccessST.class,
         CompoundServiceST.class,
         PlateMapImportST.class,
+        PlateImportST.class,
         PlateResultServiceST.class,
         PlateResultServiceListingST.class,
         ExperimentServiceST.class
