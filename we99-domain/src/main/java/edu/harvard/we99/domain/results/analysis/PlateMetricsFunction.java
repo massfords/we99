@@ -44,13 +44,13 @@ public class PlateMetricsFunction implements Function<List<WellResults>, List<Pl
                     mean,
                     wellResults -> wellTypes.get(wellResults.getCoordinate()) == WellType.NEGATIVE).apply(wrList));
 
-            pm.setZee(new SinglePlateMetricsFunction(s,
-                    mean, // todo replace with Zee function calculation, assuming only applies to wells with Compounds?
+            pm.setZee(new ZeeFactorFunction(s,
+                    wellResults -> wellTypes.get(wellResults.getCoordinate()) == WellType.POSITIVE,
                     wellResults -> wellTypes.get(wellResults.getCoordinate()) == WellType.COMP).apply(wrList));
 
-            pm.setZeePrime(new SinglePlateMetricsFunction(s,
-                    mean, // todo replace with ZeePrime function calculation, assuming only applies to wells with Compounds?
-                    wellResults -> wellTypes.get(wellResults.getCoordinate()) == WellType.COMP).apply(wrList));
+            pm.setZeePrime(new ZeeFactorFunction(s,
+                    wellResults -> wellTypes.get(wellResults.getCoordinate()) == WellType.POSITIVE,
+                    wellResults -> wellTypes.get(wellResults.getCoordinate()) == WellType.NEGATIVE).apply(wrList));
 
             list.add(pm);
         }
