@@ -124,16 +124,16 @@
       },
       {
         "coordinate": {
-          "row": 200,
-          "col": 200
+          "row": 199,
+          "col": 199
         },
         "labels": [],
         "type": "EMPTY"
       }
     ],
     "dim": {
-      "rows": 201,
-      "cols": 201
+      "rows": 200,
+      "cols": 200
     }
   },
   "matchingPlateTypes": []

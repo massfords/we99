@@ -4,7 +4,7 @@
     "name": "experimentuuid",
     "labels": [],
     "status": "PRIVATE",
-    "created": "2015-03-24T17:43:25.800-04:00"
+    "created": "iso8601"
   },
   "labels": [],
   "wells": [
@@ -160,6 +160,6 @@
       "cols": 12
     },
     "manufacturer": "Corning",
-    "link": "http://www.coleparmer.com/Product/Corning_Plate_96_Well_ps_round_100_cs_Clear/UX-01728-07"
+    "orderLink": "http://www.coleparmer.com/Product/Corning_Plate_96_Well_ps_round_100_cs_Clear/UX-01728-07"
   }
 }

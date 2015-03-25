@@ -137,7 +137,7 @@
         "cols": 12
       },
       "manufacturer": "Corning",
-      "link": "http://www.coleparmer.com/Product/Corning_Plate_96_Well_ps_round_100_cs_Clear/UX-01728-07"
+      "orderLink": "http://www.coleparmer.com/Product/Corning_Plate_96_Well_ps_round_100_cs_Clear/UX-01728-07"
     },
     {
       "name": "BrandTech 384",
@@ -147,7 +147,7 @@
         "cols": 24
       },
       "manufacturer": "BrandTech",
-      "link": "http://www.universalmedicalinc.com/BrandTech-384-Well-Plate-pureGrade-Non-Treated-p/781620-UMI.htm"
+      "orderLink": "http://www.universalmedicalinc.com/BrandTech-384-Well-Plate-pureGrade-Non-Treated-p/781620-UMI.htm"
     },
     {
       "name": "ptuuid",

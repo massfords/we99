@@ -1,14 +1,6 @@
 {
   "plate": {
     "name": "plateuuid",
-    "plateType": {
-      "name": "ptuuid",
-      "dim": {
-        "rows": 10,
-        "cols": 10
-      },
-      "manufacturer": "Foo Inc."
-    },
     "experiment": {
       "name": "experimentuuid",
       "labels": [],
@@ -917,7 +909,15 @@
         "type": "COMP",
         "contents": []
       }
-    ]
+    ],
+    "plateType": {
+      "name": "ptuuid",
+      "dim": {
+        "rows": 10,
+        "cols": 10
+      },
+      "manufacturer": "Foo Inc."
+    }
   },
   "created": "iso8601",
   "wellResults": [
@@ -1077,8 +1077,8 @@
       "label": "A",
       "avgPositive": null,
       "avgNegative": null,
-      "zee": 0.0,
-      "zeePrime": 0.0
+      "zee": null,
+      "zeePrime": null
     }
   ]
 }
