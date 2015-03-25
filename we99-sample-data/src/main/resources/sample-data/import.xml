@@ -15,7 +15,7 @@
                 <field name="cols" required="true" trim="true"/>
             </segment>
             <field name="manufacturer" required="true" trim="true"/>
-            <field name="link" required="false" trim="true"/>
+            <field name="orderLink" required="false" trim="true"/>
             <field name="description" required="false" trim="true"/>
         </record>
     </stream>

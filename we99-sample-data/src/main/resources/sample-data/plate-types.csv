@@ -3,7 +3,7 @@
 # CSV file for plate types. This is only loaded into the database if we're
 # initializing the db because it's empty.
 #
-# name, rows, cols, manufacturer, link, description
+# name, rows, cols, manufacturer, orderLink, description
 # -----------------------------------------------------------------------------
 Corning-3788, 8, 12, Corning, http://www.coleparmer.com/Product/Corning_Plate_96_Well_ps_round_100_cs_Clear/UX-01728-07, Clear high-grade polystyrene for research diagnostic assays Formulated for uniform binding\, high optical clarity\, and low background absorption
 BrandTech 384, 16, 24, BrandTech, http://www.universalmedicalinc.com/BrandTech-384-Well-Plate-pureGrade-Non-Treated-p/781620-UMI.htm, pureGrade BRANDplates feature non-treated\, non-sterile surface for use in a variety of laboratory tasks\, such as homogeneous assays\, screening and storage
