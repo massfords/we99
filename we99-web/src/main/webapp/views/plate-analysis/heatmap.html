@@ -1,58 +1,6 @@
 <style>
 
-  #list-box {
-    height: 258px;
-    width: 618px;
-    border: 1px solid lightgray;
-    padding: 6px;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-  }
 
-  #display-box {
-    height: 300px;
-    width: 300px;
-    float: left;
-  }
-
-  #list-box .heatmap-title {
-    font-size: 10px;
-    text-anchor: left;
-  }
-
-  #list-box svg:hover {
-    border: 2px solid black;
-
-  }
-
-  #display-container {
-    margin-top: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    width: 700px;
-    maring-bottom: 15px;
-  }
-
-  .assay-summary,
-  .legend{
-    border: 1px solid black;
-    float: left;
-  }
-
-  .assay-summary{
-    padding: 5px;
-    font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
-    font-weight: 500;
-    background: linen;
-    margin-left: 5px;
-  }
-
-  .legend{
-    padding: 10px;
-    margin-right: 5px;
-  }
 </style>
 <div id="controls">
   Select Experiment:
@@ -62,7 +10,6 @@
 </div>
 <div id="display-container">
   <div class="legend">
-
     <p>
       <svg style="width: 25px; height: 25px">
         <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)"></rect>
@@ -93,7 +40,7 @@
     </p>
   </div>
   <div id="display-wrapper">
-    <svg id="display-box"></svg>
+    <svg id="display-box" class="heatmap-display-box"></svg>
   </div>
   <div class="assay-summary">
     <p>Plate: {{ data[selectedIndex].name }}</p>
@@ -108,10 +55,10 @@
 <div style="text-align: center">
 
   Showing results {{ pagination.from }} to {{ pagination.to }} of {{ pagination.of}}
-  <button ng-click="doPaging('PREV')" type="button" class="btn btn-default" aria-label="Left Align">
+  <button ng-click="pagination.doPaging('PREV')" type="button" class="btn btn-default" aria-label="Left Align">
     <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
   </button>
-  <button ng-click="doPaging('NEXT')" type="button" class="btn btn-default" aria-label="Left Align">
+  <button ng-click="pagination.doPaging('NEXT')" type="button" class="btn btn-default" aria-label="Left Align">
     <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
   </button>
 

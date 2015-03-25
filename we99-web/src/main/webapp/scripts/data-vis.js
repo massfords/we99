@@ -83,6 +83,8 @@ DataVis.prototype.colorScale =  function(params){
  */
 DataVis.prototype.renderSingleHeatMap = function(params){
 
+
+
   // Merge in defaults.
   var defaults = {
     mapClass: "heatmap",
@@ -91,7 +93,8 @@ DataVis.prototype.renderSingleHeatMap = function(params){
     colorScale: null,
     title: null,
     mapFormat: {
-      margin: 2,
+      margin_x: 2,
+      margin_y: 2,
       fixedsize_x: null,
       fixedsize_y: null
     },
@@ -99,7 +102,12 @@ DataVis.prototype.renderSingleHeatMap = function(params){
       cellMargin: 3,
       cellSize: 30
     },
-    onCellClick: null
+    onCellClick: null,
+    onMouseDown: null,
+    onMouseUp: null,
+    onMouseMove: null,
+    rowLabels: null,
+    colLabels: null
   };
   $.extend(true, defaults, params );
   params = defaults;
@@ -114,31 +122,90 @@ DataVis.prototype.renderSingleHeatMap = function(params){
       .append('g')
       .attr('class', params.mapClass);
 
-  // Compute missing input
+  // Compute color scale if missing.
   if(!params.colorScale){
     params.colorScale = this.colorScale({
       data: params.data.map(function(d) {return d.value; })
     });
   };
 
+  // Determine number of rows and columns.
+  var rows = d3.max(params.data.map(function(d) {return d.row; })) + 1;
+  var cols = d3.max(params.data.map(function(d) {return d.col; })) + 1;
+
   // If fixed size is enabled then derive the cell size to fit the space.
   if(params.mapFormat.fixedsize_x & params.mapFormat.fixedsize_y) {
 
-    // Determine number of rows and columns.
-    var rows = d3.max(params.data.map(function(d) {return d.row; })) + 1;
-    var cols = d3.max(params.data.map(function(d) {return d.col; })) + 1;
-
-    if( ( params.mapFormat.fixedsize_x * params.cellFormat.cellMargin ) / rows >
-      ( params.mapFormat.fixedsize_y * params.cellFormat.cellMargin) / cols ) {
-      // Rows are the limiting factor... so fit to rows.
-      params.cellFormat.cellSize = ( (params.mapFormat.fixedsize_x + (params.mapFormat.margin * 2) ) / rows ) ;
+    if(  params.mapFormat.fixedsize_x / cols >
+         params.mapFormat.fixedsize_y / rows ) {
+      // Cols are the limiting factor.
+      params.cellFormat.cellSize = ( (params.mapFormat.fixedsize_x  + (params.mapFormat.margin_x * 2) ) / cols ) -  params.cellFormat.cellMargin;
     }else{
-      // They are equally spaced or cols are the limiting factor.
-      params.cellFormat.cellSize = ( (params.mapFormat.fixedsize_y + (params.mapFormat.margin * 2) ) / cols) ;
+      // Rows are the limiting factor.
+      params.cellFormat.cellSize = ( (params.mapFormat.fixedsize_y + (params.mapFormat.margin_y * 2) ) / rows) -  params.cellFormat.cellMargin;
     }
 
+  }else if(params.mapFormat.fixedsize_x){
+    params.cellFormat.cellSize = ( (params.mapFormat.fixedsize_x  + (params.mapFormat.margin_x * 2) ) / cols ) -  params.cellFormat.cellMargin;
   }
+  else if(params.mapFormat.fixedsize_y){
+    params.cellFormat.cellSize = ( (params.mapFormat.fixedsize_y + (params.mapFormat.margin_y * 2) ) / rows) -  params.cellFormat.cellMargin;
+  }
+
+  params.cellFormat.cellMargin = params.cellFormat.cellMargin / 10;
   params.cellFormat.itemSize = params.cellFormat.cellMargin + params.cellFormat.cellSize;
+
+  // Write row labels.
+  var rowTextWidth = 0;
+  if(params.rowLabels){
+    displaySvg.selectAll("text.rowlabels")
+      .data(params.rowLabels).enter()
+      .append("text")
+      .attr("class", "rowlabels")
+      .text(function(d) {
+        rowTextWidth = Math.max(rowTextWidth, d.length);
+        return d;
+      })
+      .attr("x", function(d){
+        return params.mapFormat.margin_x;
+      })
+      .attr("y", function(d, i){
+        return (i * params.cellFormat.itemSize) + 16 + params.mapFormat.margin_y;
+      })
+      .attr("font-family", "Arial Black")
+      .attr("font-size", function(){ return params.cellFormat.itemSize / 2.5;})
+      .style("text-anchor", "right")
+
+    rowTextWidth = rowTextWidth * 4;
+  }
+  params.mapFormat.margin_y = params.mapFormat.margin_y + rowTextWidth;
+
+  // Col labels
+  var colHeight = 0;
+  if(params.colLabels){
+
+    displaySvg.selectAll("text.collabels")
+      .data(params.colLabels).enter()
+      .append("text")
+      .attr("class", "collabels")
+      .text(function(d) {return d;})
+      .attr("x", function(d, i){
+
+        return (i * params.cellFormat.itemSize) + 16 + params.mapFormat.margin_x;
+
+      })
+      .attr("y", function(d, i){
+        return params.mapFormat.margin_y;
+
+      })
+      .attr("font-family", "Arial Black")
+      .attr("font-size", function(){ return params.cellFormat.itemSize / 2.5;})
+      .style("text-anchor", "middle")
+
+    colHeight = 16;
+  }
+  params.mapFormat.margin_x = params.mapFormat.margin_x + colHeight;
+
 
   // Draw rectangles
   var rect = displaySvg.selectAll('rect')
@@ -147,10 +214,10 @@ DataVis.prototype.renderSingleHeatMap = function(params){
     .attr('width', params.cellFormat.cellSize )
     .attr('height', params.cellFormat.cellSize )
     .attr('x',function(d) {
-      return params.mapFormat.margin + (params.cellFormat.itemSize * d.col);
+      return params.mapFormat.margin_x + (params.cellFormat.itemSize * d.col);
     })
     .attr('y',function(d) {
-      return params.mapFormat.margin + (params.cellFormat.itemSize * d.row);
+      return params.mapFormat.margin_y + (params.cellFormat.itemSize * d.row);
     })
     .attr('fill',function(d) { return params.colorScale(d.value); })
     .attr("style", function(d) {
@@ -163,7 +230,10 @@ DataVis.prototype.renderSingleHeatMap = function(params){
         return "stroke-width:2;stroke:rgb(192,192,192)";
       }
     })
-    .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } );
+    .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } )
+    .on('mouseup', function(d) { if(params.onMouseUp) {params.onMouseUp(d); } } )
+    .on('mousedown', function(d) {if(params.onMouseDown) { params.onMouseDown(d);} })
+    .on('mouvemove', function() { if(params.onMouseMove) { params.onMouseMove();}});
 
   // Add Text
 
@@ -171,10 +241,10 @@ DataVis.prototype.renderSingleHeatMap = function(params){
     .data(params.data).enter()
     .append('text')
     .attr("x", function(d){
-      return (params.mapFormat.margin + (params.cellFormat.itemSize * d.col) + (params.cellFormat.itemSize / 2));
+      return (params.mapFormat.margin_x + (params.cellFormat.itemSize * d.col) + (params.cellFormat.itemSize / 2));
     })
     .attr("y", function(d){
-      return (params.mapFormat.margin + (params.cellFormat.itemSize * d.row)) + (params.cellFormat.itemSize / 2);
+      return (params.mapFormat.margin_y + (params.cellFormat.itemSize * d.row)) + (params.cellFormat.itemSize / 2);
     })
     .attr("font-family", "Arial Black")
     .attr("font-size", function(){ return params.cellFormat.itemSize / 2.5;})
@@ -201,9 +271,9 @@ DataVis.prototype.renderSingleHeatMap = function(params){
     var maxCol = d3.max(params.data.map(function(d) {return d.col; })) + 1;
 
     var y = ( maxRow * ( params.cellFormat.cellSize + params.cellFormat.cellMargin ) )
-      + (params.mapFormat.margin * 2) + 12;
+      + (params.mapFormat.margin_y * 2) + 12;
 
-    var x = params.mapFormat.margin +
+    var x = params.mapFormat.margin_x +
       ( maxCol * ( params.cellFormat.cellSize + params.cellFormat.cellMargin ) ) / 2;
 
     displaySvg.selectAll('text.heatmap-title')
@@ -215,10 +285,17 @@ DataVis.prototype.renderSingleHeatMap = function(params){
       .attr("class","heatmap-title")
       .style("text-anchor", "middle");
   }
+
+  return {
+    x: params.mapFormat.margin_x,
+    y: params.mapFormat.margin_y,
+    width: params.cellFormat.itemSize * cols,
+    height: params.cellFormat.itemSize * rows
+  };
+
 };
 
 DataVis.prototype.addDarkOverlay = function(params){
-
   var defaults = {
     color: 'rgba(0, 0, 0, 0.2)',
     offset_x: 0,
@@ -265,7 +342,50 @@ DataVis.prototype.heatMapColorGuide = function(params){
     .data(values).enter()
     .append("text")
     .attr("x","30")
-    .attr("y", function(d,i) {return (i * 30) - 10; })
+    .attr("y", function(d,i) {return (i * 24) + 16; })
     .text(function(d) {return Math.round(d * 1000) / 1000;})
     .style("text-anchor", "left");
+}
+
+
+DataVis.prototype.getDummmyPlateData = function (){
+
+  var dataSet = [];
+  for (var num = 0; num < 110; num++) {
+    var array = [];
+    var index = 0;
+    for (var i = 0; i < 9; i++) {
+      for (var j = 0; j < 9; j++) {
+
+        array.push({
+          wellIndex: index++,
+          row: i,
+          col: j,
+          value: Math.random(),
+          included: true,
+          wellType: "NORMAL"
+        });
+
+        if(Math.random() <= 0.05){
+          array[array.length - 1].wellType = "CONTROL";
+        }
+
+      }
+    }
+    dataSet[num] = array;
+  };
+
+  return {
+    dataSets: dataSet.map(function (d) {
+      var result = {
+        data: d,
+        name: "A" + String(Math.round(Math.random() * 400)),
+        z: Math.round(Math.random() * 100) / 100,
+        z_prime: Math.round(Math.random() * 100) / 100,
+        pos_avg: Math.round(Math.random() * 100) / 100,
+        neg_avg: Math.round(Math.random() * 100) / 100
+      };
+      return result;
+    })
+  };
 }

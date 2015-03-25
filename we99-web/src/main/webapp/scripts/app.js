@@ -46,6 +46,10 @@ angular
         templateUrl: 'views/plate-analysis/heatmap.html',
         controller: 'HeatmapCtrl'
       })
+      .when('/omnimap', {
+        templateUrl: 'views/plate-analysis/omnimap.html',
+        controller: 'OmniMapCtrl'
+      })
       .when('/experiment', {
         templateUrl: 'views/experiment/experimentList.html',
         controller: 'ExperimentListCtrl'

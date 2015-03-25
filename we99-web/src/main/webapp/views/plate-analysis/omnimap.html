@@ -1,0 +1,13 @@
+
+<div id="controls">
+  Select Experiment:
+  <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
+  Coloring:
+  <select ng-model="coloring.colorOption" ng-options="opt as opt.colorName for opt in coloring.colorOptions"></select>
+  <button ng-click="resetScale()">Reset Zoom</button>
+</div>
+<div id="display-container">
+  <div id="display-wrapper">
+    <svg id="display-box" class="omnimap-display-box"></svg>
+  </div>
+</div>

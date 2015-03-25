@@ -1,0 +1,64 @@
+#list-box {
+  height: 258px;
+  width: 618px;
+  border: 1px solid lightgray;
+  padding: 6px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heatmap-display-box {
+  height: 300px;
+  width: 300px;
+  float: left;
+}
+
+.omnimap-display-box {
+  width: 800px;
+  float: left;
+}
+
+#list-box .heatmap-title {
+  font-size: 10px;
+  text-anchor: left;
+}
+
+#list-box svg:hover {
+  border: 2px solid black;
+
+}
+
+#display-container {
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 700px;
+  maring-bottom: 15px;
+}
+
+.assay-summary,
+.legend{
+  border: 1px solid black;
+  float: left;
+}
+
+.assay-summary{
+  padding: 5px;
+  font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+  font-weight: 500;
+  background: linen;
+  margin-left: 5px;
+}
+
+.legend{
+  padding: 10px;
+  margin-right: 5px;
+}
+
+.selection {
+  stroke          : black;
+  stroke-width    : 2px;
+  fill            : transparent;
+}
