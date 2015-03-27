@@ -1,0 +1,73 @@
+{
+  "mappings": [
+    {
+      "label": "A",
+      "count": 12,
+      "wellType": "COMP",
+      "dose": {
+        "amount": {
+          "number": 100,
+          "units": "MICRO"
+        },
+        "compound": {"name": "Ammonia"}
+      },
+      "dilutionFactor": 5.0,
+      "replicates": 2
+    },
+    {
+      "label": "B",
+      "count": 12,
+      "wellType": "COMP",
+      "dose": {
+        "amount": {
+          "number": 50,
+          "units": "MICRO"
+        },
+        "compound": {"name": "Nickel chloride"}
+      },
+      "dilutionFactor": 5.0,
+      "replicates": 2
+    },
+    {
+      "label": "C",
+      "count": 12,
+      "wellType": "COMP",
+      "dose": {
+        "amount": {
+          "number": 50,
+          "units": "MICRO"
+        },
+        "compound": {"name": "Potassium bromate"}
+      },
+      "dilutionFactor": 5.0,
+      "replicates": 3
+    },
+    {
+      "label": "Positive",
+      "count": 12,
+      "wellType": "POSITIVE",
+      "dose": {
+        "amount": {
+          "number": 50,
+          "units": "MICRO"
+        },
+        "compound": {"name": "xpf54"}
+      },
+      "dilutionFactor": 5.0
+    },
+    {
+      "label": "Negative",
+      "count": 12,
+      "wellType": "NEGATIVE",
+      "dose": {
+        "amount": {
+          "number": 50,
+          "units": "MICRO"
+        },
+        "compound": {"name": "brine"}
+      },
+      "dilutionFactor": 5.0,
+      "replicates": 3
+    }
+  ]
+}

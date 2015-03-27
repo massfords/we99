@@ -61,6 +61,45 @@ public class JsonTest {
                 load("/JsonTest/plateType.json")
         ));
 
+        params.add(array(
+                new PlateMapMergeInfo()
+                        .add(new WellLabelMapping()
+                                .setLabel("A")
+                                .setCount(12)
+                                .setDilutionFactor(5d)
+                                .setDose(new Dose(new Compound("Ammonia"), new Amount(100, DoseUnit.MICRO)))
+                                .setReplicates(2)
+                                .setWellType(WellType.COMP))
+                        .add(new WellLabelMapping()
+                                .setLabel("B")
+                                .setCount(12)
+                                .setDilutionFactor(5d)
+                                .setDose(new Dose(new Compound("Nickel chloride"), new Amount(50, DoseUnit.MICRO)))
+                                .setReplicates(2)
+                                .setWellType(WellType.COMP))
+                        .add(new WellLabelMapping()
+                                .setLabel("C")
+                                .setCount(12)
+                                .setDilutionFactor(5d)
+                                .setDose(new Dose(new Compound("Potassium bromate"), new Amount(50, DoseUnit.MICRO)))
+                                .setReplicates(3)
+                                .setWellType(WellType.COMP))
+                        .add(new WellLabelMapping()
+                                .setLabel("Positive")
+                                .setCount(12)
+                                .setDilutionFactor(5d)
+                                .setDose(new Dose(new Compound("xpf54"), new Amount(50, DoseUnit.MICRO)))
+                                .setWellType(WellType.POSITIVE))
+                        .add(new WellLabelMapping()
+                                .setLabel("Negative")
+                                .setCount(12)
+                                .setDilutionFactor(5d)
+                                .setDose(new Dose(new Compound("brine"), new Amount(50, DoseUnit.MICRO)))
+                                .setReplicates(3)
+                                .setWellType(WellType.NEGATIVE))
+                ,
+                load("/JsonTest/mergeInfo.json")));
+
         return params;
     }
 
