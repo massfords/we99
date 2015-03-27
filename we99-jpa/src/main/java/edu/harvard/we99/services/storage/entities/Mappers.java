@@ -82,6 +82,7 @@ public class Mappers {
                 .classMap(ExperimentEntity.class, Experiment.class)
                 .mapNullsInReverse(false)
                 .fieldAToB("labels", "labels")
+                .fieldAToB("status", "status")
                 .byDefault()
                 .register();
         mapperFactory

@@ -2,6 +2,7 @@ package edu.harvard.we99.services.experiments;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.StatusChange;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
@@ -27,7 +28,7 @@ public interface PlateResultResource {
     @POST
     @Consumes("multipart/form-data")
     @ApiOperation("Processes the uploaded CSV and returns the parsed results")
-    @PreAuthorize("hasRole('PERM_MODIFY_RESULTS')")
+    @PreAuthorize("hasRole('PERM_MODIFY_RESULTS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     PlateResult uploadResults(@Multipart("file") InputStream csv);
 
     @GET
@@ -43,11 +44,11 @@ public interface PlateResultResource {
     @Path("/update")
     @POST
     @ApiOperation("Status change on a well within the results.")
-    @PreAuthorize("hasRole('PERM_MODIFY_RESULTS')")
+    @PreAuthorize("hasRole('PERM_MODIFY_RESULTS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     @Consumes(MediaType.APPLICATION_JSON)
     PlateResult updateStatus(StatusChange statusChange);
 
-    void setExperimentId(Long experimentId);
-
     void setPlateId(Long plateId);
+    void setExperiment(Experiment experiment);
+    Experiment getExperiment();
 }

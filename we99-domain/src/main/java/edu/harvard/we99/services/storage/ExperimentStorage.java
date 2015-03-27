@@ -16,4 +16,6 @@ public interface ExperimentStorage extends CRUDStorage<Experiment> {
     void addMember(Long experimentId, Long userId);
     void removeMember(Long experimentId, Long userId);
     void addMembers(Long id, List<Long> userIds);
+
+    Experiment publish(Experiment experiment);
 }

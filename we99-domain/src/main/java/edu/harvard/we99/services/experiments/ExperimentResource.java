@@ -46,6 +46,13 @@ public interface ExperimentResource {
     @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
     Experiment update(Experiment experiment);
 
+    @Path("/publish")
+    @POST
+    @ApiOperation("Publishes the experiment which means it'll be visible to all users and also be immutable")
+    @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    Experiment publish();
+
     /**
      * Deletes an existing Experiment or throws an exception with a 404 if not found
      * @return
@@ -75,7 +82,7 @@ public interface ExperimentResource {
     @PreAuthorize("hasRole('PERM_READ_RESULTS')")
     PlateResults listResults(@QueryParam("page") @DefaultValue("0") Integer page);
 
-    public Long getId();
+    Long getId();
 
-    public void setId(Long id);
+    void setId(Long id);
 }

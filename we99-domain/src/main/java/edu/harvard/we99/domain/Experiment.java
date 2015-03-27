@@ -28,7 +28,7 @@ public class Experiment extends BaseEntity {
 
     private List<Label> labels = new ArrayList<>();
 
-    private ExperimentStatus status = ExperimentStatus.PRIVATE;
+    private ExperimentStatus status = ExperimentStatus.UNPUBLISHED;
 
     /**
      * Datetime for the creation of the experiment

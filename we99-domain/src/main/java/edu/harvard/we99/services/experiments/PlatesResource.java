@@ -5,6 +5,7 @@ import com.wordnik.swagger.annotations.ApiImplicitParam;
 import com.wordnik.swagger.annotations.ApiImplicitParams;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
+import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.Plates;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
@@ -34,7 +35,7 @@ public interface PlatesResource {
      */
     @PUT
     @ApiOperation("Creates a new plate for the experiment.")
-    @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     Plate create(Plate plate);
 
     /**
@@ -49,7 +50,7 @@ public interface PlatesResource {
     @POST
     @Consumes("multipart/form-data")
     @ApiOperation("Processes the uploaded CSV and returns a PlateMap")
-    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     @ApiImplicitParams({
             @ApiImplicitParam(name="name", value = "name of the new plate", required = true, dataType = "String", paramType = "form"),
             @ApiImplicitParam(name="plateTypeName", value = "name of the plate type", required = true, dataType = "String", paramType = "form"),
@@ -75,6 +76,6 @@ public interface PlatesResource {
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateResource getPlates(@PathParam("plateId")Long plateId);
 
-    Long getId();
-    void setId(Long id);
+    void setExperiment(Experiment experiment);
+    Experiment getExperiment();
 }

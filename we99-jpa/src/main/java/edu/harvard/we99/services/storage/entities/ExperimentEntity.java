@@ -46,7 +46,8 @@ public class ExperimentEntity {
 
     private String description;
 
-    private ExperimentStatus status;
+    @NotNull
+    private ExperimentStatus status = ExperimentStatus.UNPUBLISHED;
 
     /**
      * Datetime for the creation of the experiment

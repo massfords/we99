@@ -4,8 +4,8 @@
 #
 # name, status, protocol, desc
 # -----------------------------------------------------------------------------
-experiment uno, PRIVATE, Alpha, Experiment using the Alpha protocol
-experiment dos, PRIVATE, Beta, Experiment using the Beta protocol
-experiment tres, PRIVATE, Gamma, Experiment using the Gamma protocol
-experiment cuatro, PUBLIC, Delta, Experiment using the Delta protocol
-experiment cinco, PUBLIC, Omega, Experiment using the Omega protocol
+experiment uno, UNPUBLISHED, Alpha, Experiment using the Alpha protocol
+experiment dos, UNPUBLISHED, Beta, Experiment using the Beta protocol
+experiment tres, UNPUBLISHED, Gamma, Experiment using the Gamma protocol
+experiment cuatro, PUBLISHED, Delta, Experiment using the Delta protocol
+experiment cinco, PUBLISHED, Omega, Experiment using the Omega protocol

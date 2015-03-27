@@ -1,12 +1,14 @@
 package edu.harvard.we99.services.experiments;
 
 import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.ExperimentStatus;
 import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.services.BaseRESTServiceImpl;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
 
 import javax.annotation.Generated;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 /**
@@ -34,6 +36,16 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
     }
 
     @Override
+    public Experiment publish() {
+        Experiment experiment = get();
+        if (experiment.getStatus() != ExperimentStatus.UNPUBLISHED) {
+            throw new WebApplicationException(Response.status(409).build());
+        }
+        ExperimentStorage es = (ExperimentStorage) this.storage;
+        return es.publish(experiment);
+    }
+
+    @Override
     public Response delete() {
         deleteImpl(id);
         return Response.ok().build();
@@ -48,8 +60,9 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
 
     @Override
     public PlatesResource getPlates() {
+        Experiment experiment = get();
         PlatesResource pr = createPlatesResource();
-        pr.setId(id);
+        pr.setExperiment(experiment);
         return pr;
     }
 

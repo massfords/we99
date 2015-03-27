@@ -2,6 +2,7 @@ package edu.harvard.we99.services.storage;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.ExperimentStatus;
 import edu.harvard.we99.domain.lists.Experiments;
 import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.User;
@@ -105,6 +106,18 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     @Transactional
     public void addMembers(Long experimentId, List<Long> userIds) {
         userIds.stream().forEach(userId -> addMember(experimentId, userId));
+    }
+
+    @Override
+    @Transactional
+    public Experiment publish(Experiment experiment) {
+        ExperimentEntity ee = em.find(ExperimentEntity.class, experiment.getId());
+        if (ee == null) {
+            throw new EntityNotFoundException();
+        }
+        ee.setStatus(ExperimentStatus.PUBLISHED);
+        em.merge(ee);
+        return Mappers.EXPERIMENTS.map(ee);
     }
 
     @Override

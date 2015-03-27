@@ -2,6 +2,7 @@ package edu.harvard.we99.services.experiments;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -37,7 +38,7 @@ public interface PlateResource {
      */
     @POST
     @ApiOperation("Updates an existing plate or throws an exception with a 404 if not found.")
-    @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     Plate update(Plate plate);
 
     /**
@@ -47,7 +48,7 @@ public interface PlateResource {
      */
     @DELETE
     @ApiOperation("Deletes an existing plate or throws an exception with a 404 if not found")
-    @PreAuthorize("hasRole('PERM_MODIFY_PLATES')")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Response delete();
 
@@ -56,7 +57,7 @@ public interface PlateResource {
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateResultResource getPlateResult();
 
-    void setExperimentId(Long experimentId);
-
     void setPlateId(Long plateId);
+    void setExperiment(Experiment experiment);
+    Experiment getExperiment();
 }

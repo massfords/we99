@@ -8,7 +8,7 @@
         "experiment": {
           "name": "experimentuuid",
           "labels": [],
-          "status": "PRIVATE",
+          "status": "UNPUBLISHED",
           "created": "iso8601"
         },
         "labels": [],

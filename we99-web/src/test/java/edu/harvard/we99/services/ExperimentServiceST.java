@@ -1,21 +1,28 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Compound;
+import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.lists.Users;
+import edu.harvard.we99.domain.results.ResultStatus;
+import edu.harvard.we99.domain.results.StatusChange;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.services.experiments.MemberResource;
 import edu.harvard.we99.services.experiments.PlatesResource;
+import edu.harvard.we99.test.DisableLogging;
 import edu.harvard.we99.util.ClientFactory;
+import org.apache.cxf.interceptor.AbstractFaultChainInitiatorObserver;
+import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.net.URL;
 import java.util.HashSet;
@@ -26,6 +33,7 @@ import static edu.harvard.we99.test.BaseFixture.assertOk;
 import static edu.harvard.we99.test.BaseFixture.name;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * @author mford
@@ -33,7 +41,9 @@ import static org.junit.Assert.assertEquals;
 public class ExperimentServiceST {
 
     private static ExperimentService es;
+    private static PlateTypeService pts;
     private static User user;
+    private static PlateResultsFixture resultsFixture;
     private Experiment xp;
 
 
@@ -44,12 +54,15 @@ public class ExperimentServiceST {
 
         es = cf.create(ExperimentService.class);
         user = cf.create(UserService.class).find("we99.2015@example", 0).getValues().get(0);
+        pts = cf.create(PlateTypeService.class);
+        resultsFixture = new PlateResultsFixture();
     }
 
     @AfterClass
     public static void tearDown() throws Exception {
         es = null;
         user = null;
+        resultsFixture = null;
     }
 
     @Before
@@ -103,5 +116,33 @@ public class ExperimentServiceST {
         Long id = xp.getId();
         Response r = es.getExperiment(id).delete();
         assertEquals(200, r.getStatus());
+    }
+
+    @Test
+    public void published_are_immutable() throws Exception {
+        // create experiment
+        // create plate
+        // import results
+        // publish
+        // assert we can't make a change
+        String plateTypeName = pts.listAll(0).getValues().get(0).getName();
+        ExperimentResource experimentResource = es.getExperiment(xp.getId());
+        PlateUtils.createPlateFromCSV(xp.getId(), name("plateName"), plateTypeName,
+                getClass().getResourceAsStream("/ExperimentServiceST/plate.csv"));
+        Plate plate = experimentResource.getPlates().list(0).getValues().get(0);
+        Response r = resultsFixture.postResults(plate, "/ExperimentServiceST/results.csv");
+        assertEquals(200, r.getStatus());
+        experimentResource.publish();
+
+        // should not be able to make changes now
+        try {
+            DisableLogging.turnOff(PhaseInterceptorChain.class, AbstractFaultChainInitiatorObserver.class);
+            experimentResource.getPlates().getPlates(plate.getId()).getPlateResult().updateStatus(new StatusChange(new Coordinate(0, 0), ResultStatus.EXCLUDED));
+            fail("expected the experiment to be locked");
+        } catch (WebApplicationException e) {
+            assertEquals(403, e.getResponse().getStatus());
+        } finally {
+            DisableLogging.restoreAll();
+        }
     }
 }
