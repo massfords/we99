@@ -8,6 +8,7 @@ import edu.harvard.we99.domain.lists.Compounds;
 import edu.harvard.we99.services.storage.entities.CompoundEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.QCompoundEntity;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -34,13 +35,17 @@ public class CompoundStorageImpl implements CompoundStorage {
     protected EntityManager em;
 
     @Override
-    public Compounds listAll(Integer page) {
-
+    public Compounds listAll(Integer page, String queryString) {
         JPAQuery query = new JPAQuery(em);
-        query.from(QCompoundEntity.compoundEntity);
+        QCompoundEntity table = QCompoundEntity.compoundEntity;
+        query.from(table);
+        if (StringUtils.isNotBlank(queryString)) {
+            query.where(table.name.upper().like("%" + queryString.toUpperCase() + "%"));
+        }
+        query.orderBy(table.name.asc());
         long count = query.count();
         query.limit(pageSize()).offset(pageToFirstResult(page));
-        List<CompoundEntity> resultList = query.list(QCompoundEntity.compoundEntity);
+        List<CompoundEntity> resultList = query.list(table);
         List<Compound> compounds = new ArrayList<>();
         resultList.forEach(ce->compounds.add(Mappers.COMPOUND.map(ce)));
         return new Compounds(count, pageSize(), compounds);

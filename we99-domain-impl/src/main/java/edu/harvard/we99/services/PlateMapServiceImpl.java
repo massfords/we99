@@ -61,8 +61,8 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
     }
 
     @Override
-    public PlateMaps listAll(Integer page) {
-        return plateMapStorage().listAll(page);
+    public PlateMaps listAll(Integer page, Integer maxRows, Integer maxCols) {
+        return plateMapStorage().listAll(page, new PlateDimension(maxRows, maxCols));
     }
 
     private PlateMapStorage plateMapStorage() {

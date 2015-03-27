@@ -1,0 +1,36 @@
+{
+  "totalCount": 10,
+  "page": 100,
+  "values": [
+    {
+      "name": "Ammonia"
+    },
+    {
+      "name": "Ammonium acetate"
+    },
+    {
+      "name": "Ammonium carbonate"
+    },
+    {
+      "name": "Ammonium chloride"
+    },
+    {
+      "name": "Ammonium dichromate"
+    },
+    {
+      "name": "Ammonium hydroxide"
+    },
+    {
+      "name": "Ammonium nitrate"
+    },
+    {
+      "name": "Ammonium oxalate"
+    },
+    {
+      "name": "Ammonium sulfate"
+    },
+    {
+      "name": "Iron(II) ammonium sulfate"
+    }
+  ]
+}

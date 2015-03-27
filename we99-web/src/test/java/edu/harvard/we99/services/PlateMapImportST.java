@@ -5,10 +5,6 @@ import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.commons.io.IOUtils;
-import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.jaxrs.ext.multipart.Attachment;
-import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition;
-import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,14 +14,12 @@ import javax.ws.rs.core.Response;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.test.BaseFixture.name;
 import static org.assertj.core.util.Arrays.array;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author mford
@@ -74,19 +68,9 @@ public class PlateMapImportST {
 
     @Test
     public void createFromUpload() throws Exception {
-        WebClient client = WebClient.create(WebAppIT.WE99_URL + "/plateMap",
-                WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW, null);
-        client.type("multipart/form-data");
-        Attachment att = new Attachment("file", getClass().getResourceAsStream(input),
-                new ContentDisposition("attachment;filename=pmap.csv"));
-        Attachment name = new Attachment("name", "text/plain", name("platemap"));
-        MultipartBody body = new MultipartBody(Arrays.asList(name, att));
-        Response response = client.post(body);
-        assertEquals(200, response.getStatus());
-
+        Response response = PlateMapClientFixture.upload(input, name("platemap"));
         InputStream is = (InputStream) response.getEntity();
         String json = IOUtils.toString(is);
         assertJsonEquals(load(expected), json, Scrubbers.uuid.andThen(Scrubbers.pkey));
     }
-
 }

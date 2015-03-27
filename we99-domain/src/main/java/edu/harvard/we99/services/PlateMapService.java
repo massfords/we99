@@ -107,6 +107,9 @@ public interface PlateMapService {
 
     /**
      * Lists all existing {@link edu.harvard.we99.domain.PlateMap}
+     * @param page offset into a list of paged results
+     * @param maxRows max number of rows for the plate map. Exclude anything greater than this.
+     * @param maxCols max number of cols for the plate map. Exclude anything greater than this.
      * @return
      * @statuscode 404 If there is no PlateMap with this id
      */
@@ -114,6 +117,8 @@ public interface PlateMapService {
     @ApiOperation("Lists all existing map or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    PlateMaps listAll(@QueryParam("page") @DefaultValue("0") Integer page);
+    PlateMaps listAll(@QueryParam("page") @DefaultValue("0") Integer page,
+                      @QueryParam("rows") @DefaultValue("999999") Integer maxRows,
+                      @QueryParam("rows") @DefaultValue("999999") Integer maxCols);
 
 }

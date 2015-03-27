@@ -25,6 +25,7 @@ import java.io.File;
         PlateImportST.class,
         PlateResultServiceST.class,
         PlateResultServiceListingST.class,
+        PlateMapListST.class,
         ExperimentServiceST.class
 })
 public class WebAppIT {

@@ -1,6 +1,7 @@
 package edu.harvard.we99.services.storage;
 
 import com.mysema.query.jpa.impl.JPAQuery;
+import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.domain.lists.PlateMaps;
@@ -32,15 +33,18 @@ public class PlateMapStorageImpl implements PlateMapStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public PlateMaps listAll(Integer page) {
+    public PlateMaps listAll(Integer page, PlateDimension dim) {
 
         JPAQuery query = new JPAQuery(em);
-        query.from(QPlateMapEntity.plateMapEntity);
+        QPlateMapEntity plateMaps = QPlateMapEntity.plateMapEntity;
+        query.from(plateMaps)
+                .where(plateMaps.dim.rows.loe(dim.getRows())
+                        .and(plateMaps.dim.cols.loe(dim.getCols())));
         long count = query.count();
         query.limit(pageSize()).offset(pageToFirstResult(page));
 
         List<PlateMap> list = new ArrayList<>();
-        List<PlateMapEntity> resultList = query.list(QPlateMapEntity.plateMapEntity);
+        List<PlateMapEntity> resultList = query.list(plateMaps);
         resultList.forEach(pme -> list.add(Mappers.PLATEMAP.map(pme)));
         return new PlateMaps(count, page, list);
     }
