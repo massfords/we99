@@ -59,9 +59,9 @@ public class PlateWizardST {
         // ---------------------------------------------------------------------
         PlateType plateType = pts.create(
                 new PlateType()
-                        .withName(name("type"))
-                        .withManufacturer("Foo Inc")
-                        .withDim(new PlateDimension(10, 10))
+                        .setName(name("type"))
+                        .setManufacturer("Foo Inc")
+                        .setDim(new PlateDimension(10, 10))
         );
 
         // ---------------------------------------------------------------------

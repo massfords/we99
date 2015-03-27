@@ -66,7 +66,7 @@ public class PlateResultResourceImpl implements PlateResultResource {
 
         PlateResultCSVReader reader = new PlateResultCSVReader();
         PlateResult pr = reader.read(new BufferedReader(new StringReader(source)));
-        pr.setPlate(new Plate().withId(plateId).withExperiment(experiment));
+        pr.setPlate(new Plate().setId(plateId).setExperiment(experiment));
         pr.setSource(source);
         pr.setMetrics(compute(pr));
         return resultStorage.create(pr);

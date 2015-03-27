@@ -18,7 +18,7 @@ import static org.junit.Assert.assertSame;
  * @author mford
  */
 public class UsersMapperTest {
-    RoleEntity testRole = new RoleEntity().withId(500L).withName(new RoleName("junit"));
+    RoleEntity testRole = new RoleEntity().setId(500L).setName(new RoleName("junit"));
 
     // we'll ignore this role when converting from domain to entity
     Role adminRoleFromClient = new Role(new RoleName(RoleName.BuiltIn.Admin.name()));
@@ -62,24 +62,24 @@ public class UsersMapperTest {
 
     private UserEntity makeEntity() {
         UserEntity userEntity = new UserEntity()
-                .withId(250L)
-                .withRole(testRole)
-                .withFirstName("Jon")
-                .withLastName("Smith")
-                .withEmail("foo@example.com")
-                .withPassword("abcd");
+                .setId(250L)
+                .setRole(testRole)
+                .setFirstName("Jon")
+                .setLastName("Smith")
+                .setEmail("foo@example.com")
+                .setPassword("abcd");
         // setup an experiment to test the unidirectional mapping of just the id's
         userEntity.setExperiments(Collections.singletonMap(123L, new ExperimentEntity("foo")));
         return userEntity;
     }
 
     private User makeUser() {
-        User user = new User().withId(100L)
-                .withFirstName("Jon123")
-                .withLastName("Smith456")
-                .withEmail("foo789@example.com")
-                .withRole(adminRoleFromClient)
-                .withPassword("foo");
+        User user = new User().setId(100L)
+                .setFirstName("Jon123")
+                .setLastName("Smith456")
+                .setEmail("foo789@example.com")
+                .setRole(adminRoleFromClient)
+                .setPassword("foo");
         // the experiments shouldn't be mapped from a domain to an entity
         user.setExperiments(Collections.singleton(999L));
         return user;

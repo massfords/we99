@@ -25,14 +25,14 @@ import static org.junit.Assert.assertSame;
  */
 public class PlateMapperTest {
 
-    private final PlateType plateType = new PlateType().withId(250L)
-            .withDim(new PlateDimension(10, 20))
-            .withName("foo").withManufacturer("Man1");
+    private final PlateType plateType = new PlateType().setId(250L)
+            .setDim(new PlateDimension(10, 20))
+            .setName("foo").setManufacturer("Man1");
 
     private final PlateTypeEntity plateTypeEntity =
-            new PlateTypeEntity().withId(250L)
-            .withDim(new PlateDimension(10, 20))
-            .withName("foo").withManufacturer("Man1");
+            new PlateTypeEntity().setId(250L)
+            .setDim(new PlateDimension(10, 20))
+            .setName("foo").setManufacturer("Man1");
 
     private final Compound compound = new Compound(500L, "comp1");
 
@@ -80,41 +80,41 @@ public class PlateMapperTest {
         PlateEntity pe = makePlateEntity();
         Coordinate coord = new Coordinate(1, 2);
         pe.getWells().put(coord, new WellEntity()
-                .withId(1234L)
-                .withType(WellType.COMP)
-                .withLabel("A", "123")
-                .withCoordinate(new Coordinate(1, 2)));
+                .setId(1234L)
+                .setType(WellType.COMP)
+                .setLabel("A", "123")
+                .setCoordinate(new Coordinate(1, 2)));
         Plate map = Mappers.PLATES.map(pe);
         assertJsonEquals(load("/Mappers/plate.json"), toJsonString(map));
     }
 
     private PlateEntity makePlateEntity() {
         return new PlateEntity()
-                .withId(300L)
-                .withBarcode("456D")
-                .withDescription("foo123")
-                .withName("pe").withPlateType(plateTypeEntity);
+                .setId(300L)
+                .setBarcode("456D")
+                .setDescription("foo123")
+                .setName("pe").setPlateType(plateTypeEntity);
     }
 
     private Plate makePlate(Well well) {
         return new Plate()
-                .withId(100L)
-                .withBarcode("abc123")
-                .withPlateType(plateType)
-                .withDescription("desc")
-                .withName("plate1")
+                .setId(100L)
+                .setBarcode("abc123")
+                .setPlateType(plateType)
+                .setDescription("desc")
+                .setName("plate1")
                 .withWells(well);
     }
 
     private Well makeWell() {
         return new Well(1, 2)
-                .withId(1234L)
-                .withType(WellType.COMP)
+                .setId(1234L)
+                .setType(WellType.COMP)
                 .dose(
                         new Dose()
-                                .withId(300L)
-                                .withCompound(compound)
-                                .withAmount(new Amount(10, DoseUnit.NANO))
+                                .setId(300L)
+                                .setCompound(compound)
+                                .setAmount(new Amount(10, DoseUnit.NANO))
                 );
     }
 }

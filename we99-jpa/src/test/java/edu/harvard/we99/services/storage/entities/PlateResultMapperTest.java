@@ -28,20 +28,20 @@ public class PlateResultMapperTest {
     public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     private final PlateTypeEntity plateTypeEntity =
-            new PlateTypeEntity().withId(250L)
-                    .withDim(new PlateDimension(5, 5))
-                    .withName("foo").withManufacturer("Man1");
+            new PlateTypeEntity().setId(250L)
+                    .setDim(new PlateDimension(5, 5))
+                    .setName("foo").setManufacturer("Man1");
 
     @Test
     public void entityToDomain() throws Exception {
         List<SampleEntity> samples = new ArrayList<>();
         samples.add(new SampleEntity()
-                .withId(12L)
-                .withComments("sample comments")
-                .withLabel("ABCD")
-                .withMeasuredAt(new DateTime("2015-02-03T04:05:30"))
-                .withStatus(ResultStatus.EXCLUDED)
-                .withValue(123.456D));
+                .setId(12L)
+                .setComments("sample comments")
+                .setLabel("ABCD")
+                .setMeasuredAt(new DateTime("2015-02-03T04:05:30"))
+                .setStatus(ResultStatus.EXCLUDED)
+                .setValue(123.456D));
 
         Map<Coordinate, WellResultsEntity> resultsMap = new HashMap<>();
 
@@ -51,20 +51,20 @@ public class PlateResultMapperTest {
                 Coordinate coord = new Coordinate(row, col);
                 resultsMap.put(coord,
                         new WellResultsEntity()
-                                .withId(id++)
-                                .withCoordinate(coord)
-                                .withResultStatus(ResultStatus.INCLUDED)
-                                .withSamples(samples));
+                                .setId(id++)
+                                .setCoordinate(coord)
+                                .setResultStatus(ResultStatus.INCLUDED)
+                                .setSamples(samples));
             }
         }
 
         PlateResultEntity pre = new PlateResultEntity()
-                .withId(100L)
-                .withComments("comments")
-                .withCreated(new DateTime("2015-01-02T10:20:30"))
-                .withSource("source should be ignored")
-                .withPlate(makePlateEntity())
-                .withWellResults(resultsMap)
+                .setId(100L)
+                .setComments("comments")
+                .setCreated(new DateTime("2015-01-02T10:20:30"))
+                .setSource("source should be ignored")
+                .setPlate(makePlateEntity())
+                .setWellResults(resultsMap)
                 ;
         PlateResult pr = Mappers.PLATERESULT.map(pre);
         assertJsonEquals(load("/Mappers/plateResult.json"), toJsonString(pr));
@@ -72,15 +72,15 @@ public class PlateResultMapperTest {
 
     private PlateEntity makePlateEntity() {
         PlateEntity plateEntity = new PlateEntity()
-                .withId(300L)
-                .withBarcode("456D")
-                .withDescription("foo123")
-                .withName("pe").withPlateType(plateTypeEntity);
+                .setId(300L)
+                .setBarcode("456D")
+                .setDescription("foo123")
+                .setName("pe").setPlateType(plateTypeEntity);
 
         Map<Coordinate,WellEntity> wells = new HashMap<>();
         for(int row=0; row<plateEntity.getPlateType().getDim().getRows(); row++) {
             for(int col=0; col<plateEntity.getPlateType().getDim().getCols(); col++) {
-                wells.put(new Coordinate(row, col), new WellEntity(row,col).withType(WellType.COMP));
+                wells.put(new Coordinate(row, col), new WellEntity(row,col).setType(WellType.COMP));
             }
         }
         plateEntity.setWells(wells);

@@ -61,7 +61,7 @@ public class CreateAccountServiceST {
 
         // 4. assert that we can verify the new account
         String uuid = extractUUID(body);
-        User user = cas.verifyAccount(uuid, new User().withEmail(email));
+        User user = cas.verifyAccount(uuid, new User().setEmail(email));
         assertNotNull(user);
         Function<String, String> scrubber = Scrubbers.uuid.andThen(Scrubbers.pkey)
                 .andThen(Scrubbers.perms);
@@ -71,7 +71,7 @@ public class CreateAccountServiceST {
         // 5. set the password for the account
         String password = "password1234";
         Response actived = cas.activateAccount(uuid,
-                new User().withEmail(email).withPassword(password));
+                new User().setEmail(email).setPassword(password));
         assertEquals(200, actived.getStatus());
 
         // 6. get our user bean to verify that we now have access

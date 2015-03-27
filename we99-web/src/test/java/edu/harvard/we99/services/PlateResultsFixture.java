@@ -36,9 +36,9 @@ public class PlateResultsFixture {
         PlateTypeService plateTypeService = cf.create(PlateTypeService.class);
         plateType = plateTypeService.create(
                 new PlateType()
-                        .withDim(new PlateDimension(10, 10))
-                        .withName(name("pt"))
-                        .withManufacturer("Foo Inc.")
+                        .setDim(new PlateDimension(10, 10))
+                        .setName(name("pt"))
+                        .setManufacturer("Foo Inc.")
         );
         experimentService = cf.create(ExperimentService.class);
     }
@@ -57,7 +57,7 @@ public class PlateResultsFixture {
 
         for(int row=0; row<plateType.getDim().getRows(); row++) {
             for(int col=0; col<plateType.getDim().getCols(); col++) {
-                wells.add(new Well(row, col).withType(WellType.COMP).withLabel("A", "A"));
+                wells.add(new Well(row, col).setType(WellType.COMP).withLabel("A", "A"));
             }
         }
 

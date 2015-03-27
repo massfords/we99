@@ -94,7 +94,7 @@ public class PlateMapStorageImpl implements PlateMapStorage {
             List<LabelEntity> labels = wm.getLabels().stream().map(Mappers.LABEL::mapReverse).collect(Collectors.toList());
             labels.forEach(lbl->lbl.setId(null));
             labels.forEach(em::merge);
-            pme.getWells().get(wm.getCoordinate()).withLabels(labels);
+            pme.getWells().get(wm.getCoordinate()).setLabels(labels);
         }
 
         pme.getWells().values().forEach(em::merge);

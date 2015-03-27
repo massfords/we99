@@ -49,15 +49,15 @@ public class ResultServiceImplIT extends JpaSpringFixture {
         Experiment exp = experimentService.create(new Experiment(name("xp")));
         PlateType pt = plateTypeService.create(
                 new PlateType()
-                        .withName(name("PlateType"))
-                        .withDim(new PlateDimension(5,5))
-                        .withManufacturer(name("Man")));
+                        .setName(name("PlateType"))
+                        .setDim(new PlateDimension(5,5))
+                        .setManufacturer(name("Man")));
         PlatesResource pr = experimentService.getExperiment(exp.getId()).getPlates();
         Plate plate = pr.create(
                 new Plate()
-                        .withName(name("Plate"))
+                        .setName(name("Plate"))
                         .withWells(makeWells(5, 5))
-                        .withPlateType(pt)
+                        .setPlateType(pt)
         );
 
         PlateResource plates = pr.getPlates(plate.getId());
@@ -95,7 +95,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
             for(int col=0; col< colCount; col++) {
                 wells.add(
                         new Well(row, col)
-                                .withType(WellType.EMPTY)
+                                .setType(WellType.EMPTY)
                 );
             }
         }

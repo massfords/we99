@@ -1,12 +1,13 @@
 package edu.harvard.we99.domain.results.analysis;
 
+import edu.harvard.we99.domain.results.WellResults;
+import org.apache.commons.math3.stat.StatUtils;
+import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
+
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import edu.harvard.we99.domain.results.WellResults;
-import org.apache.commons.math3.stat.StatUtils;
-import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 
 /**
  * The ZeeFactorFunction is used to calculate the Z'(Z Prime) and Z Factor.
@@ -29,8 +30,6 @@ public class ZeeFactorFunction implements Function<List<WellResults>,Double> {
 
     }
 
-
-
     private double[] getGroupResults(List<WellResults> group) {
         List<Double> collect = group.stream()
                 .map(wr -> wr.getByLabel(label).getNormalized()).collect(Collectors.toList());
@@ -43,7 +42,6 @@ public class ZeeFactorFunction implements Function<List<WellResults>,Double> {
         return groupResults;
 
     }
-
 
     @Override
     public Double apply(List<WellResults> wrList) {

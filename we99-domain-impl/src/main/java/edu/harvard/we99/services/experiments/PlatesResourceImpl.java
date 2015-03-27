@@ -64,16 +64,16 @@ public abstract class PlatesResourceImpl implements PlatesResource {
             PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
 
             Plate plate = new Plate()
-                    .withName(mergeInfo.getPlateName())
-                    .withExperiment(experiment)
-                    .withPlateType(mergeInfo.getPlateType());
+                    .setName(mergeInfo.getPlateName())
+                    .setExperiment(experiment)
+                    .setPlateType(mergeInfo.getPlateType());
 
             // copy all of the wells from the plate map to the plate
             // wells are copied by their coordinate
             // each of the wells
 
             for (WellMap wm : plateMap.getWells().values()) {
-                Well well = new Well().withType(wm.getType());
+                Well well = new Well().setType(wm.getType());
                 well.setCoordinate(wm.getCoordinate());
                 well.setLabels(wm.getLabels());
                 plate.getWells().put(wm.getCoordinate(), well);
@@ -105,7 +105,7 @@ public abstract class PlatesResourceImpl implements PlatesResource {
             if (name == null) {
                 name = UUID.randomUUID().toString();
             }
-            Plate plate = reader.read(r).withName(name);
+            Plate plate = reader.read(r).setName(name);
             plate.setExperiment(experiment);
             plate.setPlateType(plateTypeStorage.getByName(plateTypeName));
             // walk all of the compounds to set their id's or leave null if we're persisting

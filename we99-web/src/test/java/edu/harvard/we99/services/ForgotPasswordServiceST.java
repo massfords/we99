@@ -53,7 +53,7 @@ public class ForgotPasswordServiceST {
 
         // 2. hit the forgot password service
         String email = "we99.2015@gmail.com";
-        Response response = fps.sendPasswordEmail(new User().withEmail(email), request);
+        Response response = fps.sendPasswordEmail(new User().setEmail(email), request);
         assertEquals(200, response.getStatus());
 
         // 3. assert that the email received has the link in it
@@ -66,7 +66,7 @@ public class ForgotPasswordServiceST {
 
         // 4. assert that we can verify the new account
         String uuid = extractUUID(body);
-        User user = fps.verifyResetInfo(uuid, new User().withEmail(email));
+        User user = fps.verifyResetInfo(uuid, new User().setEmail(email));
         assertNotNull(user);
         Function<String, String> scrubber = Scrubbers.uuid
                 .andThen(Scrubbers.pkey).andThen(Scrubbers.perms);
@@ -76,7 +76,7 @@ public class ForgotPasswordServiceST {
         // 5. set the password for the account
         String password = "pass";
         Response actived = fps.setNewPassword(uuid,
-                new User().withEmail(email).withPassword(password));
+                new User().setEmail(email).setPassword(password));
         assertEquals(200, actived.getStatus());
 
         // 6. get our user bean to verify that we now have access

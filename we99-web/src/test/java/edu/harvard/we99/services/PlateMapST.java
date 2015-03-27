@@ -67,9 +67,9 @@ public class PlateMapST {
 
         PlateTypeService plateTypeService = cf.create(PlateTypeService.class);
         plateType = plateTypeService.create(new PlateType()
-                .withName(name("plateType"))
-                .withDim(new PlateDimension(4, 3))
-                .withManufacturer("Foo Inc."));
+                .setName(name("plateType"))
+                .setDim(new PlateDimension(4, 3))
+                .setManufacturer("Foo Inc."));
     }
 
     @AfterClass
@@ -115,7 +115,7 @@ public class PlateMapST {
         Coordinate coordinate = new Coordinate(0, 0);
         WellMap well = new WellMap(coordinate)
                 .withLabel("loc", "well 0,0")
-                .withType(WellType.COMP);
+                .setType(WellType.COMP);
         pm.getWells().put(coordinate,well);
         PlateMap updated = plateMapService.update(pm.getId(), pm);
         String actual = toJsonString(updated);
@@ -124,8 +124,8 @@ public class PlateMapST {
 
     private PlateMap createPlateMap() {
         return new PlateMap()
-                .withName(name("plateMap-"))
-                .withDescription("my test plate")
-                .withDim(plateType.getDim());
+                .setName(name("plateMap-"))
+                .setDescription("my test plate")
+                .setDim(plateType.getDim());
     }
 }

@@ -80,7 +80,7 @@ public class CompoundStorageImpl implements CompoundStorage {
         CompoundEntity entity = Mappers.COMPOUND.mapReverse(type);
         entity.setId(null);
         em.persist(entity);
-        return type.withId(entity.getId());
+        return type.setId(entity.getId());
     }
 
     @Override

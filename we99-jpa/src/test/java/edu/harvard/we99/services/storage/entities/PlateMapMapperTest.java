@@ -60,31 +60,31 @@ public class PlateMapMapperTest {
 
     private PlateMapEntity makePlateEntity() {
         PlateMapEntity pme = new PlateMapEntity()
-                .withId(300L)
-                .withDescription("foo123")
-                .withName("pme").withDim(new PlateDimension(5,6));
+                .setId(300L)
+                .setDescription("foo123")
+                .setName("pme").setDim(new PlateDimension(5,6));
         Coordinate coord = new Coordinate(4, 5);
         pme.getWells().put(
                 coord,
                 new WellMapEntity(coord)
-                        .withId(800L)
-                        .withLabel("lbl", "ABC")
-                        .withType(WellType.COMP)
+                        .setId(800L)
+                        .setLabel("lbl", "ABC")
+                        .setType(WellType.COMP)
         );
         return pme;
     }
 
     private WellMap makeWell() {
         return new WellMap(1, 2)
-                .withId(1234L)
-                .withType(WellType.COMP).withLabel("lbl", "A");
+                .setId(1234L)
+                .setType(WellType.COMP).withLabel("lbl", "A");
     }
 
     private PlateMap makePlateMap() {
         return new PlateMap()
-                .withName("plateMap")
-                .withDescription("desc")
-                .withId(100L)
+                .setName("plateMap")
+                .setDescription("desc")
+                .setId(100L)
                 .withWells(makeWell());
     }
 }

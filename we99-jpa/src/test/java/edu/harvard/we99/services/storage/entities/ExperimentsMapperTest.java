@@ -24,12 +24,12 @@ public class ExperimentsMapperTest {
     public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     Protocol protocol = new Protocol().withId(200L).withName("proto1");
-    ProtocolEntity protocolEntity = new ProtocolEntity().withId(200L).withName("proto1");
+    ProtocolEntity protocolEntity = new ProtocolEntity().setId(200L).setName("proto1");
 
     @Test
     public void domainToEntity_new() throws Exception {
-        Experiment fromCaller = new Experiment().withId(100L).withName("exp")
-                .withProtocol(protocol);
+        Experiment fromCaller = new Experiment().setId(100L).setName("exp")
+                .setProtocol(protocol);
         ExperimentEntity ee = Mappers.EXPERIMENTS.mapReverse(fromCaller);
         // id is copied over
         assertEquals(100L, ee.getId().longValue());
@@ -42,8 +42,8 @@ public class ExperimentsMapperTest {
 
     @Test
     public void domainToEntity_existing() throws Exception {
-        Experiment fromCaller = new Experiment().withId(100L).withName("exp")
-                .withProtocol(protocol);
+        Experiment fromCaller = new Experiment().setId(100L).setName("exp")
+                .setProtocol(protocol);
         ExperimentEntity ee = new ExperimentEntity();
         Mappers.EXPERIMENTS.mapReverse(fromCaller, ee);
         // id is copied over
@@ -58,14 +58,14 @@ public class ExperimentsMapperTest {
     @Test
     public void entityToDomain() throws Exception {
         ExperimentEntity ee = new ExperimentEntity()
-                .withId(500L)
-                .withName("exp")
-                .withProtocol(protocolEntity)
-                .withCreated(new DateTime("2015-01-02T10:30:20Z"))
-                .withLabels(Collections.singletonList(new LabelEntity("foo", "bar")))
-                .withMembers(Collections.singletonMap("foo@example.com",
+                .setId(500L)
+                .setName("exp")
+                .setProtocol(protocolEntity)
+                .setCreated(new DateTime("2015-01-02T10:30:20Z"))
+                .setLabels(Collections.singleton(new LabelEntity("foo", "bar")))
+                .setMembers(Collections.singletonMap("foo@example.com",
                         new UserEntity("foo@example.com", "Foo", "User")
-                                .withId(200L)));
+                                .setId(200L)));
         Experiment e = Mappers.EXPERIMENTS.map(ee);
         assertJsonEquals(load("/Mappers/experiment.json"), toJsonString(e));
     }

@@ -51,9 +51,9 @@ public class PlateMapImportST {
         for(int i=10; i<100; i+=10) {
             plateTypeService.create(
                 new PlateType()
-                    .withDim(new PlateDimension(i, i))
-                    .withName(name("pt"))
-                    .withManufacturer("Foo Inc.")
+                    .setDim(new PlateDimension(i, i))
+                    .setName(name("pt"))
+                    .setManufacturer("Foo Inc.")
             );
         }
     }

@@ -67,7 +67,7 @@ public abstract class JpaSpringFixture {
             for(int col=0; col< colCount; col++) {
                 wells.add(
                         new WellEntity(row, col)
-                                .withType(WellType.EMPTY)
+                                .setType(WellType.EMPTY)
                 );
             }
         }
@@ -78,8 +78,8 @@ public abstract class JpaSpringFixture {
 
     protected static PlateTypeEntity makePlateType(int ROW_COUNT, int COL_COUNT) {
         return new PlateTypeEntity()
-                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
-                .withName(name("plateType"))
-                .withManufacturer("Foo Company");
+                .setDim(new PlateDimension(ROW_COUNT, COL_COUNT))
+                .setName(name("plateType"))
+                .setManufacturer("Foo Company");
     }
 }

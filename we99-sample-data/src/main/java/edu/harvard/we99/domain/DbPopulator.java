@@ -79,9 +79,9 @@ public class DbPopulator {
 
         for(ExperimentMapping expMapping : experimentMappings) {
             ExperimentEntity ee = new ExperimentEntity(expMapping.getName())
-                    .withDescription(expMapping.getDesc())
-                    .withStatus(expMapping.getStatus())
-                    .withProtocol(selectProtocol(em, expMapping));
+                    .setDescription(expMapping.getDesc())
+                    .setStatus(expMapping.getStatus())
+                    .setProtocol(selectProtocol(em, expMapping));
             userEntities.forEach(ee::addUser);
             em.persist(ee);
             userEntities.forEach(ue -> ue.addExperiment(ee));
@@ -90,16 +90,16 @@ public class DbPopulator {
             // add some plates to the experiment
             for(int i=0; i<3; i++) {
                 PlateEntity pe = new PlateEntity()
-                        .withName("plate " + i + " for exp " + ee.getId())
-                        .withBarcode("abc" + i)
-                        .withExperiment(ee)
-                        .withPlateType(pte);
+                        .setName("plate " + i + " for exp " + ee.getId())
+                        .setBarcode("abc" + i)
+                        .setExperiment(ee)
+                        .setPlateType(pte);
                 em.persist(pe);
                 for(int row=0; row<pte.getDim().getRows(); row++) {
                     for(int col=0; col<pte.getDim().getCols(); col++) {
                         WellEntity we = new WellEntity(row, col);
-                        we.withLabel("loc", "well" + row + "," + col);
-                        we.withType(WellType.EMPTY);
+                        we.setLabel("loc", "well" + row + "," + col);
+                        we.setType(WellType.EMPTY);
                         pe.withWells(we);
                         em.persist(we);
                         em.merge(pe);

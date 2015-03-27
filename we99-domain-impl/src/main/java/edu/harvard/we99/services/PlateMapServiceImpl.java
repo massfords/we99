@@ -55,7 +55,7 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
             if (name == null) {
                 name = UUID.randomUUID().toString();
             }
-            PlateMap plateMap = reader.read(r).withName(name);
+            PlateMap plateMap = reader.read(r).setName(name);
             PlateMap created = plateMapStorage().create(plateMap);
             PlateTypes list = pts.findGreaterThanOrEqualTo(calcDim(plateMap), 0);
             return new ImportedPlateMap(created, list.getValues());
@@ -119,6 +119,6 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
         // values for rows,cols. However, before returning this as a dimension
         // value we need to increment each of the row and col. This is because
         // the rows,cols are zero based.
-        return dim.withRows(dim.getRows()+1).withCols(dim.getCols()+1);
+        return dim.setRows(dim.getRows() + 1).setCols(dim.getCols() + 1);
     }
 }

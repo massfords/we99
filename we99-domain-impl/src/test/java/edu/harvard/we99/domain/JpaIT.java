@@ -34,9 +34,9 @@ public class JpaIT extends JpaSpringFixture {
         beginTx();
 
         PlateMapEntity pt = new PlateMapEntity()
-                .withName(name("Map"))
-                .withDescription("My Description")
-                .withDim(new PlateDimension(10,16))
+                .setName(name("Map"))
+                .setDescription("My Description")
+                .setDim(new PlateDimension(10,16))
                 ;
 
         em.persist(pt);
@@ -52,9 +52,9 @@ public class JpaIT extends JpaSpringFixture {
         int COL_COUNT = 4;
 
         PlateMapEntity pm = new PlateMapEntity()
-                .withName(name("Map"))
-                .withDescription("My Description")
-                .withDim(new PlateDimension(ROW_COUNT, COL_COUNT))
+                .setName(name("Map"))
+                .setDescription("My Description")
+                .setDim(new PlateDimension(ROW_COUNT, COL_COUNT))
                 ;
 
         pm.withWells(makeWellMaps(ROW_COUNT, COL_COUNT));
@@ -69,7 +69,7 @@ public class JpaIT extends JpaSpringFixture {
         beginTx();
 
         CompoundEntity compound = new CompoundEntity()
-                .withName(name("Compound"));
+                .setName(name("Compound"));
 
         em.persist(compound);
 
@@ -80,12 +80,12 @@ public class JpaIT extends JpaSpringFixture {
     public void compound_dupe() throws Exception {
         beginTx();
         String compoundName = name("C1234");
-        CompoundEntity compound = new CompoundEntity().withName(compoundName);
+        CompoundEntity compound = new CompoundEntity().setName(compoundName);
         em.persist(compound);
         commitTx();
 
         beginTx();
-        em.persist(new CompoundEntity().withName(compoundName));
+        em.persist(new CompoundEntity().setName(compoundName));
         commitTx();
     }
 
@@ -101,11 +101,11 @@ public class JpaIT extends JpaSpringFixture {
         PlateTypeEntity type = makePlateType(ROW_COUNT, COL_COUNT);
 
         PlateEntity plate = new PlateEntity()
-                .withName(name("Plate"))
-                .withDescription("My Description")
-                .withPlateType(type)
-                .withExperiment(xp)
-                .withBarcode("1234");
+                .setName(name("Plate"))
+                .setDescription("My Description")
+                .setPlateType(type)
+                .setExperiment(xp)
+                .setBarcode("1234");
 
         plate.withWells(makeWellEntities(ROW_COUNT, COL_COUNT));
 
@@ -125,7 +125,7 @@ public class JpaIT extends JpaSpringFixture {
             for(int col=0; col< colCount; col++) {
                 wells.add(
                         new WellMapEntity(row, col)
-                                .withType(WellType.EMPTY)
+                                .setType(WellType.EMPTY)
                 );
             }
         }

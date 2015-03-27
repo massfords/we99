@@ -9,6 +9,7 @@ import javax.persistence.Entity;
  */
 @Entity
 public class WellMapEntity extends AbstractWellEntity<WellMapEntity> {
+    @SuppressWarnings("unused")
     public WellMapEntity() {}
 
     public WellMapEntity(Coordinate coord) {

@@ -5,7 +5,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
@@ -28,36 +31,36 @@ public class JsonTest {
 
         params.add(
                 array(
-                        new Compound("h20").withId(1234L),
+                        new Compound("h20").setId(1234L),
                 load("/JsonTest/compound.json")
                 ));
 
         params.add(
                 array(new Dose()
-                                .withId(1234L)
-                                .withAmount(2, DoseUnit.MILLIS)
-                                .withCompound(new Compound("h20")),
+                                .setId(1234L)
+                                .setAmount(new Amount(2d, DoseUnit.MILLIS))
+                                .setCompound(new Compound("h20")),
                         load("/JsonTest/dose.json")
                 ));
 
         params.add(
                 array(
                         new Plate("plate1", type())
-                                .withBarcode("1234"),
+                                .setBarcode("1234"),
                         load("/JsonTest/plate-no-wells.json")
                 ));
 
         params.add(
                 array(
                         new Plate("plate1", type())
-                                .withBarcode("1234")
-                                .withWells(wells(2, 3))
+                                .setBarcode("1234")
+                                .setWells(wells(2, 3))
                         ,
                         load("/JsonTest/plate-wells.json")
                 ));
 
         params.add(array(
-                new PlateType().withDim(new PlateDimension(3, 4)).withManufacturer("Foo Inc."),
+                new PlateType().setDim(new PlateDimension(3, 4)).setManufacturer("Foo Inc."),
                 load("/JsonTest/plateType.json")
         ));
 
@@ -125,19 +128,23 @@ public class JsonTest {
 
     private static PlateType type() {
         return new PlateType()
-                .withDim(new PlateDimension(3,4))
-                .withManufacturer("Foo Inc.");
+                .setDim(new PlateDimension(3,4))
+                .setManufacturer("Foo Inc.");
     }
 
-    private static Well[] wells(int rows, int cols) {
+    private static Map<Coordinate,Well> wells(int rows, int cols) {
         Well[] wells = new Well[rows*cols];
         for(int row = 0; row<rows; row++) {
             for(int col=0; col<cols; col++) {
                 wells[cols*row+col] = new Well(row, col)
-                        .withLabel("loc", "well " + row + "," + col)
-                        .withType(WellType.EMPTY);
+                        .setLabels(Collections.singleton(new Label("loc", "well " + row + "," + col)))
+                        .setType(WellType.EMPTY);
             }
         }
-        return wells;
+        Map<Coordinate, Well> map = new LinkedHashMap<>();
+        for(Well w : wells) {
+            map.put(w.getCoordinate(), w);
+        }
+        return map;
     }
 }
