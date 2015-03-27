@@ -1,0 +1,219 @@
+{
+  "id": 17,
+  "name": "my plate nameuuid",
+  "experiment": {
+    "id": 6,
+    "name": "expuuid",
+    "labels": [],
+    "status": "UNPUBLISHED",
+    "created": "iso8601"
+  },
+  "labels": [],
+  "wells": [
+    {
+      "id": 1471,
+      "coordinate": {
+        "row": 0,
+        "col": 0
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "id": 9,
+          "amount": {
+            "number": 100.0,
+            "units": "MICRO"
+          },
+          "compound": {
+            "id": 75,
+            "name": "Lactic acid"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1472,
+      "coordinate": {
+        "row": 2,
+        "col": 2
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "id": 10,
+          "amount": {
+            "number": 100.0,
+            "units": "MICRO"
+          },
+          "compound": {
+            "id": 99,
+            "name": "Nicotine"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1473,
+      "coordinate": {
+        "row": 0,
+        "col": 1
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "id": 11,
+          "amount": {
+            "number": 20.0,
+            "units": "MICRO"
+          },
+          "compound": {
+            "id": 75,
+            "name": "Lactic acid"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1474,
+      "coordinate": {
+        "row": 2,
+        "col": 3
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "id": 12,
+          "amount": {
+            "number": 20.0,
+            "units": "MICRO"
+          },
+          "compound": {
+            "id": 99,
+            "name": "Nicotine"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1475,
+      "coordinate": {
+        "row": 0,
+        "col": 2
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "id": 13,
+          "amount": {
+            "number": 4.0,
+            "units": "MICRO"
+          },
+          "compound": {
+            "id": 75,
+            "name": "Lactic acid"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1476,
+      "coordinate": {
+        "row": 2,
+        "col": 4
+      },
+      "labels": [],
+      "type": "EMPTY",
+      "contents": []
+    },
+    {
+      "id": 1477,
+      "coordinate": {
+        "row": 0,
+        "col": 3
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "id": 14,
+          "amount": {
+            "number": 0.8,
+            "units": "MICRO"
+          },
+          "compound": {
+            "id": 75,
+            "name": "Lactic acid"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1478,
+      "coordinate": {
+        "row": 0,
+        "col": 4
+      },
+      "labels": [],
+      "type": "EMPTY",
+      "contents": []
+    },
+    {
+      "id": 1479,
+      "coordinate": {
+        "row": 2,
+        "col": 0
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "id": 15,
+          "amount": {
+            "number": 4.0,
+            "units": "MICRO"
+          },
+          "compound": {
+            "id": 99,
+            "name": "Nicotine"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1480,
+      "coordinate": {
+        "row": 2,
+        "col": 1
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "id": 16,
+          "amount": {
+            "number": 0.8,
+            "units": "MICRO"
+          },
+          "compound": {
+            "id": 99,
+            "name": "Nicotine"
+          }
+        }
+      ]
+    }
+  ],
+  "plateType": {
+    "id": 3,
+    "name": "typeuuid",
+    "dim": {
+      "rows": 10,
+      "cols": 10
+    },
+    "manufacturer": "Foo Inc"
+  }
+}

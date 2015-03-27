@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.AnnotationIntrospectorPair;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
@@ -22,7 +23,8 @@ public class JacksonMapper extends ObjectMapper {
                 new JacksonAnnotationIntrospector(),
                 new JaxbAnnotationIntrospector());
         DeserializationConfig dconfig = getDeserializationConfig().with(introspector);
-        SerializationConfig sconfig = getSerializationConfig().with(introspector);
+        SerializationConfig sconfig = getSerializationConfig().with(introspector)
+                .with(SerializationFeature.INDENT_OUTPUT);
         dconfig = dconfig.without(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         _deserializationConfig = dconfig;
         _serializationConfig = sconfig;

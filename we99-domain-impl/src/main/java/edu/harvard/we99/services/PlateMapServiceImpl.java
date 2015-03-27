@@ -4,6 +4,11 @@ import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.ImportedPlateMap;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateMap;
+import edu.harvard.we99.domain.PlateMapMergeInfo;
+import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.domain.WellLabelMapping;
+import edu.harvard.we99.domain.WellMap;
+import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.domain.lists.PlateMaps;
 import edu.harvard.we99.domain.lists.PlateTypes;
 import edu.harvard.we99.services.io.PlateMapCSVReader;
@@ -63,6 +68,36 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
     @Override
     public PlateMaps listAll(Integer page, Integer maxRows, Integer maxCols) {
         return plateMapStorage().listAll(page, new PlateDimension(maxRows, maxCols));
+    }
+
+    @Override
+    public PlateMapMergeInfo prepare(Long id, PlateType plateType) {
+        PlateMap pm = get(id);
+        PlateMapMergeInfo pmi = new PlateMapMergeInfo()
+                .setPlateMapId(id)
+                .setPlateType(plateType);
+        try {
+            for (WellMap wm : pm.getWells().values()) {
+                if (wm.getType() != WellType.EMPTY) {
+                    WellLabelMapping mapping = pmi.getMappings().get(wm.getContentsLabel());
+                    if (mapping == null) {
+                        mapping = new WellLabelMapping()
+                                .setLabel(wm.getContentsLabel())
+                                .setWellType(wm.getType())
+                                .setCount(1)
+                        ;
+                        pmi.getMappings().put(wm.getContentsLabel(), mapping);
+                    } else {
+                        // increase the count
+                        mapping.increment();
+                    }
+                }
+            }
+        } catch(Exception e) {
+            log.error("Error preparing the merge info", e);
+            throw new WebApplicationException(Response.status(500).build());
+        }
+        return pmi;
     }
 
     private PlateMapStorage plateMapStorage() {

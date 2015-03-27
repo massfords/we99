@@ -15,14 +15,14 @@
       "contents": [
         {
           "amount": {
-            "number": 5,
+            "number": 5.0,
             "units": "PICO"
           },
           "compound": {"name": "H20"}
         },
         {
           "amount": {
-            "number": 1,
+            "number": 1.0,
             "units": "PICO"
           },
           "compound": {"name": "NaCl"}
@@ -44,7 +44,7 @@
       "contents": [
         {
           "amount": {
-            "number": 1,
+            "number": 1.0,
             "units": "PICO"
           },
           "compound": {"name": "Cx"}
@@ -66,7 +66,7 @@
       "contents": [
         {
           "amount": {
-            "number": 1,
+            "number": 1.0,
             "units": "PICO"
           },
           "compound": {"name": "Cx"}
@@ -88,7 +88,7 @@
       "contents": [
         {
           "amount": {
-            "number": 1,
+            "number": 1.0,
             "units": "PICO"
           },
           "compound": {"name": "Cx"}
@@ -110,7 +110,7 @@
       "contents": [
         {
           "amount": {
-            "number": 1,
+            "number": 1.0,
             "units": "PICO"
           },
           "compound": {"name": "Cx"}
@@ -132,7 +132,7 @@
       "contents": [
         {
           "amount": {
-            "number": 1,
+            "number": 1.0,
             "units": "PICO"
           },
           "compound": {"name": "Cx"}
@@ -154,7 +154,7 @@
       "contents": [
         {
           "amount": {
-            "number": 1,
+            "number": 1.0,
             "units": "PICO"
           },
           "compound": {"name": "Cx"}
@@ -176,7 +176,7 @@
       "contents": [
         {
           "amount": {
-            "number": 1,
+            "number": 1.0,
             "units": "PICO"
           },
           "compound": {"name": "Cx"}

@@ -3,9 +3,15 @@ package edu.harvard.we99.services.experiments;
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.PlateMap;
+import edu.harvard.we99.domain.PlateMapMergeInfo;
+import edu.harvard.we99.domain.Well;
+import edu.harvard.we99.domain.WellMap;
+import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.services.io.PlateCSVReader;
 import edu.harvard.we99.services.storage.CompoundStorage;
+import edu.harvard.we99.services.storage.PlateMapStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.PlateTypeStorage;
 import org.slf4j.Logger;
@@ -34,13 +40,15 @@ public abstract class PlatesResourceImpl implements PlatesResource {
     private final PlateStorage plateStorage;
     private final CompoundStorage compoundStorage;
     private final PlateTypeStorage plateTypeStorage;
+    private final PlateMapStorage plateMapStorage;
     private Experiment experiment;
 
     public PlatesResourceImpl(PlateStorage plateStorage, CompoundStorage compoundStorage,
-                              PlateTypeStorage plateTypeStorage) {
+                              PlateTypeStorage plateTypeStorage, PlateMapStorage plateMapStorage) {
         this.plateStorage = plateStorage;
         this.compoundStorage = compoundStorage;
         this.plateTypeStorage = plateTypeStorage;
+        this.plateMapStorage = plateMapStorage;
     }
 
     @Override
@@ -48,6 +56,46 @@ public abstract class PlatesResourceImpl implements PlatesResource {
         plate.setId(null);
         plate.setExperiment(experiment);
         return plateStorage.create(plate);
+    }
+
+    @Override
+    public Plate create(PlateMapMergeInfo mergeInfo) {
+        try {
+            PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
+
+            Plate plate = new Plate()
+                    .withName(mergeInfo.getPlateName())
+                    .withExperiment(experiment)
+                    .withPlateType(mergeInfo.getPlateType());
+
+            // copy all of the wells from the plate map to the plate
+            // wells are copied by their coordinate
+            // each of the wells
+
+            for (WellMap wm : plateMap.getWells().values()) {
+                Well well = new Well().withType(wm.getType());
+                well.setCoordinate(wm.getCoordinate());
+                well.setLabels(wm.getLabels());
+                plate.getWells().put(wm.getCoordinate(), well);
+                if (well.getType() != WellType.EMPTY) {
+                    well.dose(mergeInfo.getMappings().get(well.getContentsLabel()).take());
+                }
+            }
+
+            // get all of the compounds
+            Set<Compound> compounds = new HashSet<>();
+            plate.getWells().values().stream().forEach(w -> w.getContents().forEach(d -> compounds.add(d.getCompound())));
+            // figure out what their id's are
+            Map<Compound, Long> resolvedCompounds = compoundStorage.resolveIds(compounds);
+            // assign those id's
+            plate.getWells().values().stream().forEach(w -> w.getContents().forEach(d -> d.getCompound().setId(resolvedCompounds.get(d.getCompound()))));
+
+            // store the plate
+            return plateStorage.create(plate);
+        } catch(Exception e) {
+            log.error("Error creating a plate from merge info", e);
+            throw new WebApplicationException(Response.status(500).build());
+        }
     }
 
     @Override

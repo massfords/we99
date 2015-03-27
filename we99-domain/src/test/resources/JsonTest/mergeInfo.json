@@ -6,7 +6,7 @@
       "wellType": "COMP",
       "dose": {
         "amount": {
-          "number": 100,
+          "number": 100.0,
           "units": "MICRO"
         },
         "compound": {"name": "Ammonia"}
@@ -20,7 +20,7 @@
       "wellType": "COMP",
       "dose": {
         "amount": {
-          "number": 50,
+          "number": 50.0,
           "units": "MICRO"
         },
         "compound": {"name": "Nickel chloride"}
@@ -34,7 +34,7 @@
       "wellType": "COMP",
       "dose": {
         "amount": {
-          "number": 50,
+          "number": 50.0,
           "units": "MICRO"
         },
         "compound": {"name": "Potassium bromate"}
@@ -48,7 +48,7 @@
       "wellType": "POSITIVE",
       "dose": {
         "amount": {
-          "number": 50,
+          "number": 50.0,
           "units": "MICRO"
         },
         "compound": {"name": "xpf54"}
@@ -61,7 +61,7 @@
       "wellType": "NEGATIVE",
       "dose": {
         "amount": {
-          "number": 50,
+          "number": 50.0,
           "units": "MICRO"
         },
         "compound": {"name": "brine"}

@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.PlateMapMergeInfo;
 import edu.harvard.we99.domain.lists.Plates;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,6 +38,13 @@ public interface PlatesResource {
     @ApiOperation("Creates a new plate for the experiment.")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     Plate create(Plate plate);
+
+
+    @PUT
+    @Path("/merge")
+    @ApiOperation("Creates a new plate for the experiment.")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
+    Plate create(PlateMapMergeInfo mergeInfo);
 
     /**
      * Creates a new plate from the merged PlateMap/Compound-Mapping file

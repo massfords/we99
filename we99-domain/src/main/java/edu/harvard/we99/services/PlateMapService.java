@@ -7,6 +7,8 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import edu.harvard.we99.domain.ImportedPlateMap;
 import edu.harvard.we99.domain.PlateMap;
+import edu.harvard.we99.domain.PlateMapMergeInfo;
+import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.lists.PlateMaps;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -121,4 +123,9 @@ public interface PlateMapService {
                       @QueryParam("rows") @DefaultValue("999999") Integer maxRows,
                       @QueryParam("rows") @DefaultValue("999999") Integer maxCols);
 
+    @POST
+    @Path("/{id}/merge")
+    @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    PlateMapMergeInfo prepare(@PathParam("id") Long id, PlateType plateType);
 }

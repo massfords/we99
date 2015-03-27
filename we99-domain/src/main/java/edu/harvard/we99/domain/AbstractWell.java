@@ -117,4 +117,18 @@ public abstract class AbstractWell<T extends AbstractWell> extends BaseEntity {
     public int hashCode() {
         return coordinate.hashCode();
     }
+
+    public String getContentsLabel() {
+
+        if (getType() == WellType.EMPTY) return null;
+
+        // look for a label w/ the name "contents"
+        for(Label label : getLabels()) {
+            if (label.getName().equalsIgnoreCase("contents")) {
+                return label.getValue();
+            }
+        }
+        // if not found, return the first one?
+        return getLabels().iterator().next().getValue();
+    }
 }

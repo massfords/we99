@@ -123,4 +123,8 @@ public class Dose extends BaseEntity {
     public int hashCode() {
         return compound.hashCode();
     }
+
+    public Dose dilute(Double dilutionFactor) {
+        return new Dose(compound, getAmount().dilute(dilutionFactor));
+    }
 }
