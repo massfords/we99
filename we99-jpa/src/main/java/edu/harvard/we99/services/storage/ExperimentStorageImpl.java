@@ -81,8 +81,12 @@ public class ExperimentStorageImpl implements ExperimentStorage {
         QExperimentEntity exp = QExperimentEntity.experimentEntity;
         QUserEntity ue = QUserEntity.userEntity;
         query.from(exp, ue)
-                .where(exp.members.containsValue(ue)
-                        .and(ue.email.eq(user.getEmail())));
+                .where(exp.status.eq(ExperimentStatus.PUBLISHED).or(
+                                exp.members.containsValue(ue)
+                                        .and(ue.email.eq(user.getEmail()))
+                        )
+                ).distinct()
+        ;
 
         long count = query.count();
         query.limit(pageSize()).offset(pageToFirstResult(page));

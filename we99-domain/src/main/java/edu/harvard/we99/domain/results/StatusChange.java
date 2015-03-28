@@ -22,6 +22,11 @@ public class StatusChange {
     @SuppressWarnings("UnusedDeclaration")
     public StatusChange() {}
 
+    public StatusChange(int row, int col, ResultStatus status) {
+        this.coordinate = new Coordinate(row, col);
+        this.status = status;
+    }
+
     public StatusChange(Coordinate coord, ResultStatus status) {
         this.coordinate = coord;
         this.status = status;

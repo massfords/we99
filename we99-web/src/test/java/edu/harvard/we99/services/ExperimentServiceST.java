@@ -1,11 +1,11 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Compound;
-import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.Well;
+import edu.harvard.we99.domain.lists.Experiments;
 import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.domain.results.ResultStatus;
 import edu.harvard.we99.domain.results.StatusChange;
@@ -125,6 +125,48 @@ public class ExperimentServiceST {
         // import results
         // publish
         // assert we can't make a change
+        Plate plate = createSinglePlateExperiment();
+
+        ExperimentResource experimentResource = es.getExperiment(xp.getId());
+        experimentResource.publish();
+
+        // should not be able to make changes now
+        try {
+            DisableLogging.turnOff(PhaseInterceptorChain.class, AbstractFaultChainInitiatorObserver.class);
+            experimentResource.getPlates().getPlates(plate.getId())
+                    .getPlateResult()
+                    .updateStatus(
+                            new StatusChange(0, 0, ResultStatus.EXCLUDED));
+            fail("expected the experiment to be locked");
+        } catch (WebApplicationException e) {
+            assertEquals(403, e.getResponse().getStatus());
+        } finally {
+            DisableLogging.restoreAll();
+        }
+    }
+
+    @Test
+    public void experimentVisibility() throws Exception {
+        // main user creates an experiment, guest user can't see it
+        createSinglePlateExperiment();
+
+        URL url = new URL(WebAppIT.WE99_URL);
+        ClientFactory cf = new ClientFactory(url, "we99.2015@example", WebAppIT.WE99_PW);
+        ExperimentService guestExperimentService = cf.create(ExperimentService.class);
+        Experiments experiments = guestExperimentService.listExperiments(0);
+        // gues user cannot see the experiment
+        assertThat(experiments.getValues()).extracting("id").doesNotContain(xp.getId());
+
+        // main user publishes the experiment, guest user can see it now
+        ExperimentResource experimentResource = es.getExperiment(xp.getId());
+        experimentResource.publish();
+
+        experiments = guestExperimentService.listExperiments(0);
+        // gues user CAN see the experiment
+        assertThat(experiments.getValues()).extracting("id").contains(xp.getId());
+    }
+
+    private Plate createSinglePlateExperiment() {
         String plateTypeName = pts.listAll(0).getValues().get(0).getName();
         ExperimentResource experimentResource = es.getExperiment(xp.getId());
         PlateUtils.createPlateFromCSV(xp.getId(), name("plateName"), plateTypeName,
@@ -132,17 +174,6 @@ public class ExperimentServiceST {
         Plate plate = experimentResource.getPlates().list(0).getValues().get(0);
         Response r = resultsFixture.postResults(plate, "/ExperimentServiceST/results.csv");
         assertEquals(200, r.getStatus());
-        experimentResource.publish();
-
-        // should not be able to make changes now
-        try {
-            DisableLogging.turnOff(PhaseInterceptorChain.class, AbstractFaultChainInitiatorObserver.class);
-            experimentResource.getPlates().getPlates(plate.getId()).getPlateResult().updateStatus(new StatusChange(new Coordinate(0, 0), ResultStatus.EXCLUDED));
-            fail("expected the experiment to be locked");
-        } catch (WebApplicationException e) {
-            assertEquals(403, e.getResponse().getStatus());
-        } finally {
-            DisableLogging.restoreAll();
-        }
+        return plate;
     }
 }
