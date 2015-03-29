@@ -26,7 +26,8 @@ import java.io.File;
         PlateResultServiceST.class,
         PlateResultServiceListingST.class,
         PlateMapListST.class,
-        ExperimentServiceST.class
+        ExperimentServiceST.class,
+        PlateWizardST.class
 })
 public class WebAppIT {
     public static final String WE99_URL = "http://localhost:8080/we99/services/rest";
