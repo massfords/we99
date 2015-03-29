@@ -83,6 +83,7 @@ public class Mappers {
                 .mapNullsInReverse(false)
                 .fieldAToB("labels", "labels")
                 .fieldAToB("status", "status")
+                .fieldAToB("protocol", "protocol")
                 .byDefault()
                 .register();
         mapperFactory

@@ -9,6 +9,7 @@ import edu.harvard.we99.security.User;
 import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.ProtocolEntity;
 import edu.harvard.we99.services.storage.entities.QExperimentEntity;
 import edu.harvard.we99.services.storage.entities.QUserEntity;
 import edu.harvard.we99.services.storage.entities.UserEntity;
@@ -43,6 +44,9 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     public Experiment create(Experiment xp) {
         xp.setId(null);
         ExperimentEntity entity = Mappers.EXPERIMENTS.mapReverse(xp);
+
+        updateProtocol(xp, entity);
+
         User user = ucp.get();
 
         UserEntity ue = em.find(UserEntity.class, user.getId());
@@ -64,6 +68,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     public Experiment update(Long id, Experiment type) throws EntityNotFoundException {
         ExperimentEntity ee = em.find(ExperimentEntity.class, id);
         Mappers.EXPERIMENTS.mapReverse(type, ee);
+        updateProtocol(type, ee);
         em.merge(ee);
         return Mappers.EXPERIMENTS.map(ee);
     }
@@ -92,7 +97,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
         query.limit(pageSize()).offset(pageToFirstResult(page));
         List<ExperimentEntity> resultList = query.list(exp);
         List<Experiment> experiments = new ArrayList<>();
-        resultList.forEach(ee->experiments.add(Mappers.EXPERIMENTS.map(ee)));
+        resultList.forEach(ee -> experiments.add(Mappers.EXPERIMENTS.map(ee)));
         return new Experiments(count, page, pageSize(), experiments);
     }
 
@@ -145,4 +150,19 @@ public class ExperimentStorageImpl implements ExperimentStorage {
         em.merge(ue);
         em.merge(ee);
     }
+
+    private void updateProtocol(Experiment type, ExperimentEntity ee) {
+        Long pid = type.getProtocol().getId();
+        if (ee.getProtocol() == null || !ee.getProtocol().getId().equals(pid)) {
+            if (pid != null) {
+                ProtocolEntity protocol = em.find(ProtocolEntity.class, pid);
+                ee.setProtocol(protocol);
+            } else {
+                ProtocolEntity pe = new ProtocolEntity(type.getProtocol().getName());
+                em.persist(pe);
+                ee.setProtocol(pe);
+            }
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.Protocol;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.commons.io.IOUtils;
@@ -62,7 +63,9 @@ public class PlateImportST {
     @Test
     public void createFromUpload() throws Exception {
 
-        Experiment experiment = experimentService.create(new Experiment(name("experiment")));
+        Experiment experiment = experimentService.create(
+                new Experiment(name("experiment")).setProtocol(new Protocol(name("p")))
+        );
 
         Long experimentId = experiment.getId();
         String plateName = name("plate");

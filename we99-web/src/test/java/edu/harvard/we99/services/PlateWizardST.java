@@ -10,6 +10,7 @@ import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.PlateMapMergeInfo;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.domain.Protocol;
 import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.domain.lists.PlateMaps;
 import edu.harvard.we99.test.Scrubbers;
@@ -77,7 +78,9 @@ public class PlateWizardST {
         // Now we create experiment. You cannot create any plates outside
         // of an experiment.
         // ---------------------------------------------------------------------
-        Experiment experiment = es.create(new Experiment((name("exp"))));
+        Experiment experiment = es.create(
+                new Experiment((name("exp"))).setProtocol(new Protocol(name("p")))
+        );
 
         // ---------------------------------------------------------------------
         // Simulate the behavior of the user at the Plate Wizard. The first step

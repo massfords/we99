@@ -1,19 +1,12 @@
 {
   "plate": {
     "name": "Plateuuid",
-    "plateType": {
-      "name": "PlateTypeuuid",
-      "dim": {
-        "rows": 5,
-        "cols": 5
-      },
-      "manufacturer": "Manuuid"
-    },
     "experiment": {
       "name": "xpuuid",
       "labels": [],
       "status": "UNPUBLISHED",
-      "created": "iso8601"
+      "created": "iso8601",
+      "protocol": {"name": "protocoluuid"}
     },
     "labels": [],
     "wells": [
@@ -242,7 +235,15 @@
         "type": "POSITIVE",
         "contents": []
       }
-    ]
+    ],
+    "plateType": {
+      "name": "PlateTypeuuid",
+      "dim": {
+        "rows": 5,
+        "cols": 5
+      },
+      "manufacturer": "Manuuid"
+    }
   },
   "created": "iso8601",
   "wellResults": [

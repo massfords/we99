@@ -10,7 +10,8 @@
           "name": "experimentuuid",
           "labels": [],
           "status": "UNPUBLISHED",
-          "created": "iso8601"
+          "created": "iso8601",
+          "protocol": {"name": "puuid"}
         },
         "labels": [],
         "wells": [

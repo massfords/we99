@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.domain.Protocol;
 import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.services.experiments.ExperimentResource;
@@ -44,7 +45,9 @@ public class PlateResultsFixture {
     }
 
     protected Experiment createExperiment() throws Exception {
-        return experimentService.create(new Experiment(name("experiment")));
+        return experimentService.create(
+                new Experiment(name("experiment")).setProtocol(new Protocol(name("p")))
+        );
     }
 
     protected Plate createPlate(Experiment experiment) {

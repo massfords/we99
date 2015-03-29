@@ -13,7 +13,7 @@ import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author mford
@@ -33,9 +33,8 @@ public class ExperimentsMapperTest {
         ExperimentEntity ee = Mappers.EXPERIMENTS.mapReverse(fromCaller);
         // id is copied over
         assertEquals(100L, ee.getId().longValue());
-        // protocol is copied over
-        assertNotNull(ee.getProtocol());
-        assertEquals("proto1", ee.getProtocol().getName());
+        // protocol is not copied over
+        assertNull(ee.getProtocol());
         // name is copied over
         assertEquals("exp", ee.getName());
     }
@@ -48,9 +47,8 @@ public class ExperimentsMapperTest {
         Mappers.EXPERIMENTS.mapReverse(fromCaller, ee);
         // id is copied over
         assertEquals(100L, ee.getId().longValue());
-        // protocol is copied over
-        assertNotNull(ee.getProtocol());
-        assertEquals("proto1", ee.getProtocol().getName());
+        // protocol is not copied over
+        assertNull(ee.getProtocol());
         // name is copied over
         assertEquals("exp", ee.getName());
     }

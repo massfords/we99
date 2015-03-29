@@ -59,6 +59,7 @@ public class ExperimentEntity {
      * Reference to the protocol that governs this experiment
      */
     @ManyToOne(fetch = FetchType.EAGER)
+    @NotNull
     private ProtocolEntity protocol;
 
     /**

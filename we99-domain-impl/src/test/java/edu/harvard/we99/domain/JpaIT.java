@@ -5,6 +5,7 @@ import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.PlateEntity;
 import edu.harvard.we99.services.storage.entities.PlateMapEntity;
 import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
+import edu.harvard.we99.services.storage.entities.ProtocolEntity;
 import edu.harvard.we99.services.storage.entities.WellMapEntity;
 import org.junit.Assert;
 import org.junit.Test;
@@ -98,6 +99,9 @@ public class JpaIT extends JpaSpringFixture {
 
         ExperimentEntity xp = new ExperimentEntity(name("Exp"));
 
+        ProtocolEntity protocol = new ProtocolEntity().setName(name("P"));
+        xp.setProtocol(protocol);
+
         PlateTypeEntity type = makePlateType(ROW_COUNT, COL_COUNT);
 
         PlateEntity plate = new PlateEntity()
@@ -109,6 +113,7 @@ public class JpaIT extends JpaSpringFixture {
 
         plate.withWells(makeWellEntities(ROW_COUNT, COL_COUNT));
 
+        em.persist(protocol);
         em.persist(xp);
         em.persist(type);
         em.persist(plate);

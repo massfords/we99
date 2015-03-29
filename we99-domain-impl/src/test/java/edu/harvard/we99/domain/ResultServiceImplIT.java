@@ -46,7 +46,9 @@ public class ResultServiceImplIT extends JpaSpringFixture {
 
     @Test
     public void removeWellResult() throws Exception {
-        Experiment exp = experimentService.create(new Experiment(name("xp")));
+        Experiment exp = experimentService.create(
+                new Experiment(name("xp")).setProtocol(new Protocol(name("proto")))
+        );
         PlateType pt = plateTypeService.create(
                 new PlateType()
                         .setName(name("PlateType"))
@@ -90,7 +92,9 @@ public class ResultServiceImplIT extends JpaSpringFixture {
 
     @Test
     public void validatePlateMetrics() throws Exception {
-        Experiment exp = experimentService.create(new Experiment(name("xp")));
+        Experiment exp = experimentService.create(
+                new Experiment(name("xp"))
+                .setProtocol(new Protocol(name("protocol"))));
         PlateType pt = plateTypeService.create(
                 new PlateType()
                         .setName(name("PlateType"))

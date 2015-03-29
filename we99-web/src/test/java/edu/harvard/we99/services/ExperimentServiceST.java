@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.Protocol;
 import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.lists.Experiments;
 import edu.harvard.we99.domain.lists.Users;
@@ -42,6 +43,7 @@ public class ExperimentServiceST {
 
     private static ExperimentService es;
     private static PlateTypeService pts;
+    private static ProtocolService ps;
     private static User user;
     private static PlateResultsFixture resultsFixture;
     private Experiment xp;
@@ -55,6 +57,7 @@ public class ExperimentServiceST {
         es = cf.create(ExperimentService.class);
         user = cf.create(UserService.class).find("we99.2015@example", 0).getValues().get(0);
         pts = cf.create(PlateTypeService.class);
+        ps = cf.create(ProtocolService.class);
         resultsFixture = new PlateResultsFixture();
     }
 
@@ -67,7 +70,9 @@ public class ExperimentServiceST {
 
     @Before
     public void setUp() throws Exception {
-        xp = es.create(new Experiment(name("Experiment")));
+        xp = es.create(
+                new Experiment(name("Experiment")).setProtocol(new Protocol(name("p")))
+        );
     }
 
     @Test
@@ -164,6 +169,22 @@ public class ExperimentServiceST {
         experiments = guestExperimentService.listExperiments(0);
         // gues user CAN see the experiment
         assertThat(experiments.getValues()).extracting("id").contains(xp.getId());
+    }
+
+    @Test
+    public void update_existingProtocol() throws Exception {
+        Protocol protocol = ps.create(new Protocol(name("foo")));
+        ExperimentResource er = es.getExperiment(xp.getId());
+        Experiment updated = er.update(xp.setProtocol(protocol));
+        assertEquals(protocol.getName(), updated.getProtocol().getName());
+    }
+
+    @Test
+    public void update_newProtocol() throws Exception {
+        ExperimentResource er = es.getExperiment(xp.getId());
+        Protocol foo = new Protocol(name("foo"));
+        Experiment updated = er.update(xp.setProtocol(foo));
+        assertEquals(foo.getName(), updated.getProtocol().getName());
     }
 
     private Plate createSinglePlateExperiment() {
