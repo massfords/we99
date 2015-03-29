@@ -36,6 +36,8 @@ public abstract class ExperimentServiceImpl implements ExperimentService {
         ucp.assertCallerIsMember(id);
         ExperimentResource er = createExperimentResource();
         er.setId(id);
+        // prime the pump so the experiment is loaded and available for our security annotations
+        er.get();
         return er;
     }
 

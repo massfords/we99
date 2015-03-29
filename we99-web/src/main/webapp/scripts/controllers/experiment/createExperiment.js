@@ -138,7 +138,10 @@ angular.module('we99App')
     	if($scope.assignedUsers.length<=0){
     		$scope.errorText="Experiments must have at least one assigned user";
     		return;
-    	}
+    	} else if ($scope.newExp.status === "PUBLISHED") {
+        $scope.errorText="Published experiments cannot be modified";
+        return;
+      }
     	//$scope.newExp.assignedUsers=$scope.assignedUsers;
       var memberIds=[];
       for(var i=0;i<$scope.assignedUsers.length;i++){

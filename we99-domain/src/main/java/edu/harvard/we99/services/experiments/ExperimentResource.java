@@ -43,7 +43,7 @@ public interface ExperimentResource {
      */
     @POST
     @ApiOperation("Updates an existing Experiment or throws an exception with a 404 if not found.")
-    @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
+    @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     Experiment update(Experiment experiment);
 
     @Path("/publish")
