@@ -50,7 +50,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
         PlateType pt = plateTypeService.create(
                 new PlateType()
                         .setName(name("PlateType"))
-                        .setDim(new PlateDimension(5,5))
+                        .setDim(new PlateDimension(5, 5))
                         .setManufacturer(name("Man")));
         PlatesResource pr = experimentService.getExperiment(exp.getId()).getPlates();
         Plate plate = pr.create(
@@ -88,6 +88,35 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 toJsonString(allWellsBack), scrubber);
     }
 
+    @Test
+    public void validatePlateMetrics() throws Exception {
+        Experiment exp = experimentService.create(new Experiment(name("xp")));
+        PlateType pt = plateTypeService.create(
+                new PlateType()
+                        .setName(name("PlateType"))
+                        .setDim(new PlateDimension(5, 5))
+                        .setManufacturer(name("Man")));
+        PlatesResource pr = experimentService.getExperiment(exp.getId()).getPlates();
+        Plate plate = pr.create(
+                new Plate()
+                        .setName(name("Plate"))
+                        .withWells(makeControlWells(5, 5))
+                        .setPlateType(pt)
+        );
+
+        PlateResource plates = pr.getPlates(plate.getId());
+        PlateResult plateResult = plates.getPlateResult().uploadResults(stream("/ResultServiceImplIT/results-single.csv"));
+
+        Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey);
+        // assert the results
+        assertJsonEquals(load("/ResultServiceImplIT/all-results-with-metrics.json"),
+                toJsonString(plateResult), scrubber);
+
+    }
+
+
+
+
     protected static Well[] makeWells(int rowCount, int colCount) {
         Set<Well> wells = new HashSet<>();
 
@@ -103,5 +132,31 @@ public class ResultServiceImplIT extends JpaSpringFixture {
 
         return wells.toArray(new Well[wells.size()]);
     }
+
+    protected static Well[] makeControlWells(int rowCount, int colCount) {
+        Set<Well> wells = new HashSet<>();
+
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < colCount; col++) {
+
+                if (row % 2 == 0) {
+                    wells.add(
+                            new Well(row, col)
+                                    .setType(WellType.POSITIVE)
+                    );
+                } else {
+
+                    wells.add(
+                            new Well(row, col)
+                                    .setType(WellType.NEGATIVE)
+                    );
+                }
+            }
+        }
+        assertEquals(rowCount * colCount, wells.size());
+
+        return wells.toArray(new Well[wells.size()]);
+    }
+
 
 }

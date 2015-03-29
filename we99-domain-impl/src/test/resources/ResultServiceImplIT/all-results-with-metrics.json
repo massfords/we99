@@ -1,0 +1,409 @@
+{
+  "plate": {
+    "name": "Plateuuid",
+    "plateType": {
+      "name": "PlateTypeuuid",
+      "dim": {
+        "rows": 5,
+        "cols": 5
+      },
+      "manufacturer": "Manuuid"
+    },
+    "experiment": {
+      "name": "xpuuid",
+      "labels": [],
+      "status": "UNPUBLISHED",
+      "created": "iso8601"
+    },
+    "labels": [],
+    "wells": [
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 0
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 2
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 4
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 1
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 3
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 2
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 4
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 3
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 0,
+          "col": 4
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 0
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 1
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 0
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 2
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 1
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 3
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 2
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 3,
+          "col": 4
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 3
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 1,
+          "col": 4
+        },
+        "labels": [],
+        "type": "NEGATIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 0
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 1
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 0
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 2
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 2,
+          "col": 1
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      },
+      {
+        "coordinate": {
+          "row": 4,
+          "col": 3
+        },
+        "labels": [],
+        "type": "POSITIVE",
+        "contents": []
+      }
+    ]
+  },
+  "created": "iso8601",
+  "wellResults": [
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 0.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 11.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 12.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 13.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 14.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 4.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 10.0,
+          "label": "",
+          "measuredAt": "iso8601",
+          "status": "INCLUDED"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "label": "",
+      "avgPositive": 2.0,
+      "avgNegative": 12.0,
+      "zee": null,
+      "zeePrime": 0.15147186257614287
+    }
+  ]
+}

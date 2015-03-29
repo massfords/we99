@@ -29,7 +29,7 @@ public class SinglePlateMetricsFunction implements Function<List<WellResults>,Do
         List<WellResults> accepted = wrList.stream().filter(filter).collect(Collectors.toList());
 
         List<Double> collect = accepted.stream()
-                .map(wr -> wr.getByLabel(label).getNormalized()).collect(Collectors.toList());
+                .map(wr -> wr.getByLabel(label).getValue()).collect(Collectors.toList());
         double[] doubles = new double[collect.size()];
         int i=0;
         for(Double d : collect) {
