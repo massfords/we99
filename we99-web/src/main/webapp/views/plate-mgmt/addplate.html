@@ -1,0 +1,21 @@
+<div class="add-plate">
+  <div class="modal-header">
+    <h3 class="modal-title">{{experimentName}} - Add Plate</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div>
+        <label>Plate Type:
+          <select ng-options="plateType.id as plateType.name for plateType in plateTypes"></select>
+        </label><br>
+        <label>Plate Map:
+          <select ng-options="plateMap.id as plateMap.name for plateMap in plateMaps"></select>
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="addPlateMap()">Create</button>
+    <span ng-click="cancel()">Cancel</span>
+  </div>
+</div>

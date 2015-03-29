@@ -32,8 +32,9 @@ angular.module('we99App')
 
     /* HELPERS */
     function refreshPlateMapsList (){
-      $scope.plateMaps = PlateMapModel.listPlateMaps(function done(){
-        $scope.displayPlateMaps = [].concat($scope.plateMaps);
+      $scope.plateMaps = PlateMapModel.listPlateMaps(function done(plateMapList){
+        $scope.displayPlateMaps = [].concat(plateMapList);
+        console.log($scope.plateMaps);
       });
     }
 

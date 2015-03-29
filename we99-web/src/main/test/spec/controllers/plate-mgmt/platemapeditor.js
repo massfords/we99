@@ -5,11 +5,11 @@ describe('Controller: PlateMapEditorCtrl', function () {
   // load the controller's module
   beforeEach(module('we99App'));
 
-  var PlateMapEditorCtrl,
+  var plateMapEditorCtrl,
     httpBackend,
     scope;
 
-  var queryPlateMapResponse = {
+  var queryPlateTypesResponse = {
     "totalCount": 2,
     "page": 0,
     "values": [
@@ -62,22 +62,32 @@ describe('Controller: PlateMapEditorCtrl', function () {
     ]
   };
 
+
+  // Set up Mock HTTP Responses
+  beforeEach(inject(function($httpBackend) {
+    httpBackend = $httpBackend;
+    httpBackend.whenGET("services/rest/plateMap").respond(JSON.stringify(queryPlateTypesResponse));
+  }));
+
+  //it('should call refreshPlateMapsList on load'), function($controller, $rootScope) {
+  //  scope = $rootScope.$new();
+  //
+  //  PlateMapEditorCtrl = $controller('PlateMapEditorCtrl', {
+  //    $scope: scope
+  //  });
+  //});
+
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    PlateMapEditorCtrl = $controller('PlateMapEditorCtrl', {
+    plateMapEditorCtrl = $controller('PlateMapEditorCtrl', {
       $scope: scope
     });
-  }));
-
-// Set up Mock HTTP Responses
-  beforeEach(inject(function($httpBackend) {
-    httpBackend = $httpBackend;
-    httpBackend.expectGET("services/rest/plateMap").respond(JSON.stringify(queryPlateTypesResponse));
+    httpBackend.flush();
   }));
 
   it('should show a list of existing platemaps on load', function () {
-    expect(scope.plateMaps.length).toBe(queryPlateMapResponse.values.length);
+    expect(scope.plateMaps.length).toBe(queryPlateTypesResponse.values.length);
   });
 
 
