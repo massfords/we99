@@ -38,7 +38,7 @@ public class PlateStorageImpl implements PlateStorage {
         List<PlateEntity> resultList = query.list(QPlateEntity.plateEntity);
         List<Plate> list = new ArrayList<>(resultList.size());
         resultList.forEach(pe->list.add(Mappers.PLATES.map(pe)));
-        return new Plates(count, page, list);
+        return new Plates(count, page, pageSize(), list);
     }
 
     @Override

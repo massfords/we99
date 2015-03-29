@@ -38,7 +38,7 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
 
         List<PlateTypeEntity> resultList = query.list(QPlateTypeEntity.plateTypeEntity);
         List<PlateType> list = map(resultList);
-        return new PlateTypes(count, page, list);
+        return new PlateTypes(count, page, pageSize(), list);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
         query.limit(pageSize()).offset(pageToFirstResult(page));
 
         List<PlateTypeEntity> resultList = query.list(pte);
-        return new PlateTypes(count, page, map(resultList));
+        return new PlateTypes(count, page, pageSize(), map(resultList));
     }
 
     @Override

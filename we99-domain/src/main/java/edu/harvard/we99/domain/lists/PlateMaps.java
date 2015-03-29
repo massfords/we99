@@ -10,7 +10,7 @@ import java.util.List;
 public class PlateMaps extends AbstractList<PlateMap> {
     @SuppressWarnings("UnusedDeclaration")
     public PlateMaps() {}
-    public PlateMaps(Long count, int page, List<PlateMap> values) {
-        super(count, page, values);
+    public PlateMaps(Long count, int page, int pageSize, List<PlateMap> values) {
+        super(count, page, pageSize, values);
     }
 }

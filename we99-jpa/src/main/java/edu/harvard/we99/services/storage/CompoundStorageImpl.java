@@ -48,7 +48,7 @@ public class CompoundStorageImpl implements CompoundStorage {
         List<CompoundEntity> resultList = query.list(table);
         List<Compound> compounds = new ArrayList<>();
         resultList.forEach(ce->compounds.add(Mappers.COMPOUND.map(ce)));
-        return new Compounds(count, pageSize(), compounds);
+        return new Compounds(count, page, pageSize(), compounds);
     }
 
     @Override

@@ -1,6 +1,7 @@
 {
   "totalCount": 10,
-  "page": 100,
+  "page": 0,
+  "pageSize": 100,
   "values": [
     {
       "name": "Ammonia"

@@ -10,7 +10,7 @@ import java.util.List;
 public class Experiments extends AbstractList<Experiment> {
     public Experiments() {}
 
-    public Experiments(Long count, int page, List<Experiment> values) {
-        super(count, page, values);
+    public Experiments(Long count, int page, int pageSize, List<Experiment> values) {
+        super(count, page, pageSize, values);
     }
 }

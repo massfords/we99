@@ -1,6 +1,7 @@
 {
   "totalCount": 3,
-  "page": 100,
+  "page": 0,
+  "pageSize": 100,
   "values": [
     {"name": "Ammonium dichromate"},
     {"name": "Potassium dichromate"},

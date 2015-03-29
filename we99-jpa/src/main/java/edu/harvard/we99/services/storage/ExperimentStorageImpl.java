@@ -93,7 +93,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
         List<ExperimentEntity> resultList = query.list(exp);
         List<Experiment> experiments = new ArrayList<>();
         resultList.forEach(ee->experiments.add(Mappers.EXPERIMENTS.map(ee)));
-        return new Experiments(count, page, experiments);
+        return new Experiments(count, page, pageSize(), experiments);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
         Collection<UserEntity> values = ee.getMembers().values();
         List<User> userList = new ArrayList<>(values.size());
         values.forEach(u->userList.add(Mappers.USERS.map(u)));
-        return new Users(userList.size(), userList.size(), userList);
+        return new Users(userList.size(), userList.size(), pageSize(), userList);
     }
 
     @Override

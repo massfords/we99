@@ -37,7 +37,7 @@ public class ProtocolStorageImpl implements ProtocolStorage {
         List<ProtocolEntity> resultList = query.list(QProtocolEntity.protocolEntity);
         List<Protocol> list = new ArrayList<>(resultList.size());
         resultList.forEach(pe->list.add(Mappers.PROTOCOL.map(pe)));
-        return new Protocols(count, page, list);
+        return new Protocols(count, page, pageSize(), list);
     }
 
     @Override

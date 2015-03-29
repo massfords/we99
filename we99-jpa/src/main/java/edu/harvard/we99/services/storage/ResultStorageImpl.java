@@ -52,7 +52,7 @@ public class ResultStorageImpl implements ResultStorage {
         List<PlateResult> collected = list.stream()
                 .map(Mappers.PLATERESULT::map)
                 .collect(Collectors.toList());
-        return new PlateResults(count, page, collected);
+        return new PlateResults(count, page, pageSize(), collected);
     }
 
     @Override

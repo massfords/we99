@@ -46,7 +46,7 @@ public class PlateMapStorageImpl implements PlateMapStorage {
         List<PlateMap> list = new ArrayList<>();
         List<PlateMapEntity> resultList = query.list(plateMaps);
         resultList.forEach(pme -> list.add(Mappers.PLATEMAP.map(pme)));
-        return new PlateMaps(count, page, list);
+        return new PlateMaps(count, page, pageSize(), list);
     }
 
     @Override

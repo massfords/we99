@@ -121,7 +121,7 @@ public class UserStorageImpl implements UserStorage {
         long count = query.count();
         query.limit(pageSize()).offset(pageToFirstResult(page));
         List<UserEntity> resultList = query.list(users);
-        return map(count, page, resultList);
+        return map(count, page, pageSize(), resultList);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class UserStorageImpl implements UserStorage {
         long count = query.count();
         query.limit(pageSize()).offset(pageToFirstResult(page));
 
-        return map(count, page, query.list(users));
+        return map(count, page, pageSize(), query.list(users));
     }
 
     @Override
@@ -183,10 +183,10 @@ public class UserStorageImpl implements UserStorage {
         em.merge(entity);
     }
 
-    private Users map(Long count, int page, List<UserEntity> resultList) {
+    private Users map(Long count, int page, int pageSize, List<UserEntity> resultList) {
         List<User> list = new ArrayList<>(resultList.size());
         resultList.forEach(ue->list.add(Mappers.USERS.map(ue)));
-        return new Users(count, page, list);
+        return new Users(count, page, pageSize, list);
     }
 
     private UserEntity findEntityByEmail(String email) {
