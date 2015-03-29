@@ -32,7 +32,7 @@ public class ZeeFactorFunction implements Function<List<WellResults>,Double> {
 
     private double[] getGroupResults(List<WellResults> group) {
         List<Double> collect = group.stream()
-                .map(wr -> wr.getByLabel(label).getNormalized()).collect(Collectors.toList());
+                .map(wr -> wr.getByLabel(label).getValue()).collect(Collectors.toList());
         double[] groupResults = new double[collect.size()];
         int i=0;
         for(Double d : collect) {
@@ -66,6 +66,7 @@ public class ZeeFactorFunction implements Function<List<WellResults>,Double> {
 
         double zeeFactorCalc = 1 - ( 3 * (group1StdDev + group2StdDev) / (Math.abs(group1Mean - group2Mean)));
 
-        return Double.isNaN(zeeFactorCalc)? null : zeeFactorCalc;
+        return (Double.isNaN(zeeFactorCalc) || Double.isInfinite(zeeFactorCalc))? null : zeeFactorCalc;
+
     }
 }
