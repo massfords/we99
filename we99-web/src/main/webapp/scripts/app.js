@@ -58,6 +58,14 @@ angular
         templateUrl: 'views/experiment/createExperiment.html',
         controller: 'ExperimentCreateCtrl'
       })
+      .when('/experiment/:experimentId', {
+        templateUrl:"views/experiment/experimentdetails.html",
+        controller:'ExperimentDetailsCtrl'
+      })
+      .when('/experiment/:experimentId/add-plate', {
+        templateUrl: 'views/plate-mgmt/addplate.html',
+        controller: 'AddPlateCtrl'
+      })
       .when('/plate-mgmt/importPlateMap', {
         templateUrl: 'views/plate-mgmt/importplatemap.html',
         controller: 'PlateMgmtImportplatemapCtrl'

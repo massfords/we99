@@ -11,16 +11,22 @@ angular.module('we99App')
     return {
       restrict: 'E',
       //template:"<div>wire test</div>",
-      templateUrl: "views/plate-mgmt/addplate.html",
-      scope: {
-        experimentName:"=",
-        experimentId:"="
+      templateUrl: 'views/plate-mgmt/addplate.html',
+      scope: {},
+      link: function postLink(scope, element, attrs) {
+        element.text('wire test');
       }
-      //link: function postLink(scope, element, attrs) {
-      //  element.text('wire test');
-      //}
     };
   })
-  .controller('AddPlateCtrl', function(){
+  .controller('AddPlateCtrl', function($scope, SelectedExperimentSvc, PlateTypeModel){
+      $scope.selectedPlateType = null;
+      $scope.plateMaps = null;
+      $scope.experiment = SelectedExperimentSvc.selected();
+      $scope.plateTypes = PlateTypeModel.query(function done(data){
+        $scope.plateTypes = data;
+      });
 
+      $scope.plateMapsForPlateType = function() {
+        scope.selectedPlateType
+      }
   });
