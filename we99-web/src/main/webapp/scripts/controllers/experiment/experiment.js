@@ -31,7 +31,7 @@ angular.module('we99App')
           $location.path('/experiment/addedit/' + $scope.experiments[i].id);
           break;
       }
-    }
+    };
     //delete experiment from database
     $scope.removeItem=function(row){
     	RestService.deleteExperiment(row.id)
@@ -45,7 +45,7 @@ angular.module('we99App')
     		.error(function(response){
     		   console.log('Error: '+response);
     		});
-    }
+    };
 
     // fired when table rows are selected
     $scope.$watch('displayExperiments', function(newVal) {

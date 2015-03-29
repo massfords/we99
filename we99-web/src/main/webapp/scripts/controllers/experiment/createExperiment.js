@@ -16,9 +16,6 @@ angular.module('we99App')
     ];
 
 
-
-    refreshProtocolList();
-
     // if given id, this is an edit of an existing experiment
     if($routeParams.addeditId){
       $scope.editMode=true;
@@ -26,6 +23,7 @@ angular.module('we99App')
       RestService.getExperimentById($routeParams.addeditId)
         .success(function(resp){
           $scope.newExp=resp;
+          refreshProtocolList();
           refreshUsersList();
         })
     } //otw, this is a new experiment
@@ -33,6 +31,7 @@ angular.module('we99App')
       $scope.editMode=false;
       $scope.pageTitle='Create New Experiment';
       $scope.newExp={};
+      refreshProtocolList();
       refreshUsersList();
     }
 
@@ -101,14 +100,28 @@ angular.module('we99App')
 	    RestService.getProtocols()
 	    .success(function(response){
 	    	$scope.protocolValues=response.values;
+        $scope.newExp.protocol = selectMatching($scope.protocolValues, "id", $scope.newExp.protocol.id);
 	    })
 	    .error(function(response){
 	    	$scope.errorText='Failed to load protocol list';
 	    });
     }
 
-
-
+    /**
+     * walks the array and selects the first object with a property that matches
+     * the value given.
+     * @param input
+     * @param key
+     * @param value
+     * @returns {*}
+     */
+    function selectMatching(input, key, value) {
+      for(var i=0; i<input.length; i++) {
+        if (input[i][key] === value) {
+          return input[i];
+        }
+      }
+    }
 
 
     function saveMembers(expId,memberIds){
@@ -143,7 +156,7 @@ angular.module('we99App')
     		.error(function(resp){
     			$scope.errorText='Error: could not save experiment';
     		});
-    }
+    };
 
     $scope.assignUser=function(){
     	for(var i=0;i<$scope.availUsers.length;i++){
@@ -154,7 +167,7 @@ angular.module('we99App')
     			break;
     		}
     	}
-    }
+    };
 
     $scope.removeUser=function(){
     	for(var i=0;i<$scope.assignedUsers.length;i++){
@@ -171,7 +184,7 @@ angular.module('we99App')
     			}
     		}
     	}
-    }
+    };
 
     //modal control
     $scope.newProtocol = function () {
@@ -214,7 +227,7 @@ angular.module('we99App')
 		//throw error if name is not unique
 		for(var i=0;i<protocols.length;i++){
 			if(protocols[i].name===$scope.protocol.name){
-				$scope.errorText="New protocol name must be unique."
+				$scope.errorText="New protocol name must be unique.";
 				return;
 			}
 		}
