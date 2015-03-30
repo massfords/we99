@@ -241,7 +241,8 @@ describe('Controller: AddPlateCtrl', function () {
   beforeEach(inject(function(_$httpBackend_) {
     $httpBackend = _$httpBackend_;
     $httpBackend.whenGET('services/rest/plateType').respond(JSON.stringify(samplePlateTypeResp));
-    $httpBackend.whenGET('services/rest/plateMap').respond(JSON.stringify(samplePlateMapsResp));
+    $httpBackend.whenGET('services/rest/plateMap?maxCols=12&maxRows=8').respond(JSON.stringify(samplePlateMapsResp));
+    $httpBackend.whenGET('services/rest/plateMap?maxCols=24&maxRows=16').respond(JSON.stringify(samplePlateMapsResp));
     $httpBackend.whenGET('services/rest/compound?q=ammo').respond(JSON.stringify(sampleCompoundTypeAheadResp))
   }));
 
@@ -291,7 +292,7 @@ describe('Controller: AddPlateCtrl', function () {
       expect(scope.plateMaps).toBeNull();
     });
 
-    it('should get a list of valid plateMaps when a plate type is selected', function () {
+    it('should get a list of valid plateMaps when plateMapsForPlateType is triggered', function () {
       var expectedPlateMaps = [
         {
           "id": 300,
@@ -346,10 +347,11 @@ describe('Controller: AddPlateCtrl', function () {
       ];
 
       scope.selectedPlateType = samplePlateTypeResp.values[0];
-      scope.$digest();
       expect(scope.selectedPlateType.dim.rows).toBe(8);
       expect(scope.selectedPlateType.dim.cols).toBe(12);
-      expect(angular.equals(scope.plateMaps, expectedPlateMaps).toBe(true));
+      $httpBackend.expectGET('services/rest/plateMap?maxCols=12&maxRows=8');
+      scope.plateMapsForPlateType();
+      $httpBackend.flush();
     });
 
     it('should change the list of valid plateMaps when a different plate type is selected', function () {
@@ -486,18 +488,33 @@ describe('Controller: AddPlateCtrl', function () {
       scope.$digest();
       expect(scope.selectedPlateType.dim.rows).toBe(8);
       expect(scope.selectedPlateType.dim.cols).toBe(12);
-      expect(scope.plateMaps).not.toEqual(expectedPlateMaps);
+      $httpBackend.expectGET('services/rest/plateMap?maxCols=12&maxRows=8');
+      scope.plateMapsForPlateType();
+      $httpBackend.flush();
 
       // Change to desired selection
       scope.selectedPlateType = samplePlateTypeResp.values[1];
       scope.$digest();
       expect(scope.selectedPlateType.dim.rows).toBe(16);
       expect(scope.selectedPlateType.dim.cols).toBe(24);
-      expect(scope.plateMaps).toEqual(expectedPlateMaps);
+      $httpBackend.expectGET('services/rest/plateMap?maxCols=24&maxRows=16');
+      scope.plateMapsForPlateType();
+      $httpBackend.flush();
+    });
+
+    it('should NOT change plateTypes or selectedPlateTypes when selected', function(){
+      scope.plateTypes = samplePlateTypeResp.values;
+      scope.selectedPlateType = samplePlateTypeResp.values[0];
+      $httpBackend.flush();
+      scope.$digest();
+      scope.plateMapsForPlateType();
+      $httpBackend.flush();
+      expect(angular.equals(scope.plateTypes, samplePlateTypeResp.values)).toBe(true);
+      expect(angular.equals(scope.selectedPlateType, samplePlateTypeResp.values[0])).toBe(true);
     });
 
     it('should NOT change plateMaps when a plate map is selected', function () {
-      scope.selectedPlateType = samplePlateTypeResp[0];
+      scope.selectedPlateType = samplePlateTypeResp.values[0];
       scope.$digest();
 
       var expectedPlateMaps = angular.copy(scope.plateMaps);
@@ -505,13 +522,13 @@ describe('Controller: AddPlateCtrl', function () {
       // valid selection
       scope.selectedPlateMap = samplePlateMapsResp[0];
       scope.$digest();
-      expect(scope.plateMaps).toEqual(expectedPlateMaps);
+      expect(angular.equals(scope.plateMaps,expectedPlateMaps)).toBe(true);
       // invalid selection
       scope.selectedPlateMap = samplePlateMapsResp[0];
       scope.$digest();
       scope.selectedPlateType = null;
       scope.$digest();
-      expect(scope.plateTypes).toEqual(expectedPlateMaps);
+      expect(angular.equals(scope.plateMaps,expectedPlateMaps)).toBe(true);
     });
 
     describe('Replicates options', function(){

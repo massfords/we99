@@ -13,12 +13,13 @@ angular.module('we99App')
       //template:"<div>wire test</div>",
       templateUrl: 'views/plate-mgmt/addplate.html',
       scope: {},
-      link: function postLink(scope, element, attrs) {
-        element.text('wire test');
-      }
+      controller:'AddPlateCtrl'
+      //link: function postLink(scope, element, attrs) {
+      //  element.text('wire test');
+      //}
     };
   })
-  .controller('AddPlateCtrl', function($scope, SelectedExperimentSvc, PlateTypeModel){
+  .controller('AddPlateCtrl', function($scope, SelectedExperimentSvc, PlateTypeModel, PlateMapModel, kCompoundUOM){
       $scope.selectedPlateType = null;
       $scope.plateMaps = null;
       $scope.experiment = SelectedExperimentSvc.selected();
@@ -27,6 +28,29 @@ angular.module('we99App')
       });
 
       $scope.plateMapsForPlateType = function() {
-        scope.selectedPlateType
+        var maxRows = $scope.selectedPlateType.dim.rows,
+            maxCols = $scope.selectedPlateType.dim.cols;
+        $scope.plateMaps = PlateMapModel.listPlateMaps({maxRows:maxRows,maxCols:maxCols},
+          function done(data) {
+            $scope.plateMaps = data;
+          });
+      };
+
+
+    /** Row Class for Label Table
+     *  You can set the defaults in this class as well
+     * @param label the well label
+     * @param type the well type
+     * @constructor
+     */
+      function LabelTableRow(label, type) {
+        this.label = label;
+        this.type = type;
+        this.count = 1;
+        this.replicates = 1;
+        this.compound = null;
+        this.initialDoseAmt = 100;
+        this.initialDoseUOM = kCompoundUOM.uM;
+        this.dilutionFactor = 1;
       }
   });

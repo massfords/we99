@@ -1,18 +1,52 @@
 <div class="add-plate">
   <div class="modal-header">
-    <h3 class="modal-title">{{experimentName}} - Add Plate</h3>
+    <h3 class="modal-title">{{experiment.name}} - Add Plate</h3>
   </div>
   <div class="modal-body">
     <form>
       <div>
         <label>Plate Type:
-          <select ng-options="plateType.id as plateType.name for plateType in plateTypes"></select>
-        </label><br>
+          <select ng-options="plateType as plateType.name for plateType in plateTypes"
+                  ng-change="plateMapsForPlateType()"
+                  ng-model="selectedPlateType"></select>
+        </label> <span class="add-edit">[<a href="#/">Add/Edit Plate Types</a>]</span><br>
         <label>Plate Map:
-          <select ng-options="plateMap.id as plateMap.name for plateMap in plateMaps"></select>
-        </label>
+          <select ng-options="plateMap.name for plateMap in plateMaps"
+                  ng-model="selectedPlateMap"></select>
+        </label> <span class="add-edit">[<a href="#/">Add/Edit Plate Maps</a>]</span>
       </div>
     </form>
+    <div class="mapping-table" ng-if="selectedPlateMap">
+      <div class="table-fixed-height">
+        <table st-table="selectedPlateMap.wells" class="table table-striped">
+          <thead>
+            <tr>
+              <th st-sort="label">Label</th>
+              <th st-sort="type">Type</th>
+              <th st-sort="count">Count</th>
+              <th st-sort="replicates">Replicates</th>
+              <th st-sort="compounds">Replicates</th>
+              <th>Initial Dose</th>
+              <th>Dilution Factor</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="row in selectedPlateMap.wells">
+            <td>{{row.labels[0].value}}</td>
+            <td>{{row.type}}</td>
+            <td></td>
+            <td></td>
+            <td>
+              <i class="glyphicon glyphicon-remove-circle" title="Delete" ng-click="removePlateType(row)"></i>
+              <i class="glyphicon glyphicon-search" title="View Details" ng-click="selectPlateType(row)"></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+    </div>
+
+
+
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary" ng-click="addPlateMap()">Create</button>
