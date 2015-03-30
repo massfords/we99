@@ -6,6 +6,7 @@ import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PlateEntity;
+import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
 import edu.harvard.we99.services.storage.entities.QPlateEntity;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,11 +48,14 @@ public class PlateStorageImpl implements PlateStorage {
         type.setId(null);
 
         ExperimentEntity ee = em.find(ExperimentEntity.class, type.getExperiment().getId());
-
+        PlateTypeEntity pte = em.find(PlateTypeEntity.class, type.getPlateType().getId());
         PlateEntity pe = Mappers.PLATES.mapReverse(type);
+        pe.setPlateType(pte);
+        pte.addPlate(pe);
         pe.setExperiment(ee);
         updateWells(type, pe);
         em.persist(pe);
+        em.merge(pte);
         return Mappers.PLATES.map(pe);
     }
 
@@ -76,6 +80,9 @@ public class PlateStorageImpl implements PlateStorage {
     @Transactional
     public void delete(Long id) {
         PlateEntity pe = em.find(PlateEntity.class, id);
+        PlateTypeEntity pte = pe.getPlateType();
+        pte.removePlate(pe);
+        em.merge(pte);
         em.remove(pe);
     }
 

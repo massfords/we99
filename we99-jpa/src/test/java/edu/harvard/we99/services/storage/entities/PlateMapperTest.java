@@ -44,8 +44,6 @@ public class PlateMapperTest {
 
         assertEquals(plate.getId(), pe.getId());
         assertEquals("abc123", pe.getBarcode());
-        assertSame(plateType.getDim(), pe.getPlateType().getDim());
-        assertSame(plateType.getId(), pe.getPlateType().getId());
         assertEquals("desc", pe.getDescription());
         assertEquals("plate1", pe.getName());
         assertEquals(0, pe.getWells().size());
@@ -64,8 +62,6 @@ public class PlateMapperTest {
         Mappers.PLATES.mapReverse(plate, pe);
         assertEquals(plate.getId(), pe.getId());
         assertEquals("abc123", pe.getBarcode());
-        assertSame(plateType.getDim(), pe.getPlateType().getDim());
-        assertSame(plateType.getId(), pe.getPlateType().getId());
         assertEquals("desc", pe.getDescription());
         assertEquals("plate1", pe.getName());
 

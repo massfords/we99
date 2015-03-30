@@ -35,8 +35,42 @@
     },
     {
       "coordinate": {
+        "row": 2,
+        "col": 2
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICO"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
         "row": 0,
         "col": 1
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICO"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 3
       },
       "labels": [],
       "type": "COMP",
@@ -105,40 +139,6 @@
       "coordinate": {
         "row": 2,
         "col": 1
-      },
-      "labels": [],
-      "type": "COMP",
-      "contents": [
-        {
-          "amount": {
-            "number": 1.0,
-            "units": "PICO"
-          },
-          "compound": {"name": "Cx"}
-        }
-      ]
-    },
-    {
-      "coordinate": {
-        "row": 2,
-        "col": 2
-      },
-      "labels": [],
-      "type": "COMP",
-      "contents": [
-        {
-          "amount": {
-            "number": 1.0,
-            "units": "PICO"
-          },
-          "compound": {"name": "Cx"}
-        }
-      ]
-    },
-    {
-      "coordinate": {
-        "row": 2,
-        "col": 3
       },
       "labels": [],
       "type": "COMP",

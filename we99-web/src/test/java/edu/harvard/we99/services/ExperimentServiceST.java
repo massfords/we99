@@ -66,6 +66,7 @@ public class ExperimentServiceST {
         es = null;
         user = null;
         resultsFixture = null;
+        pts = null;
     }
 
     @Before

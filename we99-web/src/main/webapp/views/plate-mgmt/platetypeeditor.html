@@ -9,6 +9,7 @@
           <th st-sort="description">Description</th>
           <th st-sort="dim.rows">Rows x Cols (Wells)</th>
           <th st-sort="manufacturer">Manufacturer</th>
+          <th st-sort="plateCount">Plates using this type</th>
           <th>Action</th>
         </tr>
        <tr>
@@ -21,6 +22,7 @@
         <td>{{row.description}}</td>
         <td>{{row.dim.rows + ' x ' + row.dim.cols}}</td>
         <td>{{row.manufacturer}}</td>
+        <td>{{row.plateCount}}</td>
         <td>
         <i class="glyphicon glyphicon-remove-circle" title="Delete" ng-click="removePlateType(row)"></i>
         <i class="glyphicon glyphicon-search" title="View Details" ng-click="selectPlateType(row)"></i>

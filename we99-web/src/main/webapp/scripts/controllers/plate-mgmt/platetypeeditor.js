@@ -51,6 +51,10 @@ angular.module('we99App')
 
           /** Removes Plate Type From db*/
           $scope.removePlateType = function(plateTypeObj){
+            if (plateTypeObj.plateCount > 0) {
+              alert("Plate Type cannot be removed. It's still in use.");
+              return;
+            }
             plateTypeObj.$delete({id:plateTypeObj.id}, function done(){
               refreshPlateTypesList();
             });

@@ -1,5 +1,6 @@
 package edu.harvard.we99.services.storage;
 
+import com.mysema.query.Tuple;
 import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateType;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +34,14 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
     public PlateTypes listAll(Integer page) {
 
         JPAQuery query = new JPAQuery(em);
-        query.from(QPlateTypeEntity.plateTypeEntity);
-        long count = query.count();
+        QPlateTypeEntity pte = QPlateTypeEntity.plateTypeEntity;
+        query.from(pte).leftJoin(pte.plates).groupBy(pte);
         query.limit(pageSize()).offset(pageToFirstResult(page));
 
-        List<PlateTypeEntity> resultList = query.list(QPlateTypeEntity.plateTypeEntity);
-        List<PlateType> list = map(resultList);
+        long count = new JPAQuery(em).from(pte).count();
+
+        List<Tuple> tuples = query.list(pte, pte.count());
+        List<PlateType> list = map(tuples);
         return new PlateTypes(count, page, pageSize(), list);
     }
 
@@ -60,7 +64,7 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
         query.limit(pageSize()).offset(pageToFirstResult(page));
 
         List<PlateTypeEntity> resultList = query.list(pte);
-        return new PlateTypes(count, page, pageSize(), map(resultList));
+        return new PlateTypes(count, page, pageSize(), mapPTE(resultList));
     }
 
     @Override
@@ -91,12 +95,23 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
     @Transactional
     public void delete(Long id) {
         PlateTypeEntity pte = em.find(PlateTypeEntity.class, id);
+        if (pte.isInUse()) throw new PersistenceException("Plate cannot be deleted while in use.");
         em.remove(pte);
     }
 
-    private List<PlateType> map(List<PlateTypeEntity> resultList) {
+    private List<PlateType> mapPTE(List<PlateTypeEntity> resultList) {
         List<PlateType> list = new ArrayList<>();
         resultList.forEach(pte -> list.add(Mappers.PLATETYPE.map(pte)));
+        return list;
+    }
+    private List<PlateType> map(List<Tuple> tuples) {
+        List<PlateType> list = new ArrayList<>();
+        for(Tuple tuple : tuples) {
+            PlateType pt = Mappers.PLATETYPE.map(tuple.get(QPlateTypeEntity.plateTypeEntity));
+            //noinspection ConstantConditions
+            pt.setPlateCount(tuple.get(1, Long.class) - 1L);
+            list.add(pt);
+        }
         return list;
     }
 

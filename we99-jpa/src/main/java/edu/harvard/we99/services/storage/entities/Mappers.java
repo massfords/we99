@@ -92,6 +92,7 @@ public class Mappers {
                 .fieldAToB("wells", "wells")
                 .fieldAToB("experiment", "experiment")
                 .fieldAToB("labels", "labels")
+                .fieldAToB("plateType", "plateType")
                 .byDefault()
                 .register();
         mapperFactory

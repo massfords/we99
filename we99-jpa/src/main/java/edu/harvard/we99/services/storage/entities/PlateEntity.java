@@ -71,7 +71,7 @@ public class PlateEntity extends AbstractPlateEntity<PlateEntity> {
      * Every plate has a plate type that identifies its size, orientation, and manufacturer.
      * There may be 100's of these plate types in the system
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @NotNull
     @JoinColumn(updatable = false)
     private PlateTypeEntity plateType;

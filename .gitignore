@@ -1,6 +1,7 @@
 *.iml
 *.ipr
 *.iws
+*.ids
 logs
 target
 **/target

@@ -95,6 +95,8 @@ public class DbPopulator {
                         .setExperiment(ee)
                         .setPlateType(pte);
                 em.persist(pe);
+                pte.addPlate(pe);
+                em.merge(pte);
                 for(int row=0; row<pte.getDim().getRows(); row++) {
                     for(int col=0; col<pte.getDim().getCols(); col++) {
                         WellEntity we = new WellEntity(row, col);
