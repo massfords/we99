@@ -16,3 +16,6 @@ app.constant('RestURLs', {
       return restBase+'experiment/'+experimentId+'/plates/'+plateId+'/results';
     }
 });
+
+/** Accepted Units of measures for compounds */
+app.constant('kCompoundUOM', {'uM':'uM'});
