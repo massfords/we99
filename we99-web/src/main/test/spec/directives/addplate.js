@@ -574,3 +574,174 @@ describe('Controller: AddPlateCtrl', function () {
 
   });
 });
+
+describe('Service: LabelTableSvc', function () {
+
+  // load the service's module
+  beforeEach(module('we99App'));
+
+  // instantiate service
+  var LabelTableSvc;
+  var templatePlateMap = {
+    "id": 300,
+    "name": "pme",
+    "description": "foo123",
+    "wells": [
+      {
+        "id": 800,
+        "coordinate": {
+          "row": 4,
+          "col": 5
+        },
+        "labels": [
+          {
+            "name": "lbl",
+            "value": "ABC"
+          }
+        ],
+        "type": "COMP"
+      }
+    ],
+    "dim": {
+      "rows": 7,
+      "cols": 8
+    }
+  };
+
+  beforeEach(inject(function (_LabelTableSvc_) {
+    LabelTableSvc = _LabelTableSvc_;
+  }));
+
+  describe('plateMapToLabelTable', function() {
+    it('should return an empty array if platemap is null', function() {
+      expect(LabelTableSvc.plateMapToLabelTable(null)).toEqual([]);
+    });
+    it('should error if plate map object does not have wells', function() {
+      var plateMap = angular.copy(templatePlateMap);
+      delete plateMap.wells;
+      expect(function(){LabelTableSvc.plateMapToLabelTable(plateMap);}).toThrowError(TypeError)
+    });
+    it('should return an empty array if plate map object does not have labels', function() {
+      var plateMap = angular.copy(templatePlateMap);
+      delete plateMap.wells[0].labels;
+      expect(LabelTableSvc.plateMapToLabelTable(plateMap)).toEqual([]);
+    });
+    it('should error if plate map object does not have a type', function() {
+      var plateMap = angular.copy(templatePlateMap);
+      delete plateMap.wells.forEach(function(well){delete well.type;});
+      expect(function(){LabelTableSvc.plateMapToLabelTable(plateMap);}).toThrowError(TypeError);
+    });
+    it('should create a proper label table given a well map with wells, some of which contain the same label', function(){
+      var plateMap = angular.copy(templatePlateMap);
+      // Populate wells with ABC (COMP : 2x), DEF (EXP : 2x), GHI (EXP : 1x)
+      plateMap.wells = [
+        {
+          "id": 800,
+          "coordinate": {
+            "row": 0,
+            "col": 0
+          },
+          "labels": [
+            {
+              "name": "lbl",
+              "value": "ABC"
+            }
+          ],
+          "type": "COMP"
+        },
+        {
+          "id": 801,
+          "coordinate": {
+            "row": 1,
+            "col": 2
+          },
+          "labels": [
+            {
+              "name": "lbl",
+              "value": "DEF"
+            }
+          ],
+          "type": "EXP"
+        },
+        {
+          "id": 802,
+          "coordinate": {
+            "row": 3,
+            "col": 4
+          },
+          "labels": [
+            {
+              "name": "lbl",
+              "value": "ABC"
+            },
+            {
+              "name": "non-lbl",
+              "value": "DEF"
+            }
+          ],
+          "type": "COMP"
+        },
+        {
+          "id": 803,
+          "coordinate": {
+            "row": 5,
+            "col": 6
+          },
+          "labels": [
+            {
+              "name": "lbl",
+              "value": "DEF"
+            },
+            {
+              "name": "non-lbl",
+              "value": "ABC"
+            },
+            {
+              "name": "non-lbl2",
+              "value": "DEF"
+            }
+
+          ],
+          "type": "EXP"
+        },
+        {
+          "id": 800,
+          "coordinate": {
+            "row": 4,
+            "col": 4
+          },
+          "labels": [
+            {
+              "name": "lbl",
+              "value": "GHI"
+            }
+          ],
+          "type": "EXP"
+        }
+      ];
+
+      var LabelTableRow = LabelTableSvc.LabelTableRow,
+          labelTable = LabelTableSvc.plateMapToLabelTable(plateMap);
+      // sort for predictable return value to compare to
+      labelTable = labelTable.sort(function (l, r) {
+        if (l.label > r.label) {
+          return 1;
+        }
+        if (l.label < r.label) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
+
+      // expected rows
+      var expectedLabelTable = [new LabelTableRow('ABC', 'COMP'), new LabelTableRow('DEF', 'EXP'), new LabelTableRow('GHI', 'EXP')];
+      expectedLabelTable[0].count = 2;
+      expectedLabelTable[1].count = 2;
+      expectedLabelTable[2].count = 1;
+
+      expect(angular.equals(labelTable, expectedLabelTable)).toBe(true);
+    });
+
+  });
+});

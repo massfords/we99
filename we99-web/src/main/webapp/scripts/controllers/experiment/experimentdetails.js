@@ -11,5 +11,5 @@ angular.module('we99App')
   .controller('ExperimentDetailsCtrl', ['$scope', '$routeParams', 'SelectedExperimentSvc',
     function ($scope, $routeParams, SelectedExperimentSvc) {
     SelectedExperimentSvc.setSelectedById($routeParams.experimentId);
-    $scope.experiment = SelectedExperimentSvc.selected();
+    $scope.experiment = SelectedExperimentSvc.getSelected();
   }]);

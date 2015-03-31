@@ -6,9 +6,10 @@ describe('Service: SelectedExperimentSvc', function () {
   beforeEach(module('we99App'));
 
   // instantiate service
-  var ExperimentService,
+  var SelectedExperimentSvc,
       RestService,
-      $httpBackend;
+      $httpBackend,
+      getExperiment1;
 
   var sampleExperiment = {
     "id" : 1,
@@ -26,38 +27,43 @@ describe('Service: SelectedExperimentSvc', function () {
 
   beforeEach(inject(function (_$httpBackend_) {
     $httpBackend = _$httpBackend_;
-    $httpBackend.whenGET('experiment/1').respond(sampleExperiment);
+    getExperiment1 = $httpBackend.whenGET('services/rest/experiment/1')
+    getExperiment1.respond(sampleExperiment);
   }));
-  beforeEach(inject(function (_ExperimentService_, _RestService_, _$httpBackend_) {
-    ExperimentService = _ExperimentService_;
+  beforeEach(inject(function (_SelectedExperimentSvc_, _RestService_, _$httpBackend_) {
+    SelectedExperimentSvc = _SelectedExperimentSvc_;
     RestService = _RestService_;
   }));
-  afterEach(inject(function (_ExperimentService_) {
-    ExperimentService.selected() = null;
-  }));
-
-  it('should do something', function () {
-    expect(!!ExperimentService).toBe(true);
+  afterEach(function () {
+    SelectedExperimentSvc.setSelected(null);
   });
 
-  it('should get call experiment by id', function(){
-    spyOn(RestService, 'getExperimentById');
-    ExperimentService.setSelectedById(1);
-    expect(RestService.getExperimentById.calls.count()).toEqual(1);
-    expect(ExperimentService.selected).toEqual(sampleExperiment);
-  })
+  it('should do something', function () {
+    expect(!!SelectedExperimentSvc).toBe(true);
+  });
 
+  it('should get call experiment by id', function() {
+    spyOn(RestService, 'getExperimentById').and.callThrough();
+    SelectedExperimentSvc.setSelectedById(1);
+    expect(RestService.getExperimentById.calls.count()).toBe(1);
+  });
+  it('should assign the selected when setSelectedById', function() {
+    SelectedExperimentSvc.setSelectedById(1);
+    $httpBackend.flush();
+    expect(SelectedExperimentSvc.getSelected()).toEqual(sampleExperiment);
+  });
   it('should clear selection', function(){
-    ExperimentService.clearSelection();
-    expect(ExperimentService.selected).toBeNull();
-  })
+    SelectedExperimentSvc.clearSelection();
+    expect(SelectedExperimentSvc.getSelected()).toBeNull();
+  });
 
   it('should clear selection when failed http attempt', function(){
     var errorCodes = [404, 500];
     errorCodes.forEach(function(code){
-      $httpBackend.whenGET('experiment/1').respond(code,'');
-      ExperimentService.setSelectedById(1);
-      expect(ExperimentService.selected).toBeNull();
+      getExperiment1.respond(code,'');
+      SelectedExperimentSvc.setSelectedById(1);
+      $httpBackend.flush();
+      expect(SelectedExperimentSvc.getSelected()).toBeNull();
     });
   })
 

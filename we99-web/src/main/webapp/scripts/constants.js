@@ -1,6 +1,13 @@
 var app = angular.module('we99App');
 
-// API
+/** Can Dependency Inject Lodash */
+app.constant('_', window._);
+
+/** Accepted Units of measures for compounds */
+app.constant('kCompoundUOM', {'uM':'uM'});
+
+
+/** API */
 var restBase = 'services/rest/';
 app.constant('RestURLs', {
     plateMap: restBase + 'plateMap/:id',
@@ -16,6 +23,3 @@ app.constant('RestURLs', {
       return restBase+'experiment/'+experimentId+'/plates/'+plateId+'/results';
     }
 });
-
-/** Accepted Units of measures for compounds */
-app.constant('kCompoundUOM', {'uM':'uM'});

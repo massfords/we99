@@ -9,18 +9,25 @@
  */
 angular.module('we99App')
   .factory('SelectedExperimentSvc', function (RestService) {
-    var selected;
-    return {
-      selected: function(){return selected;},
-      setSelectedById: function(experimentId) {
-        RestService.getExperimentById(experimentId)
-          .success(function(resp){
-            selected=resp;
-          })
-          .error(function(resp){
-            console.error(resp);
-            selected = null;
-          });
-      }
-    };
+    var selected,
+        factory = {
+        getSelected: function(){
+          return selected;
+        },
+        setSelected: function(experiment){
+          selected = experiment;
+        },
+        setSelectedById: function(experimentId) {
+          RestService.getExperimentById(experimentId)
+            .success(function(resp){
+              factory.setSelected(resp);
+            })
+            .error(function(resp){
+              console.error(resp);
+              factory.clearSelection();
+            });
+        },
+        clearSelection: function(){factory.setSelected(null);}
+      };
+    return factory;
   });
