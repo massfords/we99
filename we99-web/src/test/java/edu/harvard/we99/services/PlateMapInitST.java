@@ -1,6 +1,8 @@
 package edu.harvard.we99.services;
 
-import edu.harvard.we99.domain.*;
+import edu.harvard.we99.domain.Label;
+import edu.harvard.we99.domain.PlateMap;
+import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.AfterClass;
@@ -8,13 +10,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.net.URL;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import static edu.harvard.we99.test.BaseFixture.*;
+import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
+import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -57,33 +60,47 @@ public class PlateMapInitST {
     public void platesWereCreated() throws Exception {
         List<PlateMap> plateMaps = plateMapService.listAll(0,999,999).getValues();
         assertTrue(plateMaps.size() > 0);
-//        String actual = toJsonString(pt);
-//        assertJsonEquals(load("/PlateMapIT/create.json"), actual, jsonScrubber);
     }
 
-//    @Test
-//    public void update() throws Exception {
-//        // create a new template
-//        // update one or more values and wells
-//        // assert the updated values
-//        PlateMap plateMap = createPlateMap();
-//        PlateMap pm = plateMapService.create(plateMap);
-//
-//        pm.setDescription("my modified description");
-//        Coordinate coordinate = new Coordinate(0, 0);
-//        WellMap well = new WellMap(coordinate)
-//                .withLabel("loc", "well 0,0")
-//                .setType(WellType.COMP);
-//        pm.getWells().put(coordinate,well);
-//        PlateMap updated = plateMapService.update(pm.getId(), pm);
-//        String actual = toJsonString(updated);
-//        assertJsonEquals(load("/PlateMapIT/updated.json"), actual, jsonScrubber);
-//    }
-//
-//    private PlateMap createPlateMap() {
-//        return new PlateMap()
-//                .setName(name("plateMap-"))
-//                .setDescription("my test plate")
-//                .setDim(plateType.getDim());
-//    }
+    @Test
+    public void plate5x5WasCreated() throws Exception {
+        Optional result = findPlate("5x5", 5, 5);
+        assertTrue(result.isPresent());
+    }
+
+    @Test
+    public void plate5x5HasLabelValues() throws Exception {
+        PlateMap plateMap = (PlateMap)findPlate("5x5", 5, 5).get();
+        Set<String> labels = new HashSet<>();
+        for (WellMap well : plateMap.getWells().values()) {
+            labels.addAll(
+                well.getLabels().stream()
+                        .map(Label::getValue)
+                        .collect(Collectors.toList())
+            );
+        }
+        Set<String> expectedSet = new HashSet<>();
+        expectedSet.addAll(Arrays.asList("A", "B", "C"));
+
+        assertEquals(labels, expectedSet);
+    }
+
+    @Test
+    public void plate5x5CreatesTheProperJson() throws Exception {
+        PlateMap plateMap = (PlateMap)findPlate("5x5", 5, 5).get();
+        String actual = toJsonString(plateMap);
+        assertJsonEquals(load("/PlateMapInitST/expected5x5.json"), actual, jsonScrubber);
+    }
+
+    private Optional findPlate(String name, int rows, int cols){
+        List<PlateMap> plateMaps = plateMapService.listAll(0,999,999).getValues();
+        return plateMaps.stream()
+                .filter(plateMap -> plateMap.getName().equalsIgnoreCase(name) &&
+                        plateMap.getDim().getRows() == rows &&
+                        plateMap.getDim().getCols() == cols)
+                .findAny();
+
+    }
+
+
 }

@@ -19,7 +19,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,14 +39,12 @@ public class DbPopulator {
 
     @SuppressWarnings("deprecation")
     private final PasswordEncoder passwordEncoder;
-    private final PlateMapService plateMapService;
 
     public DbPopulator(EntityManagerFactory emf,
                        DbVersionInspector inspector,
                        PlateMapService pms,
                        @SuppressWarnings("deprecation") PasswordEncoder encoder) throws Exception {
         this.passwordEncoder = encoder;
-        this.plateMapService = pms;
         if (!inspector.isDbInitRequired()) {
             // no sample data required, leave now
             return;
@@ -59,7 +60,7 @@ public class DbPopulator {
             loadExperiments(sf, em);
 
             // add plates
-            plateMapService.createUnsecured("5x5", getClass().getResourceAsStream("/sample-data/platemap5x5.csv"));
+            pms.createUnsecured("5x5", getClass().getResourceAsStream("/sample-data/platemap5x5.csv"));
         } finally {
             em.close();
         }

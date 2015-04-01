@@ -24,6 +24,11 @@ public class PlateMap extends AbstractPlate<PlateMap> {
 
     private PlateDimension dim;
 
+    /** Adds an arbitrary amount of well maps
+     *
+     * @param wellMap
+     * @return Platemap object for fluent interface use.
+     */
     public PlateMap withWells(WellMap...wellMap) {
         for(WellMap wm : wellMap) {
             wells.put(wm.getCoordinate(), wm);

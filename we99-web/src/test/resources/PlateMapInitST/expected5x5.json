@@ -1,0 +1,133 @@
+{
+  "id" : 16,
+  "name" : "5x5",
+  "wells" : [ {
+    "id" : 1452,
+    "coordinate" : {
+      "row" : 0,
+      "col" : 0
+    },
+    "labels" : [ {
+      "id" : 1459,
+      "name" : "lbl1",
+      "value" : "A"
+    } ],
+    "type" : "COMP"
+  }, {
+    "id" : 1459,
+    "coordinate" : {
+      "row" : 2,
+      "col" : 2
+    },
+    "labels" : [ {
+      "id" : 1465,
+      "name" : "lbl1",
+      "value" : "B"
+    } ],
+    "type" : "COMP"
+  }, {
+    "id" : 1462,
+    "coordinate" : {
+      "row" : 4,
+      "col" : 4
+    },
+    "labels" : [ {
+      "id" : 1467,
+      "name" : "lbl1",
+      "value" : "C"
+    } ],
+    "type" : "COMP"
+  }, {
+    "id" : 1453,
+    "coordinate" : {
+      "row" : 0,
+      "col" : 1
+    },
+    "labels" : [ {
+      "id" : 1460,
+      "name" : "lbl1",
+      "value" : "A"
+    } ],
+    "type" : "COMP"
+  }, {
+    "id" : 1460,
+    "coordinate" : {
+      "row" : 2,
+      "col" : 3
+    },
+    "labels" : [ {
+      "id" : 1466,
+      "name" : "lbl1",
+      "value" : "B"
+    } ],
+    "type" : "COMP"
+  }, {
+    "id" : 1454,
+    "coordinate" : {
+      "row" : 0,
+      "col" : 2
+    },
+    "labels" : [ {
+      "id" : 1461,
+      "name" : "lbl1",
+      "value" : "A"
+    } ],
+    "type" : "COMP"
+  }, {
+    "id" : 1461,
+    "coordinate" : {
+      "row" : 2,
+      "col" : 4
+    },
+    "labels" : [ ],
+    "type" : "EMPTY"
+  }, {
+    "id" : 1455,
+    "coordinate" : {
+      "row" : 0,
+      "col" : 3
+    },
+    "labels" : [ {
+      "id" : 1462,
+      "name" : "lbl1",
+      "value" : "A"
+    } ],
+    "type" : "COMP"
+  }, {
+    "id" : 1456,
+    "coordinate" : {
+      "row" : 0,
+      "col" : 4
+    },
+    "labels" : [ ],
+    "type" : "EMPTY"
+  }, {
+    "id" : 1457,
+    "coordinate" : {
+      "row" : 2,
+      "col" : 0
+    },
+    "labels" : [ {
+      "id" : 1463,
+      "name" : "lbl1",
+      "value" : "B"
+    } ],
+    "type" : "COMP"
+  }, {
+    "id" : 1458,
+    "coordinate" : {
+      "row" : 2,
+      "col" : 1
+    },
+    "labels" : [ {
+      "id" : 1464,
+      "name" : "lbl1",
+      "value" : "B"
+    } ],
+    "type" : "COMP"
+  } ],
+  "dim" : {
+    "rows" : 5,
+    "cols" : 5
+  }
+}
