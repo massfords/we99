@@ -532,30 +532,13 @@ describe('Controller: AddPlateCtrl', function () {
     });
 
     describe('Replicates options', function(){
-      it('should call replicates function at least once per selected plate map label', function() {
-        spyOn(scope, 'computeReplicates');
-        var labelSet = {};
 
-        scope.selectedPlateType = samplePlateTypeResp.values[0];
-        scope.selectedPlateMap = samplePlateMapsResp.values[0];
-        scope.$digest();
-
-        // get labels
-        scope.selectedPlateMap.wells.forEach(function(well) {
-
-          well.labels.forEach(function(label){
-            if (!labelSet.hasOwnProperty(label.name)) {
-              labelSet[label.name] = true;
-            }
-          });
-        });
-
-        expect(scope.computeReplicates.calls.length).toEqual(Object.keys(labelSet).length);
+      it('should not accept counts < 0', function() {
+        expect(function(){scope.computeReplicates(-1);}).toThrowError(Error);
       });
 
       it('should provide a options that are a factor of the count', function() {
         expect(scope.computeReplicates(0)).toEqual([]);
-        expect(scope.computeReplicates(-1)).toThrow();
         expect(scope.computeReplicates(1)).toEqual([1]);
         expect(scope.computeReplicates(17)).toEqual([1,17]);
         expect(scope.computeReplicates(10)).toEqual([1,2,5,10]);

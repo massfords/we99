@@ -9,44 +9,60 @@
           <select ng-options="plateType as plateType.name for plateType in plateTypes"
                   ng-change="plateMapsForPlateType()"
                   ng-model="selectedPlateType"></select>
-        </label> <span class="add-edit">[<a href="#/">Add/Edit Plate Types</a>]</span><br>
+        </label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span><br>
         <label>Plate Map:
           <select ng-options="plateMap.name for plateMap in plateMaps"
-                  ng-model="selectedPlateMap"></select>
-        </label> <span class="add-edit">[<a href="#/">Add/Edit Plate Maps</a>]</span>
+                  ng-model="selectedPlateMap"
+                  ng-change="makeLabelTable()"></select>
+        </label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span>
       </div>
     </form>
-    <div class="mapping-table" ng-if="selectedPlateMap">
+    <!--<div class="mapping-table" ng-if="selectedPlateMap">-->
+    <div class="mapping-table">
       <div class="table-fixed-height">
-        <table st-table="makeLabelTable" class="table table-striped">
+        <table st-table="labelTable" class="table table-striped">
           <thead>
             <tr>
               <th st-sort="label">Label</th>
               <th st-sort="type">Type</th>
               <th st-sort="count">Count</th>
               <th st-sort="replicates">Replicates</th>
-              <th st-sort="compounds">Replicates</th>
+              <th st-sort="compounds">Compound</th>
               <th>Initial Dose</th>
               <th>Dilution Factor</th>
             </tr>
           </thead>
           <tbody>
-          <tr ng-repeat="row in selectedPlateMap.wells">
-            <td>{{row.labels[0].value}}</td>
+          <tr ng-repeat="row in labelTable">
+            <td>{{row.label}}</td>
             <td>{{row.type}}</td>
-            <td></td>
-            <td></td>
+            <td>{{row.count}}</td>
             <td>
-              <i class="glyphicon glyphicon-remove-circle" title="Delete" ng-click="removePlateType(row)"></i>
-              <i class="glyphicon glyphicon-search" title="View Details" ng-click="selectPlateType(row)"></i>
+              <select ng-model="row.replicates"
+                      ng-options="replicate for replicate in computeReplicates(row.count)">
+                <option value="1">1</option>
+              </select>
             </td>
+            <td>
+              <input type="text"
+                     ng-model="row.compounds"
+                     placeholder="Compound..."
+                     typeahead="compound for compound in typeAheadOptions($viewValue) | limitTo:8"
+                     typeahead-loading="loadingCompounds">
+              <i ng-show="loadingCompounds" class="glyphicon glyphicon-refresh"></i>
+            </td>
+            <td>
+              <input type="number" ng-model="row.initialDoseAmt"/>
+              <select ng-options="key in UOMOptions">
+                <option value="uM">uM</option>
+              </select>
+            </td>
+            <td><input type="number" ng-model="row.dilutionFactor"/></td>
           </tr>
           </tbody>
         </table>
+      </div>
     </div>
-
-
-
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary" ng-click="addPlateMap()">Create</button>
