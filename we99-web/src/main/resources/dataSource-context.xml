@@ -26,6 +26,7 @@
   <bean id="we99DbPopulator" class="edu.harvard.we99.domain.DbPopulator">
     <constructor-arg ref="entityManagerFactory"/>
     <constructor-arg ref="we99DbInspector"/>
+    <constructor-arg ref="plateTemplateService"/>
     <constructor-arg ref="passwordEncoder"/>
   </bean>
 

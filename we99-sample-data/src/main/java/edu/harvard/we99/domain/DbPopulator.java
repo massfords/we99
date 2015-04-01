@@ -1,6 +1,7 @@
 package edu.harvard.we99.domain;
 
 import edu.harvard.we99.security.RoleName;
+import edu.harvard.we99.services.PlateMapService;
 import edu.harvard.we99.services.storage.entities.CompoundEntity;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.PermissionEntity;
@@ -18,10 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,11 +36,14 @@ public class DbPopulator {
 
     @SuppressWarnings("deprecation")
     private final PasswordEncoder passwordEncoder;
+    private final PlateMapService plateMapService;
 
     public DbPopulator(EntityManagerFactory emf,
                        DbVersionInspector inspector,
+                       PlateMapService pms,
                        @SuppressWarnings("deprecation") PasswordEncoder encoder) throws Exception {
         this.passwordEncoder = encoder;
+        this.plateMapService = pms;
         if (!inspector.isDbInitRequired()) {
             // no sample data required, leave now
             return;
@@ -56,6 +57,9 @@ public class DbPopulator {
             Map<String,RoleEntity> roles = loadPermissionData(sf, em);
             loadUsers(sf, em, roles);
             loadExperiments(sf, em);
+
+            // add plates
+            plateMapService.createUnsecured("5x5", getClass().getResourceAsStream("/sample-data/platemap5x5.csv"));
         } finally {
             em.close();
         }

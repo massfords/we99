@@ -28,7 +28,8 @@ import java.io.File;
         PlateMapListST.class,
         ExperimentServiceST.class,
         PlateWizardST.class,
-        PlateTypeST.class
+        PlateTypeST.class,
+        PlateMapInitST.class
 })
 public class WebAppIT {
     public static final String WE99_URL = "http://localhost:8080/we99/services/rest";

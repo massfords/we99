@@ -50,6 +50,12 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
 
     @Override
     public ImportedPlateMap create(String name, InputStream is) {
+        return createUnsecured(name, is);
+    }
+
+    /** This method is a bit of a hack to allow create to be used without security when creating sample data in DbPopulator.java */
+    @Override
+    public ImportedPlateMap createUnsecured(String name, InputStream is) {
         PlateMapCSVReader reader = new PlateMapCSVReader();
         try (Reader r = new BufferedReader(new InputStreamReader(is))) {
             if (name == null) {
