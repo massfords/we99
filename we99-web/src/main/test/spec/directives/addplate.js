@@ -78,7 +78,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -103,7 +103,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -128,7 +128,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -153,7 +153,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -178,7 +178,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -307,7 +307,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -332,7 +332,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -369,7 +369,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -394,7 +394,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -419,7 +419,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -444,7 +444,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -469,7 +469,7 @@ describe('Controller: AddPlateCtrl', function () {
               },
               "labels": [
                 {
-                  "name": "lbl",
+                  "name": "lbl1",
                   "value": "ABC"
                 }
               ],
@@ -547,9 +547,6 @@ describe('Controller: AddPlateCtrl', function () {
     });
 
     describe('compound typeahead', function(){
-      it('should call typeahead function when typing into a compound box', function(){
-        // TODO
-      });
       it('should get typeahead values', function(){
         expect(scope.retrieveCompoundMatches('ammo')).toEqual(sampleCompoundTypeAheadResp.values);
       });
@@ -578,7 +575,7 @@ describe('Service: LabelTableSvc', function () {
         },
         "labels": [
           {
-            "name": "lbl",
+            "name": "lbl1",
             "value": "ABC"
           }
         ],
@@ -626,7 +623,7 @@ describe('Service: LabelTableSvc', function () {
           },
           "labels": [
             {
-              "name": "lbl",
+              "name": "lbl1",
               "value": "ABC"
             }
           ],
@@ -640,7 +637,7 @@ describe('Service: LabelTableSvc', function () {
           },
           "labels": [
             {
-              "name": "lbl",
+              "name": "lbl1",
               "value": "DEF"
             }
           ],
@@ -654,7 +651,7 @@ describe('Service: LabelTableSvc', function () {
           },
           "labels": [
             {
-              "name": "lbl",
+              "name": "lbl1",
               "value": "ABC"
             },
             {
@@ -672,7 +669,7 @@ describe('Service: LabelTableSvc', function () {
           },
           "labels": [
             {
-              "name": "lbl",
+              "name": "lbl1",
               "value": "DEF"
             },
             {
@@ -695,7 +692,7 @@ describe('Service: LabelTableSvc', function () {
           },
           "labels": [
             {
-              "name": "lbl",
+              "name": "lbl1",
               "value": "GHI"
             }
           ],
