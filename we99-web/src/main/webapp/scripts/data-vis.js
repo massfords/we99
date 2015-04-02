@@ -83,8 +83,6 @@ DataVis.prototype.colorScale =  function(params){
  */
 DataVis.prototype.renderSingleHeatMap = function(params){
 
-
-
   // Merge in defaults.
   var defaults = {
     mapClass: "heatmap",
@@ -223,10 +221,9 @@ DataVis.prototype.renderSingleHeatMap = function(params){
     .attr("style", function(d) {
       if(!d.included) {
         return "stroke-width:3;stroke:rgb(203,24,29)";
-      }else if (d.wellType === "CONTROL"){
+      }else if (d.wellType === "NEG_CONTROL" || d.wellType === "POS_CONTROL"){
         return "stroke-width:3;stroke:rgb(82,82,82)";
-      }
-      else {
+      }else {
         return "stroke-width:2;stroke:rgb(192,192,192)";
       }
     })
@@ -250,10 +247,14 @@ DataVis.prototype.renderSingleHeatMap = function(params){
     .attr("font-size", function(){ return params.cellFormat.itemSize / 2.5;})
     .style("text-anchor", "middle")
     .text(function(d){
-      if(!d.included & d.wellType === "CONTROL"){
-        return "E/C";
-      }else if(d.wellType === "CONTROL"){
-        return "C";
+      if(!d.included & d.wellType === "NEG_CONTROL"){
+        return "E/NC";
+      }else if(!d.included & d.wellType === "POS_CONTROL"){
+        return "E/PC";
+      }else if(d.wellType === "NEG_CONTROL"){
+        return "NC";
+      }else if(d.wellType === "POS_CONTROL"){
+        return "PC";
       }else if(!d.included){
         return "E";
       }else{
@@ -345,15 +346,93 @@ DataVis.prototype.heatMapColorGuide = function(params){
     .attr("y", function(d,i) {return (i * 24) + 16; })
     .text(function(d) {return Math.round(d * 1000) / 1000;})
     .style("text-anchor", "left");
-}
+};
+
+DataVis.prototype.renderScatterPlot = function(params){
+  console.log(params);
+  var defaults = {
+    width: 600,
+    height: 600
+  };
+
+  $.extend(true, defaults, params );
+  params = defaults;
+
+  var yScale = d3.scale.linear().domain([
+    d3.min(params.data.map(function (d) { return d.value; } )),
+    d3.max(params.data.map(function (d) { return d.value; } ))
+  ]).range([50, (params.height - 50 ) ]);
+
+
+  var yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+  var xScale = d3.time.scale().domain([
+    new Date(d3.min(params.data.map(function (d) { return d.date; } ))),
+    new Date(d3.max(params.data.map(function (d) { return d.date; } )))
+  ]).range([50, (params.width - 50 )]);
+
+  var xAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient("bottom")
+    .ticks(5)
+    .tickFormat(d3.time.format('%m-%d-%y %H:%M'));
+
+  var svg = d3.select(params.location);
+
+  // x-axis
+  svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + (params.height - 30) + ")")
+    .call(xAxis)
+    .append("text")
+    .attr("class", "label")
+    .attr("x", params.width - 10)
+    .attr("y", -6)
+    .style("text-anchor", "end")
+    .text("Time");
+
+  // y-axis
+  svg.append("g")
+    .attr("class", "y axis")
+    .attr("transform", "translate(30,0)")
+    .call(yAxis)
+    .append("text")
+    .attr("class", "label")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("Control Value");
+
+
+  var scatterPlot = svg.append("g");
+
+  scatterPlot.selectAll(".dot")
+    .data(params.data)
+    .enter().append("circle")
+    .attr("class","dot")
+    .attr("r", 3.5)
+    .attr("cx", function(d) {return xScale(d.date);} )
+    .attr("cy", function(d) {return yScale(d.value);} )
+    .style("fill", function(d) {
+      if (d.wellType === "NEG_CONTROL"){
+        return "rgb(82,82,82)";
+      }else if (d.wellType === "POS_CONTROL"){
+        return "rgb(173,173,173)";
+      }else{
+        return "rgb(0,0,0)";
+      }
+    })
+
+};
 
 
 DataVis.prototype.getDummmyPlateData = function (){
 
   var dataSet = [];
+  var index = 0;
   for (var num = 0; num < 110; num++) {
     var array = [];
-    var index = 0;
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
 
@@ -363,11 +442,21 @@ DataVis.prototype.getDummmyPlateData = function (){
           col: j,
           value: Math.random(),
           included: true,
-          wellType: "NORMAL"
+          wellType: "NORMAL",
+          compound: "A",
+          date: new Date() - (Math.random() * 20000000)
         });
 
-        if(Math.random() <= 0.05){
-          array[array.length - 1].wellType = "CONTROL";
+        if(Math.random() <= 0.025){
+          array[array.length - 1].wellType = "NEG_CONTROL";
+        }else  if(Math.random() <= 0.05){
+          array[array.length - 1].wellType = "POS_CONTROL";
+        }
+
+        if(Math.random() <= .33){
+          array[array.length - 1].compound = "B";
+        }else if(Math.random() <= .33){
+          array[array.length - 1].compound = "C";
         }
 
       }

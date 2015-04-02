@@ -1,58 +1,95 @@
-<style>
 
-
-</style>
-<div id="controls">
+<div style="margin-left: 100px" id="controls">
   Select Experiment:
   <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
   Coloring:
   <select ng-model="coloring.colorOption" ng-options="opt as opt.colorName for opt in coloring.colorOptions"></select>
 </div>
 <div id="display-container">
-  <div class="legend">
-    <p>
-      <svg style="width: 25px; height: 25px">
-        <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)"></rect>
-        <text x="10" y="15" width="20" height="20" font-family="Arial Black" font-size="13.2" style="text-anchor: middle;">C</text>
-      </svg>
-      Control
-    </p>
 
-    <p>
-      <svg style="width: 25px; height: 25px">
-        <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(255,0,0)"></rect>
-        <text x="10" y="15" width="20" height="20" font-family="Arial Black" font-size="13.2" style="text-anchor: middle;">E</text>
-      </svg>
-      Excluded Well
-    </p>
-
-    <p>
-      <svg style="width: 25px; height: 25px">
-        <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(255,0,0)"></rect>
-        <text x="13" y="15" width="20" height="20" font-family="Arial Black" font-size="13.2" style="text-anchor: middle;">E/C</text>
-      </svg>
-      Excluded Control
-    </p>
-    <b>Heatmap Gradients:</b>
-    <p>
-
-      <svg id="gradients" style="width: 100px"></svg>
-    </p>
-  </div>
   <div id="display-wrapper">
     <svg id="display-box" class="heatmap-display-box"></svg>
   </div>
-  <div class="assay-summary">
-    <p>Plate: {{ data[selectedIndex].name }}</p>
-    <p>Z Factor: {{ data[selectedIndex].z }}</p>
-    <p>Z Prime: {{ data[selectedIndex].z_prime }}</p>
-    <p>POS Control Average: {{ data[selectedIndex].pos_avg }}</p>
-    <p>NEG Control Average: {{ data[selectedIndex].neg_avg }}</p>
+
+  <div style="width: 300px; float: left; height: 300px;" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+          <a target="_blank" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Map Summary
+          </a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+          <p>Plate: {{ data[selectedIndex].name }}</p>
+          <p>Z Factor: {{ data[selectedIndex].z }}</p>
+          <p>Z Prime: {{ data[selectedIndex].z_prime }}</p>
+          <p>POS Control Average: {{ data[selectedIndex].pos_avg }}</p>
+          <p>NEG Control Average: {{ data[selectedIndex].neg_avg }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingTwo">
+        <h4 class="panel-title">
+          <a target="_blank" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Symbol Key
+          </a>
+        </h4>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="panel-body">
+
+          <div>
+
+            <p>
+              <svg style="width: 25px; height: 25px">
+                <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(0,0,0)"></rect>
+                <text x="10" y="15" width="20" height="20" font-family="Arial Black" font-size="13.2" style="text-anchor: middle;">C</text>
+              </svg>
+              Control
+            </p>
+
+            <p>
+              <svg style="width: 25px; height: 25px">
+                <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(255,0,0)"></rect>
+                <text x="10" y="15" width="20" height="20" font-family="Arial Black" font-size="13.2" style="text-anchor: middle;">E</text>
+              </svg>
+              Excluded Well
+            </p>
+
+            <p>
+              <svg style="width: 25px; height: 25px">
+                <rect width="25" height="25" style="fill:rgb(255,255,255);stroke-width:4;stroke:rgb(255,0,0)"></rect>
+                <text x="13" y="15" width="20" height="20" font-family="Arial Black" font-size="13.2" style="text-anchor: middle;">E/C</text>
+              </svg>
+              Excluded Control
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingThree">
+        <h4 class="panel-title">
+          <a target="_blank" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Color Key
+          </a>
+        </h4>
+      </div>
+      <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+        <div class="panel-body">
+          <svg id="gradients" style="width: 100px"></svg>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div style="clear: both;">
-  </div>
-</div>
-<div style="text-align: center">
+  <div style="clear: both;"></div>
+  <div style="text-align: center">
 
   Showing results {{ pagination.from }} to {{ pagination.to }} of {{ pagination.of}}
   <button ng-click="pagination.doPaging('PREV')" type="button" class="btn btn-default" aria-label="Left Align">

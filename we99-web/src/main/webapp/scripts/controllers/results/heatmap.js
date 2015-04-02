@@ -115,10 +115,16 @@ angular.module('we99App')
         location: displayBoxLocation,
         data: $scope.data[$scope.selectedIndex].data,
         colorScale:  $scope.coloring.colorScale,
-        title: $scope.data[$scope.selectedIndex].name,
+        mapFormat: {
+          fixedsize_x: 400,
+          fixedsize_y: 400
+        },
         onCellClick: function(d) {
-          $scope.data[$scope.selectedIndex].data[d.wellIndex].included =
-            !$scope.data[$scope.selectedIndex].data[d.wellIndex].included;
+          $scope.data[$scope.selectedIndex].data.forEach(function(dinner){
+            if(dinner.wellIndex === d.wellIndex){
+              dinner.included = false;
+            }
+          });
           renderListView($scope.data);
           renderSingleView();
         }

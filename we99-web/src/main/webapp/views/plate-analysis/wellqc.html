@@ -1,0 +1,9 @@
+
+<div style="margin-left: 100px" id="controls">
+  Select Experiment:
+  <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
+  Select Compound:
+  <select ng-model="compound" ng-options="opt as opt.compound for opt in compounds"></select>
+</div>
+
+<div style="width: 600px; height: 600px"  id="display-container"><svg style="width: 600px; height: 600px" id="scatter-plot"></svg></div>

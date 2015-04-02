@@ -5,6 +5,8 @@
   Coloring:
   <select ng-model="coloring.colorOption" ng-options="opt as opt.colorName for opt in coloring.colorOptions"></select>
   <button ng-click="resetScale()">Reset Zoom</button>
+  <input type="radio" ng-model="state" value="ZOOM"> Zoom
+  <input type="radio" ng-model="state" value="DELETE"> Delete Well
 </div>
 <div id="display-container">
   <div id="display-wrapper">

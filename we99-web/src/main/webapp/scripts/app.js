@@ -50,6 +50,10 @@ angular
         templateUrl: 'views/plate-analysis/omnimap.html',
         controller: 'OmniMapCtrl'
       })
+      .when('/wellqc', {
+        templateUrl: 'views/plate-analysis/wellqc.html',
+        controller: 'WellQcCntrl'
+      })
       .when('/experiment', {
         templateUrl: 'views/experiment/experimentList.html',
         controller: 'ExperimentListCtrl'
