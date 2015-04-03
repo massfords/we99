@@ -18,19 +18,15 @@ angular.module('we99App')
       // TODO: MAKE ASYNCHRONOUS with $q and $timeout
       var labelTableRows = {};
       if (plateMap) {
-        plateMap.wells.forEach(function (well) {
-          if (well.labels) {
-            well.labels.forEach(function (label) {
-              // Only check labels with the name "lbl1". Ignore all other labels.
-              if (label.name === 'lbl1') {
-                // create row if does not exist. Then increment count.
-                if (!labelTableRows.hasOwnProperty(label.value)) {
-                  labelTableRows[label.value] = new LabelTableRow(label.value, well.type);
-                }
-                ++(labelTableRows[label.value].count);
-              }
-            });
-          } // endif well.labels
+        plateMap.wells.forEach(function(well) {
+          var compoundLabel = getCompoundLabelForWell(well);
+          if (compoundLabel) {
+            // create row if does not exist. Then increment count.
+            if (!labelTableRows.hasOwnProperty(compoundLabel)) {
+              labelTableRows[compoundLabel] = new LabelTableRow(compoundLabel, well.type);
+            }
+            ++(labelTableRows[compoundLabel].count);
+          }
         });
       }
       return _.values(labelTableRows);
@@ -92,6 +88,27 @@ angular.module('we99App')
       this.initialDoseUOM = kCompoundUOM.uM;
       this.dilutionFactor = 1;
     };
+
+
+    /** Returns the 'compound' label for the well.
+     *  If no 'compound' label exists, returns the
+     *  first label on the well. Will return NULL if no labels.
+     * @param well
+     * @returns {String} compound label
+     */
+    function getCompoundLabelForWell(well){
+      if (!well.labels || well.labels.length == 0) {
+        return null;
+      }
+      var i = 0,
+          max = well.labels.length;
+      for (;i < max; ++i) {
+        if (well.labels[i].name.toLowerCase() === "compound") {
+          return well.labels[i].value;
+        }
+      }
+      return well.labels[0].value;
+    }
 
 
     return factory;
