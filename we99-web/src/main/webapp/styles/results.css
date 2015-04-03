@@ -68,3 +68,16 @@
   stroke-width    : 2px;
   fill            : transparent;
 }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+.tick text{
+  font-size: .75em;
+}
+

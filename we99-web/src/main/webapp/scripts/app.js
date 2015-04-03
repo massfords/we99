@@ -54,6 +54,10 @@ angular
         templateUrl: 'views/plate-analysis/wellqc.html',
         controller: 'WellQcCntrl'
       })
+      .when('/doseresponse', {
+        templateUrl: 'views/plate-analysis/doseresponse.html',
+        controller: 'DoseResponseCntrl'
+      })
       .when('/experiment', {
         templateUrl: 'views/experiment/experimentList.html',
         controller: 'ExperimentListCtrl'

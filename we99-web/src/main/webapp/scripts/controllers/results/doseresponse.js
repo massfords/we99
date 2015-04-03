@@ -10,7 +10,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('WellQcCntrl', ["$scope", "RestService", function ($scope, RestService) {
+  .controller('DoseResponseCntrl', ["$scope", "RestService", function ($scope, RestService) {
 
     var v = new DataVis();
     var displayBoxLocation = "#scatter-plot";
@@ -19,7 +19,7 @@ angular.module('we99App')
       var result = [];
       data.forEach(function(plate){
         plate.data.forEach(function(well) {
-          if (well.wellType === 'NEG_CONTROL' || well.wellType === "POS_CONTROL") {
+          if (well.wellType !== 'NEG_CONTROL' & well.wellType !== "POS_CONTROL") {
 
             var found = false;
 
@@ -62,7 +62,6 @@ angular.module('we99App')
           });
         });
 
-
       });
 
     function fullDisplayRefresh(){
@@ -70,6 +69,7 @@ angular.module('we99App')
       v.renderScatterPlot({
         location: displayBoxLocation,
         data: $scope.compound.wells,
+        xScaleIsDate: false,
         onCellClick: function(d) {
             $scope.compound.wells.forEach(function(dataPoint){
               if(dataPoint.wellIndex == d.wellIndex){
@@ -79,9 +79,10 @@ angular.module('we99App')
           fullDisplayRefresh();
         },
         axisTitle:{
-          x: "Time",
-          y: "Result Value"
-        }
+          x: "Dose",
+          y: "Response"
+        },
+        scaleY: {min: 0.0, max: 1.0}
       });
     }
 

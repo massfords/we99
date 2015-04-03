@@ -262,7 +262,7 @@ DataVis.prototype.renderSingleHeatMap = function(params){
       }
     })
     .attr("class","well-label")
-    .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } );;
+    .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } );
 
   // If there is a title render it.
 
@@ -348,34 +348,67 @@ DataVis.prototype.heatMapColorGuide = function(params){
     .style("text-anchor", "left");
 };
 
-DataVis.prototype.renderScatterPlot = function(params){
+DataVis.prototype.renderScatterPlot = function(params) {
   console.log(params);
   var defaults = {
-    width: 600,
-    height: 600
+      width: 600,
+      height: 600,
+      xScaleIsDate: true,
+      scaleX: null,
+      scaleY: null,
+      axisTitle: {
+        x: "",
+        y: ""
+      }
   };
 
-  $.extend(true, defaults, params );
-  params = defaults;
 
-  var yScale = d3.scale.linear().domain([
-    d3.min(params.data.map(function (d) { return d.value; } )),
-    d3.max(params.data.map(function (d) { return d.value; } ))
-  ]).range([50, (params.height - 50 ) ]);
+$.extend(true, defaults, params);
+params = defaults;
 
+  if(!params.scaleY){
+    params.scaleY = {min: null, max: null};
+    params.scaleY.min = d3.min(params.data.map(function (d) { return d.value; }));
+    params.scaleY.max = d3.max(params.data.map(function (d) { return d.value; }));
+  }
 
-  var yAxis = d3.svg.axis().scale(yScale).orient("left");
+  var yScale = d3.scale.linear()
+    .domain([params.scaleY.max, params.scaleY.min])
+    .range([50, (params.height - 50 )]);
 
-  var xScale = d3.time.scale().domain([
-    new Date(d3.min(params.data.map(function (d) { return d.date; } ))),
-    new Date(d3.max(params.data.map(function (d) { return d.date; } )))
-  ]).range([50, (params.width - 50 )]);
+  var yAxis = d3.svg.axis()
+    .scale(yScale).orient("left");
+
+  if(!params.scaleX){
+    params.scaleX = {min: null, max: null};
+    if(params.xScaleIsDate){
+      params.scaleX.min = new Date(d3.min(params.data.map(function (d) { return d.date; })));
+      params.scaleX.max = new Date(d3.max(params.data.map(function (d) { return d.date; })));
+    }else{
+      params.scaleX.min = d3.min(params.data.map(function (d) { return d.amount; }));
+      params.scaleX.max = d3.max(params.data.map(function (d) { return d.amount; }));
+    }
+  }
+
+  var xScale = null;
+  if (params.xScaleIsDate) {
+    xScale = d3.time.scale()
+      .domain([params.scaleX.min, params.scaleX.max])
+      .range([50, (params.width - 50 )]);
+  }else{
+    xScale = d3.svg.axis().scale()
+      .domain([ params.scaleX.min, params.scaleX.max ])
+      .range([50, (params.width - 50 )]);
+  }
 
   var xAxis = d3.svg.axis()
     .scale(xScale)
     .orient("bottom")
-    .ticks(5)
-    .tickFormat(d3.time.format('%m-%d-%y %H:%M'));
+    .ticks(5);
+
+  if(params.xScaleIsDate){
+    xAxis.tickFormat(d3.time.format('%m-%d-%y %H:%M'));
+  }
 
   var svg = d3.select(params.location);
 
@@ -389,7 +422,7 @@ DataVis.prototype.renderScatterPlot = function(params){
     .attr("x", params.width - 10)
     .attr("y", -6)
     .style("text-anchor", "end")
-    .text("Time");
+    .text(params.axisTitle.x);
 
   // y-axis
   svg.append("g")
@@ -402,7 +435,7 @@ DataVis.prototype.renderScatterPlot = function(params){
     .attr("y", 6)
     .attr("dy", ".71em")
     .style("text-anchor", "end")
-    .text("Control Value");
+    .text(params.axisTitle.y);
 
 
   var scatterPlot = svg.append("g");
@@ -412,26 +445,48 @@ DataVis.prototype.renderScatterPlot = function(params){
     .enter().append("circle")
     .attr("class","dot")
     .attr("r", 3.5)
-    .attr("cx", function(d) {return xScale(d.date);} )
+    .attr("cx", function(d) {
+      if(params.xScaleIsDate) {
+        return xScale(d.date);
+      } else {
+        return xScale(d.amount);
+      }
+    })
     .attr("cy", function(d) {return yScale(d.value);} )
     .style("fill", function(d) {
       if (d.wellType === "NEG_CONTROL"){
-        return "rgb(82,82,82)";
+        return "rgb(239,237,245)";
       }else if (d.wellType === "POS_CONTROL"){
-        return "rgb(173,173,173)";
+        return "rgb(117,107,177)";
       }else{
-        return "rgb(0,0,0)";
+        return "rgb(255,255,255)";
       }
     })
+    .attr("stroke-width", 2)
+    .attr("stroke", function(d) {
+      if(d.included){
+        return "black";
+      }else{
+        return "red";
+      }
+    })
+    .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } );;
 
 };
 
 
 DataVis.prototype.getDummmyPlateData = function (){
 
+  var NOISE = 0.05;
+
+  function calPoint(x){
+    return  1/(1+Math.exp(-.2 * x));
+  }
+
+
   var dataSet = [];
   var index = 0;
-  for (var num = 0; num < 110; num++) {
+  for (var num = 0; num < 40; num++) {
     var array = [];
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
@@ -440,17 +495,21 @@ DataVis.prototype.getDummmyPlateData = function (){
           wellIndex: index++,
           row: i,
           col: j,
-          value: Math.random(),
+          amount: (Math.random() * 200) - 100,
           included: true,
           wellType: "NORMAL",
           compound: "A",
           date: new Date() - (Math.random() * 20000000)
         });
 
+        array[array.length - 1].value = calPoint(array[array.length - 1].amount) + (NOISE * Math.random()) - NOISE;
+
         if(Math.random() <= 0.025){
           array[array.length - 1].wellType = "NEG_CONTROL";
+          array[array.length - 1].value = 0.0 + (0.1 * Math.random());
         }else  if(Math.random() <= 0.05){
           array[array.length - 1].wellType = "POS_CONTROL";
+          array[array.length - 1].value = 1.0 - (0.1 * Math.random());
         }
 
         if(Math.random() <= .33){
