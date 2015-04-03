@@ -6,14 +6,14 @@
 # the system could create a one-off for just this map and let the user fill in
 # the type details later.
 #
-0, 0, COMP, lbl1, A
-0, 1, COMP, lbl1, A
-0, 2, COMP, lbl1, A
-0, 3, COMP, lbl1, A
+0, 0, COMP, compound, A
+0, 1, COMP, compound, A
+0, 2, COMP, compound, A
+0, 3, COMP, compound, A
 0, 49, EMPTY
-2, 0, COMP, lbl1, B
-2, 1, COMP, lbl1, B
-2, 2, COMP, lbl1, B
-2, 3, COMP, lbl1, B
+2, 0, COMP, compound, B
+2, 1, COMP, compound, B
+2, 2, COMP, compound, B
+2, 3, COMP, compound, B
 2, 49, EMPTY
 199,199,EMPTY

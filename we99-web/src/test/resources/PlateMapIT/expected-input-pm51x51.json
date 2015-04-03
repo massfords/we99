@@ -9,7 +9,7 @@
         },
         "labels": [
           {
-            "name": "lbl1",
+            "name": "compound",
             "value": "A"
           }
         ],
@@ -22,7 +22,7 @@
         },
         "labels": [
           {
-            "name": "lbl1",
+            "name": "compound",
             "value": "A"
           }
         ],
@@ -35,7 +35,7 @@
         },
         "labels": [
           {
-            "name": "lbl1",
+            "name": "compound",
             "value": "A"
           }
         ],
@@ -48,7 +48,7 @@
         },
         "labels": [
           {
-            "name": "lbl1",
+            "name": "compound",
             "value": "A"
           }
         ],
@@ -69,7 +69,7 @@
         },
         "labels": [
           {
-            "name": "lbl1",
+            "name": "compound",
             "value": "B"
           }
         ],
@@ -82,7 +82,7 @@
         },
         "labels": [
           {
-            "name": "lbl1",
+            "name": "compound",
             "value": "B"
           }
         ],
@@ -95,7 +95,7 @@
         },
         "labels": [
           {
-            "name": "lbl1",
+            "name": "compound",
             "value": "B"
           }
         ],
@@ -108,7 +108,7 @@
         },
         "labels": [
           {
-            "name": "lbl1",
+            "name": "compound",
             "value": "B"
           }
         ],

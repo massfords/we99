@@ -108,16 +108,6 @@ public interface PlateMapService {
                                @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
 
 
-    /** A copy of plate map create used for loading sample platemaps on startup
-     *  it is used in DbPopulator.java
-     *  !!! NOTE: DO NOT ASSOCIATE THIS WITH REST ANNOTATIONS !!!
-     * @param name
-     * @param csv
-     */
-    // TODO: Should probably set up DbPopulator to log in with a bootstrap account
-    //          and use the real create so we can eliminate this
-    ImportedPlateMap createUnsecured(String name, InputStream csv);
-
     /**
      * Lists all existing {@link edu.harvard.we99.domain.PlateMap}
      * @param page offset into a list of paged results

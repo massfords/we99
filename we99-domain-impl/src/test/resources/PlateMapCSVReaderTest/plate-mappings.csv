@@ -1,11 +1,11 @@
 #row, col, well-type, (label, value)
-0, 0, COMP, foo, A1, bar, B1
-0, 1, COMP, foo, A1, bar, B1
-0, 2, COMP, foo, A1, bar, B1
-0, 3, COMP, foo, A1, bar, B1
+0, 0, COMP, compound, A1, bar, B1
+0, 1, COMP, compound, A1, bar, B1
+0, 2, COMP, compound, A1, bar, B1
+0, 3, COMP, compound, A1, bar, B1
 0, 4, EMPTY
-2, 0, COMP, foo, B1, bar, B2
-2, 1, COMP, foo, B1, bar, B2
-2, 2, COMP, foo, B1, bar, B2
-2, 3, COMP, foo, B1, bar, B2
+2, 0, COMP, compound, B1, bar, B2
+2, 1, COMP, compound, B1, bar, B2
+2, 2, COMP, compound, B1, bar, B2
+2, 3, COMP, compound, B1, bar, B2
 2, 4, EMPTY

@@ -1,9 +1,12 @@
 package edu.harvard.we99.domain;
 
+import edu.harvard.we99.security.AuthenticatedContext;
 import edu.harvard.we99.security.RoleName;
+import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.PlateMapService;
 import edu.harvard.we99.services.storage.entities.CompoundEntity;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
+import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PermissionEntity;
 import edu.harvard.we99.services.storage.entities.PlateEntity;
 import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
@@ -53,14 +56,17 @@ public class DbPopulator {
         StreamFactory sf = StreamFactory.newInstance();
         sf.loadResource("sample-data/import.xml");
         EntityManager em = emf.createEntityManager();
-        try {
+        try (AuthenticatedContext context = new AuthenticatedContext()) {
             loadCoreData(sf, em);
             Map<String,RoleEntity> roles = loadPermissionData(sf, em);
             loadUsers(sf, em, roles);
             loadExperiments(sf, em);
 
             // add plates
-            pms.createUnsecured("5x5", getClass().getResourceAsStream("/sample-data/platemap5x5.csv"));
+            UserEntity ue = selectAdmin(em);
+            User admin = Mappers.USERS.map(ue);
+            context.install(admin);
+            pms.create("5x5", getClass().getResourceAsStream("/sample-data/platemap5x5.csv"));
         } finally {
             em.close();
         }
@@ -151,6 +157,13 @@ public class DbPopulator {
         }
 
         em.getTransaction().commit();
+    }
+
+    private UserEntity selectAdmin(EntityManager em) throws Exception {
+        TypedQuery<UserEntity> query = em.createQuery("select ue from UserEntity ue where ue.role.name=:roleName", UserEntity.class);
+        query.setParameter("roleName", RoleName.BuiltIn.Admin.asName());
+        List<UserEntity> users = query.getResultList();
+        return users.get(0);
     }
 
     private String encodePassword(String password, String salt) {
