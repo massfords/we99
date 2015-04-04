@@ -13,6 +13,7 @@ import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
 import edu.harvard.we99.services.storage.entities.ProtocolEntity;
 import edu.harvard.we99.services.storage.entities.RoleEntity;
 import edu.harvard.we99.services.storage.entities.UserEntity;
+import edu.harvard.we99.services.storage.entities.VersionEntity;
 import edu.harvard.we99.services.storage.entities.WellEntity;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
@@ -57,6 +58,9 @@ public class DbPopulator {
         sf.loadResource("sample-data/import.xml");
         EntityManager em = emf.createEntityManager();
         try (AuthenticatedContext context = new AuthenticatedContext()) {
+
+            em.merge(new VersionEntity(VersionEntity.Names.DATABASE, DbVersionInspector.hashedDDL()));
+
             loadCoreData(sf, em);
             Map<String,RoleEntity> roles = loadPermissionData(sf, em);
             loadUsers(sf, em, roles);
