@@ -21,8 +21,8 @@ public class ProtocolServiceImpl extends BaseRESTServiceImpl<Protocol>  implemen
     }
 
     @Override
-    public Protocols listAll(Integer page) {
+    public Protocols listAll(Integer page, Integer pageSize) {
         ProtocolStorage ps = (ProtocolStorage) storage;
-        return ps.listAll(page);
+        return ps.listAll(page, pageSize);
     }
 }

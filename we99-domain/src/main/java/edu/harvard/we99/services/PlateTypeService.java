@@ -86,5 +86,6 @@ public interface PlateTypeService {
     @ApiOperation("Lists all of the plate types in the system")
     @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    PlateTypes listAll(@QueryParam("page") @DefaultValue("0") Integer page);
+    PlateTypes listAll(@QueryParam("page") @DefaultValue("0") Integer page,
+                       @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
 }

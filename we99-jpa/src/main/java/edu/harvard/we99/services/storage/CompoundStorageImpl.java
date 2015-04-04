@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static edu.harvard.we99.services.EntityListingSettings.pageSize;
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
@@ -35,7 +34,7 @@ public class CompoundStorageImpl implements CompoundStorage {
     protected EntityManager em;
 
     @Override
-    public Compounds listAll(Integer page, String queryString) {
+    public Compounds listAll(Integer page, Integer pageSize, String queryString) {
         JPAQuery query = new JPAQuery(em);
         QCompoundEntity table = QCompoundEntity.compoundEntity;
         query.from(table);
@@ -44,11 +43,11 @@ public class CompoundStorageImpl implements CompoundStorage {
         }
         query.orderBy(table.name.asc());
         long count = query.count();
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
         List<CompoundEntity> resultList = query.list(table);
         List<Compound> compounds = new ArrayList<>();
         resultList.forEach(ce->compounds.add(Mappers.COMPOUND.map(ce)));
-        return new Compounds(count, page, pageSize(), compounds);
+        return new Compounds(count, page, pageSize, compounds);
     }
 
     @Override

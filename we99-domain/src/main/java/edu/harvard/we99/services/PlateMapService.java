@@ -121,8 +121,9 @@ public interface PlateMapService {
     @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateMaps listAll(@QueryParam("page") @DefaultValue("0") Integer page,
+                      @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
                       @QueryParam("rows") @DefaultValue("999999") Integer maxRows,
-                      @QueryParam("rows") @DefaultValue("999999") Integer maxCols);
+                      @QueryParam("cols") @DefaultValue("999999") Integer maxCols);
 
     @POST
     @Path("/{id}/merge")

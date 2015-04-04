@@ -39,11 +39,11 @@ public class PlateMapListST {
         // query based on its size
         String name = name("pm");
         PlateMapClientFixture.upload("/PlateMapListST/input300x300.csv", name);
-        PlateMaps plateMaps = plateMapService.listAll(0, 500, 600);
+        PlateMaps plateMaps = plateMapService.listAll(0, null, 500, 600);
         assertTrue(plateMaps.getTotalCount()>=1);
         assertThat(plateMaps.getValues()).extracting("name").contains(name);
         // search again for something smaller
-        plateMaps = plateMapService.listAll(0, 10, 10);
+        plateMaps = plateMapService.listAll(0, null, 10, 10);
         assertThat(plateMaps.getValues()).extracting("name").doesNotContain(name);
     }
 }

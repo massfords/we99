@@ -11,7 +11,7 @@ import java.util.List;
  * @author mford
  */
 public interface ExperimentStorage extends CRUDStorage<Experiment> {
-    Experiments listAll(User user, Integer page);
+    Experiments listAll(User user, Integer page, Integer pageSize);
     Users listMembers(Long experimentId);
     void addMember(Long experimentId, Long userId);
     void removeMember(Long experimentId, Long userId);

@@ -17,7 +17,6 @@ import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.harvard.we99.services.EntityListingSettings.pageSize;
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
@@ -31,18 +30,18 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
     private EntityManager em;
 
     @Override
-    public PlateTypes listAll(Integer page) {
+    public PlateTypes listAll(Integer page, Integer pageSize) {
 
         JPAQuery query = new JPAQuery(em);
         QPlateTypeEntity pte = QPlateTypeEntity.plateTypeEntity;
         query.from(pte).leftJoin(pte.plates).groupBy(pte);
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
 
         long count = new JPAQuery(em).from(pte).count();
 
         List<Tuple> tuples = query.list(pte, pte.count());
         List<PlateType> list = map(tuples);
-        return new PlateTypes(count, page, pageSize(), list);
+        return new PlateTypes(count, page, pageSize, list);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
     }
 
     @Override
-    public PlateTypes findGreaterThanOrEqualTo(PlateDimension dim, Integer page) {
+    public PlateTypes findGreaterThanOrEqualTo(PlateDimension dim, Integer page, Integer pageSize) {
 
         JPAQuery query = new JPAQuery(em);
         QPlateTypeEntity pte = QPlateTypeEntity.plateTypeEntity;
@@ -61,10 +60,10 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
                 .where(pte.dim.rows.goe(dim.getRows())
                         .and(pte.dim.cols.goe(dim.getCols())));
         long count = query.count();
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
 
         List<PlateTypeEntity> resultList = query.list(pte);
-        return new PlateTypes(count, page, pageSize(), mapPTE(resultList));
+        return new PlateTypes(count, page, pageSize, mapPTE(resultList));
     }
 
     @Override

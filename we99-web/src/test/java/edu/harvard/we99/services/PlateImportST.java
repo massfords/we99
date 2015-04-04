@@ -69,7 +69,7 @@ public class PlateImportST {
 
         Long experimentId = experiment.getId();
         String plateName = name("plate");
-        String plateTypeName = plateTypeService.listAll(0).getValues().get(0).getName();
+        String plateTypeName = plateTypeService.listAll(0, null).getValues().get(0).getName();
 
         Response response = PlateUtils.createPlateFromCSV(
                 experimentId, plateName, plateTypeName, getClass().getResourceAsStream(input));

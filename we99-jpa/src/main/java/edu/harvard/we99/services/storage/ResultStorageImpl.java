@@ -18,7 +18,6 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static edu.harvard.we99.services.EntityListingSettings.pageSize;
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
@@ -40,19 +39,19 @@ public class ResultStorageImpl implements ResultStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public PlateResults listAllByExperiment(Long experimentId, Integer page) {
+    public PlateResults listAllByExperiment(Long experimentId, Integer page, Integer pageSize) {
 
         JPAQuery query = new JPAQuery(em);
         QPlateResultEntity results = QPlateResultEntity.plateResultEntity;
         query.from(results).where(results.plate.experiment.id.eq(experimentId));
 
         long count = query.count();
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
         List<PlateResultEntity> list = query.list(results);
         List<PlateResult> collected = list.stream()
                 .map(Mappers.PLATERESULT::map)
                 .collect(Collectors.toList());
-        return new PlateResults(count, page, pageSize(), collected);
+        return new PlateResults(count, page, pageSize, collected);
     }
 
     @Override

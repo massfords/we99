@@ -122,8 +122,8 @@ public abstract class PlatesResourceImpl implements PlatesResource {
     }
 
     @Override
-    public Plates list(Integer page) {
-        return plateStorage.listAll(experiment.getId(), page);
+    public Plates list(Integer page, Integer pageSize) {
+        return plateStorage.listAll(experiment.getId(), page, pageSize);
     }
 
     @Override

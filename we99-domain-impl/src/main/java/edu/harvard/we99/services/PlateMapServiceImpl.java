@@ -57,7 +57,7 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
             }
             PlateMap plateMap = reader.read(r).setName(name);
             PlateMap created = plateMapStorage().create(plateMap);
-            PlateTypes list = pts.findGreaterThanOrEqualTo(calcDim(plateMap), 0);
+            PlateTypes list = pts.findGreaterThanOrEqualTo(calcDim(plateMap), 0, 100);
             return new ImportedPlateMap(created, list.getValues());
         } catch (IOException e) {
             log.error("error parsing csv", e);
@@ -66,8 +66,9 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
     }
 
     @Override
-    public PlateMaps listAll(Integer page, Integer maxRows, Integer maxCols) {
-        return plateMapStorage().listAll(page, new PlateDimension(maxRows, maxCols));
+    public PlateMaps listAll(Integer page, Integer pageSize,
+                             Integer maxRows, Integer maxCols) {
+        return plateMapStorage().listAll(page, pageSize, new PlateDimension(maxRows, maxCols));
     }
 
     @Override

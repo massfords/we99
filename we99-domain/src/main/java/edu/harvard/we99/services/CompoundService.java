@@ -88,5 +88,6 @@ public interface CompoundService {
     @ApiOperation("Gets the list of compounds")
     @PreAuthorize("hasRole('PERM_READ_COMPOUNDS')")
     Compounds listAll(@QueryParam("page") @DefaultValue("0") Integer page,
+                      @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
                       @QueryParam("q") @DefaultValue("") String query);
 }

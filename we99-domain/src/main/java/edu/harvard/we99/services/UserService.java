@@ -58,7 +58,8 @@ public interface UserService {
     @GET
     @ApiOperation("Lists all of the users in the system")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    Users list(@QueryParam("page") @DefaultValue("0") Integer page);
+    Users list(@QueryParam("page") @DefaultValue("0") Integer page,
+               @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
 
     /**
      * Returns the users that match against the given expression. We'll search across
@@ -70,7 +71,9 @@ public interface UserService {
     @GET
     @ApiOperation("Returns the users that match against the given expression")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    Users find(@QueryParam("q")String query, @QueryParam("page") @DefaultValue("0") Integer page);
+    Users find(@QueryParam("q")String query,
+               @QueryParam("page") @DefaultValue("0") Integer page,
+               @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
 
     @DELETE
     @Path("/{id}")

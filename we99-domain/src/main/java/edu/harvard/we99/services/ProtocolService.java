@@ -84,6 +84,7 @@ public interface ProtocolService {
     @ApiOperation("Lists all existing protocol or throws an exception with 404")
     @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    Protocols listAll(@QueryParam("page") @DefaultValue("0") Integer page);
+    Protocols listAll(@QueryParam("page") @DefaultValue("0") Integer page,
+                      @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
 
 }

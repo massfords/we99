@@ -55,7 +55,7 @@ public class ManageUserServiceST {
     }
 
     private User findGuestUser() {
-        Users found = us.find("Guest User", 0);
+        Users found = us.find("Guest User", 0, null);
         assertEquals(1, found.size());
         return found.getValues().get(0);
     }

@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static edu.harvard.we99.services.EntityListingSettings.pageSize;
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
@@ -81,7 +80,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     }
 
     @Override
-    public Experiments listAll(User user, Integer page) {
+    public Experiments listAll(User user, Integer page, Integer pageSize) {
         JPAQuery query = new JPAQuery(em);
         QExperimentEntity exp = QExperimentEntity.experimentEntity;
         QUserEntity ue = QUserEntity.userEntity;
@@ -94,11 +93,11 @@ public class ExperimentStorageImpl implements ExperimentStorage {
         ;
 
         long count = query.count();
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
         List<ExperimentEntity> resultList = query.list(exp);
         List<Experiment> experiments = new ArrayList<>();
         resultList.forEach(ee -> experiments.add(Mappers.EXPERIMENTS.map(ee)));
-        return new Experiments(count, page, pageSize(), experiments);
+        return new Experiments(count, page, pageSize, experiments);
     }
 
     @Override
@@ -108,7 +107,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
         Collection<UserEntity> values = ee.getMembers().values();
         List<User> userList = new ArrayList<>(values.size());
         values.forEach(u->userList.add(Mappers.USERS.map(u)));
-        return new Users(userList.size(), userList.size(), pageSize(), userList);
+        return new Users(userList.size(), userList.size(), userList.size(), userList);
     }
 
     @Override

@@ -71,14 +71,14 @@ public class CompoundServiceST {
     @Test
     public void list() throws Exception{
 
-        Compounds initial = compoundService.listAll(0, null);
+        Compounds initial = compoundService.listAll(0, null, null);
 
 
         for(int i=0; i<10; i++) {
             Compound created = compoundService.create(new Compound(name("comp-A-")));
             deleteMe.add(created.getId());
         }
-        Compounds list = compoundService.listAll(0, null);
+        Compounds list = compoundService.listAll(0, null, null);
         assertEquals(100, list.size());
         assertEquals(10 + initial.getTotalCount(), list.getTotalCount().longValue());
     }
@@ -86,11 +86,11 @@ public class CompoundServiceST {
     @Test
     public void typeAhead() throws Exception {
         // results for the user typing 'Ammoni' will match on that string anywhere in the name
-        Compounds comps = compoundService.listAll(0, "Ammoni");
+        Compounds comps = compoundService.listAll(0, null, "Ammoni");
         assertJsonEquals(load("/CompoundServiceST/list-ammoni.json"),
                 toJsonString(comps), Scrubbers.pkey);
 
-        comps = compoundService.listAll(0, "dichromate");
+        comps = compoundService.listAll(0, null, "dichromate");
         assertJsonEquals(load("/CompoundServiceST/list-dichromate.json"),
                 toJsonString(comps), Scrubbers.pkey);
     }

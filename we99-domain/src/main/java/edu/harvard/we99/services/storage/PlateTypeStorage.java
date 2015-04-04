@@ -8,13 +8,12 @@ import edu.harvard.we99.domain.lists.PlateTypes;
  * @author mford
  */
 public interface PlateTypeStorage extends CRUDStorage<PlateType> {
-    PlateTypes listAll(Integer page);
+    PlateTypes listAll(Integer page, Integer pageSize);
 
     /**
      * Find all plates that are greater than or equal to the given dimension
-     * @param dim
      */
-    PlateTypes findGreaterThanOrEqualTo(PlateDimension dim, Integer page);
+    PlateTypes findGreaterThanOrEqualTo(PlateDimension dim, Integer page, Integer pageSize);
 
     PlateType getByName(String plateTypeName);
 }

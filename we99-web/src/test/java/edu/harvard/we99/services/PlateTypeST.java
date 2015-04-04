@@ -33,7 +33,7 @@ public class PlateTypeST {
 
     @Test
     public void listPlateTypes() throws Exception {
-        PlateTypes pt = pts.listAll(0);
+        PlateTypes pt = pts.listAll(0, null);
         System.out.println(toJsonString(pt));
         // don't care so much about the actual results, but there should be at
         // least one with a plateCount

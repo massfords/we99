@@ -76,7 +76,8 @@ public interface PlatesResource {
     @ApiOperation("Lists all of the plates for this experiment")
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    Plates list(@QueryParam("page") @DefaultValue("0") Integer page);
+    Plates list(@QueryParam("page") @DefaultValue("0") Integer page,
+                @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
 
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Path("/{plateId}")

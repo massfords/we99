@@ -73,8 +73,8 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
     protected abstract PlatesResource createPlatesResource();
 
     @Override
-    public PlateResults listResults(Integer page) {
-        return resultStorage.listAllByExperiment(id, page);
+    public PlateResults listResults(Integer page, Integer pageSize) {
+        return resultStorage.listAllByExperiment(id, page, pageSize);
     }
 
     protected abstract MemberResource createMemberResource();

@@ -55,7 +55,7 @@ public class ExperimentServiceST {
         ClientFactory cf = new ClientFactory(url, WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW);
 
         es = cf.create(ExperimentService.class);
-        user = cf.create(UserService.class).find("we99.2015@example", 0).getValues().get(0);
+        user = cf.create(UserService.class).find("we99.2015@example", 0, null).getValues().get(0);
         pts = cf.create(PlateTypeService.class);
         ps = cf.create(ProtocolService.class);
         resultsFixture = new PlateResultsFixture();
@@ -80,10 +80,10 @@ public class ExperimentServiceST {
     public void listPlates() throws Exception {
         // no assertions here, just making sure we can invoke all w/o exceptions
         Set<Compound> compounds = new HashSet<>();
-        for(Experiment e : es.listExperiments(0).getValues()) {
+        for(Experiment e : es.listExperiments(0, null).getValues()) {
             ExperimentResource er = es.getExperiment(e.getId());
             PlatesResource pr = er.getPlates();
-            for(Plate p : pr.list(0).getValues()) {
+            for(Plate p : pr.list(0, null).getValues()) {
                 for(Well well : p.getWells().values()) {
                     compounds.addAll(well.getContents()
                             .stream()
@@ -159,7 +159,7 @@ public class ExperimentServiceST {
         URL url = new URL(WebAppIT.WE99_URL);
         ClientFactory cf = new ClientFactory(url, "we99.2015@example", WebAppIT.WE99_PW);
         ExperimentService guestExperimentService = cf.create(ExperimentService.class);
-        Experiments experiments = guestExperimentService.listExperiments(0);
+        Experiments experiments = guestExperimentService.listExperiments(0, null);
         // gues user cannot see the experiment
         assertThat(experiments.getValues()).extracting("id").doesNotContain(xp.getId());
 
@@ -167,7 +167,7 @@ public class ExperimentServiceST {
         ExperimentResource experimentResource = es.getExperiment(xp.getId());
         experimentResource.publish();
 
-        experiments = guestExperimentService.listExperiments(0);
+        experiments = guestExperimentService.listExperiments(0, null);
         // gues user CAN see the experiment
         assertThat(experiments.getValues()).extracting("id").contains(xp.getId());
     }
@@ -189,11 +189,11 @@ public class ExperimentServiceST {
     }
 
     private Plate createSinglePlateExperiment() {
-        String plateTypeName = pts.listAll(0).getValues().get(0).getName();
+        String plateTypeName = pts.listAll(0, null).getValues().get(0).getName();
         ExperimentResource experimentResource = es.getExperiment(xp.getId());
         PlateUtils.createPlateFromCSV(xp.getId(), name("plateName"), plateTypeName,
                 getClass().getResourceAsStream("/ExperimentServiceST/plate.csv"));
-        Plate plate = experimentResource.getPlates().list(0).getValues().get(0);
+        Plate plate = experimentResource.getPlates().list(0, null).getValues().get(0);
         Response r = resultsFixture.postResults(plate, "/ExperimentServiceST/results.csv");
         assertEquals(200, r.getStatus());
         return plate;

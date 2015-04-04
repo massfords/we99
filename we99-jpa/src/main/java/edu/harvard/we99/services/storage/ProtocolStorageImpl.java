@@ -14,7 +14,6 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.harvard.we99.services.EntityListingSettings.pageSize;
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
@@ -26,18 +25,18 @@ public class ProtocolStorageImpl implements ProtocolStorage {
     private EntityManager em;
 
     @Override
-    public Protocols listAll(Integer page) {
+    public Protocols listAll(Integer page, Integer pageSize) {
 
         JPAQuery query = new JPAQuery(em);
         query.from(QProtocolEntity.protocolEntity);
 
         long count = query.count();
 
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
         List<ProtocolEntity> resultList = query.list(QProtocolEntity.protocolEntity);
         List<Protocol> list = new ArrayList<>(resultList.size());
         resultList.forEach(pe->list.add(Mappers.PROTOCOL.map(pe)));
-        return new Protocols(count, page, pageSize(), list);
+        return new Protocols(count, page, pageSize, list);
     }
 
     @Override

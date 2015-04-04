@@ -16,7 +16,6 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.harvard.we99.services.EntityListingSettings.pageSize;
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
@@ -29,17 +28,17 @@ public class PlateStorageImpl implements PlateStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public Plates listAll(Long experimentId, Integer page) {
+    public Plates listAll(Long experimentId, Integer page, Integer pageSize) {
 
         JPAQuery query = new JPAQuery(em);
         query.from(QPlateEntity.plateEntity).where(QPlateEntity.plateEntity.experiment.id.eq(experimentId));
         long count = query.count();
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
 
         List<PlateEntity> resultList = query.list(QPlateEntity.plateEntity);
         List<Plate> list = new ArrayList<>(resultList.size());
         resultList.forEach(pe->list.add(Mappers.PLATES.map(pe)));
-        return new Plates(count, page, pageSize(), list);
+        return new Plates(count, page, pageSize, list);
     }
 
     @Override

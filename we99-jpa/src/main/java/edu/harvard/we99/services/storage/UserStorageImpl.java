@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static edu.harvard.we99.services.EntityListingSettings.pageSize;
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
@@ -114,18 +113,18 @@ public class UserStorageImpl implements UserStorage {
     }
 
     @Override
-    public Users listAll(Integer page) {
+    public Users listAll(Integer page, Integer pageSize) {
         JPAQuery query = new JPAQuery(em);
         QUserEntity users = QUserEntity.userEntity;
         query.from(users).orderBy(users.lastName.asc()).orderBy(users.firstName.asc());
         long count = query.count();
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
         List<UserEntity> resultList = query.list(users);
-        return map(count, page, pageSize(), resultList);
+        return map(count, page, pageSize, resultList);
     }
 
     @Override
-    public Users find(String queryText, Integer page) {
+    public Users find(String queryText, Integer page, Integer pageSize) {
 
         String upperQuery = "%" + queryText.toUpperCase() + "%";
 
@@ -139,9 +138,9 @@ public class UserStorageImpl implements UserStorage {
                 )
         ;
         long count = query.count();
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
 
-        return map(count, page, pageSize(), query.list(users));
+        return map(count, page, pageSize, query.list(users));
     }
 
     @Override

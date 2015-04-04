@@ -10,7 +10,7 @@ import java.util.Set;
  * @author mford
  */
 public interface CompoundStorage extends CRUDStorage<Compound> {
-    Compounds listAll(Integer page, String queryString);
+    Compounds listAll(Integer page, Integer pageSize, String queryString);
 
     Map<Compound, Long> resolveIds(Set<Compound> compounds);
 }

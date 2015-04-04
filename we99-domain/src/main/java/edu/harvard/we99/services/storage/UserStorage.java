@@ -28,7 +28,7 @@ public interface UserStorage extends CRUDStorage<User> {
      */
     User findByEmail(String email);
 
-    Users listAll(Integer page);
+    Users listAll(Integer page, Integer pageSize);
 
     /**
      * Returns all of the users that match the given query. The query is considered
@@ -36,7 +36,7 @@ public interface UserStorage extends CRUDStorage<User> {
      * @param query
      * @return
      */
-    Users find(String query, Integer page);
+    Users find(String query, Integer page, Integer pageSize);
 
     String resetPassword(Long id);
 

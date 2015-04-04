@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static edu.harvard.we99.services.EntityListingSettings.pageSize;
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
 /**
@@ -33,7 +32,7 @@ public class PlateMapStorageImpl implements PlateMapStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public PlateMaps listAll(Integer page, PlateDimension dim) {
+    public PlateMaps listAll(Integer page, Integer pageSize, PlateDimension dim) {
 
         JPAQuery query = new JPAQuery(em);
         QPlateMapEntity plateMaps = QPlateMapEntity.plateMapEntity;
@@ -41,12 +40,12 @@ public class PlateMapStorageImpl implements PlateMapStorage {
                 .where(plateMaps.dim.rows.loe(dim.getRows())
                         .and(plateMaps.dim.cols.loe(dim.getCols())));
         long count = query.count();
-        query.limit(pageSize()).offset(pageToFirstResult(page));
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
 
         List<PlateMap> list = new ArrayList<>();
         List<PlateMapEntity> resultList = query.list(plateMaps);
         resultList.forEach(pme -> list.add(Mappers.PLATEMAP.map(pme)));
-        return new PlateMaps(count, page, pageSize(), list);
+        return new PlateMaps(count, page, pageSize, list);
     }
 
     @Override
