@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc directive
- * @name we99App.directive:addplate
+ * @name we99App.directive:weAddplate
  * @description
- * # addplate
+ * # weAddplate
  */
 angular.module('we99App')
-    .directive('addplate', function () {
+    .directive('weAddplate', function () {
         return {
             restrict: 'E',
             //template:"<div>wire test</div>",

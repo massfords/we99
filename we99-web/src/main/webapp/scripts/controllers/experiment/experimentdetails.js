@@ -10,6 +10,16 @@
 angular.module('we99App')
   .controller('ExperimentDetailsCtrl', ['$scope', '$routeParams', 'SelectedExperimentSvc',
     function ($scope, $routeParams, SelectedExperimentSvc) {
-    SelectedExperimentSvc.setSelectedById($routeParams.experimentId);
-    $scope.experiment = SelectedExperimentSvc.getSelected();
-  }]);
+      $scope.experiment = null;
+      $scope.plates = null;
+      $scope.show = {
+        addPlateForm: false
+      };
+
+      SelectedExperimentSvc.setSelectedById($routeParams.experimentId).then(function(){
+        $scope.experiment = SelectedExperimentSvc.getSelected();
+        SelectedExperimentSvc.getPlates($scope.experiment.id).then(function (plates){
+          $scope.plates = plates;
+        });
+      });
+    }]);

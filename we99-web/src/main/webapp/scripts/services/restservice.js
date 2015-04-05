@@ -62,31 +62,31 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
       return $http.get(RestURLs.experiment + '/' + id + "/plates")
     },
 
-	//email filter
-	getEmailFilter: function(){
-		return $http.get(RestURLs.emailFilter);
-	},
+    //email filter
+    getEmailFilter: function(){
+      return $http.get(RestURLs.emailFilter);
+    },
 
-	updateEmailFilter: function(filter){
-		return $http.post(RestURLs.emailFilter,filter);
-	},
-	//server settings
-	getServerSettings: function(){
-		return $http.get(RestURLs.serverSettings);
-	},
-	updateServerSettings: function(emailConfig){
-		return $http.post(RestURLs.serverSettings,emailConfig);
-	},
+    updateEmailFilter: function(filter){
+      return $http.post(RestURLs.emailFilter,filter);
+    },
+    //server settings
+    getServerSettings: function(){
+      return $http.get(RestURLs.serverSettings);
+    },
+    updateServerSettings: function(emailConfig){
+      return $http.post(RestURLs.serverSettings,emailConfig);
+    },
 
-	//users
+    //users
     getUsers:  function(){
       return $http.get(RestURLs.user);
     },
 
     //returns currently logged-in User
     getCurrentUser:  function(){
-        return $http.get(RestURLs.user+'/me');
-     },
+      return $http.get(RestURLs.user+'/me');
+    },
 
     //protocol
     getProtocols:  function(){
@@ -97,7 +97,7 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
       return $http.put(RestURLs.protocol,proc);
     }
 
-    };
+  };
 
 }]);
 
@@ -157,7 +157,7 @@ app.factory('CompoundModel', ['$resource', 'RestURLs', function($resource, RestU
   return $resource(RestURLs.compound, {id: '@id'}, {
     list: {
       isArray:true,
-        transformResponse: valuesToArray
+      transformResponse: valuesToArray
     },
     // When using get typeahead, make sure to put in a parameter value for 'q'
     getTypeAhead: {

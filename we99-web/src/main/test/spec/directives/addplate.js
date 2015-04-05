@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: addplate', function () {
+describe('Directive: weAddplate', function () {
 
     // load the directive's module
     beforeEach(module('we99App'));
@@ -15,7 +15,7 @@ describe('Directive: addplate', function () {
 
     // FIXME: TIM PLEASE TAKE A LOOK AT THIS AND SEE IF YOU CAN GET THIS WORKING
     //it('should make hidden element visible', inject(function ($compile) {
-    //  element = angular.element('<addplate></addplate>');
+    //  element = angular.element('<we-addplate></we-addplate>');
     //  element = $compile(element)(scope);
     //  console.info(element);
     //  scope.$digest();

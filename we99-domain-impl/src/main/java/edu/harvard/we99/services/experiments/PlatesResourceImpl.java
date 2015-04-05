@@ -63,6 +63,10 @@ public abstract class PlatesResourceImpl implements PlatesResource {
         try {
             PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
 
+            if (mergeInfo.getPlateName() == null) {
+                mergeInfo.setPlateName("My Plate");
+            }
+
             Plate plate = new Plate()
                     .setName(mergeInfo.getPlateName())
                     .setExperiment(experiment)
