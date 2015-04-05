@@ -127,6 +127,7 @@ public interface PlateMapService {
                       @QueryParam("q") @DefaultValue("") String query);
 
     @POST
+    @ApiOperation("Gets a partially completed platemap merge info object")
     @Path("/{id}/merge")
     @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)

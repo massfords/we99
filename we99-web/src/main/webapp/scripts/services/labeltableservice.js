@@ -8,7 +8,7 @@
  * Service used for producing the label table and its features.
  */
 angular.module('we99App')
-  .factory('LabelTableSvc', function (_, kCompoundUOM) {
+  .factory('LabelTableSvc', function (_, kCompoundUOM, CompoundModel, $q) {
     var factory = {};
 
     factory.LabelTableRow = LabelTableRow;
@@ -67,6 +67,21 @@ angular.module('we99App')
       }
       validValuesLarge.reverse();
       return validValuesSmall.concat(validValuesLarge);
+    };
+
+    /** Returns a field in the scope called typeahead options
+     *
+     * @param scope the scope to modify
+     * @param query search query for compound
+     */
+    factory.findCompoundMatches = function(query){
+      var deferred = $q.defer();
+      CompoundModel.getTypeAhead({q:query}, function done(data){
+        console.log("getTypeAhead result: ");
+        console.log(data);
+        deferred.resolve(data);
+      });
+      return deferred.promise;
     };
 
     /** Row Class for Label Table

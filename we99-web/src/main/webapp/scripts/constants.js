@@ -12,10 +12,10 @@ var restBase = 'services/rest/';
 app.constant('RestURLs', {
     plateMap: restBase + 'plateMap/:id',
     plateType: restBase + 'plateType/:id',
-    experiment: restBase + 'experiment',
+    compound: restBase + 'compound/:id',
+    experiment: restBase + 'experiment', // uses $http not $resource
     protocol: restBase + 'protocol',
     user: restBase + 'user',
-    plateMap: restBase + 'plateMap',
     result: restBase + 'results/',
     serverSettings: restBase + 'settings/email/config',
     emailFilter: restBase + 'settings/email/filter',

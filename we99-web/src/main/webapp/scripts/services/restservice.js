@@ -12,20 +12,21 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
   return {
 
 
+    // OK TO Delete?
+    ////
+    //// $resource-style calls
+    ////
     //
-    // $resource-style calls
-    //
-
-    plateType: $resource(RestURLs.plateType,{}, {
-      query: {method: "GET",
-        isArray: true,
-        // Get an array back to exhibit expected query behavior
-        transformResponse: valuesToArray
-      },
-      put: {method: "PUT", isArray: false}
-    }),
-    //experiment: $resource(RestURLs.experiment,{},{}),
-    results: $resource(RestURLs.result,{}, {}),
+    //plateType: $resource(RestURLs.plateType,{}, {
+    //  query: {method: "GET",
+    //    isArray: true,
+    //    // Get an array back to exhibit expected query behavior
+    //    transformResponse: valuesToArray
+    //  },
+    //  put: {method: "PUT", isArray: false}
+    //}),
+    ////experiment: $resource(RestURLs.experiment,{},{}),
+    //results: $resource(RestURLs.result,{}, {}),
 
     //
     // $http style calls.
@@ -129,9 +130,33 @@ app.factory('PlateMapModel', ['$resource', 'RestURLs', function ($resource, Rest
   });
 }]);
 
+/** REST linked resource model for Compounds */
+app.factory('CompoundModel', ['$resource', 'RestURLs', function($resource, RestURLs){
+  var TYPEAHEAD_RESULT_SIZE = 4;
+  return $resource(RestURLs.compound, {id: '@id'}, {
+    list: {
+      isArray:true,
+        transformResponse: valuesToArray
+    },
+    // When using get typeahead, make sure to put in a parameter value for 'q'
+    getTypeAhead: {
+      // only grab first 4 results
+      params: {q:'', pageSize:TYPEAHEAD_RESULT_SIZE},
+      cache: true,
+      isArray:true,
+      transformResponse: valuesToArray
+    },
+    create: {
+      method:"PUT"
+    }
+  }); // close $resource
+}]);
 
 /* HELPER FUNCTIONS */
 
+/** Function to get the array of response values in 'list' style calls.
+ *  needed because list style calls are returned as objects with the value information provided along with metadata
+ */
 function valuesToArray(data) {
   if (data) {
     return JSON.parse(data).values;
