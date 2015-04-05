@@ -126,6 +126,7 @@ public interface PlateMapService {
                       @QueryParam("cols") @DefaultValue("999999") Integer maxCols);
 
     @POST
+    @ApiOperation("Gets a partially completed platemap merge info object")
     @Path("/{id}/merge")
     @PreAuthorize("hasRole('PERM_READ_PLATEMAPS')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
