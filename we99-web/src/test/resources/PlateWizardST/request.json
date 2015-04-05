@@ -1,0 +1,44 @@
+{
+  "plateMapId" : 29,
+  "plateType" : {
+    "id" : 16,
+    "name" : "typeb125579f-90d1-476e-bbdf-351f2e6489ef",
+    "dim" : {
+      "rows" : 10,
+      "cols" : 10
+    },
+    "manufacturer" : "Foo Inc"
+  },
+  "plateName" : "my plate namedbded4e7-0863-4c5b-b054-d7859946106b",
+  "mappings" : [ {
+    "label" : "A",
+    "count" : 4,
+    "wellType" : "COMP",
+    "dose" : {
+      "amount" : {
+        "number" : 100.0,
+        "units" : "MICRO"
+      },
+      "compound" : {
+        "name" : "Lactic acid"
+      }
+    },
+    "dilutionFactor" : 5.0,
+    "replicates" : 2
+  }, {
+    "label" : "B",
+    "count" : 4,
+    "wellType" : "COMP",
+    "dose" : {
+      "amount" : {
+        "number" : 100.0,
+        "units" : "MICRO"
+      },
+      "compound" : {
+        "name" : "Nicotine"
+      }
+    },
+    "dilutionFactor" : 5.0,
+    "replicates" : 2
+  } ]
+}

@@ -131,17 +131,23 @@ public class PlateWizardST {
 
         Map<String,Compound> mappings = new HashMap<>();
         mappings.put("A", new Compound("Lactic acid"));
-        mappings.put("B", new Compound("Nicotine") );
+        mappings.put("B", new Compound("Nicotine"));
 
         // set the compounds in place
         mergeInfo.getMappings().values()
                 .stream()
                 .filter(wlm -> wlm.getWellType() != WellType.EMPTY)
                 .forEach(wlm -> {
+                    wlm.setReplicates(2);
                     wlm.setDilutionFactor(5d);
                     wlm.setDose(new Dose(mappings.get(wlm.getLabel()),
                             new Amount(100, DoseUnit.MICRO)));
                 });
+
+        String request = toJsonString(mergeInfo);
+//        System.out.println(request);
+        assertJsonEquals(load("/PlateWizardST/request.json"), request,
+                Scrubbers.uuid.andThen(Scrubbers.pkey));
 
 
         // ---------------------------------------------------------------------

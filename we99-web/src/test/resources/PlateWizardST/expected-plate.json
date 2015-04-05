@@ -53,7 +53,7 @@
       "contents": [
         {
           "amount": {
-            "number": 20.0,
+            "number": 100.0,
             "units": "MICRO"
           },
           "compound": {"name": "Lactic acid"}
@@ -70,7 +70,7 @@
       "contents": [
         {
           "amount": {
-            "number": 20.0,
+            "number": 100.0,
             "units": "MICRO"
           },
           "compound": {"name": "Nicotine"}
@@ -87,7 +87,7 @@
       "contents": [
         {
           "amount": {
-            "number": 4.0,
+            "number": 20.0,
             "units": "MICRO"
           },
           "compound": {"name": "Lactic acid"}
@@ -113,7 +113,7 @@
       "contents": [
         {
           "amount": {
-            "number": 0.8,
+            "number": 20.0,
             "units": "MICRO"
           },
           "compound": {"name": "Lactic acid"}
@@ -139,7 +139,7 @@
       "contents": [
         {
           "amount": {
-            "number": 4.0,
+            "number": 20.0,
             "units": "MICRO"
           },
           "compound": {"name": "Nicotine"}
@@ -156,7 +156,7 @@
       "contents": [
         {
           "amount": {
-            "number": 0.8,
+            "number": 20.0,
             "units": "MICRO"
           },
           "compound": {"name": "Nicotine"}
