@@ -20,7 +20,7 @@
         {
           "amount": {
             "number": 100.0,
-            "units": "MICRO"
+            "units": "MICROMOLAR"
           },
           "compound": {"name": "Lactic acid"}
         }
@@ -37,7 +37,7 @@
         {
           "amount": {
             "number": 100.0,
-            "units": "MICRO"
+            "units": "MICROMOLAR"
           },
           "compound": {"name": "Nicotine"}
         }
@@ -54,7 +54,7 @@
         {
           "amount": {
             "number": 100.0,
-            "units": "MICRO"
+            "units": "MICROMOLAR"
           },
           "compound": {"name": "Lactic acid"}
         }
@@ -71,7 +71,7 @@
         {
           "amount": {
             "number": 100.0,
-            "units": "MICRO"
+            "units": "MICROMOLAR"
           },
           "compound": {"name": "Nicotine"}
         }
@@ -88,7 +88,7 @@
         {
           "amount": {
             "number": 20.0,
-            "units": "MICRO"
+            "units": "MICROMOLAR"
           },
           "compound": {"name": "Lactic acid"}
         }
@@ -114,7 +114,7 @@
         {
           "amount": {
             "number": 20.0,
-            "units": "MICRO"
+            "units": "MICROMOLAR"
           },
           "compound": {"name": "Lactic acid"}
         }
@@ -140,7 +140,7 @@
         {
           "amount": {
             "number": 20.0,
-            "units": "MICRO"
+            "units": "MICROMOLAR"
           },
           "compound": {"name": "Nicotine"}
         }
@@ -157,7 +157,7 @@
         {
           "amount": {
             "number": 20.0,
-            "units": "MICRO"
+            "units": "MICROMOLAR"
           },
           "compound": {"name": "Nicotine"}
         }

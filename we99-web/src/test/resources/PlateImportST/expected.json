@@ -20,14 +20,14 @@
         {
           "amount": {
             "number": 5.0,
-            "units": "PICO"
+            "units": "PICOMOLAR"
           },
           "compound": {"name": "H20"}
         },
         {
           "amount": {
             "number": 1.0,
-            "units": "PICO"
+            "units": "PICOMOLAR"
           },
           "compound": {"name": "NaCl"}
         }
@@ -44,7 +44,7 @@
         {
           "amount": {
             "number": 1.0,
-            "units": "PICO"
+            "units": "PICOMOLAR"
           },
           "compound": {"name": "Cx"}
         }
@@ -61,7 +61,7 @@
         {
           "amount": {
             "number": 1.0,
-            "units": "PICO"
+            "units": "PICOMOLAR"
           },
           "compound": {"name": "Cx"}
         }
@@ -78,7 +78,7 @@
         {
           "amount": {
             "number": 1.0,
-            "units": "PICO"
+            "units": "PICOMOLAR"
           },
           "compound": {"name": "Cx"}
         }
@@ -95,7 +95,7 @@
         {
           "amount": {
             "number": 1.0,
-            "units": "PICO"
+            "units": "PICOMOLAR"
           },
           "compound": {"name": "Cx"}
         }
@@ -112,7 +112,7 @@
         {
           "amount": {
             "number": 1.0,
-            "units": "PICO"
+            "units": "PICOMOLAR"
           },
           "compound": {"name": "Cx"}
         }
@@ -129,7 +129,7 @@
         {
           "amount": {
             "number": 1.0,
-            "units": "PICO"
+            "units": "PICOMOLAR"
           },
           "compound": {"name": "Cx"}
         }
@@ -146,7 +146,7 @@
         {
           "amount": {
             "number": 1.0,
-            "units": "PICO"
+            "units": "PICOMOLAR"
           },
           "compound": {"name": "Cx"}
         }

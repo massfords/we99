@@ -19,7 +19,7 @@
       "dose": {
         "amount": {
           "number": 100.0,
-          "units": "MICRO"
+          "units": "MICROMOLAR"
         },
         "compound": {
           "name": "Lactic acid"
@@ -34,7 +34,7 @@
       "dose": {
         "amount": {
           "number": 100.0,
-          "units": "MICRO"
+          "units": "MICROMOLAR"
         },
         "compound": {
           "name": "Nicotine"

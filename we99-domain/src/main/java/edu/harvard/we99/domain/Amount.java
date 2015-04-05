@@ -21,7 +21,7 @@ public class Amount {
      * The units used to measure how much of the compound is in the well
      */
     @NotNull
-    private DoseUnit units = DoseUnit.MILLIS;
+    private DoseUnit units = DoseUnit.MILLIMOLAR;
 
     @SuppressWarnings("unused")
     public Amount() {}

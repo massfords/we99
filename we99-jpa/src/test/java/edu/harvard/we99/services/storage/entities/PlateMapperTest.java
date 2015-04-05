@@ -110,7 +110,7 @@ public class PlateMapperTest {
                         new Dose()
                                 .setId(300L)
                                 .setCompound(compound)
-                                .setAmount(new Amount(10, DoseUnit.NANO))
+                                .setAmount(new Amount(10, DoseUnit.NANOMOLAR))
                 );
     }
 }

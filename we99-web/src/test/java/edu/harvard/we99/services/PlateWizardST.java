@@ -141,7 +141,7 @@ public class PlateWizardST {
                     wlm.setReplicates(2);
                     wlm.setDilutionFactor(5d);
                     wlm.setDose(new Dose(mappings.get(wlm.getLabel()),
-                            new Amount(100, DoseUnit.MICRO)));
+                            new Amount(100, DoseUnit.MICROMOLAR)));
                 });
 
         String request = toJsonString(mergeInfo);

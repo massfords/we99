@@ -33,7 +33,7 @@ public class WellLabelMappingTest {
                 .setReplicates(3)
                 .setWellType(WellType.COMP)
                 .setDose(new Dose(new Compound("Foo"),
-                        new Amount(100d, DoseUnit.MICRO))),
+                        new Amount(100d, DoseUnit.MICROMOLAR))),
                 "/WellLabelMappingTest/evenNumber_replicates.json")
         );
 
@@ -47,7 +47,7 @@ public class WellLabelMappingTest {
                                 .setReplicates(3)
                                 .setWellType(WellType.COMP)
                                 .setDose(new Dose(new Compound("Foo"),
-                                        new Amount(100d, DoseUnit.MICRO))),
+                                        new Amount(100d, DoseUnit.MICROMOLAR))),
                         "/WellLabelMappingTest/oddNumber_replicates.json")
         );
 
@@ -60,7 +60,7 @@ public class WellLabelMappingTest {
                                 .setLabel("A")
                                 .setWellType(WellType.COMP)
                                 .setDose(new Dose(new Compound("Foo"),
-                                        new Amount(100d, DoseUnit.MICRO))),
+                                        new Amount(100d, DoseUnit.MICROMOLAR))),
                         "/WellLabelMappingTest/noReplicates.json")
         );
 
@@ -72,7 +72,7 @@ public class WellLabelMappingTest {
                                 .setLabel("A")
                                 .setWellType(WellType.COMP)
                                 .setDose(new Dose(new Compound("Foo"),
-                                        new Amount(100d, DoseUnit.MICRO))),
+                                        new Amount(100d, DoseUnit.MICROMOLAR))),
                         "/WellLabelMappingTest/noDilution_noReplicates.json")
         );
 
@@ -86,7 +86,7 @@ public class WellLabelMappingTest {
                                 .setReplicates(3)
                                 .setWellType(WellType.COMP)
                                 .setDose(new Dose(new Compound("Foo"),
-                                        new Amount(100d, DoseUnit.MICRO))),
+                                        new Amount(100d, DoseUnit.MICROMOLAR))),
                         "/WellLabelMappingTest/noDilution.json")
         );
 

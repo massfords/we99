@@ -2,35 +2,35 @@
   {
     "amount": {
       "number": 100.0,
-      "units": "MICRO"
+      "units": "MICROMOLAR"
     },
     "compound": {"name": "Foo"}
   },
   {
     "amount": {
       "number": 100.0,
-      "units": "MICRO"
+      "units": "MICROMOLAR"
     },
     "compound": {"name": "Foo"}
   },
   {
     "amount": {
       "number": 100.0,
-      "units": "MICRO"
+      "units": "MICROMOLAR"
     },
     "compound": {"name": "Foo"}
   },
   {
     "amount": {
       "number": 100.0,
-      "units": "MICRO"
+      "units": "MICROMOLAR"
     },
     "compound": {"name": "Foo"}
   },
   {
     "amount": {
       "number": 100.0,
-      "units": "MICRO"
+      "units": "MICROMOLAR"
     },
     "compound": {"name": "Foo"}
   }

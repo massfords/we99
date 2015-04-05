@@ -4,7 +4,6 @@ var app = angular.module('we99App');
 app.constant('_', window._);
 
 /** Accepted Units of measures for compounds */
-// MILLIS, MICRO, NANO, PICO
 app.constant('kCompoundUOM', {
   'uM': 'MICROMOLAR',
   'mM': 'MILLIMOLAR',

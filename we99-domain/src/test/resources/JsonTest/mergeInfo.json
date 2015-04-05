@@ -7,7 +7,7 @@
       "dose": {
         "amount": {
           "number": 100.0,
-          "units": "MICRO"
+          "units": "MICROMOLAR"
         },
         "compound": {"name": "Ammonia"}
       },
@@ -21,7 +21,7 @@
       "dose": {
         "amount": {
           "number": 50.0,
-          "units": "MICRO"
+          "units": "MICROMOLAR"
         },
         "compound": {"name": "Nickel chloride"}
       },
@@ -35,7 +35,7 @@
       "dose": {
         "amount": {
           "number": 50.0,
-          "units": "MICRO"
+          "units": "MICROMOLAR"
         },
         "compound": {"name": "Potassium bromate"}
       },
@@ -49,7 +49,7 @@
       "dose": {
         "amount": {
           "number": 50.0,
-          "units": "MICRO"
+          "units": "MICROMOLAR"
         },
         "compound": {"name": "xpf54"}
       },
@@ -62,7 +62,7 @@
       "dose": {
         "amount": {
           "number": 50.0,
-          "units": "MICRO"
+          "units": "MICROMOLAR"
         },
         "compound": {"name": "brine"}
       },

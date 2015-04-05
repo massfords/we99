@@ -2,7 +2,7 @@
   "id": 1234,
   "amount": {
     "number": 2.0,
-    "units": "MILLIS"
+    "units": "MILLIMOLAR"
   },
   "compound": {"name": "h20"}
 }

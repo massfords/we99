@@ -67,10 +67,10 @@ enum WellType {
 }
 
 enum DoseUnits {
-    MILLIS
-    MICRO
-    NANO
-    PICO
+    MILLIMOLAR
+    MICROMOLAR
+    NANOMOLAR
+    PICOMOLAR
 }
 
 class Amount {
