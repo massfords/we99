@@ -59,21 +59,8 @@ public interface UserService {
     @ApiOperation("Lists all of the users in the system")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Users list(@QueryParam("page") @DefaultValue("0") Integer page,
-               @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
-
-    /**
-     * Returns the users that match against the given expression. We'll search across
-     * their first name, last name, and email address. This is like searchin sql
-     * with a LIKE %term% expression
-     * @return
-     */
-    @Path("/find")
-    @GET
-    @ApiOperation("Returns the users that match against the given expression")
-    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    Users find(@QueryParam("q")String query,
-               @QueryParam("page") @DefaultValue("0") Integer page,
-               @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
+               @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
+               @QueryParam("q") @DefaultValue("") String query);
 
     @DELETE
     @Path("/{id}")

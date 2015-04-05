@@ -47,7 +47,8 @@ public interface ExperimentService {
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Experiments listExperiments(@QueryParam("page") @DefaultValue("0") Integer page,
-                                @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
+                                @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
+                                @QueryParam("q") @DefaultValue("") String query);
 
     @ApiOperation("Gets an specific experiement")
     @Path("/{id}")

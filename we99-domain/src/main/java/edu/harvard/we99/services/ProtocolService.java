@@ -85,6 +85,7 @@ public interface ProtocolService {
     @PreAuthorize("hasRole('PERM_READ_PROTOCOLS')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Protocols listAll(@QueryParam("page") @DefaultValue("0") Integer page,
-                      @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
+                      @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
+                      @QueryParam("q") @DefaultValue("") String query);
 
 }

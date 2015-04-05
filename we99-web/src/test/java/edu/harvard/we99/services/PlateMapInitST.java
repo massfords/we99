@@ -58,7 +58,7 @@ public class PlateMapInitST {
      */
     @Test
     public void platesWereCreated() throws Exception {
-        List<PlateMap> plateMaps = plateMapService.listAll(0, null,999,999).getValues();
+        List<PlateMap> plateMaps = plateMapService.listAll(null,null,null,null,null).getValues();
         assertTrue(plateMaps.size() > 0);
     }
 
@@ -93,7 +93,7 @@ public class PlateMapInitST {
     }
 
     private Optional findPlate(String name, int rows, int cols){
-        List<PlateMap> plateMaps = plateMapService.listAll(0, null,999,999).getValues();
+        List<PlateMap> plateMaps = plateMapService.listAll(null,null,null,null,null).getValues();
         return plateMaps.stream()
                 .filter(plateMap -> plateMap.getName().equalsIgnoreCase(name) &&
                         plateMap.getDim().getRows() == rows &&

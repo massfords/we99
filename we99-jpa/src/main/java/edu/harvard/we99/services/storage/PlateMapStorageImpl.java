@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
+import static edu.harvard.we99.services.storage.TypeAheadLike.applyTypeAhead;
 
 /**
  * Implementation of the PlanTemplateStorage
@@ -32,13 +33,15 @@ public class PlateMapStorageImpl implements PlateMapStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public PlateMaps listAll(Integer page, Integer pageSize, PlateDimension dim) {
+    public PlateMaps listAll(Integer page, Integer pageSize, PlateDimension dim,
+                             String typeAhead) {
 
         JPAQuery query = new JPAQuery(em);
         QPlateMapEntity plateMaps = QPlateMapEntity.plateMapEntity;
         query.from(plateMaps)
                 .where(plateMaps.dim.rows.loe(dim.getRows())
                         .and(plateMaps.dim.cols.loe(dim.getCols())));
+        applyTypeAhead(query, plateMaps.name, typeAhead);
         long count = query.count();
         query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
 

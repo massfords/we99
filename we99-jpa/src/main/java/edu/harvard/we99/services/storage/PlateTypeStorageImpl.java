@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
+import static edu.harvard.we99.services.storage.TypeAheadLike.applyTypeAhead;
 
 /**
  * Implementation of the PlateTypeStorage interface
@@ -30,14 +31,18 @@ public class PlateTypeStorageImpl implements PlateTypeStorage {
     private EntityManager em;
 
     @Override
-    public PlateTypes listAll(Integer page, Integer pageSize) {
+    public PlateTypes listAll(Integer page, Integer pageSize, String typeAhead) {
 
         JPAQuery query = new JPAQuery(em);
         QPlateTypeEntity pte = QPlateTypeEntity.plateTypeEntity;
         query.from(pte).leftJoin(pte.plates).groupBy(pte);
+        applyTypeAhead(query,pte.name,typeAhead);
         query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
 
-        long count = new JPAQuery(em).from(pte).count();
+        JPAQuery countQuery = new JPAQuery(em).from(pte);
+        applyTypeAhead(countQuery,pte.name,typeAhead);
+
+        long count = countQuery.count();
 
         List<Tuple> tuples = query.list(pte, pte.count());
         List<PlateType> list = map(tuples);

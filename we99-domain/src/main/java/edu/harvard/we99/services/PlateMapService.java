@@ -123,7 +123,8 @@ public interface PlateMapService {
     PlateMaps listAll(@QueryParam("page") @DefaultValue("0") Integer page,
                       @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
                       @QueryParam("rows") @DefaultValue("999999") Integer maxRows,
-                      @QueryParam("cols") @DefaultValue("999999") Integer maxCols);
+                      @QueryParam("cols") @DefaultValue("999999") Integer maxCols,
+                      @QueryParam("q") @DefaultValue("") String query);
 
     @POST
     @Path("/{id}/merge")

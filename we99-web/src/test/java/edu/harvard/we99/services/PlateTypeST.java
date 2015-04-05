@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static edu.harvard.we99.util.JacksonUtil.toJsonString;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -33,8 +33,7 @@ public class PlateTypeST {
 
     @Test
     public void listPlateTypes() throws Exception {
-        PlateTypes pt = pts.listAll(0, null);
-        System.out.println(toJsonString(pt));
+        PlateTypes pt = pts.listAll(null, null, null);
         // don't care so much about the actual results, but there should be at
         // least one with a plateCount
         AtomicLong sum = new AtomicLong(0);
@@ -43,5 +42,12 @@ public class PlateTypeST {
                 .forEach(
                         pte->sum.addAndGet(pte.getPlateCount()));
         assertTrue(sum.get()>0);
+    }
+
+    @Test
+    public void typeAhead() throws Exception {
+        PlateTypes pt = pts.listAll(null, null, null);
+        pt = pts.listAll(null, null, pt.getValues().get(0).getName());
+        assertEquals(1, pt.size());
     }
 }

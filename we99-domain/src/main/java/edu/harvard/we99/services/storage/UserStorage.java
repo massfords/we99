@@ -28,15 +28,12 @@ public interface UserStorage extends CRUDStorage<User> {
      */
     User findByEmail(String email);
 
-    Users listAll(Integer page, Integer pageSize);
-
     /**
      * Returns all of the users that match the given query. The query is considered
-     * as literal text that appears in their first name, last name, or email address
-     * @param query
-     * @return
+     * as literal text that appears in their first name, last name, or email address.
+     * If no typeAhead is provided then it's a simple listing of all users by name
      */
-    Users find(String query, Integer page, Integer pageSize);
+    Users listAll(Integer page, Integer pageSize, String typeAhead);
 
     String resetPassword(Long id);
 

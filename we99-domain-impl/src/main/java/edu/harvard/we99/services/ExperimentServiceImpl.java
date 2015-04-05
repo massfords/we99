@@ -27,8 +27,8 @@ public abstract class ExperimentServiceImpl implements ExperimentService {
     }
 
     @Override
-    public Experiments listExperiments(Integer page, Integer pageSize) {
-        return storage.listAll(ucp.get(), page, pageSize);
+    public Experiments listExperiments(Integer page, Integer pageSize, String typeAhead) {
+        return storage.listAll(ucp.get(), page, pageSize, typeAhead);
     }
 
     @Override

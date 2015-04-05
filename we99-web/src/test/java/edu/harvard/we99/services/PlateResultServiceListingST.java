@@ -55,7 +55,7 @@ public class PlateResultServiceListingST {
     public void listByExperiment() throws Exception {
         ExperimentResource er = resultsFixture.experimentService.getExperiment(experiment.getId());
 
-        PlateResults plateResults = er.listResults(0, null);
+        PlateResults plateResults = er.listResults(null, null, null);
         assertJsonEquals(load("/PlateResultServiceST/listByExperiment.json"), toJsonString(plateResults),
                 Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey));
     }

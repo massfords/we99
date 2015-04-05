@@ -92,7 +92,7 @@ public class PlateWizardST {
         // one we just added above.
         // ---------------------------------------------------------------------
         PlateDimension dim = plateType.getDim();
-        PlateMaps plateMaps = plateMapService.listAll(0, null, dim.getRows(), dim.getCols());
+        PlateMaps plateMaps = plateMapService.listAll(null, null, dim.getRows(), dim.getCols(), null);
         PlateMap found = null;
         for(PlateMap plateMap : plateMaps.getValues()) {
             if (plateMap.getName().equals(plateMapName)) {

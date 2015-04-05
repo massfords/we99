@@ -8,5 +8,5 @@ import edu.harvard.we99.domain.lists.PlateMaps;
  * @author mford
  */
 public interface PlateMapStorage extends CRUDStorage<PlateMap> {
-    PlateMaps listAll(Integer page, Integer pageSize, PlateDimension maxDim);
+    PlateMaps listAll(Integer page, Integer pageSize, PlateDimension maxDim, String typeAhead);
 }

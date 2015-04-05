@@ -9,6 +9,7 @@ import edu.harvard.we99.services.storage.entities.QRoleEntity;
 import edu.harvard.we99.services.storage.entities.QUserEntity;
 import edu.harvard.we99.services.storage.entities.RoleEntity;
 import edu.harvard.we99.services.storage.entities.UserEntity;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -113,34 +114,24 @@ public class UserStorageImpl implements UserStorage {
     }
 
     @Override
-    public Users listAll(Integer page, Integer pageSize) {
+    public Users listAll(Integer page, Integer pageSize, String typeAhead) {
         JPAQuery query = new JPAQuery(em);
         QUserEntity users = QUserEntity.userEntity;
         query.from(users).orderBy(users.lastName.asc()).orderBy(users.firstName.asc());
+
+        if (StringUtils.isNotBlank(typeAhead)) {
+            String upperQuery = "%" + typeAhead.toUpperCase() + "%";
+            query.where(
+                    users.lastName.concat(", ").concat(users.firstName).toUpperCase().like(upperQuery)
+                            .or(users.firstName.concat(" ").concat(users.lastName).toUpperCase().like(upperQuery))
+                            .or(users.email.toUpperCase().like(upperQuery))
+            );
+        }
+
         long count = query.count();
         query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
         List<UserEntity> resultList = query.list(users);
         return map(count, page, pageSize, resultList);
-    }
-
-    @Override
-    public Users find(String queryText, Integer page, Integer pageSize) {
-
-        String upperQuery = "%" + queryText.toUpperCase() + "%";
-
-        JPAQuery query = new JPAQuery(em);
-        QUserEntity users = QUserEntity.userEntity;
-        query.from(users)
-                .where(
-                        users.lastName.concat(", ").concat(users.firstName).toUpperCase().like(upperQuery)
-                        .or(users.firstName.concat(" ").concat(users.lastName).toUpperCase().like(upperQuery))
-                        .or(users.email.toUpperCase().like(upperQuery))
-                )
-        ;
-        long count = query.count();
-        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
-
-        return map(count, page, pageSize, query.list(users));
     }
 
     @Override

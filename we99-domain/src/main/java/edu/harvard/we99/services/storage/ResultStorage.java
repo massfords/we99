@@ -12,5 +12,6 @@ public interface ResultStorage extends CRUDStorage<PlateResult> {
 
     void updateStatus(Long id, Coordinate coordinate, ResultStatus status);
 
-    PlateResults listAllByExperiment(Long experimentId, Integer page, Integer pageSize);
+    PlateResults listAllByExperiment(Long experimentId, Integer page,
+                                     Integer pageSize, String typeAhead);
 }

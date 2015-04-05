@@ -80,8 +80,10 @@ public interface ExperimentResource {
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @ApiOperation("Gets all of the results for the experiment")
     @PreAuthorize("hasRole('PERM_READ_RESULTS')")
-    PlateResults listResults(@QueryParam("page") @DefaultValue("0") Integer page,
-                             @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
+    PlateResults listResults(
+             @QueryParam("page") @DefaultValue("0") Integer page,
+             @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
+             @QueryParam("q") @DefaultValue("") String typeAhead);
 
     Long getId();
 

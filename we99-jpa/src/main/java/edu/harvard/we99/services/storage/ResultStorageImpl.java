@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
+import static edu.harvard.we99.services.storage.TypeAheadLike.applyTypeAhead;
 
 /**
  * @author mford
@@ -39,11 +40,13 @@ public class ResultStorageImpl implements ResultStorage {
 
     @Override
     @Transactional(readOnly = true)
-    public PlateResults listAllByExperiment(Long experimentId, Integer page, Integer pageSize) {
+    public PlateResults listAllByExperiment(Long experimentId, Integer page,
+                                            Integer pageSize, String typeAhead) {
 
         JPAQuery query = new JPAQuery(em);
         QPlateResultEntity results = QPlateResultEntity.plateResultEntity;
         query.from(results).where(results.plate.experiment.id.eq(experimentId));
+        applyTypeAhead(query, results.plate.name, typeAhead);
 
         long count = query.count();
         query.limit(pageSize).offset(pageToFirstResult(page, pageSize));

@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
+import static edu.harvard.we99.services.storage.TypeAheadLike.applyTypeAhead;
 
 /**
  * @author mford
@@ -80,17 +81,16 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     }
 
     @Override
-    public Experiments listAll(User user, Integer page, Integer pageSize) {
+    public Experiments listAll(User user, Integer page, Integer pageSize, String typeAhead) {
         JPAQuery query = new JPAQuery(em);
         QExperimentEntity exp = QExperimentEntity.experimentEntity;
         QUserEntity ue = QUserEntity.userEntity;
-        query.from(exp, ue)
-                .where(exp.status.eq(ExperimentStatus.PUBLISHED).or(
-                                exp.members.containsValue(ue)
-                                        .and(ue.email.eq(user.getEmail()))
-                        )
-                ).distinct()
-        ;
+        query.from(exp, ue);
+        query.where(exp.status.eq(ExperimentStatus.PUBLISHED).or(
+                exp.members.containsValue(ue)
+                        .and(ue.email.eq(user.getEmail()))));
+        applyTypeAhead(query, exp.name, typeAhead);
+        query.distinct();
 
         long count = query.count();
         query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
@@ -106,7 +106,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
         ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
         Collection<UserEntity> values = ee.getMembers().values();
         List<User> userList = new ArrayList<>(values.size());
-        values.forEach(u->userList.add(Mappers.USERS.map(u)));
+        values.forEach(u -> userList.add(Mappers.USERS.map(u)));
         return new Users(userList.size(), userList.size(), userList.size(), userList);
     }
 

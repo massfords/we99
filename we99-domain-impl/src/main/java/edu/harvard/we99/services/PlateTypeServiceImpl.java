@@ -34,10 +34,10 @@ public class PlateTypeServiceImpl extends BaseRESTServiceImpl<PlateType> impleme
     }
 
     @Override
-    public PlateTypes listAll(Integer page, Integer pageSize) {
+    public PlateTypes listAll(Integer page, Integer pageSize, String typeAhead) {
         try {
             PlateTypeStorage ps = (PlateTypeStorage) storage;
-            return ps.listAll(page, pageSize);
+            return ps.listAll(page, pageSize, typeAhead);
         } catch(Exception e) {
             log.error("error listing plate types", e);
             throw new WebApplicationException(Response.status(500).build());

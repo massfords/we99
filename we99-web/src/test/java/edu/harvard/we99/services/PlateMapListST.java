@@ -10,6 +10,7 @@ import java.net.URL;
 
 import static edu.harvard.we99.test.BaseFixture.name;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -29,7 +30,7 @@ public class PlateMapListST {
     }
 
     @AfterClass
-    public static void tearDown() throws Exception {
+    public static void destroy() throws Exception {
         plateMapService = null;
     }
 
@@ -39,11 +40,13 @@ public class PlateMapListST {
         // query based on its size
         String name = name("pm");
         PlateMapClientFixture.upload("/PlateMapListST/input300x300.csv", name);
-        PlateMaps plateMaps = plateMapService.listAll(0, null, 500, 600);
+        PlateMaps plateMaps = plateMapService.listAll(null, null, 500, 600, null);
         assertTrue(plateMaps.getTotalCount()>=1);
         assertThat(plateMaps.getValues()).extracting("name").contains(name);
+        plateMaps = plateMapService.listAll(null, null, 500, 600, name);
+        assertEquals(1, plateMaps.size());
         // search again for something smaller
-        plateMaps = plateMapService.listAll(0, null, 10, 10);
+        plateMaps = plateMapService.listAll(null, null, 10, 10, null);
         assertThat(plateMaps.getValues()).extracting("name").doesNotContain(name);
     }
 }

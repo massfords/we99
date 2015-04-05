@@ -87,5 +87,6 @@ public interface PlateTypeService {
     @PreAuthorize("hasRole('PERM_READ_PLATETYPES')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateTypes listAll(@QueryParam("page") @DefaultValue("0") Integer page,
-                       @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
+                       @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
+                       @QueryParam("q") @DefaultValue("") String query);
 }

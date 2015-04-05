@@ -77,7 +77,8 @@ public interface PlatesResource {
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     Plates list(@QueryParam("page") @DefaultValue("0") Integer page,
-                @QueryParam("pageSize") @DefaultValue("100") Integer pageSize);
+                @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
+                @QueryParam("q") @DefaultValue("") String typeAhead);
 
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Path("/{plateId}")

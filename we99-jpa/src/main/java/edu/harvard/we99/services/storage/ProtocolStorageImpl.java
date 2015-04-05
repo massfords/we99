@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
+import static edu.harvard.we99.services.storage.TypeAheadLike.applyTypeAhead;
 
 /**
  * @author mford
@@ -25,11 +26,11 @@ public class ProtocolStorageImpl implements ProtocolStorage {
     private EntityManager em;
 
     @Override
-    public Protocols listAll(Integer page, Integer pageSize) {
+    public Protocols listAll(Integer page, Integer pageSize, String typeAhead) {
 
         JPAQuery query = new JPAQuery(em);
         query.from(QProtocolEntity.protocolEntity);
-
+        applyTypeAhead(query, QProtocolEntity.protocolEntity.name, typeAhead);
         long count = query.count();
 
         query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
