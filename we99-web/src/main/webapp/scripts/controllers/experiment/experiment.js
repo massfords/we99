@@ -32,7 +32,7 @@ angular.module('we99App')
           break;
       }
     };
-    //delete experiment from database
+    // Deletes an experiment from database
     $scope.removeItem=function(row){
     	RestService.deleteExperiment(row.id)
     		.success(function(response){

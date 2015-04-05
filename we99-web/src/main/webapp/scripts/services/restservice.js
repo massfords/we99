@@ -8,6 +8,7 @@
  * Service in the we99App.
  */
 var app = angular.module('we99App');
+
 app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,$http, RestURLs) {
   return {
 
@@ -100,6 +101,21 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
 
 }]);
 
+
+app.factory('PlateMergeRestService', ['$http', 'RestURLs', function($http, RestURLs){
+  return {
+    getMergeInfoTemplate: function(plateMapId, plateType) {
+      return $http.post(replaceId(RestURLs.mergeInfoTemplate, plateMapId), plateType);
+    },
+    submitMergeInfo: function(experimentId, mergeInfoObject){
+      return $http.put(replaceId(RestURLs.mergeInfoSubmit, experimentId), mergeInfoObject);
+    }
+  };
+
+  function replaceId(urlString, id) {
+    return urlString.replace(':id', id);
+  };
+}]);
 /** REST linked resource model for Plate Type */
 app.factory('PlateTypeModel', ['$resource', 'RestURLs', function ($resource, RestURLs) {
   return $resource(RestURLs.plateType, {id:'@id'}, {
@@ -126,7 +142,12 @@ app.factory('PlateMapModel', ['$resource', 'RestURLs', function ($resource, Rest
     },
     create: {
       method: "PUT" // Server takes put for creation
-    }
+    },
+    //// Requires a plateType in the body. remember the '$' before using because its an instance call.
+    //getMergeInfo: {
+    //  method:"POST",
+    //  url: RestURLs.mergeInfoTemplate
+    //}
   });
 }]);
 
