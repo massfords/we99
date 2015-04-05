@@ -25,7 +25,9 @@ angular.module('we99App')
     $scope.plateMaps = null;
     $scope.labelTable = [];
     $scope.experiment = SelectedExperimentSvc.getSelected();
-    $scope.UOMOptions = Object.keys(kCompoundUOM);
+    $scope.UOMOptions = Object.keys(kCompoundUOM).map(function(key){
+      return {key:key, value:kCompoundUOM[key]};
+    });
     $scope.mergeInfoObject = null;
 
     /** Grabs a list of plate types on load */

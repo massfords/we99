@@ -45,15 +45,15 @@
             </td>
             <td>
               <input type="text"
-                     ng-model="row.compounds"
+                     ng-model="row.dose.compound"
                      placeholder="Compound..."
                      typeahead="compound.name for compound in findCompoundMatches($viewValue) | limitTo:4">
               <i ng-show="loadingCompounds" class="glyphicon glyphicon-refresh"></i>
             </td>
             <td>
-              <input type="number" ng-model="row.dose.number"/>
-              <select ng-options="key for key in UOMOptions" ng-model="row.dose.unit">
-                <option value="uM">uM</option>
+              <input type="number" ng-model="row.dose.amount.number"/>
+              <select ng-options="option.value as option.key for option in UOMOptions" ng-model="row.dose.amount.units">
+                <option value="MICROMOLAR">uM</option>
               </select>
             </td>
             <td><input type="number" ng-model="row.dilutionFactor"/></td>

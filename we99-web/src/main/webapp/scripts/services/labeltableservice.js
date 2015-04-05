@@ -103,20 +103,22 @@ angular.module('we99App')
      * @param type the well type
      * @constructor
      */
-    function LabelTableRow(label, type) {
-      if (angular.isUndefined(type)) {
+    function LabelTableRow(label, wellType) {
+      if (angular.isUndefined(wellType)) {
         throw new TypeError("Type required to build label table row");
       }
       this.label = label;
-      this.type = type;
+      this.wellType = wellType;
       this.count = 0;
       this.replicates = 1;
-      this.compound = null;
       this.dose = {
-        number: 100,
-        unit: kCompoundUOM.uM
+        amount: {
+          number: 100,
+          units: kCompoundUOM.uM
+        },
+        compound: null
       };
-      this.dilutionFactor = 1;
+      this.dilutionFactor = 2;
     }
 
 
