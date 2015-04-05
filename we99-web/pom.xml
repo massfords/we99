@@ -102,6 +102,7 @@
 					<webAppConfig>
 						<contextPath>/we99</contextPath>
 						<jettyEnvXml>${basedir}/src/test/resources/jetty/jetty-env.xml</jettyEnvXml>
+						<overrideDescriptor>${basedir}/src/test/resources/jetty/jetty-web.xml</overrideDescriptor>
 					</webAppConfig>
 				</configuration>
 				<dependencies>

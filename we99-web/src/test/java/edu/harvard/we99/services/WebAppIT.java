@@ -61,7 +61,8 @@ public class WebAppIT {
                 testWebXml,
                 new File("src/main/webapp"),
                 "/we99",
-                WebAppIT.class.getResource("/jetty/jetty-env.xml")
+                WebAppIT.class.getResource("/jetty/jetty-env.xml"),
+                WebAppIT.class.getResource("/jetty/jetty-web.xml")
         );
         webAppFixture.start();
     }

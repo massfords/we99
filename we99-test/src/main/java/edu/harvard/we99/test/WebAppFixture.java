@@ -31,7 +31,7 @@ public class WebAppFixture {
     private final Server server;
     private final WebAppContext context;
 
-    public WebAppFixture(int port, File webxml, File webappDir, String contextPath, URL jettyEnvXml)
+    public WebAppFixture(int port, File webxml, File webappDir, String contextPath, URL jettyEnvXml, URL webXmlOverride)
             throws Exception {
         if (!webxml.isFile()) {
             throw new IllegalArgumentException("web.xml does not exist:" + webxml.getAbsolutePath());
@@ -75,6 +75,9 @@ public class WebAppFixture {
             context.setConfigurations(configs.toArray(new Configuration[configs.size()]));
         }
 
+        if (webXmlOverride != null) {
+            context.addOverrideDescriptor(webXmlOverride.toURI().toString());
+        }
         server.setHandler(context);
     }
 
