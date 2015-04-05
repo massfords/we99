@@ -8,29 +8,43 @@
  * Service used for producing the label table and its features.
  */
 angular.module('we99App')
-  .factory('LabelTableSvc', function (_, kCompoundUOM, CompoundModel, $q) {
-    var factory = {};
+  .factory('LabelTableSvc', function (kCompoundUOM, CompoundModel, $q, PlateMergeRestService) {
+    var factory = {},
+        mergeInfoObject = null;
 
-    factory.LabelTableRow = LabelTableRow;
-
-    /** Gets the unassigned labelTableRows from a platemap object */
-    factory.plateMapToLabelTable = function (plateMap) {
-      // TODO: MAKE ASYNCHRONOUS with $q and $timeout
-      var labelTableRows = {};
-      if (plateMap) {
-        plateMap.wells.forEach(function(well) {
-          var compoundLabel = getCompoundLabelForWell(well);
-          if (compoundLabel) {
-            // create row if does not exist. Then increment count.
-            if (!labelTableRows.hasOwnProperty(compoundLabel)) {
-              labelTableRows[compoundLabel] = new LabelTableRow(compoundLabel, well.type);
-            }
-            ++(labelTableRows[compoundLabel].count);
-          }
-        });
-      }
-      return _.values(labelTableRows);
+    factory.retrieveMergeInfoTemplate = function(plateMapId, plateType){
+      var deferred = $q.defer();
+      mergeInfoObject = null; // clear out merge info object
+      PlateMergeRestService.getMergeInfoTemplate(plateMapId, plateType)
+        .then(function(resp){
+          mergeInfoObject = processMergeObjectTemplate(resp.data);
+          deferred.resolve(mergeInfoObject);
+        }, function(err){return deferred.reject(err);});
+      return deferred.promise;
     };
+
+    factory.hasMergeInfoObject = function(){return angular.isObject(mergeInfoObject);};
+    factory.submitMergeInfo = function(experimentId, labelTable){
+      if (!mergeInfoObject) {
+        throw new Error("mergeInfoObject needs to exist before running...");
+      }
+      mergeInfoObject.mappings = labelTable;
+      return PlateMergeRestService.submitMergeInfo(experimentId, mergeInfoObject);
+    }
+
+    /** Process merge object retrieved from server
+     * prefix: up: unprocessed, p: processed
+     * @param upMergeObject
+     */
+    function processMergeObjectTemplate(upMergeObject){
+      var pMergeObj = angular.copy(upMergeObject);
+      pMergeObj.mappings = upMergeObject.mappings.map(function(obj) {
+        var row = new LabelTableRow(obj.label, obj.wellType);
+        row.count = obj.count;
+        return row;
+      });
+      return pMergeObj;
+    }
 
     /** Gets the valid replicates given a count
      * @param count
@@ -71,7 +85,6 @@ angular.module('we99App')
 
     /** Returns a field in the scope called typeahead options
      *
-     * @param scope the scope to modify
      * @param query search query for compound
      */
     factory.findCompoundMatches = function(query){
@@ -99,10 +112,12 @@ angular.module('we99App')
       this.count = 0;
       this.replicates = 1;
       this.compound = null;
-      this.initialDoseAmt = 100;
-      this.initialDoseUOM = kCompoundUOM.uM;
+      this.dose = {
+        number: 100,
+        unit: kCompoundUOM.uM
+      };
       this.dilutionFactor = 1;
-    };
+    }
 
 
     /** Returns the 'compound' label for the well.
@@ -124,7 +139,6 @@ angular.module('we99App')
       }
       return well.labels[0].value;
     }
-
 
     return factory;
   });

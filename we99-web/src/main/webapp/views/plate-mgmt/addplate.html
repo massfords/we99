@@ -13,7 +13,7 @@
         <label>Plate Map:
           <select ng-options="plateMap.name for plateMap in plateMaps"
                   ng-model="selectedPlateMap"
-                  ng-change="makeLabelTable()"></select>
+                  ng-change="getMergeInfo()"></select>
         </label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span>
       </div>
     </form>
@@ -35,7 +35,7 @@
           <tbody>
           <tr ng-repeat="row in labelTable">
             <td>{{row.label}}</td>
-            <td>{{row.type}}</td>
+            <td>{{row.wellType}}</td>
             <td>{{row.count}}</td>
             <td>
               <select ng-model="row.replicates"
@@ -51,8 +51,8 @@
               <i ng-show="loadingCompounds" class="glyphicon glyphicon-refresh"></i>
             </td>
             <td>
-              <input type="number" ng-model="row.initialDoseAmt"/>
-              <select ng-options="key in UOMOptions">
+              <input type="number" ng-model="row.dose.number"/>
+              <select ng-options="key for key in UOMOptions" ng-model="row.dose.unit">
                 <option value="uM">uM</option>
               </select>
             </td>
@@ -64,7 +64,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="addPlateMap()">Create</button>
+    <button class="btn btn-primary" ng-click="addPlateSet()">Create</button>
     <span ng-click="cancel()">Cancel</span>
   </div>
 </div>

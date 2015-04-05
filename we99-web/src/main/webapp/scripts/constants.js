@@ -11,9 +11,11 @@ app.constant('kCompoundUOM', {'uM':'uM'});
 var restBase = 'services/rest/';
 app.constant('RestURLs', {
     plateMap: restBase + 'plateMap/:id',
+    mergeInfoTemplate: restBase + 'plateMap/:id/merge',
+    mergeInfoSubmit: restBase + 'experiment/:id/plates/merge',
     plateType: restBase + 'plateType/:id',
     compound: restBase + 'compound/:id',
-    experiment: restBase + 'experiment', // uses $http not $resource
+    experiment: restBase + 'experiment',
     protocol: restBase + 'protocol',
     user: restBase + 'user',
     result: restBase + 'results/',

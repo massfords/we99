@@ -19,13 +19,14 @@ angular.module('we99App')
       //}
     };
   })
-  .controller('AddPlateCtrl', function($scope, kCompoundUOM, SelectedExperimentSvc, PlateTypeModel, PlateMapModel, LabelTableSvc) {
+  .controller('AddPlateCtrl', function($scope, $routeParams, kCompoundUOM, SelectedExperimentSvc, PlateTypeModel, PlateMapModel, LabelTableSvc) {
     $scope.selectedPlateType = null;
     $scope.selectedPlateMap = null;
     $scope.plateMaps = null;
     $scope.labelTable = [];
     $scope.experiment = SelectedExperimentSvc.getSelected();
     $scope.UOMOptions = Object.keys(kCompoundUOM);
+    $scope.mergeInfoObject = null;
 
     /** Grabs a list of plate types on load */
     $scope.plateTypes = PlateTypeModel.query(function done(data) {
@@ -48,16 +49,34 @@ angular.module('we99App')
         });
     };
 
-    /** Gets the label table when a plate map is selected */
-    $scope.makeLabelTable = function() {
-      $scope.labelTable = LabelTableSvc.plateMapToLabelTable($scope.selectedPlateMap);
-    };
+    // DELETE
+    ///** Gets the label table when a plate map is selected */
+    //$scope.makeLabelTable = function() {
+    //  $scope.labelTable = LabelTableSvc.plateMapToLabelTable($scope.selectedPlateMap);
+    //};
 
     $scope.computeReplicates = LabelTableSvc.computeReplicates;
 
+    /** For Typeahead completion */
     $scope.findCompoundMatches = function(query) {
       return LabelTableSvc.findCompoundMatches(query).then(function(data){
         return data;
+      });
+    };
+
+    /** Gets the merge info object from the server based on the plate map and type */
+    $scope.getMergeInfo = function(){
+      LabelTableSvc.retrieveMergeInfoTemplate($scope.selectedPlateMap.id, $scope.selectedPlateType)
+        .then(function(mergeObject){
+          $scope.labelTable = mergeObject.mappings;
+          console.log($scope.labelTable);
+        });
+    };
+
+    $scope.addPlateSet = function(){
+      LabelTableSvc.submitMergeInfo($routeParams.experimentId, $scope.labelTable).then(function(resp){
+        console.log('submitted!');
+        console.log(resp.data);
       });
     };
   });
