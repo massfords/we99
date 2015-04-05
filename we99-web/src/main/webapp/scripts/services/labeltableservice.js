@@ -90,8 +90,6 @@ angular.module('we99App')
     factory.findCompoundMatches = function(query){
       var deferred = $q.defer();
       CompoundModel.getTypeAhead({q:query}, function done(data){
-        console.log("getTypeAhead result: ");
-        console.log(data);
         deferred.resolve(data);
       });
       return deferred.promise;
