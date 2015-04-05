@@ -15,7 +15,7 @@
         <spring.security>3.2.5.RELEASE</spring.security>
         <h2.version>1.4.186</h2.version>
         <jackson.version>2.4.0</jackson.version>
-        <jetty.version>9.3.0.M1</jetty.version>
+        <jetty.version>9.2.10.v20150310</jetty.version>
         <cxf.version>3.0.4</cxf.version>
         <querydsl.version>3.6.2</querydsl.version>
     </properties>
