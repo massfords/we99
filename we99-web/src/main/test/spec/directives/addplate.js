@@ -243,7 +243,7 @@ describe('Controller: AddPlateCtrl', function () {
     $httpBackend.whenGET('services/rest/plateType').respond(JSON.stringify(samplePlateTypeResp));
     $httpBackend.whenGET('services/rest/plateMap?maxCols=12&maxRows=8').respond(JSON.stringify(samplePlateMapsResp));
     $httpBackend.whenGET('services/rest/plateMap?maxCols=24&maxRows=16').respond(JSON.stringify(samplePlateMapsResp));
-    $httpBackend.whenGET('services/rest/compound?q=ammo').respond(JSON.stringify(sampleCompoundTypeAheadResp))
+    $httpBackend.whenGET('services/rest/compound?pageSize=4&q=ammo').respond(JSON.stringify(sampleCompoundTypeAheadResp))
   }));
 
 
@@ -293,59 +293,6 @@ describe('Controller: AddPlateCtrl', function () {
     });
 
     it('should get a list of valid plateMaps when plateMapsForPlateType is triggered', function () {
-      var expectedPlateMaps = [
-        {
-          "id": 300,
-          "name": "pme",
-          "description": "foo123",
-          "wells": [
-            {
-              "id": 800,
-              "coordinate": {
-                "row": 4,
-                "col": 5
-              },
-              "labels": [
-                {
-                  "name": "lbl1",
-                  "value": "ABC"
-                }
-              ],
-              "type": "COMP"
-            }
-          ],
-          "dim": {
-            "rows": 5,
-            "cols": 6
-          }
-        },
-        {
-          "id": 301,
-          "name": "pme",
-          "description": "foo123",
-          "wells": [
-            {
-              "id": 800,
-              "coordinate": {
-                "row": 4,
-                "col": 5
-              },
-              "labels": [
-                {
-                  "name": "lbl1",
-                  "value": "ABC"
-                }
-              ],
-              "type": "COMP"
-            }
-          ],
-          "dim": {
-            "rows": 8,
-            "cols": 12
-          }
-        }
-      ];
-
       scope.selectedPlateType = samplePlateTypeResp.values[0];
       expect(scope.selectedPlateType.dim.rows).toBe(8);
       expect(scope.selectedPlateType.dim.cols).toBe(12);
@@ -548,7 +495,12 @@ describe('Controller: AddPlateCtrl', function () {
 
     describe('compound typeahead', function(){
       it('should get typeahead values', function(){
-        expect(scope.retrieveCompoundMatches('ammo')).toEqual(sampleCompoundTypeAheadResp.values);
+        var actual = [];
+        scope.findCompoundMatches('ammo').then(function(data){
+          actual = data;
+        });
+        $httpBackend.flush();
+        expect(angular.equals(actual, sampleCompoundTypeAheadResp.values)).toBe(true);
       });
     });
 

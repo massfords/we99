@@ -55,4 +55,9 @@ angular.module('we99App')
 
     $scope.computeReplicates = LabelTableSvc.computeReplicates;
 
+    $scope.findCompoundMatches = function(query) {
+      return LabelTableSvc.findCompoundMatches(query).then(function(data){
+        return data;
+      });
+    };
   });

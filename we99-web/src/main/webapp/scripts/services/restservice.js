@@ -17,7 +17,6 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     //// $resource-style calls
     ////
     //
-
     //plateType: $resource(RestURLs.plateType,{}, {
     //  query: {method: "GET",
     //    isArray: true,
@@ -131,6 +130,27 @@ app.factory('PlateMapModel', ['$resource', 'RestURLs', function ($resource, Rest
   });
 }]);
 
+/** REST linked resource model for Compounds */
+app.factory('CompoundModel', ['$resource', 'RestURLs', function($resource, RestURLs){
+  var TYPEAHEAD_RESULT_SIZE = 4;
+  return $resource(RestURLs.compound, {id: '@id'}, {
+    list: {
+      isArray:true,
+        transformResponse: valuesToArray
+    },
+    // When using get typeahead, make sure to put in a parameter value for 'q'
+    getTypeAhead: {
+      // only grab first 4 results
+      params: {q:'', pageSize:TYPEAHEAD_RESULT_SIZE},
+      cache: true,
+      isArray:true,
+      transformResponse: valuesToArray
+    },
+    create: {
+      method:"PUT"
+    }
+  }); // close $resource
+}]);
 
 /* HELPER FUNCTIONS */
 
