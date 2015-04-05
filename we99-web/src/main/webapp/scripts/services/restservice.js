@@ -12,20 +12,22 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
   return {
 
 
-    //
-    // $resource-style calls
+    // OK TO Delete?
+    ////
+    //// $resource-style calls
+    ////
     //
 
-    plateType: $resource(RestURLs.plateType,{}, {
-      query: {method: "GET",
-        isArray: true,
-        // Get an array back to exhibit expected query behavior
-        transformResponse: valuesToArray
-      },
-      put: {method: "PUT", isArray: false}
-    }),
-    //experiment: $resource(RestURLs.experiment,{},{}),
-    results: $resource(RestURLs.result,{}, {}),
+    //plateType: $resource(RestURLs.plateType,{}, {
+    //  query: {method: "GET",
+    //    isArray: true,
+    //    // Get an array back to exhibit expected query behavior
+    //    transformResponse: valuesToArray
+    //  },
+    //  put: {method: "PUT", isArray: false}
+    //}),
+    ////experiment: $resource(RestURLs.experiment,{},{}),
+    //results: $resource(RestURLs.result,{}, {}),
 
     //
     // $http style calls.
@@ -132,6 +134,9 @@ app.factory('PlateMapModel', ['$resource', 'RestURLs', function ($resource, Rest
 
 /* HELPER FUNCTIONS */
 
+/** Function to get the array of response values in 'list' style calls.
+ *  needed because list style calls are returned as objects with the value information provided along with metadata
+ */
 function valuesToArray(data) {
   if (data) {
     return JSON.parse(data).values;

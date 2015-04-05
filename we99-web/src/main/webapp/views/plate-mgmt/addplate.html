@@ -47,8 +47,7 @@
               <input type="text"
                      ng-model="row.compounds"
                      placeholder="Compound..."
-                     typeahead="compound for compound in typeAheadOptions($viewValue) | limitTo:8"
-                     typeahead-loading="loadingCompounds">
+                     typeahead="compound.name for compound in findCompoundMatches($viewValue) | limitTo:4">
               <i ng-show="loadingCompounds" class="glyphicon glyphicon-refresh"></i>
             </td>
             <td>

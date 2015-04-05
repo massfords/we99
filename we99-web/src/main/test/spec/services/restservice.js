@@ -14,5 +14,4 @@ describe('Service: RestService', function () {
   it('should do something', function () {
     expect(!!restService).toBe(true);
   });
-
 });

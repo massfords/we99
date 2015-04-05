@@ -15,7 +15,6 @@ app.constant('RestURLs', {
     experiment: restBase + 'experiment',
     protocol: restBase + 'protocol',
     user: restBase + 'user',
-    plateMap: restBase + 'plateMap',
     result: restBase + 'results/',
     serverSettings: restBase + 'settings/email/config',
     emailFilter: restBase + 'settings/email/filter',
