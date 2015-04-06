@@ -1,20 +1,18 @@
 package edu.harvard.we99.services;
 
-import edu.harvard.we99.domain.Compound;
-import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.Protocol;
-import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.lists.Experiments;
+import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.domain.results.ResultStatus;
 import edu.harvard.we99.domain.results.StatusChange;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.services.experiments.MemberResource;
-import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.test.DisableLogging;
+import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.cxf.interceptor.AbstractFaultChainInitiatorObserver;
 import org.apache.cxf.phase.PhaseInterceptorChain;
@@ -26,12 +24,12 @@ import org.junit.Test;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
+import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.assertOk;
+import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.test.BaseFixture.name;
+import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -84,22 +82,15 @@ public class ExperimentServiceST {
 
     @Test
     public void listPlates() throws Exception {
-        // no assertions here, just making sure we can invoke all w/o exceptions
-        Set<Compound> compounds = new HashSet<>();
-        for(Experiment e : es.listExperiments(null, null, null).getValues()) {
-            ExperimentResource er = es.getExperiment(e.getId());
-            PlatesResource pr = er.getPlates();
-            for(Plate p : pr.list(null, null,null).getValues()) {
-                for(Well well : p.getWells().values()) {
-                    compounds.addAll(well.getContents()
-                            .stream()
-                            .map(Dose::getCompound)
-                            .collect(Collectors.toList()));
-                }
-            }
-        }
-        System.out.println("# of compounds found :" + compounds.size());
+        addPlateToExperiment();
+        addPlateToExperiment();
+
+        Plates list = es.getExperiment(xp.getId()).getPlates().list(null, null, null);
+        assertJsonEquals(load("/ExperimentServiceST/list.json"),
+                toJsonString(list), Scrubbers.pkey.andThen(Scrubbers.iso8601.andThen(Scrubbers.uuid)).andThen(Scrubbers.xpId));
     }
+
+
 
     @Test
     public void addMember() throws Exception {
@@ -137,7 +128,7 @@ public class ExperimentServiceST {
         // import results
         // publish
         // assert we can't make a change
-        Plate plate = createSinglePlateExperiment();
+        Plate plate = addPlateToExperiment();
 
         ExperimentResource experimentResource = es.getExperiment(xp.getId());
         experimentResource.publish();
@@ -160,7 +151,7 @@ public class ExperimentServiceST {
     @Test
     public void experimentVisibility() throws Exception {
         // main user creates an experiment, guest user can't see it
-        createSinglePlateExperiment();
+        addPlateToExperiment();
 
         URL url = new URL(WebAppIT.WE99_URL);
         ClientFactory cf = new ClientFactory(url, "we99.2015@example", WebAppIT.WE99_PW);
@@ -194,7 +185,7 @@ public class ExperimentServiceST {
         assertEquals(foo.getName(), updated.getProtocol().getName());
     }
 
-    private Plate createSinglePlateExperiment() {
+    private Plate addPlateToExperiment() {
         String plateTypeName = pts.listAll(null, null, null).getValues().get(0).getName();
         ExperimentResource experimentResource = es.getExperiment(xp.getId());
         PlateUtils.createPlateFromCSV(xp.getId(), name("plateName"), plateTypeName,

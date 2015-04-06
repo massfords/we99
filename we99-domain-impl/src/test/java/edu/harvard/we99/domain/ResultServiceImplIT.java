@@ -71,7 +71,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
         PlateResource plates = pr.getPlates(plate.getId());
         PlateResult plateResult = plates.getPlateResult().uploadResults(stream("/ResultServiceImplIT/results-single.csv"));
 
-        Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey);
+        Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey).andThen(Scrubbers.xpId);
         // assert the results
         assertJsonEquals(load("/ResultServiceImplIT/all-results.json"),
                 toJsonString(plateResult), scrubber);
@@ -117,12 +117,13 @@ public class ResultServiceImplIT extends JpaSpringFixture {
         PlateResource plates = pr.getPlates(plate.getId());
         PlateResult plateResult = plates.getPlateResult().uploadResults(stream("/ResultServiceImplIT/results-single.csv"));
 
-        Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey);
+        Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey).andThen(Scrubbers.xpId);
         // assert the results
         assertJsonEquals(load("/ResultServiceImplIT/all-results-with-metrics.json"),
                 toJsonString(plateResult), scrubber);
 
     }
+
 
     @Test
     public void testDoseResponseResults() throws Exception {
@@ -164,6 +165,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                 toJsonString(newResult), scrubber);
 
     }
+
 
 
 
@@ -225,6 +227,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
         return wells.toArray(new Well[wells.size()]);
     }
 
+
     protected static Well[] makeDoseCompoundWells(int rowCount, int colCount, Compound c1, Compound c2) {
         Set<Well> wells = new HashSet<>();
 
@@ -270,6 +273,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
 
         return wells.toArray(new Well[wells.size()]);
     }
+
 
 
 

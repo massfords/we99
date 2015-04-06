@@ -44,7 +44,7 @@ public class PlateResultResourceImpl implements PlateResultResource {
     @Override
     public PlateResult get() {
         PlateResult plateResult = getPlateResult();
-        if (!plateResult.getPlate().getExperiment().getId().equals(experiment.getId())) {
+        if (!plateResult.getPlate().getExperimentId().equals(experiment.getId())) {
             throw new WebApplicationException(Response.status(404).build());
         }
         return plateResult;
@@ -66,7 +66,7 @@ public class PlateResultResourceImpl implements PlateResultResource {
 
         PlateResultCSVReader reader = new PlateResultCSVReader();
         PlateResult pr = reader.read(new BufferedReader(new StringReader(source)));
-        pr.setPlate(new Plate().setId(plateId).setExperiment(experiment));
+        pr.setPlate(new Plate().setId(plateId).setExperimentId(experiment.getId()));
         pr.setSource(source);
         pr.setMetrics(compute(pr));
         return resultStorage.create(pr);

@@ -54,7 +54,7 @@ public abstract class PlatesResourceImpl implements PlatesResource {
     @Override
     public Plate create(Plate plate) {
         plate.setId(null);
-        plate.setExperiment(experiment);
+        plate.setExperimentId(experiment.getId());
         return plateStorage.create(plate);
     }
 
@@ -69,7 +69,7 @@ public abstract class PlatesResourceImpl implements PlatesResource {
 
             Plate plate = new Plate()
                     .setName(mergeInfo.getPlateName())
-                    .setExperiment(experiment)
+                    .setExperimentId(experiment.getId())
                     .setPlateType(mergeInfo.getPlateType());
 
             // copy all of the wells from the plate map to the plate
@@ -110,7 +110,7 @@ public abstract class PlatesResourceImpl implements PlatesResource {
                 name = UUID.randomUUID().toString();
             }
             Plate plate = reader.read(r).setName(name);
-            plate.setExperiment(experiment);
+            plate.setExperimentId(experiment.getId());
             plate.setPlateType(plateTypeStorage.getByName(plateTypeName));
             // walk all of the compounds to set their id's or leave null if we're persisting
             Set<Compound> compounds = new HashSet<>();

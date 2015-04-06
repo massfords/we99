@@ -79,9 +79,10 @@ public class Mappers {
                 .classMap(PlateEntity.class, Plate.class)
                 .mapNullsInReverse(false)
                 .fieldAToB("wells", "wells")
-                .fieldAToB("experiment", "experiment")
                 .fieldAToB("labels", "labels")
+                .fieldAToB("experiment.id", "experimentId")
                 .fieldAToB("plateType", "plateType")
+                .fieldAToB("wellCount", "wellCount")
                 .byDefault()
                 .register();
         mapperFactory

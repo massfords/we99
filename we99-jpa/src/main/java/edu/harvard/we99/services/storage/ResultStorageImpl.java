@@ -107,9 +107,9 @@ public class ResultStorageImpl implements ResultStorage {
     private PlateEntity getPlate(PlateResult type) {
         PlateEntity plate = em.find(PlateEntity.class, type.getPlate().getId());
 
-        if (!plate.getExperiment().getId().equals(type.getPlate().getExperiment().getId())) {
+        if (!plate.getExperiment().getId().equals(type.getPlate().getExperimentId())) {
             String msg = "no plate found with id %d in experiment %d";
-            throw new EntityNotFoundException(String.format(msg, type.getPlate().getId(), type.getPlate().getExperiment().getId()));
+            throw new EntityNotFoundException(String.format(msg, type.getPlate().getId(), type.getPlate().getExperimentId()));
         }
         return plate;
     }

@@ -75,7 +75,7 @@ public class PlateResultServiceST {
 
     @After
     public void tearDown() throws Exception {
-        ExperimentResource experiment = resultsFixture.experimentService.getExperiment(plate.getExperiment().getId());
+        ExperimentResource experiment = resultsFixture.experimentService.getExperiment(plate.getExperimentId());
         Response r = experiment.delete();
         assertOk(r);
     }
@@ -86,6 +86,6 @@ public class PlateResultServiceST {
         Response response = resultsFixture.postResults(plate, input);
         InputStream is = (InputStream) response.getEntity();
         assertJsonEquals(load(expected), IOUtils.toString(is),
-                Scrubbers.uuid.andThen(Scrubbers.pkey).andThen(Scrubbers.iso8601));
+                Scrubbers.uuid.andThen(Scrubbers.pkey).andThen(Scrubbers.iso8601).andThen(Scrubbers.xpId));
     }
 }

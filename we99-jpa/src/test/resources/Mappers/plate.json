@@ -2,17 +2,9 @@
   "id": 300,
   "name": "pe",
   "description": "foo123",
-  "plateType": {
-    "id": 250,
-    "name": "foo",
-    "dim": {
-      "rows": 10,
-      "cols": 20
-    },
-    "manufacturer": "Man1"
-  },
   "barcode": "456D",
   "labels": [],
+  "wellCount": 1,
   "wells": [
     {
       "id": 1234,
@@ -29,5 +21,14 @@
       "type": "COMP",
       "contents": []
     }
-  ]
+  ],
+  "plateType": {
+    "id": 250,
+    "name": "foo",
+    "dim": {
+      "rows": 10,
+      "cols": 20
+    },
+    "manufacturer": "Man1"
+  }
 }

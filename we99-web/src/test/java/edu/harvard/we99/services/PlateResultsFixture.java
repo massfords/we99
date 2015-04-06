@@ -70,7 +70,7 @@ public class PlateResultsFixture {
 
     protected Response postResults(Plate plate, String file) {
         String path = String.format("/experiment/%d/plates/%d/results",
-                plate.getExperiment().getId(),
+                plate.getExperimentId(),
                 plate.getId());
         WebClient client = WebClient.create(WebAppIT.WE99_URL + path,
                 WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW, null);

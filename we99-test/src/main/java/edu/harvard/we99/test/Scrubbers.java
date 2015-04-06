@@ -22,6 +22,10 @@ public class Scrubbers {
      */
     public static Function<String,String> pkey = s -> s.replaceAll("\"id\" *: *[0-9]+ *,", "");
 
+    /**
+     * removes all fields named "id" and their value.
+     */
+    public static Function<String,String> xpId = s -> s.replaceAll("\"experimentId\" *: *[0-9]+ *,", "");
 
     /**
      * removes all datetime values
