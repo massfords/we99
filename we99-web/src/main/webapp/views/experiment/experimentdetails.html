@@ -1,2 +1,61 @@
-<p>Remember to make the experiment details view</p>
-<addplate></addplate>
+<div class="experiment-details">
+  <h2>Details for Experiment ID: {{experiment.id}}</h2>
+  <h3>{{experiment.name}}</h3>
+
+  <div class="primary-details">
+    <we-pair name="Description" value="{{experiment.description}}"></we-pair>
+    <we-pair name="Status" value="{{experiment.status}}"></we-pair>
+    <we-pair name="Created" value="{{experiment.created | date}}"></we-pair>
+  </div>
+  <hr>
+
+  <div ng-if="!show.addPlateForm">
+    <button class="btn btn-info"
+            ng-click="show.addPlateForm = true">Add Plate Set</button>
+    <!-- plates -->
+    <div class="table-fixed-height">
+      <table st-table="displayPlates" st-safe-src="plateMaps" class="table table-striped">
+        <thead>
+        <tr>
+          <th st-sort="id">ID</th>
+          <th st-sort="name">Name</th>
+          <th st-sort="barcode">Barcode</th>
+          <!-- compounds is count of labels -->
+          <th st-sort="compounds">Compounds</th>
+          <th st-sort="wells">Wells</th>
+          <th st-sort="plateMap">Plate Map</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <th colspan="5"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="plate in plates">
+          <td>{{plate.id}}</td>
+          <td>{{plate.name}}</td>
+          <td>{{plate.barcode}}</td>
+          <td>{{plate.labels.length}}</td>
+          <td>{{plate.wells.length}}</td>
+          <td>{{plate.plateType.name}}</td>
+          <td>
+            <i class="glyphicon glyphicon-remove-circle" title="Delete" ng-click="removePlateMap(row)"></i>
+            <i class="glyphicon glyphicon-search" title="View Details" ng-click="viewPlateMap(row)"></i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="add-plate-form" ng-if="show.addPlateForm">
+    <button class="btn btn-info"
+            ng-click="show.addPlateForm = false">Existing Plate Sets</button>
+
+    <we-addplate></we-addplate>
+    <hr>
+  </div>
+
+</div>
+
+
+

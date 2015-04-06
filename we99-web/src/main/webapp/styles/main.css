@@ -128,3 +128,9 @@ body {
   color:limegreen;
   font-size: 110%;
 }
+
+
+/* General Directive Formatting */
+we-pair .name{
+  font-weight: bold;
+}
