@@ -77,6 +77,6 @@ public class PlateImportST {
         InputStream is = (InputStream) response.getEntity();
         String json = IOUtils.toString(is);
         assertJsonEquals(load(expected), json,
-                Scrubbers.uuid.andThen(Scrubbers.pkey).andThen(Scrubbers.iso8601));
+                Scrubbers.uuid.andThen(Scrubbers.pkey).andThen(Scrubbers.iso8601).andThen(Scrubbers.xpId));
     }
 }

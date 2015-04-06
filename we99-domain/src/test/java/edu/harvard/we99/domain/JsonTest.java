@@ -46,7 +46,9 @@ public class JsonTest {
         params.add(
                 array(
                         new Plate("plate1", type())
-                                .setBarcode("1234"),
+                                .setBarcode("1234")
+                                .setWellCount(0)
+                        ,
                         load("/JsonTest/plate-no-wells.json")
                 ));
 
@@ -55,6 +57,7 @@ public class JsonTest {
                         new Plate("plate1", type())
                                 .setBarcode("1234")
                                 .setWells(wells(2, 3))
+                                .setWellCount(2*3)
                         ,
                         load("/JsonTest/plate-wells.json")
                 ));

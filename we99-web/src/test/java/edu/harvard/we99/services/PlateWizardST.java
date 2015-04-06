@@ -158,6 +158,6 @@ public class PlateWizardST {
         Plate plate = es.getExperiment(experiment.getId()).getPlates().create(mergeInfo);
         assertJsonEquals(load("/PlateWizardST/expected-plate.json"),
                 toJsonString(plate), Scrubbers.pkey.andThen(
-                        Scrubbers.uuid.andThen(Scrubbers.iso8601)));
+                        Scrubbers.uuid.andThen(Scrubbers.iso8601).andThen(Scrubbers.xpId)));
     }
 }

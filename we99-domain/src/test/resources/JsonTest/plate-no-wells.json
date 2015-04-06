@@ -1,12 +1,13 @@
 {
   "name": "plate1",
+  "barcode": "1234",
+  "wellCount": 0,
+  "wells": [],
   "plateType": {
     "dim": {
       "rows": 3,
       "cols": 4
     },
     "manufacturer": "Foo Inc."
-  },
-  "barcode": "1234",
-  "wells": []
+  }
 }

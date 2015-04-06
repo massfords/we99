@@ -1,13 +1,8 @@
 {
   "name": "plateuuid",
-  "experiment": {
-    "name": "experimentuuid",
-    "labels": [],
-    "status": "UNPUBLISHED",
-    "created": "iso8601",
-    "protocol": {"name": "puuid"}
-  },
   "labels": [],
+  "wellCount": 8,
+  "experimentId": 6,
   "wells": [
     {
       "coordinate": {

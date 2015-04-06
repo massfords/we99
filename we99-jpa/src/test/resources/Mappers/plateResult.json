@@ -4,17 +4,9 @@
     "id": 300,
     "name": "pe",
     "description": "foo123",
-    "plateType": {
-      "id": 250,
-      "name": "foo",
-      "dim": {
-        "rows": 5,
-        "cols": 5
-      },
-      "manufacturer": "Man1"
-    },
     "barcode": "456D",
     "labels": [],
+    "wellCount": 25,
     "wells": [
       {
         "coordinate": {
@@ -241,7 +233,16 @@
         "type": "COMP",
         "contents": []
       }
-    ]
+    ],
+    "plateType": {
+      "id": 250,
+      "name": "foo",
+      "dim": {
+        "rows": 5,
+        "cols": 5
+      },
+      "manufacturer": "Man1"
+    }
   },
   "created": "2015-01-02T10:20:30.000-05:00",
   "comments": "comments",

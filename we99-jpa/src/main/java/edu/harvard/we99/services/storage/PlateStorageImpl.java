@@ -41,6 +41,8 @@ public class PlateStorageImpl implements PlateStorage {
         List<PlateEntity> resultList = query.list(QPlateEntity.plateEntity);
         List<Plate> list = new ArrayList<>(resultList.size());
         resultList.forEach(pe->list.add(Mappers.PLATES.map(pe)));
+        // don't include the wells in listings
+        list.forEach(p->p.getWells().clear());
         return new Plates(count, page, pageSize, list);
     }
 
@@ -49,7 +51,7 @@ public class PlateStorageImpl implements PlateStorage {
     public Plate create(Plate type) {
         type.setId(null);
 
-        ExperimentEntity ee = em.find(ExperimentEntity.class, type.getExperiment().getId());
+        ExperimentEntity ee = em.find(ExperimentEntity.class, type.getExperimentId());
         PlateTypeEntity pte = em.find(PlateTypeEntity.class, type.getPlateType().getId());
         PlateEntity pe = Mappers.PLATES.mapReverse(type);
         pe.setPlateType(pte);
