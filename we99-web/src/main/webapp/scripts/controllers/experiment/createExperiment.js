@@ -69,6 +69,11 @@ angular.module('we99App')
           .error(function(response){
             $scope.errorText='Failed to load current experiment users';
           });
+          // get current user too
+          RestService.getCurrentUser()
+              .success(function(resp){
+                  $scope.currentUser=resp;
+              });
       }
       else{
         //automatically assign current user
