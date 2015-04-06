@@ -1,20 +1,7 @@
 package edu.harvard.we99.services.storage.entities;
 
-import edu.harvard.we99.domain.Amount;
-import edu.harvard.we99.domain.Compound;
-import edu.harvard.we99.domain.Coordinate;
-import edu.harvard.we99.domain.Experiment;
-import edu.harvard.we99.domain.Label;
-import edu.harvard.we99.domain.Plate;
-import edu.harvard.we99.domain.PlateDimension;
-import edu.harvard.we99.domain.PlateMap;
-import edu.harvard.we99.domain.PlateType;
-import edu.harvard.we99.domain.Protocol;
-import edu.harvard.we99.domain.Well;
-import edu.harvard.we99.domain.WellMap;
-import edu.harvard.we99.domain.results.PlateMetrics;
-import edu.harvard.we99.domain.results.PlateResult;
-import edu.harvard.we99.domain.results.WellResults;
+import edu.harvard.we99.domain.*;
+import edu.harvard.we99.domain.results.*;
 import edu.harvard.we99.security.Role;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
@@ -32,7 +19,7 @@ public class Mappers {
 
     public static final BoundMapperFacade<CompoundEntity,Compound> COMPOUND;
     public static final BoundMapperFacade<UserEntity,User> USERS;
-
+    public static final BoundMapperFacade<DoseResponseResultEntity,DoseResponseResult> DOSERESPONSES;
     public static final BoundMapperFacade<ExperimentEntity,Experiment> EXPERIMENTS;
     public static final BoundMapperFacade<PlateEntity,Plate> PLATES;
     public static final BoundMapperFacade<PlateMapEntity,PlateMap> PLATEMAP;
@@ -43,6 +30,8 @@ public class Mappers {
     public static final BoundMapperFacade<WellEntity,Well> WELL;
     public static final BoundMapperFacade<WellResultsEntity,WellResults> WELLRESULT;
     public static final BoundMapperFacade<LabelEntity,Label> LABEL;
+    public static final BoundMapperFacade<ExperimentPointEntity,ExperimentPoint> EXPERIMENTPOINT;
+
 
     private static final MapperFactory mapperFactory =
             new DefaultMapperFactory.Builder().build();
@@ -145,9 +134,25 @@ public class Mappers {
                 .mapNullsInReverse(false)
                 .byDefault()
                 .register();
+        mapperFactory
+                .classMap(DoseResponseResultEntity.class, DoseResponseResult.class)
+                .mapNullsInReverse(false)
+                .fieldAToB("compound", "compound")
+                .byDefault()
+                .register();
+        mapperFactory
+                .classMap(ExperimentPointEntity.class, ExperimentPoint.class)
+                .mapNullsInReverse(false)
+                .fieldAToB("associatedDoseResponseResult", "associatedDoseResponseResult")
+                .fieldAToB("associatedPlate","associatedPlate")
+                .fieldAToB("associatedWell","associatedWell")
+                .byDefault()
+                .register();
+
 
         COMPOUND = mapperFactory.getMapperFacade(CompoundEntity.class, Compound.class);
         EXPERIMENTS = mapperFactory.getMapperFacade(ExperimentEntity.class, Experiment.class);
+        DOSERESPONSES = mapperFactory.getMapperFacade(DoseResponseResultEntity.class,DoseResponseResult.class);
         PLATES = mapperFactory.getMapperFacade(PlateEntity.class, Plate.class);
         USERS = mapperFactory.getMapperFacade(UserEntity.class, User.class);
         PLATEMAP = mapperFactory.getMapperFacade(PlateMapEntity.class, PlateMap.class);
@@ -158,5 +163,7 @@ public class Mappers {
         WELL = mapperFactory.getMapperFacade(WellEntity.class, Well.class);
         WELLRESULT = mapperFactory.getMapperFacade(WellResultsEntity.class, WellResults.class);
         LABEL = mapperFactory.getMapperFacade(LabelEntity.class, Label.class);
+        EXPERIMENTPOINT = mapperFactory.getMapperFacade(ExperimentPointEntity.class,ExperimentPoint.class);
+
     }
 }

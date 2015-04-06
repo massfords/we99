@@ -73,6 +73,8 @@
 
     <bean id="plateStorage" class="edu.harvard.we99.services.storage.PlateStorageImpl"/>
 
+    <bean id="doseResponseResultStorage" class="edu.harvard.we99.services.storage.DoseResponseResultStorageImpl"/>
+
     <bean id="experimentService" class="edu.harvard.we99.services.ExperimentServiceImpl">
         <constructor-arg ref="userProvider"/>
         <constructor-arg ref="experimentStorage"/>

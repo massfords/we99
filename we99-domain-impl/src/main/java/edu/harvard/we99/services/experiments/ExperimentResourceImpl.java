@@ -70,7 +70,17 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
         return pr;
     }
 
+    @Override
+    public DoseResponseResource getDoseResponses() {
+        Experiment experiment = get();
+        DoseResponseResource dr = createDoseResponseResource();
+        dr.setExperiment(experiment);
+        return dr;
+    }
+
     protected abstract PlatesResource createPlatesResource();
+
+    protected abstract DoseResponseResource createDoseResponseResource();
 
     @Override
     public PlateResults listResults(Integer page, Integer pageSize, String typeAhead) {

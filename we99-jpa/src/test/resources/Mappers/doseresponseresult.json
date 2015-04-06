@@ -1,0 +1,9 @@
+{
+  "id": 300,
+  "comments": "dose response",
+  "compound": {
+    "id": 200,
+    "name": "Chocolate"
+  },
+  "created": "2015-01-02T05:30:20.000-05:00"
+}
