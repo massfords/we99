@@ -9,11 +9,7 @@
  */
 angular.module('we99App')
   .controller('ExperimentListCtrl', ['$scope','$rootScope', '$http','$location', 'RestService',function ($scope,$rootScope,$http,$location,RestService) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
 
     //retrieve list of experiments
     RestService.getExperiments()

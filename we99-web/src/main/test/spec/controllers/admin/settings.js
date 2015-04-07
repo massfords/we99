@@ -30,6 +30,9 @@ describe('Controller: AdminSettingsCtrl', function () {
         httpBackend.whenGET("services/rest/settings/email/filter").respond(filterResp);
         httpBackend.whenGET("services/rest/settings/email/config").respond(configResp);
 
+        httpBackend.whenPOST("services/rest/settings/email/filter").respond(filterResp);
+        httpBackend.whenPOST("services/rest/settings/email/config").respond(configResp);
+
 
         AdminSettingsCtrl = $controller('AdminSettingsCtrl', {
             $scope: scope
@@ -50,4 +53,17 @@ describe('Controller: AdminSettingsCtrl', function () {
         expect(scope.configSettings.password).toBeNull();
         expect(scope.configSettings.from).toBe('we99.2015@gmail.com');
     });
+
+  it('should save email server settings on post', function () {
+    scope.saveServerSettings()
+    httpBackend.flush();
+    expect(scope.infoText).toBe("Saved new server email settings.");
+  });
+
+  it('should save email pattern on post', function () {
+    scope.saveEmailFilter()
+    httpBackend.flush();
+    expect(scope.infoText).toBe('Saved email filter settings.');
+  });
+
 });

@@ -9,12 +9,6 @@
  */
 angular.module('we99App')
   .controller('ExperimentCreateCtrl', function ($scope,$routeParams, $location, $modal, RestService) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
 
     // if given id, this is an edit of an existing experiment
     if($routeParams.addeditId){
@@ -210,7 +204,7 @@ angular.module('we99App')
         //when modal closes...
         modalInstance.result.then(function (newProc) {
         	if(newProc){
-        		console.log('modal rv: '+newProc);
+        		//console.log('modal rv: '+newProc);
         		$scope.protocolValues.push(newProc);}
         	//refreshProtocolList();
         }, function () {
