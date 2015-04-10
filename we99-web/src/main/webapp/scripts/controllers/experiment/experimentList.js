@@ -31,17 +31,20 @@ angular.module('we99App')
 
     // Deletes an experiment from database
     $scope.removeItem=function(row){
-    	RestService.deleteExperiment(row.id)
-    		.success(function(response){
-	    		for(var i=0;i<$scope.experiments.length;i++)
-            if ($scope.experiments[i].id === row.id) {
-              $scope.experiments.splice(i, 1);
-              break;
-          }
-    		})
-    		.error(function(response){
-    		   console.log('Error: '+response);
-    		});
+      var confirmed = confirm('Are you sure you want to delete ' + row.name + '?');
+      if (confirmed) {
+        RestService.deleteExperiment(row.id)
+          .success(function (response) {
+            for (var i = 0; i < $scope.experiments.length; i++)
+              if ($scope.experiments[i].id === row.id) {
+                $scope.experiments.splice(i, 1);
+                break;
+              }
+          })
+          .error(function (response) {
+            console.log('Error: ' + response);
+          });
+      }
     };
 
     // publish an experiment
