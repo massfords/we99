@@ -8,7 +8,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ExperimentListCtrl', ['$scope','$rootScope', '$http','$location', 'RestService',function ($scope,$rootScope,$http,$location,RestService) {
+  .controller('ExperimentListCtrl', ['$scope','$rootScope','$location', 'RestService',function ($scope,$rootScope,$location,RestService) {
 
 
     //retrieve list of experiments
@@ -28,6 +28,7 @@ angular.module('we99App')
           break;
       }
     };
+
     // Deletes an experiment from database
     $scope.removeItem=function(row){
     	RestService.deleteExperiment(row.id)
@@ -41,6 +42,20 @@ angular.module('we99App')
     		.error(function(response){
     		   console.log('Error: '+response);
     		});
+    };
+
+    // publish an experiment
+    $scope.publish = function(experiment) {
+      var confirmed = confirm('Are you sure you want to publish?\n' +
+                              'This will lock down the experiment data.');
+      if (confirmed) {
+        RestService.publishExperiment(experiment.id).then(function success() {
+          experiment.status = 'PUBLISHED';
+        }, function fail(err) {
+          console.error(err);
+          alert('Could not publish.');
+        });
+      }
     };
 
     // fired when table rows are selected

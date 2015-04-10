@@ -20,10 +20,14 @@
     <tr st-select-row="row" ng-repeat="row in displayExperiments">
       <td>{{row.name}}</td>
       <td>{{row.description}}</td>
-            <!-- TODO: Fix links -->
-      <td><a ng-href="#">{{row.status}}</a></td>
+      <td>
+        <a ng-if="row.status==='PUBLISHED'">Published</a>
+        <a ng-click="publish(row)"
+           ng-if="row.status==='UNPUBLISHED'">Unpublished</a>
+      </td>
       <td><a ng-href="#/experiment/{{row.id}}">Plates</a></td>
       <td>{{row.protocol.name}}</td>
+      <!-- TODO: Fix links -->
       <td><a ng-href="#">Files</a></td>
       <td>
         <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">

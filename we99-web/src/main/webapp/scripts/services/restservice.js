@@ -49,6 +49,9 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     saveExperiment: function(exp){
       return $http.post(RestURLs.experiment+'/'+exp.id,exp);
     },
+    publishExperiment: function(expId){
+      return $http.post(RestURLs.experiment + '/' + expId + '/publish');
+    },
     deleteExperiment: function(id){
       return $http.delete(RestURLs.experiment+'/'+id);
     },
