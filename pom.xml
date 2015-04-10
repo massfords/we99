@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
     <properties>
+        <surefire.and.failsafe.report.dir>target/test-report</surefire.and.failsafe.report.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.version>4.1.4.RELEASE</spring.version>
@@ -162,6 +163,19 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>com.atlassian.maven.plugins</groupId>
+                    <artifactId>maven-clover2-plugin</artifactId>
+                    <version>4.0.0</version>
+                    <configuration>
+                        <reportDescriptor>${session.executionRootDirectory}/clover-report.xml</reportDescriptor>
+                        <contextFilters>generated</contextFilters>
+                        <instrumentLambda>block</instrumentLambda>
+                        <methodContexts>
+                            <generated>.*@Generated.*</generated>
+                        </methodContexts>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -169,6 +183,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.17</version>
+                <configuration>
+                    <reportsDirectory>${surefire.and.failsafe.report.dir}</reportsDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -178,6 +195,29 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <reportsDirectory>${surefire.and.failsafe.report.dir}</reportsDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-clover2-plugin</artifactId>
+                <version>4.0.0</version>
+                <configuration>
+                    <contextFilters>generated</contextFilters>
+                    <instrumentLambda>block</instrumentLambda>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
 </project>

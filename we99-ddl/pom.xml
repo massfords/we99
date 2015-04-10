@@ -56,6 +56,13 @@
                         <phase>generate-resources</phase>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.atlassian.clover</groupId>
+                        <artifactId>clover</artifactId>
+                        <version>4.0.0</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <outputFile>${project.build.directory}/sql/hibernate4/we99.ddl</outputFile>
                     <force>true</force>
