@@ -11,22 +11,21 @@ angular.module('we99App')
   .controller('ExperimentCreateCtrl', function ($scope,$routeParams, $location, $modal, RestService) {
 
     // if given id, this is an edit of an existing experiment
-    if($routeParams.addeditId){
-      $scope.editMode=true;
-      $scope.pageTitle='Modify Experiment';
+    if ($routeParams.addeditId==='new') {
+      $scope.editMode = false;
+      $scope.pageTitle = 'Create New Experiment';
+      $scope.newExp = {};
+      refreshProtocolList();
+      refreshUsersList();
+    } else {
+      $scope.editMode = true;
+      $scope.pageTitle = 'Modify Experiment';
       RestService.getExperimentById($routeParams.addeditId)
-        .success(function(resp){
-          $scope.newExp=resp;
+        .success(function (resp) {
+          $scope.newExp = resp;
           refreshProtocolList();
           refreshUsersList();
         })
-    } //otw, this is a new experiment
-    else{
-      $scope.editMode=false;
-      $scope.pageTitle='Create New Experiment';
-      $scope.newExp={};
-      refreshProtocolList();
-      refreshUsersList();
     }
 
     // retrieves user list from db
@@ -99,7 +98,8 @@ angular.module('we99App')
 	    RestService.getProtocols()
 	    .success(function(response){
 	    	$scope.protocolValues=response.values;
-        $scope.newExp.protocol = selectMatching($scope.protocolValues, "id", $scope.newExp.protocol.id);
+          if($scope.editMode===true)
+            $scope.newExp.protocol = selectMatching($scope.protocolValues, "id", $scope.newExp.protocol.id);
 	    })
 	    .error(function(response){
 	    	$scope.errorText='Failed to load protocol list';
