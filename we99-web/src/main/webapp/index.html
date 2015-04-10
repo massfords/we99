@@ -2,163 +2,182 @@
 <!--suppress HtmlUnknownAnchorTarget -->
 <html class="no-js">
 <head>
-<meta charset="utf-8">
-<title></title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width">
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<!-- build:css(.) styles/vendor.css -->
-<!-- bower:css -->
-<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-<!-- endbower -->
-<!-- endbuild -->
-<!-- build:css(.tmp) styles/main.css -->
-<link rel="stylesheet" href="styles/main.css">
-<link rel="stylesheet" href="styles/add-plate.css">
-<link rel="stylesheet" href="styles/add-plate-type.css">
-<link rel="stylesheet" href="styles/results.css">
-<link rel="stylesheet" href="styles/ordermoremodal.css">
-<!-- endbuild -->
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet"
+        href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/add-plate.css">
+  <link rel="stylesheet" href="styles/add-plate-type.css">
+  <link rel="stylesheet" href="styles/results.css">
+  <link rel="stylesheet" href="styles/ordermoremodal.css">
+  <!-- endbuild -->
 </head>
 <body ng-app="we99App">
-	<!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser.
+  Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve
+  your experience.</p>
+<![endif]-->
 
-	<!-- Add your site or application content here -->
-	<div class="header">
-		<nav class="navbar navbar-default" role="navigation"
-			data-ng-controller="NavigationCtrl">
-			<div class="container">
-				<div class="navbar-header">
+<!-- Add your site or application content here -->
+<div class="header">
+  <nav class="navbar navbar-default" role="navigation"
+       data-ng-controller="NavigationCtrl">
+    <div class="container">
+      <div class="navbar-header">
 
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target="#js-navbar-collapse">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
+        <button type="button" class="navbar-toggle collapsed"
+                data-toggle="collapse" data-target="#js-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span> <span
+          class="icon-bar"></span> <span class="icon-bar"></span> <span
+          class="icon-bar"></span>
+        </button>
 
-					<a class="navbar-brand" href="#/">we99</a>
-				</div>
+        <a class="navbar-brand" href="#/">we99</a>
+      </div>
 
-				<div class="collapse navbar-collapse" id="js-navbar-collapse">
+      <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#/experiment">Selected Experiment:<br><b>{{currentExperiment.name}}</b></a></li>
-						<li class="dropdown" dropdown><a href="#" dropdown-toggle
-							class="dropdown-toggle" data-toggle="dropdown">Plates<b
-								class="caret"></b></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a ng-href="#/experiment">Manage Experiments</a></li>
-                                <li><a ng-href="#/plate-map-editor">Plate Map Editor</a></li>
-                                <li><a ng-href="#/add-plate-set">Add Plate Set</a></li>
-								<li><a ng-href="#/plate-type-editor">Plate Type Editor</a></li>
-								<li><a ng-href="#/plate-editor">Plate Editor</a></li>
-								<li><a ng-href="#/plate-mgmt/importPlateMap">Import Plate Map</a></li>
-							</ul></li>
-						<li class="dropdown" dropdown><a href="#" dropdown-toggle
-							class="dropdown-toggle" data-toggle="dropdown">Analysis<b
-								class="caret"></b></a>
-							<ul class="dropdown-menu" role="menu">
-                                <li><a ng-href="#/analysis/importResults">Upload Results</a></li>
-								<li><a ng-href="#/heatmap">Heatmap</a></li>
-                                <li><a ng-href="#/omnimap">Omnimap</a></li>
-                <li><a ng-href="#/wellqc">Well Quality Control</a></li>
-                <li><a ng-href="#/doseresponse">Dose Response</a></li>
-							</ul>
-                        </li>
-						<li class="dropdown" dropdown><a href="#" dropdown-toggle
-							class="dropdown-toggle" data-toggle="dropdown">Help<b
-								class="caret"></b></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a ng-href="#/admin/settings">Server Settings</a></li>
-								<li><a ng-href="#/about">About</a></li>
-								<li><a ng-href="#/">Contact</a></li>
-							</ul>
-                        </li>
-						<li><a href="/we99/swagger?url=http://localhost:8080/we99/services/rest/api-docs" target="_swagger">Swagger</a></li>
-            <!--suppress HtmlUnknownTarget -->
-						<li><a href="/we99/j_spring_security_logout">Log Out</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" dropdown><a href="#" dropdown-toggle
+                                           class="dropdown-toggle"
+                                           data-toggle="dropdown">Experiments<b
+            class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a ng-href="#/experiment">Manage Experiments</a></li>
+              <li><a ng-href="#/add-plate-set">Add Plate Set</a></li>
+              <li><a ng-href="#/plate-editor">Plate Editor</a></li>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown" dropdown><a href="#" dropdown-toggle
+                                           class="dropdown-toggle"
+                                           data-toggle="dropdown">Plate Maps<b
+            class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a ng-href="#/plate-map-editor">Plate Maps</a></li>
+              <li><a ng-href="#/plate-mgmt/importPlateMap">Import from CSV</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown" dropdown><a href="#" dropdown-toggle
+                                           class="dropdown-toggle"
+                                           data-toggle="dropdown">Analysis<b
+            class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a ng-href="#/analysis/importResults">Upload Results</a></li>
+              <li><a ng-href="#/heatmap">Heatmap</a></li>
+              <li><a ng-href="#/omnimap">Omnimap</a></li>
+              <li><a ng-href="#/wellqc">Well Quality Control</a></li>
+              <li><a ng-href="#/doseresponse">Dose Response</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" dropdown><a href="#" dropdown-toggle
+                                           class="dropdown-toggle"
+                                           data-toggle="dropdown">System<b
+            class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a ng-href="#/admin/compounds">Compounds</a></li>
+              <li><a ng-href="#/plate-type-editor">Plate Types</a></li>
+              <li><a ng-href="#/admin/settings">Email Config</a></li>
+              <li><a
+                href="/we99/swagger?url=http://localhost:8080/we99/services/rest/api-docs"
+                target="_swagger">Swagger/API</a></li>
+            </ul>
+          </li>
+          <!--suppress HtmlUnknownTarget -->
+          <li><a href="/we99/j_spring_security_logout">Log Out</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
 
-	<div class="container">
-		<div ng-view=""></div>
-    <br>
-	</div>
+<div class="container">
+  <div ng-view=""></div>
+  <br>
+</div>
 
-	<div class="footer">
-		<div class="container">
-			<p>
-				<span class="glyphicon glyphicon-heart"></span> from the West-East
-				team
-			</p>
-		</div>
-	</div>
+<div class="footer">
+  <div class="container">
+    <p>
+      <span class="glyphicon glyphicon-heart"></span> from the West-East
+      team
+    </p>
+  </div>
+</div>
 
 
-	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-	<script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<script>
+  !function (A, n, g, u, l, a, r) {
+    A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+      (A[l].q = A[l].q || []).push(arguments)
+    }, A[l].l = +new Date, a = n.createElement(g),
+      r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+  }(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-  </script>
+  ga('create', 'UA-XXXXX-X');
+  ga('send', 'pageview');
+</script>
 
-	<!-- build:js(.) scripts/vendor.js -->
-	<!-- bower:js -->
-	<script src="bower_components/jquery/dist/jquery.js"></script>
-	<script src="bower_components/angular/angular.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-	<script src="bower_components/angular-resource/angular-resource.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-	<script src="bower_components/angular-touch/angular-touch.js"></script>
-	<script src="bower_components/d3/d3.js"></script>
-	<script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
-	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
-	<script src="bower_components/lodash/lodash.js"></script>
-	<!-- endbower -->
-	<!-- endbuild -->
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/d3/d3.js"></script>
+<script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
-	<!-- build:js({.tmp,webapp}) scripts/scripts.js -->
-	<script src="scripts/app.js"></script>
-	<script src="scripts/constants.js"></script>
-	<script src="scripts/controllers/main.js"></script>
-	<script src="scripts/controllers/about.js"></script>
-	<script src="scripts/controllers/plate-mgmt/plateeditor.js"></script>
-	<script src="scripts/controllers/plate-mgmt/platetypeeditor.js"></script>
-	<script src="scripts/controllers/results/heatmap.js"></script>
-  <script src="scripts/controllers/results/omnimap.js"></script>
-  <script src="scripts/controllers/results/doseresponse.js"></script>
-  <script src="scripts/controllers/results/wellqc.js"></script>
-	<script src="scripts/services/restservice.js"></script>
-	<script src="scripts/controllers/navigation.js"></script>
-	<script src="scripts/controllers/plate-mgmt/addplatetype.js"></script>
-  <script src="scripts/controllers/experiment/experimentList.js"></script>
-  <script src="scripts/controllers/experiment/createExperiment.js"></script>
-  <script src="scripts/controllers/plate-mgmt/importplatemap.js"></script>
-  <script src="scripts/controllers/admin/settings.js"></script>
-  <script src="scripts/controllers/plate-mgmt/addplateset.js"></script>
-  <script src="scripts/data-vis.js"></script>
-  <script src="scripts/controllers/analysis/importresults.js"></script>
-  <script src="scripts/controllers/plate-mgmt/platemapeditor.js"></script>
-  <script src="scripts/directives/weAddplate.js"></script>
-  <script src="scripts/controllers/experiment/experimentdetails.js"></script>
-  <script src="scripts/services/userselectionservice.js"></script>
-  <script src="scripts/services/labeltableservice.js"></script>
+<!-- build:js({.tmp,webapp}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/constants.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/about.js"></script>
+<script src="scripts/controllers/plate-mgmt/plateeditor.js"></script>
+<script src="scripts/controllers/plate-mgmt/platetypeeditor.js"></script>
+<script src="scripts/controllers/results/heatmap.js"></script>
+<script src="scripts/controllers/results/omnimap.js"></script>
+<script src="scripts/controllers/results/doseresponse.js"></script>
+<script src="scripts/controllers/results/wellqc.js"></script>
+<script src="scripts/services/restservice.js"></script>
+<script src="scripts/controllers/navigation.js"></script>
+<script src="scripts/controllers/plate-mgmt/addplatetype.js"></script>
+<script src="scripts/controllers/experiment/experimentList.js"></script>
+<script src="scripts/controllers/experiment/createExperiment.js"></script>
+<script src="scripts/controllers/plate-mgmt/importplatemap.js"></script>
+<script src="scripts/controllers/admin/settings.js"></script>
+<script src="scripts/controllers/admin/compounds.js"></script>
+<script src="scripts/controllers/plate-mgmt/addplateset.js"></script>
+<script src="scripts/data-vis.js"></script>
+<script src="scripts/controllers/analysis/importresults.js"></script>
+<script src="scripts/controllers/plate-mgmt/platemapeditor.js"></script>
+<script src="scripts/directives/weAddplate.js"></script>
+<script src="scripts/controllers/experiment/experimentdetails.js"></script>
+<script src="scripts/services/userselectionservice.js"></script>
+<script src="scripts/services/labeltableservice.js"></script>
 <script src="scripts/directives/wepair.js"></script>
-	<!-- endbuild -->
+<!-- endbuild -->
 
 
 </body>

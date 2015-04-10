@@ -27,7 +27,7 @@
     <constructor-arg ref="entityManagerFactory"/>
     <constructor-arg ref="we99DbInspector"/>
     <constructor-arg ref="plateTemplateService"/>
+    <constructor-arg ref="compoundService"/>
     <constructor-arg ref="passwordEncoder"/>
   </bean>
-
 </beans>

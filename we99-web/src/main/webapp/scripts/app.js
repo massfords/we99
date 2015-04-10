@@ -86,6 +86,10 @@ angular
         templateUrl: 'views/admin/settings.html',
         controller: 'AdminSettingsCtrl'
       })
+      .when('/admin/compounds', {
+        templateUrl: 'views/admin/compounds.html',
+        controller: 'CompoundsCtrl'
+      })
       .when('/analysis/importResults', {
         templateUrl: 'views/plate-analysis/importresults.html',
         controller: 'ImportResultsCtrl'

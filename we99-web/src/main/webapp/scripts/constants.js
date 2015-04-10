@@ -19,6 +19,7 @@ app.constant('RestURLs', {
     mergeInfoSubmit: restBase + 'experiment/:id/plates/merge',
     plateType: restBase + 'plateType/:id',
     compound: restBase + 'compound/:id',
+    compoundUpload: restBase + 'compound/',
     experiment: restBase + 'experiment',
     protocol: restBase + 'protocol',
     user: restBase + 'user',

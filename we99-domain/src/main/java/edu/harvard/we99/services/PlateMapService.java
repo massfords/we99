@@ -98,7 +98,7 @@ public interface PlateMapService {
      * @statuscode 409 If we don't understand the format of the CSV
      */
     @POST
-    @Consumes("multipart/form-data")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @ApiOperation("Processes the uploaded CSV and returns a PlateMap")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     @ApiImplicitParams({

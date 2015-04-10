@@ -14,7 +14,7 @@ angular.module('we99App')
       'AngularJS',
       'Karma'
     ];
-  
+
     // load config settings
     RestService.getServerSettings()
     	.success(function(resp){
@@ -23,7 +23,7 @@ angular.module('we99App')
     	.error(function(resp){
     		setError('Could not load server settings.');
     	});
-    
+
     // load email filter settings
     RestService.getEmailFilter()
     	.success(function(resp){
@@ -32,8 +32,8 @@ angular.module('we99App')
     	.error(function(resp){
     		setError('Could not load server settings.');
     	});
-    
-    
+
+
     //save server settings
     $scope.saveServerSettings=function(){
     	RestService.updateServerSettings($scope.configSettings)
@@ -43,8 +43,8 @@ angular.module('we99App')
 	    	.error(function(){
 	    		setError('Could not save email server settings.');
 	    	});
-    }
-    
+    };
+
     //save email filter settings
     $scope.saveEmailFilter=function(){
     	RestService.updateEmailFilter($scope.emailFilter)
@@ -54,18 +54,15 @@ angular.module('we99App')
 	    	.error(function(){
 	    		setError('Could not save email filter settings.');
 	    	});
-    }
-    
+    };
+
     function setInfo(msg){
     	$scope.infoText=msg;
     	$scope.errorText=null;
-    };
-    
+    }
     function setError(msg){
     	$scope.infoText=null;
     	$scope.errorText=msg;
     	console.log(msg);
-    };
-   
-    
+    }
   });

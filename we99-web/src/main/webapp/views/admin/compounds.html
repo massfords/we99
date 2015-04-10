@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <p>Add / Update Compounds</p>
+      Drop File:
+      <!-- not sure if i should include application/csv as well -->
+      <div ng-file-drop ng-file-select ng-model="files" class="drop-box"
+           drag-over-class="dragover" ng-multiple="true" allow-dir="true"
+           accept="text/csv">Drop csv files here or click to upload
+      </div>
+      <div ng-no-file-drop>File Drag/Drop is not supported for this browser
+      </div>
+      <ul>
+        <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
+      </ul>
+
+      <div>
+        <!-- Just a basic text output for response for now, better implementation to come later -->
+        <label for="output">Response:</label>
+        <input id="output" cols="30" readonly value="{{uploadOutput}}"> </input>
+      </div>
+    </div>
+  </div>
+
+</div>

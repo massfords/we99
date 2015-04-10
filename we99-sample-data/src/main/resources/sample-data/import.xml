@@ -20,16 +20,6 @@
         </record>
     </stream>
 
-    <stream name="compounds" format="csv">
-        <parser>
-            <property name="comments" value="#"/>
-            <property name="whitespaceAllowed" value="true"/>
-        </parser>
-        <record name="compounds" class="edu.harvard.we99.services.storage.entities.CompoundEntity">
-            <field name="name" required="true" trim="true"/>
-        </record>
-    </stream>
-
     <stream name="protocols" format="csv">
         <parser>
             <property name="comments" value="#"/>

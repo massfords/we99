@@ -1,0 +1,14 @@
+<beanio xmlns="http://www.beanio.org/2012/03"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03">
+
+    <stream name="compounds" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <record name="compounds" class="edu.harvard.we99.domain.Compound">
+            <field name="name" required="true" trim="true"/>
+        </record>
+    </stream>
+</beanio>

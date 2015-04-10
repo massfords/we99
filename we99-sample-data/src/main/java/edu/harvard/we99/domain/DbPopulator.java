@@ -3,8 +3,8 @@ package edu.harvard.we99.domain;
 import edu.harvard.we99.security.AuthenticatedContext;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
+import edu.harvard.we99.services.CompoundService;
 import edu.harvard.we99.services.PlateMapService;
-import edu.harvard.we99.services.storage.entities.CompoundEntity;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
 import edu.harvard.we99.services.storage.entities.PermissionEntity;
@@ -47,6 +47,7 @@ public class DbPopulator {
     public DbPopulator(EntityManagerFactory emf,
                        DbVersionInspector inspector,
                        PlateMapService pms,
+                       CompoundService cs,
                        @SuppressWarnings("deprecation") PasswordEncoder encoder) throws Exception {
         this.passwordEncoder = encoder;
         if (!inspector.isDbInitRequired()) {
@@ -64,16 +65,24 @@ public class DbPopulator {
             loadCoreData(sf, em);
             Map<String,RoleEntity> roles = loadPermissionData(sf, em);
             loadUsers(sf, em, roles);
-            loadExperiments(sf, em);
 
-            // add plates
             UserEntity ue = selectAdmin(em);
             User admin = Mappers.USERS.map(ue);
             context.install(admin);
+
+            loadCompounds(cs);
+
+            loadExperiments(sf, em);
+
+            // add plates
             pms.create("5x5", getClass().getResourceAsStream("/sample-data/platemap5x5.csv"));
         } finally {
             em.close();
         }
+    }
+
+    private void loadCompounds(CompoundService cs) {
+        cs.upload(getClass().getResourceAsStream("/sample-data/compounds.csv"));
     }
 
     private void loadExperiments(StreamFactory sf, EntityManager em) throws IOException {
@@ -210,7 +219,6 @@ public class DbPopulator {
         List<Object> entityList = new ArrayList<>();
 
         entityList.addAll(loadData(PlateTypeEntity.class, sf, "/sample-data/plate-types.csv", "plateTypes"));
-        entityList.addAll(loadData(CompoundEntity.class, sf, "/sample-data/compounds.csv", "compounds"));
         entityList.addAll(loadData(ProtocolEntity.class, sf, "/sample-data/protocols.csv", "protocols"));
 
         em.getTransaction().begin();

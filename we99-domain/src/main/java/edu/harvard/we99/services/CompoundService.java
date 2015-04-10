@@ -1,9 +1,13 @@
 package edu.harvard.we99.services;
 
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
 import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.lists.Compounds;
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
@@ -18,6 +22,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.InputStream;
 
 /**
  * REST Service for performing basic CRUD operations on a Compound
@@ -90,4 +95,20 @@ public interface CompoundService {
     Compounds listAll(@QueryParam("page") @DefaultValue("0") Integer page,
                       @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
                       @QueryParam("q") @DefaultValue("") String query);
+
+    /**
+     * Uploads a list of compounds via a CSV file, although presently there's only
+     * one column required. We can expand to include other columns like a description
+     * if needed.
+     * @param csv
+     * @statuscode 409 If we don't understand the format of the CSV
+     */
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @ApiOperation("Uploads a CSV of Compounds")
+    @PreAuthorize("hasRole('PERM_MODIFY_COMPOUNDS')")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
+    Response upload(@Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
+
 }
