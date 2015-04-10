@@ -7,12 +7,12 @@ describe('Service: SelectedExperimentSvc', function () {
 
   // instantiate service
   var ExperimentService;
-  beforeEach(inject(function (_ExperimentService_) {
-    ExperimentService = _ExperimentService_;
+  beforeEach(inject(function (_SelectedExperimentSvc_) {
+    SelectedExperimentSvc = _SelectedExperimentSvc_;
   }));
 
   it('should do something', function () {
-    expect(!!ExperimentService).toBe(true);
+    expect(!!SelectedExperimentSvc).toBe(true);
   });
 
 });

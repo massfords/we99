@@ -61,8 +61,13 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     getExperimentMembers: function(expId){
       return $http.get(RestURLs.experiment+'/'+expId+'/members');
     },
+
+    // Plates
     getExperimentPlates: function(id){
       return $http.get(RestURLs.experiment + '/' + id + "/plates")
+    },
+    removeExperimentPlate: function(experimentId, plateId) {
+      return $http.delete(RestURLs.experiment + '/' + experimentId  + "/plates/" + plateId);
     },
 
     //email filter
@@ -111,13 +116,14 @@ app.factory('PlateMergeRestService', ['$http', 'RestURLs', function($http, RestU
       return $http.post(replaceId(RestURLs.mergeInfoTemplate, plateMapId), plateType);
     },
     submitMergeInfo: function(experimentId, mergeInfoObject){
+      //if (!mergeInfoObject.plateName) {mergeInfoObject.plateName = 'Plate-TS' + Date.now();}
       return $http.put(replaceId(RestURLs.mergeInfoSubmit, experimentId), mergeInfoObject);
     }
   };
 
   function replaceId(urlString, id) {
     return urlString.replace(':id', id);
-  };
+  }
 }]);
 /** REST linked resource model for Plate Type */
 app.factory('PlateTypeModel', ['$resource', 'RestURLs', function ($resource, RestURLs) {
@@ -145,7 +151,7 @@ app.factory('PlateMapModel', ['$resource', 'RestURLs', function ($resource, Rest
     },
     create: {
       method: "PUT" // Server takes put for creation
-    },
+    }
     //// Requires a plateType in the body. remember the '$' before using because its an instance call.
     //getMergeInfo: {
     //  method:"POST",

@@ -24,7 +24,6 @@ angular.module('we99App')
         $scope.selectedPlateMap = null;
         $scope.plateMaps = null;
         $scope.labelTable = [];
-        $scope.experiment = SelectedExperimentSvc.getSelected();
         $scope.UOMOptions = Object.keys(kCompoundUOM).map(function(key){
             return {key:key, value:kCompoundUOM[key]};
         });
@@ -78,6 +77,7 @@ angular.module('we99App')
                 .then(function(resp){
                     console.log('submitted!');
                     console.log(resp.data);
+                    $scope.$parent.refreshPlates();
                 });
         };
     });

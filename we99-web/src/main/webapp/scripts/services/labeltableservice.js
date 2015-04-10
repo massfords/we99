@@ -24,13 +24,13 @@ angular.module('we99App')
     };
 
     factory.hasMergeInfoObject = function(){return angular.isObject(mergeInfoObject);};
-    factory.submitMergeInfo = function(experimentId, labelTable){
+    factory.submitMergeInfo = function(experimentId, mappings){
       if (!mergeInfoObject) {
         throw new Error("mergeInfoObject needs to exist before running...");
       }
-      mergeInfoObject.mappings = labelTable;
+      mergeInfoObject.mappings = mappings;
       return PlateMergeRestService.submitMergeInfo(experimentId, mergeInfoObject);
-    }
+    };
 
     /** Process merge object retrieved from server
      * prefix: up: unprocessed, p: processed
@@ -120,25 +120,26 @@ angular.module('we99App')
     }
 
 
-    /** Returns the 'compound' label for the well.
-     *  If no 'compound' label exists, returns the
-     *  first label on the well. Will return NULL if no labels.
-     * @param well
-     * @returns {String} compound label
-     */
-    function getCompoundLabelForWell(well){
-      if (!well.labels || well.labels.length == 0) {
-        return null;
-      }
-      var i = 0,
-          max = well.labels.length;
-      for (;i < max; ++i) {
-        if (well.labels[i].name.toLowerCase() === "compound") {
-          return well.labels[i].value;
-        }
-      }
-      return well.labels[0].value;
-    }
+    // FIXME: DELETEME DONE ON SERVER SIDE
+    ///** Returns the 'compound' label for the well.
+    // *  If no 'compound' label exists, returns the
+    // *  first label on the well. Will return NULL if no labels.
+    // * @param well
+    // * @returns {String} compound label
+    // */
+    //function getCompoundLabelForWell(well){
+    //  if (!well.labels || well.labels.length == 0) {
+    //    return null;
+    //  }
+    //  var i = 0,
+    //      max = well.labels.length;
+    //  for (;i < max; ++i) {
+    //    if (well.labels[i].name.toLowerCase() === "compound") {
+    //      return well.labels[i].value;
+    //    }
+    //  }
+    //  return well.labels[0].value;
+    //}
 
     return factory;
   });

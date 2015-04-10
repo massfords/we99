@@ -9,12 +9,12 @@
   </div>
   <hr>
 
-  <div ng-if="!show.addPlateForm">
+  <div ng-show="!show.addPlateForm">
     <button class="btn btn-info"
             ng-click="show.addPlateForm = true">Add Plate Set</button>
     <!-- plates -->
     <div class="table-fixed-height">
-      <table st-table="displayPlates" st-safe-src="plateMaps" class="table table-striped">
+      <table st-table="plates" st-safe-src="displayPlates" class="table table-striped">
         <thead>
         <tr>
           <th st-sort="id">ID</th>
@@ -39,8 +39,8 @@
           <td>{{plate.wells.length}}</td>
           <td>{{plate.plateType.name}}</td>
           <td>
-            <i class="glyphicon glyphicon-remove-circle" title="Delete" ng-click="removePlateMap(row)"></i>
-            <i class="glyphicon glyphicon-search" title="View Details" ng-click="viewPlateMap(row)"></i>
+            <i class="glyphicon glyphicon-remove-circle" title="Delete" ng-click="removePlate(plate)"></i>
+            <i class="glyphicon glyphicon-search" title="View Details" ng-click="viewPlate(plate)"></i>
           </td>
         </tr>
         </tbody>
@@ -51,7 +51,7 @@
     <button class="btn btn-info"
             ng-click="show.addPlateForm = false">Existing Plate Sets</button>
 
-    <we-addplate></we-addplate>
+    <we-addplate refresh-plates="refreshPlates"></we-addplate>
     <hr>
   </div>
 

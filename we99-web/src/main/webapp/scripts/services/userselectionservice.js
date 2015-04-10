@@ -44,6 +44,9 @@ angular.module('we99App')
                     deferred.reject(err);
                   });
                   return deferred.promise;
+                },
+                removePlate: function(plateId){
+                  return RestService.removeExperimentPlate(selected.id, plateId);
                 }
             };
         return factory;

@@ -25,10 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author mford
@@ -64,7 +62,8 @@ public abstract class PlatesResourceImpl implements PlatesResource {
             PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
 
             if (mergeInfo.getPlateName() == null) {
-                mergeInfo.setPlateName("My Plate");
+                String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+                mergeInfo.setPlateName("My Plate " + timeStamp);
             }
 
             Plate plate = new Plate()
