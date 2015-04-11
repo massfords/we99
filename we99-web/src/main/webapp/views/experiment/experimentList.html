@@ -6,11 +6,9 @@
         <th st-sort="name">Name</th>
         <th st-sort="description">Description</th>
         <th st-sort="status">Status</th>
-        <th>Plates</th>
-        <th st-sort="name">Protocol</th>
-
+        <th st-sort="protocol">Protocol</th>
         <th>Files</th>
-        <th st-sort="selected">Delete</th>
+        <th>Actions</th>
       </tr>
      <tr>
       <th colspan="7"><input id="searchbar" st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
@@ -21,18 +19,16 @@
       <td>{{row.name}}</td>
       <td>{{row.description}}</td>
       <td>
-        <a ng-if="row.status==='PUBLISHED'">Published</a>
+        <span ng-if="row.status==='PUBLISHED'">Published</span>
         <a ng-click="publish(row)"
            ng-if="row.status==='UNPUBLISHED'">Unpublished</a>
       </td>
-      <td><a ng-href="#/experiment/{{row.id}}">Plates</a></td>
       <td>{{row.protocol.name}}</td>
       <!-- TODO: Fix links -->
       <td><a ng-href="#">Files</a></td>
       <td>
-        <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
-			<i class="glyphicon glyphicon-remove-circle"></i>
-		</button>
+			  <i ng-click="removeItem(row)" class="glyphicon glyphicon-remove-circle"></i>
+        <a style="color:black;" ng-href="#/experiment/{{row.id}}"><i ng-click="removeItem(row)" class="glyphicon glyphicon-zoom-in"></i></a>
       </td>
     </tr>
     </tbody>
