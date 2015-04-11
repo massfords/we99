@@ -1,10 +1,13 @@
 <div class="add-plate">
   <div class="modal-header">
-    <h3 class="modal-title">{{experiment.name}} - Add Plate</h3>
+    <h3 class="modal-title">Add Plate</h3>
   </div>
   <div class="modal-body">
     <form>
       <div>
+        <label>Plate ID / Barcode:
+          <input type="text" placeholder="Enter plate id..." ng-model="barcode"/>
+        </label><br>
         <label>Plate Type:
           <select ng-options="plateType as plateType.name for plateType in plateTypes"
                   ng-change="plateMapsForPlateType()"

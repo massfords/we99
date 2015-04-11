@@ -121,11 +121,21 @@ table.table.table-striped .st-selected td {
   overflow-y: auto;
 }
 
+/* Other */
+.action{
+  text-align: center;
+}
+
+.action .glyphicon {
+  font-size: 120%;
+}
+
+
 /* Glyphicon pretty stuff */
 
 .glyphicon-remove-circle:hover {
   color:red;
-  font-size: 110%;
+  font-size: 130%;
 }
 
 .glyphicon-zoom-in:hover {

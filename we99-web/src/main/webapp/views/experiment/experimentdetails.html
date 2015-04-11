@@ -14,33 +14,31 @@
             ng-click="show.addPlateForm = true">Add Plate Set</button>
     <!-- plates -->
     <div class="table-fixed-height">
-      <table st-table="plates" st-safe-src="displayPlates" class="table table-striped">
+      <table st-table="displayPlates" st-safe-src="plates" class="table table-striped">
         <thead>
         <tr>
           <th st-sort="id">ID</th>
           <th st-sort="name">Name</th>
           <th st-sort="barcode">Barcode</th>
           <!-- compounds is count of labels -->
-          <th st-sort="compounds">Compounds</th>
           <th st-sort="wells">Wells</th>
-          <th st-sort="plateMap">Plate Map</th>
-          <th>Action</th>
+          <th st-sort="plateMap">Plate Type</th>
+          <th class="action">Action</th>
         </tr>
         <tr>
           <th colspan="5"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="plate in plates">
+        <tr ng-repeat="plate in displayPlates">
           <td>{{plate.id}}</td>
           <td>{{plate.name}}</td>
           <td>{{plate.barcode}}</td>
-          <td>{{plate.labels.length}}</td>
-          <td>{{plate.wells.length}}</td>
+          <td>{{plate.wellCount}}</td>
           <td>{{plate.plateType.name}}</td>
-          <td>
+          <td class="actiona">
             <i class="glyphicon glyphicon-remove-circle" title="Delete" ng-click="removePlate(plate)"></i>
-            <i class="glyphicon glyphicon-zoom-in" title="View Details" ng-click="viewPlate(plate)"></i>
+            <!--<i class="glyphicon glyphicon-zoom-in" title="View Details" ng-click="viewPlate(plate)"></i>-->
           </td>
         </tr>
         </tbody>
