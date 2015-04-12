@@ -141,7 +141,6 @@ angular.module('we99App')
         $scope.errorText="Published experiments cannot be modified";
         return;
       }
-    	//$scope.newExp.assignedUsers=$scope.assignedUsers;
       var memberIds=[];
       for(var i=0;i<$scope.assignedUsers.length;i++){
         memberIds.push($scope.assignedUsers[i].id)
@@ -163,7 +162,6 @@ angular.module('we99App')
     $scope.assignUser=function(){
     	for(var i=0;i<$scope.availUsers.length;i++){
     		if($scope.availUsers[i].isSelected){
-    			//console.log('got one! '+i);
     			var movedObj=$scope.availUsers.splice(i,1)[0];
     			$scope.assignedUsers.push(movedObj);
     			break;
