@@ -4,12 +4,10 @@ import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.services.ExperimentService;
 import edu.harvard.we99.services.PlateTypeService;
 import edu.harvard.we99.services.experiments.DoseResponseResource;
-import edu.harvard.we99.services.experiments.DoseResponseResultResource;
 import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
-import edu.harvard.we99.services.storage.entities.AbstractFitParameterEntity;
-import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.DoseResponseResultEntity;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -61,18 +59,15 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
                 new Experiment(name("xp"))
                         .setProtocol(new Protocol(name("protocol"))));
 
-        HillFitParameter hillParams = new HillFitParameter().setBottom(0.0).setTop(100.0).setLogEC50(0.65).setSlope(1.0);
-        AbstractFitParameterEntity afp = Mappers.HILLFITPARAMETER.mapReverse(hillParams);
-        beginTx();
-        em.persist(afp);
-        commitTx();
+        FitParameter fp = new FitParameter("top",130.0,ParameterStatus.FLOAT);
 
-        AbstractFitParameterEntity fitParam = em.find(AbstractFitParameterEntity.class, 1L);
-        DoseResponseResult drr = new DoseResponseResult().setExperiment(exp).setCompound(newCompound).setFitParameter(hillParams);
+        DoseResponseResult drr = new DoseResponseResult().setExperiment(exp).setCompound(newCompound);
 
         DoseResponseResult storedDrr = doseResponseResultStorage.create(drr);
+        DoseResponseResult withParam = doseResponseResultStorage.addFitParameter(storedDrr.getId(), fp);
 
-        assertNotNull(storedDrr.getFitParameter().getId());
+        assertNotNull(withParam.getFitEquation());
+        assertNotNull(withParam.getFitParameterMap());
 
 
     }

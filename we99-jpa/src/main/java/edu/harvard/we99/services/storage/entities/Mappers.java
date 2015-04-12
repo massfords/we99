@@ -32,7 +32,6 @@ public class Mappers {
     public static final BoundMapperFacade<LabelEntity,Label> LABEL;
     public static final BoundMapperFacade<ExperimentPointEntity,ExperimentPoint> EXPERIMENTPOINT;
     public static final BoundMapperFacade<CurveFitPointEntity,CurveFitPoint> CURVEFITPOINT;
-    public static final BoundMapperFacade<HillFitParameterEntity,HillFitParameter> HILLFITPARAMETER;
 
 
     private static final MapperFactory mapperFactory =
@@ -50,15 +49,10 @@ public class Mappers {
                 new PassThroughConverter(RoleName.class));
         mapperFactory.getConverterFactory().registerConverter(
                 new PassThroughConverter(PlateDimension.class));
+        mapperFactory.getConverterFactory().registerConverter(
+                new PassThroughConverter(FitParameter.class));
 
 
-
-        mapperFactory
-                .classMap(HillFitParameterEntity.class, HillFitParameter.class)
-                .mapNullsInReverse(false)
-                .fieldAToB("bottom","bottom")
-                .byDefault()
-                .register();
 
         mapperFactory
                 .classMap(CurveFitPointEntity.class, CurveFitPoint.class)
@@ -156,7 +150,6 @@ public class Mappers {
                 .classMap(DoseResponseResultEntity.class, DoseResponseResult.class)
                 .mapNullsInReverse(false)
                 .fieldAToB("compound", "compound")
-                .fieldAToB("fitParameter", "fitParameter")
                 .byDefault()
                 .register();
         mapperFactory
@@ -184,7 +177,6 @@ public class Mappers {
         LABEL = mapperFactory.getMapperFacade(LabelEntity.class, Label.class);
         EXPERIMENTPOINT = mapperFactory.getMapperFacade(ExperimentPointEntity.class,ExperimentPoint.class);
         CURVEFITPOINT = mapperFactory.getMapperFacade(CurveFitPointEntity.class, CurveFitPoint.class);
-        HILLFITPARAMETER = mapperFactory.getMapperFacade(HillFitParameterEntity.class, HillFitParameter.class);
 
     }
 }

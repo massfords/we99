@@ -3,6 +3,7 @@ package edu.harvard.we99.services.storage;
 import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.ExperimentPoint;
+import edu.harvard.we99.domain.FitParameter;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.ResultStatus;
@@ -84,7 +85,6 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
            entity = resultList.get(0);
         } else {
             entity = Mappers.DOSERESPONSES.mapReverse(drr);
-            updateFitParameter(drr, entity);
             updateCompound(drr, entity);
             em.persist(entity);
         }
@@ -116,6 +116,14 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
 
     }
 
+    @Override
+    @Transactional
+    public DoseResponseResult addFitParameter(Long doseResponseId, FitParameter fitParam) throws EntityNotFoundException {
+        DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class, doseResponseId);
+        dre.getFitParameterMap().put(fitParam.getName(),fitParam);
+        em.persist(dre);
+        return Mappers.DOSERESPONSES.map(dre);
+    }
 
 
     @Override
@@ -202,24 +210,7 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         }
     }
 
-    private void updateFitParameter(DoseResponseResult type, DoseResponseResultEntity dre) {
-        Long fpid;
-        if(type.getFitParameter() == null){
-              fpid = null;
-        } else {
-            fpid = type.getFitParameter().getId();
-        }
-        if (dre.getFitParameter() == null || !dre.getFitParameter().getId().equals(fpid)) {
-            if (fpid != null) {
-                AbstractFitParameterEntity fitParam = em.find(AbstractFitParameterEntity.class, fpid);
-                dre.setFitParameter(fitParam);
-            } else {
-                HillFitParameterEntity hpe = new HillFitParameterEntity().setBottom(2.0);
-                em.persist(hpe);
-                dre.setFitParameter(hpe);
-            }
-        }
-    }
+
 
 
 }

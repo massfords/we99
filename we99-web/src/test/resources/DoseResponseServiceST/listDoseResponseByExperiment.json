@@ -418,7 +418,10 @@
           "x": 575.0,
           "y": null
         }
-      ]
+      ],
+      "curveFitPoints": [],
+      "fitEquation": "HILLEQUATION",
+      "fitParameterMap": {}
     }
   ]
 }
