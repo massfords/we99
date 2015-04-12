@@ -1,5 +1,6 @@
 package edu.harvard.we99.domain;
 
+import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.UserStorage;
 import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
 import edu.harvard.we99.services.storage.entities.WellEntity;
@@ -31,6 +32,9 @@ public abstract class JpaSpringFixture {
     private EntityManagerFactory emf;
     @Inject
     private UserStorage userStorage;
+    @Inject
+    private DoseResponseResultStorage doseResponseResultStorage;
+
     protected EntityManager em;
 
     @BeforeClass
@@ -58,6 +62,10 @@ public abstract class JpaSpringFixture {
 
     public UserStorage getUserStorage() {
         return userStorage;
+    }
+
+    public DoseResponseResultStorage getDoseResponseResultStorage() {
+        return doseResponseResultStorage;
     }
 
     protected static WellEntity[] makeWellEntities(int rowCount, int colCount) {

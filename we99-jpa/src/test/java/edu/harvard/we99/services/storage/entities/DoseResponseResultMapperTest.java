@@ -17,9 +17,7 @@ import java.util.Map;
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * @author alan orcharton
@@ -36,15 +34,20 @@ public class DoseResponseResultMapperTest {
     Compound compound = new Compound().setId(200L).setName("Chocolate");
     CompoundEntity compoundEntity = new CompoundEntity().setId(200L).setName("Chocolate");
 
+    HillFitParameter hillParams = new HillFitParameter().setLogEC50(0.74).setSlope(1.0).setBottom(2.0).setTop(100.0);
+
     @Test
     public void domainToEntity_new() throws Exception {
         DoseResponseResult fromCaller = new DoseResponseResult()
                 .setCompound(compound)
                 .setId(100L)
-                .setComments("hello");
+                .setComments("hello")
+                .setFitParameter(hillParams);
         DoseResponseResultEntity dre = Mappers.DOSERESPONSES.mapReverse(fromCaller);
         //id is copied over
         assertEquals(100L,dre.getId().longValue());
+        //FitParams are not copied
+        assertNull(dre.getFitParameter());
         //compound is not copied over
         assertNull(dre.getCompound());
         //description is copied over
@@ -78,7 +81,8 @@ public class DoseResponseResultMapperTest {
                 .setId(300L)
                 .setCompound(compoundEntity)
                 .setCreated(new DateTime("2015-01-02T10:30:20Z"))
-                .setComments("dose response");
+                .setComments("dose response")
+                .setFitParameter(new HillFitParameterEntity().setBottom(5.0));
 
        // dre.getDoseWells().put()
        // Map<Long,WellEntity> wm = new HashMap<>();

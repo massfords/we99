@@ -84,6 +84,7 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
            entity = resultList.get(0);
         } else {
             entity = Mappers.DOSERESPONSES.mapReverse(drr);
+            updateFitParameter(drr, entity);
             updateCompound(drr, entity);
             em.persist(entity);
         }
@@ -114,6 +115,8 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         em.remove(dre);
 
     }
+
+
 
     @Override
     @Transactional
@@ -177,7 +180,7 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
     public void addWell(Long doseResponseId, Long wellId){
         WellEntity we = em.find(WellEntity.class, wellId);
         DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class, doseResponseId);
-        dre.addWell(wellId,we);
+        dre.addWell(wellId, we);
         em.persist(dre);
     }
     @Transactional
@@ -195,6 +198,25 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
                 CompoundEntity ce = new CompoundEntity().setName(type.getCompound().getName());
                 em.persist(ce);
                 dre.setCompound(ce);
+            }
+        }
+    }
+
+    private void updateFitParameter(DoseResponseResult type, DoseResponseResultEntity dre) {
+        Long fpid;
+        if(type.getFitParameter() == null){
+              fpid = null;
+        } else {
+            fpid = type.getFitParameter().getId();
+        }
+        if (dre.getFitParameter() == null || !dre.getFitParameter().getId().equals(fpid)) {
+            if (fpid != null) {
+                AbstractFitParameterEntity fitParam = em.find(AbstractFitParameterEntity.class, fpid);
+                dre.setFitParameter(fitParam);
+            } else {
+                HillFitParameterEntity hpe = new HillFitParameterEntity().setBottom(2.0);
+                em.persist(hpe);
+                dre.setFitParameter(hpe);
             }
         }
     }

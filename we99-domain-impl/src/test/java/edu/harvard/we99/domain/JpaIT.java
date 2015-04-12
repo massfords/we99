@@ -1,12 +1,6 @@
 package edu.harvard.we99.domain;
 
-import edu.harvard.we99.services.storage.entities.CompoundEntity;
-import edu.harvard.we99.services.storage.entities.ExperimentEntity;
-import edu.harvard.we99.services.storage.entities.PlateEntity;
-import edu.harvard.we99.services.storage.entities.PlateMapEntity;
-import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
-import edu.harvard.we99.services.storage.entities.ProtocolEntity;
-import edu.harvard.we99.services.storage.entities.WellMapEntity;
+import edu.harvard.we99.services.storage.entities.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -43,6 +37,7 @@ public class JpaIT extends JpaSpringFixture {
         em.persist(pt);
 
         commitTx();
+
     }
 
     @Test
@@ -120,6 +115,8 @@ public class JpaIT extends JpaSpringFixture {
 
         commitTx();
     }
+
+
 
 
 
