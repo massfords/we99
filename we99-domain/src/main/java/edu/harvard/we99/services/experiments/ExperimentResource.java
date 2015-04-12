@@ -4,6 +4,7 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.lists.PlateResults;
+import edu.harvard.we99.domain.results.DoseResponseResult;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
@@ -79,6 +80,12 @@ public interface ExperimentResource {
     @ApiOperation("Gets the dose responses for the experiment")
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     DoseResponseResource getDoseResponses();
+
+    @GET
+    @Path("/doseresponseresults")
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @ApiOperation("Gets the dose response results for the experiment")
+    DoseResponseResult listDoseResponseResults();
 
     @GET
     @Path("/results")

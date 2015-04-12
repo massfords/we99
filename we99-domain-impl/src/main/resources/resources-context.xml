@@ -9,6 +9,7 @@
     <bean id="experimentResource" class="edu.harvard.we99.services.experiments.ExperimentResourceImpl" scope="prototype">
         <constructor-arg ref="experimentStorage"/>
         <constructor-arg ref="resultStorage"/>
+        <constructor-arg ref="doseResponseResultStorage"/>
         <lookup-method name="createMemberResource" bean="memberResource"/>
         <lookup-method name="createPlatesResource" bean="platesResource"/>
         <lookup-method name="createDoseResponseResource" bean="doseResponseResource" />

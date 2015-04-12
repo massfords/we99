@@ -10,4 +10,6 @@ public interface PlateStorage extends CRUDStorage<Plate> {
 
     Plates listAll(Long experimentId, Integer page, Integer pageSize,
                    String typeAhead);
+
+    Plates getAll(Long experimentId);
 }

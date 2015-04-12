@@ -3,7 +3,9 @@ package edu.harvard.we99.services.experiments;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.ExperimentStatus;
 import edu.harvard.we99.domain.lists.PlateResults;
+import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.services.BaseRESTServiceImpl;
+import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
 
@@ -18,12 +20,16 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
 
     private Long id;
     private final ResultStorage resultStorage;
+    private final DoseResponseResultStorage doseResponseResultStorage;
     private Experiment experiment;
 
+
     public ExperimentResourceImpl(ExperimentStorage storage,
-                                  ResultStorage resultStorage) {
+                                  ResultStorage resultStorage,
+                                  DoseResponseResultStorage doseResponseResultStorage) {
         super(storage);
         this.resultStorage = resultStorage;
+        this.doseResponseResultStorage = doseResponseResultStorage;
     }
 
     @Override
@@ -78,14 +84,20 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
         return dr;
     }
 
-    protected abstract PlatesResource createPlatesResource();
+    @Override
+    public DoseResponseResult listDoseResponseResults() {
 
-    protected abstract DoseResponseResource createDoseResponseResource();
+        return doseResponseResultStorage.get(1L);
+    }
 
     @Override
     public PlateResults listResults(Integer page, Integer pageSize, String typeAhead) {
         return resultStorage.listAllByExperiment(id, page, pageSize, typeAhead);
     }
+
+    protected abstract PlatesResource createPlatesResource();
+
+    protected abstract DoseResponseResource createDoseResponseResource();
 
     protected abstract MemberResource createMemberResource();
 

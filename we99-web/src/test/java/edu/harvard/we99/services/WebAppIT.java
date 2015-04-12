@@ -14,22 +14,23 @@ import java.io.File;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        MathServiceST.class,
-        PlateMapST.class,
-        CreateAccountServiceST.class,
-        ForgotPasswordServiceST.class,
-        ManageUserServiceST.class,
-        GuestAccessST.class,
-        CompoundServiceST.class,
-        PlateMapImportST.class,
-        PlateImportST.class,
-        PlateResultServiceST.class,
-        PlateResultServiceListingST.class,
-        PlateMapListST.class,
-        ExperimentServiceST.class,
-        PlateWizardST.class,
-        PlateTypeST.class,
-        PlateMapInitST.class
+//        MathServiceST.class,
+//        PlateMapST.class,
+//        CreateAccountServiceST.class,
+//        ForgotPasswordServiceST.class,
+//        ManageUserServiceST.class,
+//        GuestAccessST.class,
+//        CompoundServiceST.class,
+//        PlateMapImportST.class,
+//        PlateImportST.class,
+//        PlateResultServiceST.class,
+//        PlateResultServiceListingST.class,
+//        PlateMapListST.class,
+//        ExperimentServiceST.class,
+//        PlateWizardST.class,
+//        PlateTypeST.class,
+//        PlateMapInitST.class,
+        DoseResponseServiceST.class
 })
 public class WebAppIT {
     public static final String WE99_URL = "http://localhost:8080/we99/services/rest";

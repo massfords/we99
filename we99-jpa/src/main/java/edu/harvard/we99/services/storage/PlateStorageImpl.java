@@ -46,6 +46,20 @@ public class PlateStorageImpl implements PlateStorage {
         return new Plates(count, page, pageSize, list);
     }
 
+
+    @Transactional(readOnly = true)
+    public Plates getAll(Long experimentId){
+        JPAQuery query = new JPAQuery(em);
+        query.from(QPlateEntity.plateEntity)
+                    .where(QPlateEntity.plateEntity.experiment.id.eq(experimentId));
+        long count = query.count();
+        List<PlateEntity> resultList = query.list(QPlateEntity.plateEntity);
+        List<Plate> list = new ArrayList<>(resultList.size());
+        resultList.forEach(pe->list.add(Mappers.PLATES.map(pe)));
+        return new Plates(count,0,100,list);
+
+    }
+
     @Override
     @Transactional
     public Plate create(Plate type) {

@@ -3,16 +3,20 @@ package edu.harvard.we99.services.storage;
 import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.ExperimentPoint;
-import edu.harvard.we99.domain.Well;
+import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.ResultStatus;
 import edu.harvard.we99.services.storage.entities.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+
+import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
+import static edu.harvard.we99.services.storage.TypeAheadLike.applyTypeAhead;
 
 /**
  * @author alan orcharton
@@ -22,6 +26,40 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
     @PersistenceContext
     private EntityManager em;
 
+    @Override
+    @Transactional
+    public DoseResponseResults getAll(Long experimentId){
+        JPAQuery query = new JPAQuery(em);
+        query.from(QDoseResponseResultEntity.doseResponseResultEntity)
+                .where(QDoseResponseResultEntity.doseResponseResultEntity.experiment.id.eq(experimentId));
+        Long count = query.count();
+
+        List<DoseResponseResultEntity> resultList = query.list(QDoseResponseResultEntity.doseResponseResultEntity);
+        List<DoseResponseResult> list = new ArrayList<>(resultList.size());
+        resultList.forEach(drre -> list.add(Mappers.DOSERESPONSES.map(drre)));
+
+        Integer i = count != null ? count.intValue() : null;
+        return new DoseResponseResults(count,0,i,list);
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public DoseResponseResults listAll(Long experimentId, Integer page, Integer pageSize, String typeAhead) {
+
+        JPAQuery query = new JPAQuery(em);
+        query.from(QDoseResponseResultEntity.doseResponseResultEntity)
+                .where(QDoseResponseResultEntity.doseResponseResultEntity.experiment.id.eq(experimentId));
+
+        long count = query.count();
+        query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
+
+        List<DoseResponseResultEntity> resultList = query.list(QDoseResponseResultEntity.doseResponseResultEntity);
+        List<DoseResponseResult> list = new ArrayList<>(resultList.size());
+        resultList.forEach(drre -> list.add(Mappers.DOSERESPONSES.map(drre)));
+
+        return new DoseResponseResults(count, page, pageSize, list);
+    }
 
     @Override
     @Transactional

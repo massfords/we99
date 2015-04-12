@@ -40,6 +40,8 @@ public interface DoseResponseResultResource  {
     DoseResponseResult addResponseValues();
 
 
+
+
     void setExperiment(Experiment experiment);
     Experiment getExperiment();
     void setDoseResponseId(Long doseResponseId);

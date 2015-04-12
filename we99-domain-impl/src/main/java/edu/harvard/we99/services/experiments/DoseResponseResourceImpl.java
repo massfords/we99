@@ -1,6 +1,9 @@
 package edu.harvard.we99.services.experiments;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.*;
+import edu.harvard.we99.domain.lists.DoseResponseResults;
+import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
@@ -8,10 +11,10 @@ import edu.harvard.we99.services.storage.PlateStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import javax.annotation.Generated;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import javax.transaction.Transactional;
+import java.util.*;
 
 /**
  * @author alan orcharton
@@ -39,6 +42,36 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
 
 
     protected abstract DoseResponseResultResource createDoseResponseResultResource();
+
+
+
+    @Override
+    public DoseResponseResult create() {
+        Plates plates = plateStorage.getAll(experiment.getId());
+        List<Plate> plateList = plates.getValues();
+        Map<Long,Compound> allCompounds = getCompoundsFromPlates(plateList);
+        List<Compound> compounds =  new ArrayList<>(allCompounds.values());
+        DoseResponseResult drr = createForCompound(compounds.get(0),plateList);
+        return drr;
+    }
+
+    public Map<Long,Compound> getCompoundsFromPlates(List<Plate> plateList){
+
+        Map<Long, Compound> compoundList = new HashMap<>();
+        for(Plate p : plateList){
+            Plate aPlate = plateStorage.get(p.getId());
+            for(Well w : aPlate.getWells().values()){
+                Set<Dose> doses = w.getContents();
+                for(Iterator<Dose> it = doses.iterator(); it.hasNext();){
+                    Dose d = it.next();
+                    if(d.getCompound() != null){
+                        compoundList.put(d.getCompound().getId(), d.getCompound());
+                    }
+                }
+            }
+        }
+        return compoundList;
+    }
 
     @Override
     public DoseResponseResult createForCompound(Compound compound, List<Plate> plates) {
@@ -70,11 +103,25 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
     }
 
     @Override
+    public DoseResponseResults generateAllResults(Integer page, Integer pageSize, String typeAhead) {
+
+        DoseResponseResults drResults = doseResponseResultStorage.getAll(experiment.getId());
+        drResults.getValues().forEach(result -> { DoseResponseResultResource resultResource = getDoseResponseResults(result.getId());
+                                                    resultResource.addResponseValues();  } );
+        return doseResponseResultStorage.listAll(experiment.getId(), page, pageSize, typeAhead);
+    }
+
+    @Override
     public DoseResponseResultResource getDoseResponseResults(Long doseResponseId) {
         DoseResponseResultResource drr = createDoseResponseResultResource();
         drr.setExperiment(experiment);
         drr.setDoseResponseId(doseResponseId);
         return drr;
+    }
+
+    @Override
+    public DoseResponseResult list() {
+        return doseResponseResultStorage.get(1L);
     }
 
     @Override
