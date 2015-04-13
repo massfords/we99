@@ -18,7 +18,8 @@ angular
     'ngTouch',
     'ui.bootstrap',
     'smart-table',
-    'angularFileUpload'
+    'angularFileUpload',
+    'ngJoyRide'
   ])
   .config(function ($routeProvider) {
     $routeProvider

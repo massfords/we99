@@ -84,4 +84,67 @@ angular.module('we99App')
     		$scope.errorText=null;
     }
 
+    $scope.startTour=function(){
+      $scope.startJoyRide=true;
+    }
+
+    $scope.config = [
+      {
+        type: "title",
+        heading: "Welcome to the West-East 99 tour",
+        text: '<div class="row"><div id="title-text" class="col-md-12">'
+        +'<span class="main-text">Welcome to <strong>West-East 99 Application Tour</strong></span>'
+        +'<br>This tour will walk you through the features of our application.</div></div>'
+
+      },{
+        type: "element",
+        selector: "#expTable",
+        heading: "Manage Experiments",
+        text: "You can see your current list of experiments in this table",
+        placement: "bottom",
+        scroll: true
+      },{
+        type: "element",
+        selector: "#searchbar",
+        heading: "Manage Experiments",
+        text: "Use the searchbar to filter for specific experiments and click the column headers to sort the table",
+        placement: "bottom",
+        scroll: true
+      },
+      {
+        type: "element",
+        selector: "#btnPanel",
+        heading: "Manage Experiments",
+        text: "You can add new experiments and edit existing ones using these buttons",
+        placement: "top",
+        scroll: true
+      },{
+        type: "location_change",
+        path: "/experiment/addedit/new"
+      },{
+        type: "element",
+        selector: "#newExpForm",
+        heading: "Manage Experiments",
+        text: "Use this form to enter information about a new experiment",
+        placement: "top",
+        scroll: true
+      },{
+        type: "element",
+        selector: "#btnPanel",
+        heading: "Manage Experiments",
+        text: "You can assign and remove users to this experiment with these buttons",
+        placement: "top",
+        scroll: true
+      },
+      {
+        type: "element",
+        selector: "#saveBtn",
+        heading: "Manage Experiments",
+        text: "When done entering information for the new experiment, save by clicking this button",
+        placement: "top",
+        scroll: true
+      }
+
+    ];
+
   }]);

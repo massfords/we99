@@ -1,23 +1,23 @@
 <h2>{{pageTitle}}</h2>
- <form role="form" name="newExpForm">
+ <form role="form" name="newExpForm" id="newExpForm">
   <div class="form-group">
     <label for="name">Name:</label>
-    <input type="text" class="form-control" id="name" name="name" ng-model="newExp.name" data-ng-disabled="editMode" required/>
+    <input type="text" class="form-control" id="name" name="name" ng-model="newExp.name" data-ng-disabled="editMode" tooltip="Type in your experiment name" required/>
   </div>
   <div class="form-group">
     <label for="description">Description:</label>
     <!-- TODO consider making into textarea -->
-    <input type="text" class="form-control" id="description" name="description" ng-model="newExp.description" required/>
+    <input type="text" class="form-control" id="description" name="description" ng-model="newExp.description" tooltip="Provide a basic overview of your experiment and its goals" required/>
   </div>
    <div class="form-group">
     <label for="protocol">Protocol:</label>
-    <select id="protocol" ng-options="item as item.name for item in protocolValues" ng-model="newExp.protocol" required/>
+    <select id="protocol" ng-options="item as item.name for item in protocolValues" ng-model="newExp.protocol" tooltip="Choose a protocol" required/>
   	<button ng-click="newProtocol()">Add Protocol</button>
   </div>
   <div class="row">
   <div class="col-md-4">
   <!-- assigned -->
-  	<table st-table="displayAssignedUsers" st-safe-src="assignedUsers" class="table col-md-4">
+  	<table st-table="displayAssignedUsers" st-safe-src="assignedUsers" class="table col-md-4"  tooltip="List of assigned users">
     <thead>
       <tr>
         <th st-sort="firstName">Assigned Users</th>
@@ -30,13 +30,13 @@
     </tbody>
   </table>
   </div>
-  <div class="col-md-4" style="height:300px;">
+  <div id="btnPanel" class="col-md-4" style="height:300px;">
   	<button class="btn btn-default" ng-click="assignUser()"><span class="glyphicon glyphicon-chevron-left"></span>Assign</button>
   	<button class="btn btn-default" ng-click="removeUser()"><span class="glyphicon glyphicon-chevron-right"></span>Remove</button>
   </div>
   <div class="col-md-4">
     <!-- available -->
-  <table st-table="displayAvailUsers" st-safe-src="availUsers" class="table col-md-4">
+  <table st-table="displayAvailUsers" st-safe-src="availUsers" class="table col-md-4" tooltip="List of available users not currently assigned to experiment">
     <thead>
       <tr>
         <th st-sort="firstName">Available Users</th>
@@ -54,7 +54,7 @@
   </div>
   </div>
 	<div class="form-group">
-		<input type="button" data-ng-disabled="newExpForm.$invalid"
+		<input id="saveBtn" type="button" data-ng-disabled="newExpForm.$invalid"
 			class="btn btn-primary" ng-click="saveExp()" value="Save" />
 	</div>
 </form>

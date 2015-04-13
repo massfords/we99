@@ -1,6 +1,6 @@
 <div class="select-experiment">
   <h2>Available Experiments</h2>
-  <table st-table="displayExperiments" st-safe-src="experiments" class="table table-striped">
+  <table id="expTable" st-table="displayExperiments" st-safe-src="experiments" class="table table-striped">
     <thead>
       <tr>
         <th st-sort="name">Name</th>
@@ -13,7 +13,7 @@
         <th st-sort="selected">Delete</th>
       </tr>
      <tr>
-      <th colspan="7"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
+      <th colspan="7"><input id="searchbar" st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
     </tr>
     </thead>
     <tbody>
@@ -39,8 +39,8 @@
   </table>
 
   <!-- <button class="btn btn-primary" ng-click="newExperiment()">Add New</button> -->
-  <div><a class="btn btn-primary" ng-href="#/experiment/addedit/new">Add New</a>
-      <button class="btn btn-primary" ng-click="editRow()" data-ng-disabled="!currentExperiment">Edit</button>
+  <div id="btnPanel"><a class="btn btn-primary" ng-href="#/experiment/addedit/new">Add New</a>
+      <button id="editBtn" class="btn btn-primary" ng-click="editRow()" data-ng-disabled="!currentExperiment">Edit</button>
   </div>
 
   <div class="row">
@@ -48,4 +48,7 @@
 	  {{errorText}}
 	  </div>
   </div>
+  <div class="row"></div>
+  <div style="padding-top:10px;" ng-joy-ride="startJoyRide" config="config" on-finish="onFinish()"  on-skip="onFinish()">
+    <button class="btn btn-default"  ng-click="startTour()">Start Tour</button></div>
   </div>

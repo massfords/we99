@@ -19,8 +19,12 @@ body {
 }
 
 .st-selected {
-    background: none repeat scroll 0% 0% #0F244B !important;
+    background-color: #0F244B;
     color: #FFF !important;
+}
+
+table.table.table-striped .st-selected td {
+  background-color:#0F244B;
 }
 
 /* file upload styles */

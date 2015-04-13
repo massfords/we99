@@ -33,6 +33,7 @@ module.exports = function(config) {
       'webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'webapp/bower_components/ng-file-upload/angular-file-upload.js',
       'webapp/bower_components/lodash/lodash.js',
+      'webapp/bower_components/ng-joyride/ng-joyride.js',
       'webapp/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'webapp/scripts/**/*.js',
