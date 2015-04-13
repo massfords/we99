@@ -2,10 +2,12 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.PlateType;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.commons.io.IOUtils;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -26,6 +28,8 @@ import static org.assertj.core.util.Arrays.array;
  */
 @RunWith(Parameterized.class)
 public class PlateMapImportST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     @Parameterized.Parameters
     public static List<Object[]> params() throws Exception {

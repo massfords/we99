@@ -3,10 +3,12 @@ package edu.harvard.we99.services;
 import edu.harvard.we99.domain.Label;
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.WellMap;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.net.URL;
@@ -26,6 +28,8 @@ import static org.junit.Assert.assertTrue;
  * @author SaZ
  */
 public class PlateMapInitST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
     private static PlateMapService plateMapService;
 
 

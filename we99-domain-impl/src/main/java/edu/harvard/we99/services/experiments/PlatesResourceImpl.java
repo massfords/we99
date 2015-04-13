@@ -121,6 +121,9 @@ public abstract class PlatesResourceImpl implements PlatesResource {
         } catch (IOException e) {
             log.error("error parsing csv", e);
             throw new WebApplicationException(Response.status(409).build());
+        } catch (Exception e) {
+            log.error("error inserting plate", e);
+            throw new WebApplicationException(Response.status(500).build());
         }
     }
 

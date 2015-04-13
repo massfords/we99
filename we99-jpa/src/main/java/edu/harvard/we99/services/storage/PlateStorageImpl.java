@@ -98,10 +98,11 @@ public class PlateStorageImpl implements PlateStorage {
     @Transactional
     public void delete(Long id) {
         PlateEntity pe = em.find(PlateEntity.class, id);
+        pe.getExperiment().getPlates().remove(pe);
         PlateTypeEntity pte = pe.getPlateType();
         pte.removePlate(pe);
         em.merge(pte);
-        em.remove(pe);
+        em.merge(pe.getExperiment());
     }
 
     private void updateWells(Plate type, PlateEntity pe) {

@@ -12,6 +12,7 @@ import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.services.experiments.MemberResource;
 import edu.harvard.we99.test.DisableLogging;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.cxf.interceptor.AbstractFaultChainInitiatorObserver;
@@ -19,6 +20,7 @@ import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 
 import javax.ws.rs.WebApplicationException;
@@ -38,6 +40,8 @@ import static org.junit.Assert.fail;
  * @author mford
  */
 public class ExperimentServiceST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     private static ExperimentService es;
     private static PlateTypeService pts;
@@ -88,6 +92,20 @@ public class ExperimentServiceST {
         Plates list = es.getExperiment(xp.getId()).getPlates().list(null, null, null);
         assertJsonEquals(load("/ExperimentServiceST/list.json"),
                 toJsonString(list), Scrubbers.pkey.andThen(Scrubbers.iso8601.andThen(Scrubbers.uuid)).andThen(Scrubbers.xpId));
+    }
+
+    @Test
+    public void deletePlate() throws Exception {
+        addPlateToExperiment();
+        Plate p = addPlateToExperiment();
+
+        Plates list = es.getExperiment(xp.getId()).getPlates().list(null, null, null);
+        assertEquals(2, list.size());
+
+        es.getExperiment(xp.getId()).getPlates().getPlates(p.getId()).delete();
+
+        list = es.getExperiment(xp.getId()).getPlates().list(null, null, null);
+        assertEquals(1, list.size());
     }
 
 

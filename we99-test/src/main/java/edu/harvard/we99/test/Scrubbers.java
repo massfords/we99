@@ -20,7 +20,7 @@ public class Scrubbers {
     /**
      * removes all fields named "id" and their value.
      */
-    public static Function<String,String> pkey = s -> s.replaceAll("\"id\" *: *[0-9]+ *,", "");
+    public static Function<String,String> pkey = s -> s.replaceAll("\"(?:(?:id)|(?:[a-zA-Z]+Id))\" *: *[0-9]+ *,", "");
 
     /**
      * removes all fields named "id" and their value.

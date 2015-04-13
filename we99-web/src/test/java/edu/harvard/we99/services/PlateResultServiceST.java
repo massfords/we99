@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
@@ -30,6 +31,8 @@ import static org.assertj.core.util.Arrays.array;
  */
 @RunWith(Parameterized.class)
 public class PlateResultServiceST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     private static PlateResultsFixture resultsFixture;
 

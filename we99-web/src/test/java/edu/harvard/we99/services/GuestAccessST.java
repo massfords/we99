@@ -2,10 +2,12 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.test.DisableLogging;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.cxf.interceptor.AbstractFaultChainInitiatorObserver;
 import org.apache.cxf.jaxrs.impl.WebApplicationExceptionMapper;
 import org.apache.cxf.phase.PhaseInterceptorChain;
+import org.junit.Rule;
 import org.junit.Test;
 
 import javax.ws.rs.WebApplicationException;
@@ -19,6 +21,8 @@ import static org.junit.Assert.fail;
  * @author mford
  */
 public class GuestAccessST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     @Test
     public void test() throws Exception {

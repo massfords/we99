@@ -2,6 +2,7 @@
   "PlateTemplate": {
     "id": 2,
     "name": "plateTemplate-uuid",
+    "plateMapId": 22,
     "description": "my test plate",
     "plateType": {
       "id": 2,

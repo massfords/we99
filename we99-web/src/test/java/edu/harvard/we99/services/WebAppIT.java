@@ -14,7 +14,6 @@ import java.io.File;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-
         MathServiceST.class,
         PlateMapST.class,
         CreateAccountServiceST.class,

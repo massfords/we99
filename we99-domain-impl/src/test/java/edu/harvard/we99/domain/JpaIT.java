@@ -1,7 +1,12 @@
 package edu.harvard.we99.domain;
 
-import edu.harvard.we99.services.storage.entities.*;
-import org.junit.Assert;
+import edu.harvard.we99.services.storage.entities.CompoundEntity;
+import edu.harvard.we99.services.storage.entities.ExperimentEntity;
+import edu.harvard.we99.services.storage.entities.PlateEntity;
+import edu.harvard.we99.services.storage.entities.PlateMapEntity;
+import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
+import edu.harvard.we99.services.storage.entities.ProtocolEntity;
+import edu.harvard.we99.services.storage.entities.WellMapEntity;
 import org.junit.Test;
 
 import javax.persistence.PersistenceException;
@@ -9,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static edu.harvard.we99.test.BaseFixture.name;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the reading and writing of entities to the database. This will
@@ -97,7 +103,60 @@ public class JpaIT extends JpaSpringFixture {
         ProtocolEntity protocol = new ProtocolEntity().setName(name("P"));
         xp.setProtocol(protocol);
 
+        PlateEntity plate = makePlate(ROW_COUNT, COL_COUNT, xp);
+
+        em.persist(protocol);
+        em.persist(xp);
+        em.persist(plate);
+
+        commitTx();
+    }
+
+    @Test
+    public void deleteOnePlate() throws Exception {
+        beginTx();
+
+        int ROW_COUNT = 1;
+        int COL_COUNT = 2;
+
+        ExperimentEntity xp = new ExperimentEntity(name("Exp"));
+
+        ProtocolEntity protocol = new ProtocolEntity().setName(name("P"));
+        xp.setProtocol(protocol);
+
+        PlateEntity plate1 = makePlate(ROW_COUNT, COL_COUNT, xp);
+        makePlate(ROW_COUNT, COL_COUNT, xp);
+
+        em.persist(protocol);
+        em.persist(xp);
+
+        commitTx();
+
+        Set<PlateEntity> plates = getPlates(xp.getId());
+        assertEquals(2, plates.size());
+
+        // now delete one of the plates
+        beginTx();
+        System.out.format("************************* DELETING PLATE1 %s ************************\n", plate1.getId());
+        xp.getPlates().remove(plate1);
+        commitTx();
+
+        // confirm that plate2 is still there
+        plates = getPlates(xp.getId());
+        assertEquals(1, plates.size());
+    }
+
+    private Set<PlateEntity> getPlates(Long experimentId) {
+        beginTx();
+        ExperimentEntity xp = em.find(ExperimentEntity.class, experimentId);
+        Set<PlateEntity> plates =  xp.getPlates();
+        commitTx();
+        return plates;
+    }
+
+    private PlateEntity makePlate(int ROW_COUNT, int COL_COUNT, ExperimentEntity xp) {
         PlateTypeEntity type = makePlateType(ROW_COUNT, COL_COUNT);
+        em.persist(type);
 
         PlateEntity plate = new PlateEntity()
                 .setName(name("Plate"))
@@ -106,18 +165,11 @@ public class JpaIT extends JpaSpringFixture {
                 .setExperiment(xp)
                 .setBarcode("1234");
 
+        xp.getPlates().add(plate);
+
         plate.withWells(makeWellEntities(ROW_COUNT, COL_COUNT));
-
-        em.persist(protocol);
-        em.persist(xp);
-        em.persist(type);
-        em.persist(plate);
-
-        commitTx();
+        return plate;
     }
-
-
-
 
 
     private WellMapEntity[] makeWellMaps(int rowCount, int colCount) {
@@ -131,7 +183,7 @@ public class JpaIT extends JpaSpringFixture {
                 );
             }
         }
-        Assert.assertEquals(rowCount * colCount, wells.size());
+        assertEquals(rowCount * colCount, wells.size());
 
         return wells.toArray(new WellMapEntity[wells.size()]);
     }

@@ -2,11 +2,13 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Protocol;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -27,6 +29,8 @@ import static org.assertj.core.util.Arrays.array;
  */
 @RunWith(Parameterized.class)
 public class PlateImportST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     @Parameterized.Parameters
     public static List<Object[]> params() throws Exception {

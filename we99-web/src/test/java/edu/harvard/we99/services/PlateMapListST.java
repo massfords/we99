@@ -1,9 +1,11 @@
 package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.lists.PlateMaps;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.net.URL;
@@ -17,6 +19,8 @@ import static org.junit.Assert.assertTrue;
  * @author markford
  */
 public class PlateMapListST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     private static PlateMapService plateMapService;
 

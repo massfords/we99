@@ -2,11 +2,13 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.lists.Compounds;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 
 import javax.ws.rs.core.Response;
@@ -25,6 +27,8 @@ import static org.junit.Assert.assertNotNull;
  * @author mford
  */
 public class CompoundServiceST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     private static CompoundService compoundService;
     private Set<Long> deleteMe = new HashSet<>();

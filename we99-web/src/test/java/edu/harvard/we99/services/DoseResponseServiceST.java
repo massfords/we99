@@ -1,7 +1,5 @@
 package edu.harvard.we99.services;
 
-import edu.harvard.we99.domain.Compound;
-import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
@@ -9,21 +7,24 @@ import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.services.experiments.DoseResponseResource;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
-import org.apache.commons.io.IOUtils;
-import org.junit.*;
-
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
-import static edu.harvard.we99.test.BaseFixture.assertOk;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
-import static org.assertj.core.util.Arrays.array;
 
 /**
  * @author alan orcharton
  */
 public class DoseResponseServiceST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     private static DoseResponseResultsFixture resultsFixture;
 

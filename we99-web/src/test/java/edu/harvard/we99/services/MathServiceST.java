@@ -1,8 +1,10 @@
 package edu.harvard.we99.services;
 
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.net.URL;
@@ -17,6 +19,8 @@ import static org.junit.Assert.assertArrayEquals;
  * @author mford
  */
 public class MathServiceST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
     private MathService ms;
 
     @Before

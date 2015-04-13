@@ -5,6 +5,7 @@ import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,6 +21,8 @@ import static edu.harvard.we99.util.JacksonUtil.toJsonString;
  * @author mford
  */
 public class PlateResultServiceListingST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     private static PlateResultsFixture resultsFixture;
 

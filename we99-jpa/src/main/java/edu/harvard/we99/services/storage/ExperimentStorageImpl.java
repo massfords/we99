@@ -9,6 +9,8 @@ import edu.harvard.we99.security.User;
 import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.storage.entities.ExperimentEntity;
 import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.PlateEntity;
+import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
 import edu.harvard.we99.services.storage.entities.ProtocolEntity;
 import edu.harvard.we99.services.storage.entities.QExperimentEntity;
 import edu.harvard.we99.services.storage.entities.QUserEntity;
@@ -21,6 +23,8 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 import static edu.harvard.we99.services.storage.TypeAheadLike.applyTypeAhead;
@@ -77,6 +81,9 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     @Transactional
     public void delete(Long id) {
         ExperimentEntity ee = em.find(ExperimentEntity.class, id);
+        ee.getPlates().stream().forEach(p -> p.getPlateType().removePlate(p));
+        Set<PlateTypeEntity> ptes = ee.getPlates().stream().map(PlateEntity::getPlateType).collect(Collectors.toSet());
+        ptes.stream().forEach(em::merge);
         em.remove(ee);
     }
 

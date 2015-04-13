@@ -4,8 +4,10 @@ import edu.harvard.we99.domain.lists.Users;
 import edu.harvard.we99.security.ManageUserService;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.net.URL;
@@ -16,6 +18,8 @@ import static org.junit.Assert.assertEquals;
  * @author mford
  */
 public class ManageUserServiceST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
 
     private UserService us;
     private ManageUserService mus;

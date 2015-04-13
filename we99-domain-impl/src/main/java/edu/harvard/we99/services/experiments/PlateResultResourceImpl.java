@@ -13,6 +13,8 @@ import edu.harvard.we99.services.io.PlateResultCSVReader;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Generated;
 import javax.persistence.PersistenceException;
@@ -31,6 +33,9 @@ import java.util.Map;
  * @author mford
  */
 public class PlateResultResourceImpl implements PlateResultResource {
+
+    private static final Logger log = LoggerFactory.getLogger(PlatesResourceImpl.class);
+
     private final ResultStorage resultStorage;
     private final PlateStorage plateStorage;
     private Experiment experiment;
@@ -60,16 +65,21 @@ public class PlateResultResourceImpl implements PlateResultResource {
         String source;
         try {
             source = IOUtils.toString(csv);
+
+            PlateResultCSVReader reader = new PlateResultCSVReader();
+            PlateResult pr = reader.read(new BufferedReader(new StringReader(source)));
+            pr.setPlate(new Plate().setId(plateId).setExperimentId(experiment.getId()));
+            pr.setSource(source);
+            pr.setMetrics(compute(pr));
+            return resultStorage.create(pr);
         } catch (IOException e) {
+            log.error("error parsing results csv", e);
+            throw new WebApplicationException(Response.serverError().build());
+        } catch (Exception e) {
+            log.error("error inserting results csv", e);
             throw new WebApplicationException(Response.serverError().build());
         }
 
-        PlateResultCSVReader reader = new PlateResultCSVReader();
-        PlateResult pr = reader.read(new BufferedReader(new StringReader(source)));
-        pr.setPlate(new Plate().setId(plateId).setExperimentId(experiment.getId()));
-        pr.setSource(source);
-        pr.setMetrics(compute(pr));
-        return resultStorage.create(pr);
     }
 
     @Override

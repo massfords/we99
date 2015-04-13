@@ -2,9 +2,11 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.security.CreateAccountService;
 import edu.harvard.we99.security.User;
+import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.apache.commons.io.IOUtils;
+import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.mock_javamail.Mailbox;
 
@@ -27,6 +29,8 @@ import static org.junit.Assert.assertNotNull;
  * @author mford
  */
 public class CreateAccountServiceST {
+    @Rule
+    public LogTestRule logTestRule = new LogTestRule();
     private static final HttpServletRequest request = null;
 
     @Test
