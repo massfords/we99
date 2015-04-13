@@ -75,10 +75,6 @@ angular
         templateUrl: 'views/plate-mgmt/addplate.html',
         controller: 'AddPlateCtrl'
       })
-      .when('/plate-mgmt/importPlateMap', {
-        templateUrl: 'views/plate-mgmt/importplatemap.html',
-        controller: 'PlateMgmtImportplatemapCtrl'
-      })
       .when('/plate-map-editor', {
         templateUrl: 'views/plate-mgmt/platemapeditor.html',
         controller: 'PlateMapEditorCtrl'
