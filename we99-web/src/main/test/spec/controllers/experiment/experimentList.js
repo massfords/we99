@@ -90,13 +90,32 @@ describe('Controller: ExperimentCtrl', function () {
   it('should remove experiment after delete call', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(3);
-    scope.removeItem({id:2});
+
+    var targetDelete={id:2, name:'Blah blah'};
+
+    // test confirmed delete
+    spyOn(window, 'confirm').and.returnValue(true);
+    scope.removeItem(targetDelete);
     httpBackend.flush();
     expect(scope.experiments.length).toBe(2);
     expect(scope.experiments[0].name).toBe("experiment uno");
     for(var i=0;i<scope.experiments.length;i++){
       expect(scope.experiments[i].id).not.toBe(2);
     }
+  });
+
+  it('should not remove experiment if delete call canceled', function () {
+    httpBackend.flush();
+    expect(scope.experiments.length).toBe(3);
+
+    var targetDelete={id:2, name:'Blah blah'};
+
+    // test canceled delete
+    spyOn(window, 'confirm').and.returnValue(false);
+    scope.removeItem(targetDelete);
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+
   });
 
   it('should get new url path after edit call', function () {
