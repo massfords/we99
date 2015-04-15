@@ -16,7 +16,6 @@ angular.module('we99App')
 
     var renderBox = null;
 
-    var SCROLL = "DELETE";
     var ZOOM = "ZOOM";
 
     $scope.state = ZOOM;
@@ -202,8 +201,8 @@ angular.module('we99App')
         },
         onMouseDown: function(a){
           // First part of render box.
-
-          if($scope.state == ZOOM) {
+          console.log($scope.state);
+          if($scope.state === ZOOM) {
             renderBox = {
               row: {
                 one: a.row,
@@ -215,10 +214,9 @@ angular.module('we99App')
               }
             };
           }else{
-            console.log($scope.data);
             $scope.data.wellValues.forEach(function(d){
               if(d.wellIndex === a.wellIndex){
-                d.included = false;
+                d.included = !d.included;
               }
             });
             renderMap();
@@ -226,7 +224,7 @@ angular.module('we99App')
           },
         onMouseUp: function (a){
 
-          if($scope.state == ZOOM) {
+          if($scope.state === ZOOM) {
 
             // Add in second part of render box.
             renderBox = {
@@ -248,10 +246,8 @@ angular.module('we99App')
               renderBox = null;
             }
 
-          }else{
-
-
           }
+
         }
       });
 
@@ -308,7 +304,8 @@ angular.module('we99App')
             wellType: d.wellType,
             included: d.included,
             row: row,
-            col: i
+            col: i,
+            plate: d.plate
           });
         });
 

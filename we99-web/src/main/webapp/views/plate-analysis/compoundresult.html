@@ -1,0 +1,24 @@
+
+<div style="" id="controls">
+  Select Experiment:
+  <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
+
+</div>
+
+
+<div style="width: 200px; position: relative; float: left;">
+  Select Compound To View:
+  <span ng-repeat="comp in compounds">
+    <br/>
+  <label>
+    <input type="checkbox" checklist-model="compound.selections"
+           checklist-change="listUpdate()" checklist-value="comp"> {{comp.compound}}
+  </label>
+    <svg style="position: relative; width:20px; height:20px;">
+      <rect id="{{comp.compound}}" fill="white" width="20" height="20"/>
+    </svg>
+  </span>
+</div>
+<div style="width: 600px; height: 600px; position: relative; float: left;" id="display-container">
+  <svg style="width: 600px; height: 600px" id="scatter-plot"></svg>
+</div>
