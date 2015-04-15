@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.*;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.Sample;
 import edu.harvard.we99.domain.results.WellResults;
+import edu.harvard.we99.domain.results.analysis.CurveFit;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 
@@ -141,7 +142,16 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
          plateIdPointsMap.values()
                  .forEach(list -> doseResponseResultStorage.updateAllExperimentPoints(doseResponseResultId, list));
 
-        return get();
+        //return get();
+        return calculateCurveFit();
+    }
+
+    private DoseResponseResult calculateCurveFit(){
+
+        DoseResponseResult currentResult = get();
+        DoseResponseResult curvePointResult = CurveFit.fitCurve(currentResult);
+        return doseResponseResultStorage.updateCurveFitPoints(doseResponseResultId,curvePointResult);
+
     }
 
 

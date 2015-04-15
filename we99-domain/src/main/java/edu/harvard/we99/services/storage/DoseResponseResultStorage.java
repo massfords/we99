@@ -22,6 +22,7 @@ public interface DoseResponseResultStorage extends CRUDStorage<DoseResponseResul
                    String typeAhead);
     DoseResponseResults getAll(Long experimentId);
     DoseResponseResult addFitParameter(Long doseResponseResultId, FitParameter parameter);
+    DoseResponseResult updateCurveFitPoints(Long doseResponseId, DoseResponseResult type);
 
     void addWell(Long doseResponseId, Long wellId);
     void addWells(Long doseResponseId, List<Long> wells);
