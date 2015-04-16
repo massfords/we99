@@ -32,6 +32,10 @@ public class WellResults extends BaseEntity {
     @SuppressWarnings("UnusedDeclaration")
     public WellResults() {}
 
+    public WellResults(Coordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
     public Sample getByLabel(String lbl) {
         for(Sample s : samples) {
             if (s.getLabel().equals(lbl)) {

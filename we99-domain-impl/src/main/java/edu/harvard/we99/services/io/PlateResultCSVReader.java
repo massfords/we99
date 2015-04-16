@@ -10,7 +10,7 @@ import java.io.Reader;
 /**
  * @author mford
  */
-public class PlateResultCSVReader {
+public class PlateResultCSVReader implements PlateResultsReader {
     private final StreamFactory factory;
 
     public PlateResultCSVReader() {
@@ -22,6 +22,7 @@ public class PlateResultCSVReader {
         factory.loadResource(config);
     }
 
+    @Override
     public PlateResult read(Reader r) {
 
         PlateResult pr = new PlateResult();

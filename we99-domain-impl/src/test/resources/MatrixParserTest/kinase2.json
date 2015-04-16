@@ -1,0 +1,4997 @@
+{
+  "wellResults": [
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 337.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2099.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 42.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 403.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 34.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 86.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 14.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 30.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 164.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 366.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2608.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2802.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 565.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1795.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 353.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1783.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1392.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2173.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1144.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2923.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 570.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2274.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 29.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2401.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 612.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2210.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 49.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 288.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 12.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 60.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 12.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 26.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 186.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 279.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3409.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2758.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 581.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1774.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 276.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1384.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1356.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2590.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1193.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2801.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 534.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2339.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 211.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 1,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 94.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 470.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2897.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2686.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2836.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 550.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1630.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 18.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 24.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 10.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 28.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2830.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2475.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 862.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2477.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 647.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 692.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1131.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2876.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 677.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2317.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 796.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2164.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 29.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2817.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 570.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2035.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2439.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2504.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 510.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1650.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 16.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 18.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 12.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 20.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2613.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2262.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 804.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2430.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 124.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 744.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1071.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2754.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 626.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2488.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 722.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2150.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 188.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 3,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 125.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 245.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1246.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 22.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 95.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 30.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 171.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 16.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 123.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1032.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2206.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1459.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2434.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 549.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2057.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2507.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2501.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 62.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 350.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1865.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2522.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1628.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2274.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 46.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 4,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2725.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 145.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1051.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 14.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 59.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 28.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 169.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 18.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 125.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1004.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1915.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1474.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2575.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 467.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2294.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2832.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2621.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 55.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 329.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1721.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2793.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1987.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2519.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 169.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 5,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 148.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 38.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 215.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1797.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2987.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1347.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2423.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 40.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 249.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1363.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2174.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2430.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2974.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 465.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1801.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2507.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2497.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 20.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 258.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 528.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2019.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 704.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2220.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 33.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 6,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2558.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 30.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 190.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1641.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2394.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1420.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2865.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 42.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 259.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1398.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2629.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2372.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2937.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 452.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2100.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2491.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3026.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 33.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 311.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 477.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2411.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 969.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2360.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 240.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 7,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 182.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 74.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 409.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 28.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 180.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 361.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1666.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 165.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1163.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2467.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2821.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2457.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2985.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 544.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1817.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3263.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3139.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 716.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2073.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2961.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2924.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2539.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2585.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2806.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 8,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2754.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 88.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 365.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 39.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 136.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 377.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1753.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 213.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1187.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2423.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3070.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3241.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3284.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 571.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2346.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2714.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2808.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 695.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2138.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2973.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2930.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2471.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2687.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2566.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 9,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 173.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 42.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 241.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 203.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1633.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 28.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 120.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 14.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 16.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2507.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3111.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2999.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2824.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2952.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2553.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3045.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3297.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2796.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2648.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1877.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2793.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1163.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2912.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2293.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 10,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2979.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 30.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 243.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 227.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1296.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 26.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 112.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 12.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 10.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2248.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2560.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2393.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2893.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3044.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3023.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2939.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2944.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2533.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2846.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1908.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2579.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1233.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2394.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3074.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 11,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 104.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 56.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 486.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 93.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 604.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 26.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 10.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1895.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3092.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2920.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2885.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3301.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2735.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 303.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1789.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3083.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2945.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 113.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 311.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 71.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 459.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2144.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3054.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3076.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 12,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3030.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 50.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 448.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 115.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 660.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 20.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 28.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2070.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2409.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2825.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3214.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2809.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2800.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 272.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1296.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2567.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3173.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 29.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 327.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 63.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 544.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2232.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2816.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3032.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 13,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 96.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 42.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 313.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1481.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2471.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 323.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1004.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 20.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 70.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2794.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2635.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 300.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1972.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 129.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 872.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2613.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3078.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1648.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2502.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1207.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2597.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 120.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 341.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2585.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 14,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2742.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 0
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 171.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 1
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 289.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 2
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1525.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 3
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2526.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 4
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 309.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 5
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1060.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 6
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 34.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 7
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 74.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 8
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2822.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 9
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3044.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 10
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 339.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 11
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1720.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 12
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 127.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 13
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 849.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 14
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 3345.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 15
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2866.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 16
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1729.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 17
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2666.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 18
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 1582.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 19
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2920.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 20
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 44.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 21
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 277.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 22
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 2979.0,
+          "status": "INCLUDED"
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 15,
+        "col": 23
+      },
+      "resultStatus": "INCLUDED",
+      "samples": [
+        {
+          "value": 136.0,
+          "status": "INCLUDED"
+        }
+      ]
+    }
+  ],
+  "metrics": []
+}

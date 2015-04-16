@@ -69,7 +69,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
 
 
         PlateResource plates = pr.getPlates(plate.getId());
-        PlateResult plateResult = plates.getPlateResult().uploadResults(stream("/ResultServiceImplIT/results-single.csv"));
+        PlateResult plateResult = plates.getPlateResult().uploadResults("csv", stream("/ResultServiceImplIT/results-single.csv"));
 
         Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey).andThen(Scrubbers.xpId);
         // assert the results
@@ -115,7 +115,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
         );
 
         PlateResource plates = pr.getPlates(plate.getId());
-        PlateResult plateResult = plates.getPlateResult().uploadResults(stream("/ResultServiceImplIT/results-single.csv"));
+        PlateResult plateResult = plates.getPlateResult().uploadResults("csv", stream("/ResultServiceImplIT/results-single.csv"));
 
         Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey).andThen(Scrubbers.xpId);
         // assert the results
@@ -157,7 +157,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
         DoseResponseResultResource d3 = dr.getDoseResponseResults(drr.getId());
 
 
-        PlateResult plateResult = plates.getPlateResult().uploadResults(stream("/ResultServiceImplIT/results-single.csv"));
+        PlateResult plateResult = plates.getPlateResult().uploadResults("csv", stream("/ResultServiceImplIT/results-single.csv"));
         DoseResponseResult newResult = d3.addResponseValues();
         Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey);
         // assert the results
