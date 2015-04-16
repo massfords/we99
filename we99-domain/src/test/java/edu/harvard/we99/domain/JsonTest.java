@@ -1,14 +1,11 @@
 package edu.harvard.we99.domain;
 
+import edu.harvard.we99.domain.results.DoseResponseResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
@@ -66,6 +63,9 @@ public class JsonTest {
                 new PlateType().setDim(new PlateDimension(3, 4)).setManufacturer("Foo Inc."),
                 load("/JsonTest/plateType.json")
         ));
+
+
+
 
         params.add(array(
                 new PlateMapMergeInfo()
@@ -150,4 +150,23 @@ public class JsonTest {
         }
         return map;
     }
+    private static List<CurveFitPoint>fitPoints(int numPoints){
+        List<CurveFitPoint> cfp = new ArrayList<>();
+        for (int i=0; i < numPoints; i++){
+            cfp.add(new CurveFitPoint(1).setX(5.0).setY(6.0));
+        }
+        return cfp;
+    }
+
+    private static Map<String,FitParameter>fitParameters(){
+        Map<String,FitParameter> fpm = new HashMap<>();
+        fpm.put("top",new FitParameter("top",5.4,ParameterStatus.FLOAT));
+        fpm.put("bottom",new FitParameter("top",5.4,ParameterStatus.FLOAT));
+        fpm.put("slope",new FitParameter("top",5.4,ParameterStatus.FLOAT));
+        fpm.put("logec50",new FitParameter("logec50",5.4,ParameterStatus.FLOAT));
+
+        return fpm;
+    }
+
+
 }

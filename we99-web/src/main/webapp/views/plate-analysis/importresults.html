@@ -1,10 +1,7 @@
-<h2>Upload Results</h2>
-<h3>Experiment - {{currentExperiment.name}}</h3>
+<h1>Upload Results</h1>
+<h3>Experiment: {{experiment.name}}</h3>
+<h3>Plate: {{plate.name}}</h3>
 <form role="form" name="uploadResultsForm">
-  <div class="form-group">
-    <label for="plate">Plate:</label>
-    <select id="plate" ng-options="item as item.name for item in allPlates" ng-model="selectedPlate" required/>
-  </div>
 <div class="form-group">
 <div ng-file-drop ng-file-select ng-model="files" class="drop-box"
      drag-over-class="dragover" ng-multiple="true" allow-dir="true"
@@ -14,43 +11,7 @@
   <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
 </ul>
 </div>
-  <div class="form-group">
-    <label>Normalization Options:</label>
-    <input type="radio" ng-model="results.normalize" value="true" required> Normalize within each plate
-    <input type="radio" ng-model="results.normalize" value="false" required> Don't normalize
-  </div>
-  <div class="form-group">
-    <label for="inhibition">Inhibition %:</label>
-    <select id="inhibition" ng-options="item for item in inhibitionValues" ng-model="results.inhibition" required/>
-  </div>
-  <div class="form-group">
-    <label>Fit Parameters:</label><br>
-    <input type="radio" ng-model="results.fitParams.lock" value="false" required> Best fit - float all parameters <br>
-    <input type="radio" ng-model="results.fitParams.lock" value="true" required> Lock parameters <br>
-  </div>
-  <label>Fixed Parameters:</label>
-
-  <div class="form-group">
-    <label for="min">Minimum:</label>
-    <input id="min" type="number" ng-model="results.fitParams.min"
-           ng-reguired="results.fitParams.lock=='true'" ng-disabled="results.fitParams.lock=='false'">
-    </div>
-  <div class="form-group">
-    <label for="max">Maximum:</label>
-    <input id="max" type="number" ng-model="results.fitParams.max"
-           ng-reguired="results.fitParams.lock=='true'" ng-disabled="results.fitParams.lock=='false'">
-    </div>
-  <div class="form-group">
-    <label for="slope">Slope:</label>
-    <input id="slope" type="number" ng-model="results.fitParams.slope"
-           ng-reguired="results.fitParams.lock=='true'" ng-disabled="results.fitParams.lock=='false'">
-  </div>
-  <div class="form-group">
-    <label for="calculation">Calculate:</label>
-    <select id="calculation" ng-options="item for item in calculationValues" ng-model="results.calculation" required/>
-  </div>
-  <button class="btn btn-primary" ng-click="upload()" data-ng-disabled="uploadResultsForm.$invalid">Load Results</button>
-
+  <!--<button class="btn btn-primary" ng-click="upload()" data-ng-disabled="uploadResultsForm.$invalid">Load Results</button>-->
 
 </form>
 <div>
@@ -59,4 +20,5 @@
      <textarea id="output" rows=5 style="width: 100%;" readonly>
      {{uploadOutput}}
      </textarea>
+  <button class="btn btn-primary" ng-click="dismiss()">Close</button>
 </div>

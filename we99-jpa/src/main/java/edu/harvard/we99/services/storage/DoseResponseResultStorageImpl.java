@@ -125,6 +125,15 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         return Mappers.DOSERESPONSES.map(dre);
     }
 
+    @Override
+    @Transactional
+    public DoseResponseResult updateCurveFitPoints(Long doseResponseId, DoseResponseResult type) throws EntityNotFoundException {
+        DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class, doseResponseId);
+        updateCurveFit(type, dre);
+        em.merge(dre);
+        return Mappers.DOSERESPONSES.map(dre);
+    }
+
 
     @Override
     @Transactional
@@ -209,6 +218,18 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
             }
         }
     }
+
+    private void updateCurveFit(DoseResponseResult type, DoseResponseResultEntity dre){
+
+        dre.getFitParameterMap().clear();
+        dre.getCurveFitPoints().clear();
+        type.getCurveFitPoints().forEach(pt -> dre.addCurveFitPoint(Mappers.CURVEFITPOINT.mapReverse(pt)));
+        dre.getCurveFitPoints().forEach(em::merge);
+        type.getFitParameterMap().values().forEach(param -> dre.addFitParameter(param));
+
+    }
+
+
 
 
 
