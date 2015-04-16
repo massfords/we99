@@ -46,9 +46,6 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
       else
         return $http.put(RestURLs.experiment,exp);
     },
-    saveExperiment: function(exp){
-      return $http.post(RestURLs.experiment+'/'+exp.id,exp);
-    },
     publishExperiment: function(expId){
       return $http.post(RestURLs.experiment + '/' + expId + '/publish');
     },
@@ -68,6 +65,10 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     },
     removeExperimentPlate: function(experimentId, plateId) {
       return $http.delete(RestURLs.experiment + '/' + experimentId  + "/plates/" + plateId);
+    },
+    // Plate results
+    getPlateResults: function(experimentId,plateId){
+      return $http.get(RestURLs.experiment+'/'+experimentId+'/plates/'+plateId+'/results');
     },
 
     //email filter

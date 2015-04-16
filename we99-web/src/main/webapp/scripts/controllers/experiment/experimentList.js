@@ -49,7 +49,7 @@ angular.module('we99App')
 
     // publish an experiment
     $scope.publish = function(experiment) {
-      var confirmed = confirm('Publish \'experiment.id\'?\n' +
+      var confirmed = confirm('Publish '+experiment.name+'?\n' +
                               'This will lock down the experiment data.');
       if (confirmed) {
         RestService.publishExperiment(experiment.id).then(function success() {

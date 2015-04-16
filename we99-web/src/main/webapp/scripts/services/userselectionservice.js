@@ -47,7 +47,11 @@ angular.module('we99App')
                 },
                 removePlate: function(plateId){
                   return RestService.removeExperimentPlate(selected.id, plateId);
+                },
+                getResults: function(plateId){
+                  return RestService.getPlateResults(selected.id,plateId);
                 }
+
             };
         return factory;
     });
