@@ -913,7 +913,8 @@
         "cols": 10
       },
       "manufacturer": "Foo Inc."
-    }
+    },
+    "hasResults" : true
   },
   "created": "iso8601",
   "wellResults": [

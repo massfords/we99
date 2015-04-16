@@ -3,7 +3,6 @@
     "name": "Plateuuid",
     "labels": [],
     "wellCount": 25,
-    "experimentId": 6,
     "wells": [
       {
         "coordinate": {
@@ -238,7 +237,8 @@
         "cols": 5
       },
       "manufacturer": "Manuuid"
-    }
+    },
+    "hasResults": true
   },
   "created": "iso8601",
   "wellResults": [

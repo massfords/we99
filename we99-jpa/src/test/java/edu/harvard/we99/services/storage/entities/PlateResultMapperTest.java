@@ -58,14 +58,18 @@ public class PlateResultMapperTest {
             }
         }
 
+        PlateEntity plate = makePlateEntity();
         PlateResultEntity pre = new PlateResultEntity()
                 .setId(100L)
                 .setComments("comments")
                 .setCreated(new DateTime("2015-01-02T10:20:30"))
                 .setSource("source should be ignored")
-                .setPlate(makePlateEntity())
+                .setPlate(plate)
                 .setWellResults(resultsMap)
                 ;
+        // need to set the bi-directional relationship here in order for the
+        // mappers to produce the right value for the hasResults field
+        plate.setResults(pre);
         PlateResult pr = Mappers.PLATERESULT.map(pre);
         assertJsonEquals(load("/Mappers/plateResult.json"), toJsonString(pr));
     }

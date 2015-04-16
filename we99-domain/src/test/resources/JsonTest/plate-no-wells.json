@@ -9,5 +9,6 @@
       "cols": 4
     },
     "manufacturer": "Foo Inc."
-  }
+  },
+  "hasResults": false
 }

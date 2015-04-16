@@ -242,7 +242,8 @@
         "cols": 5
       },
       "manufacturer": "Man1"
-    }
+    },
+    "hasResults": true
   },
   "created": "2015-01-02T10:20:30.000-05:00",
   "comments": "comments",

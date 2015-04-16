@@ -4,14 +4,11 @@
   "pageSize": 100,
   "values": [
     {
-      "id": 28,
-      "name": "plateNamea564cbbf-f0c7-4096-aa9b-6109b59548ac",
+      "name": "plateNameuuid",
       "labels": [],
       "wellCount": 8,
-      "experimentId": 15,
       "wells": [],
       "plateType": {
-        "id": 1,
         "name": "Corning-3788",
         "description": "Clear high-grade polystyrene for research diagnostic assays Formulated for uniform binding\\",
         "dim": {
@@ -20,17 +17,15 @@
         },
         "manufacturer": "Corning",
         "orderLink": "http://www.coleparmer.com/Product/Corning_Plate_96_Well_ps_round_100_cs_Clear/UX-01728-07"
-      }
+      },
+      "hasResults": true
     },
     {
-      "id": 29,
-      "name": "plateName57e27581-578c-489d-a5b3-49931bf3b6fe",
+      "name": "plateNameuuid",
       "labels": [],
       "wellCount": 8,
-      "experimentId": 15,
       "wells": [],
       "plateType": {
-        "id": 1,
         "name": "Corning-3788",
         "description": "Clear high-grade polystyrene for research diagnostic assays Formulated for uniform binding\\",
         "dim": {
@@ -39,7 +34,8 @@
         },
         "manufacturer": "Corning",
         "orderLink": "http://www.coleparmer.com/Product/Corning_Plate_96_Well_ps_round_100_cs_Clear/UX-01728-07"
-      }
+      },
+      "hasResults": false
     }
   ]
 }

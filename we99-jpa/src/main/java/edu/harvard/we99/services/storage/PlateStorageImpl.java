@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 import static edu.harvard.we99.services.storage.TypeAheadLike.applyTypeAhead;
@@ -39,24 +39,19 @@ public class PlateStorageImpl implements PlateStorage {
         query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
 
         List<PlateEntity> resultList = query.list(QPlateEntity.plateEntity);
-        List<Plate> list = new ArrayList<>(resultList.size());
-        resultList.forEach(pe->list.add(Mappers.PLATES.map(pe)));
-        // don't include the wells in listings
-        list.forEach(p->p.getWells().clear());
+        List<Plate> list = map(resultList);
         return new Plates(count, page, pageSize, list);
     }
 
-
     @Transactional(readOnly = true)
-    public Plates getAll(Long experimentId){
+    public Plates getAll(Long experimentId) {
         JPAQuery query = new JPAQuery(em);
         query.from(QPlateEntity.plateEntity)
                     .where(QPlateEntity.plateEntity.experiment.id.eq(experimentId));
         long count = query.count();
         List<PlateEntity> resultList = query.list(QPlateEntity.plateEntity);
-        List<Plate> list = new ArrayList<>(resultList.size());
-        resultList.forEach(pe->list.add(Mappers.PLATES.map(pe)));
-        return new Plates(count,0,100,list);
+        List<Plate> list = map(resultList);
+        return new Plates(count,0,list.size(),list);
 
     }
 
@@ -108,7 +103,17 @@ public class PlateStorageImpl implements PlateStorage {
     private void updateWells(Plate type, PlateEntity pe) {
         // need to map the wells manually
         pe.getWells().clear();
-        type.getWells().values().forEach(w->pe.addWell(Mappers.WELL.mapReverse(w)));
+        type.getWells().values().forEach(w -> pe.addWell(Mappers.WELL.mapReverse(w)));
         pe.getWells().values().forEach(em::merge);
+    }
+
+    private List<Plate> map(List<PlateEntity> resultList) {
+        List<Plate> list = resultList
+                .stream()
+                .map(Mappers.PLATES::map)
+                .collect(Collectors.toList());
+        // don't include the wells in listings
+        list.forEach(p -> p.getWells().clear());
+        return list;
     }
 }

@@ -2,7 +2,6 @@
   "name": "plateuuid",
   "labels": [],
   "wellCount": 8,
-  "experimentId": 6,
   "wells": [
     {
       "coordinate": {
@@ -157,5 +156,6 @@
     },
     "manufacturer": "Corning",
     "orderLink": "http://www.coleparmer.com/Product/Corning_Plate_96_Well_ps_round_100_cs_Clear/UX-01728-07"
-  }
+  },
+  "hasResults": false
 }

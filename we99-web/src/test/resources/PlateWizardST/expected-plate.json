@@ -2,7 +2,6 @@
   "name": "my plate nameuuid",
   "labels": [],
   "wellCount": 10,
-  "experimentId": 18,
   "wells": [
     {
       "coordinate": {
@@ -166,5 +165,6 @@
       "cols": 10
     },
     "manufacturer": "Foo Inc"
-  }
+  },
+  "hasResults": false
 }
