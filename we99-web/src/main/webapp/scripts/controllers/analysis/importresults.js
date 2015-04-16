@@ -8,7 +8,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ImportResultsCtrl', function ($scope,$upload,RestURLs,RestService,experiment,plate) {
+  .controller('ImportResultsCtrl', function ($scope,$upload,RestURLs,RestService,$modalInstance,experiment,plate) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -71,6 +71,10 @@ angular.module('we99App')
           ;
         }
       }
+    };
+
+    $scope.dismiss = function () {
+      $modalInstance.dismiss('cancel');
     };
 
   });

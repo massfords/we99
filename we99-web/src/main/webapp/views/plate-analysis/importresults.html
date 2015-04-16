@@ -12,6 +12,7 @@
 </ul>
 </div>
   <!--<button class="btn btn-primary" ng-click="upload()" data-ng-disabled="uploadResultsForm.$invalid">Load Results</button>-->
+
 </form>
 <div>
   <!-- Just a basic text output for response for now, better implementation to come later -->
@@ -19,4 +20,5 @@
      <textarea id="output" rows=5 style="width: 100%;" readonly>
      {{uploadOutput}}
      </textarea>
+  <button class="btn btn-primary" ng-click="dismiss()">Close</button>
 </div>
