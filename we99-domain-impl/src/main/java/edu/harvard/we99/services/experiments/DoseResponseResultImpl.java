@@ -150,7 +150,13 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
 
         DoseResponseResult currentResult = get();
         DoseResponseResult curvePointResult = CurveFit.fitCurve(currentResult);
-        return doseResponseResultStorage.updateCurveFitPoints(doseResponseResultId,curvePointResult);
+        //if the python script could not be found the result will be null
+        if(curvePointResult == null) {
+            curvePointResult = currentResult;
+        } else {
+            curvePointResult = doseResponseResultStorage.updateCurveFitPoints(doseResponseResultId,curvePointResult);
+        }
+        return curvePointResult;
 
     }
 

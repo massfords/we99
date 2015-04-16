@@ -64,10 +64,7 @@ public class JsonTest {
                 load("/JsonTest/plateType.json")
         ));
 
-        params.add(array(
-                new DoseResponseResult().setCurveFitPoints(fitPoints(3)).setFitParameterMap(fitParameters()),
-                load("/JsonTest/plateType.json")
-        ));
+
 
 
         params.add(array(
@@ -125,7 +122,7 @@ public class JsonTest {
 
         String json = toJsonString(bean);
 
-        //assertJsonEquals(this.expected, json);
+        assertJsonEquals(this.expected, json);
 
         // make sure we can read it back
         Object o = fromString(json, bean.getClass());
