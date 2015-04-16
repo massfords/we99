@@ -77,6 +77,7 @@
               <li><a ng-href="#/omnimap">Omnimap</a></li>
               <li><a ng-href="#/wellqc">Well Quality Control</a></li>
               <li><a ng-href="#/doseresponse">Dose Response</a></li>
+              <li><a ng-href="#/compoundresults">Compound Results</a></li>
             </ul>
           </li>
           <li class="dropdown" dropdown><a href="#" dropdown-toggle
@@ -145,36 +146,53 @@
 <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
 <script src="bower_components/lodash/lodash.js"></script>
 <script src="bower_components/ng-joyride/ng-joyride.js"></script>
+<script src="bower_components/checklist-model/checklist-model.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
 <!-- build:js({.tmp,webapp}) scripts/scripts.js -->
+
+<!-- Root Application Context -->
 <script src="scripts/app.js"></script>
 <script src="scripts/constants.js"></script>
+
+<!-- Controllers -->
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/about.js"></script>
+<script src="scripts/controllers/navigation.js"></script>
+
 <script src="scripts/controllers/plate-mgmt/plateeditor.js"></script>
 <script src="scripts/controllers/plate-mgmt/platetypeeditor.js"></script>
+<script src="scripts/controllers/plate-mgmt/addplatetype.js"></script>
+<script src="scripts/controllers/plate-mgmt/addplateset.js"></script>
+<script src="scripts/controllers/plate-mgmt/platemapeditor.js"></script>
+
+<script src="scripts/controllers/analysis/importresults.js"></script>
 <script src="scripts/controllers/results/heatmap.js"></script>
 <script src="scripts/controllers/results/omnimap.js"></script>
 <script src="scripts/controllers/results/doseresponse.js"></script>
 <script src="scripts/controllers/results/wellqc.js"></script>
-<script src="scripts/services/restservice.js"></script>
-<script src="scripts/controllers/navigation.js"></script>
-<script src="scripts/controllers/plate-mgmt/addplatetype.js"></script>
+<script src="scripts/controllers/results/compoundresult.js"></script>
+
+<script src="scripts/controllers/experiment/experimentdetails.js"></script>
 <script src="scripts/controllers/experiment/experimentList.js"></script>
 <script src="scripts/controllers/experiment/createExperiment.js"></script>
+
 <script src="scripts/controllers/admin/settings.js"></script>
 <script src="scripts/controllers/admin/compounds.js"></script>
-<script src="scripts/controllers/plate-mgmt/addplateset.js"></script>
-<script src="scripts/data-vis.js"></script>
-<script src="scripts/controllers/analysis/importresults.js"></script>
-<script src="scripts/controllers/plate-mgmt/platemapeditor.js"></script>
-<script src="scripts/directives/weAddplate.js"></script>
-<script src="scripts/controllers/experiment/experimentdetails.js"></script>
+
+<!-- Services -->
+<script src="scripts/services/restservice.js"></script>
 <script src="scripts/services/userselectionservice.js"></script>
 <script src="scripts/services/labeltableservice.js"></script>
+
+<!-- Directives -->
+<script src="scripts/directives/weAddplate.js"></script>
 <script src="scripts/directives/wepair.js"></script>
+
+<!-- Other -->
+<script src="scripts/data-vis.js"></script>
+
 <!-- endbuild -->
 
 

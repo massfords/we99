@@ -156,6 +156,7 @@ DataVis.prototype.renderSingleHeatMap = function(params){
   // Write row labels.
   var rowTextWidth = 0;
   if(params.rowLabels){
+
     displaySvg.selectAll("text.rowlabels")
       .data(params.rowLabels).enter()
       .append("text")
@@ -172,7 +173,7 @@ DataVis.prototype.renderSingleHeatMap = function(params){
       })
       .attr("font-family", "Arial Black")
       .attr("font-size", function(){ return params.cellFormat.itemSize / 2.5;})
-      .style("text-anchor", "right")
+      .style("text-anchor", "right");
 
     rowTextWidth = rowTextWidth * 4;
   }
@@ -230,7 +231,11 @@ DataVis.prototype.renderSingleHeatMap = function(params){
     .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } )
     .on('mouseup', function(d) { if(params.onMouseUp) {params.onMouseUp(d); } } )
     .on('mousedown', function(d) {if(params.onMouseDown) { params.onMouseDown(d);} })
-    .on('mouvemove', function() { if(params.onMouseMove) { params.onMouseMove();}});
+    .on('mouvemove', function() { if(params.onMouseMove) { params.onMouseMove();}})
+    .append("title")
+    .text(function(d) {
+      return "Well " + d.col + "x" + d.row + " in plate " + d.plate;
+    });
 
   // Add Text
 
@@ -262,7 +267,10 @@ DataVis.prototype.renderSingleHeatMap = function(params){
       }
     })
     .attr("class","well-label")
-    .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } );
+    .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } )
+    .on('mouseup', function(d) { if(params.onMouseUp) {params.onMouseUp(d); } } )
+    .on('mousedown', function(d) {if(params.onMouseDown) { params.onMouseDown(d);} })
+    .on('mouvemove', function() { if(params.onMouseMove) { params.onMouseMove();}});
 
   // If there is a title render it.
 
@@ -318,7 +326,6 @@ DataVis.prototype.addDarkOverlay = function(params){
 };
 
 DataVis.prototype.heatMapColorGuide = function(params){
-  console.log(params);
 
   var iterations = 5;
   var values = [];
@@ -327,7 +334,6 @@ DataVis.prototype.heatMapColorGuide = function(params){
   }
   values.push(params.max);
 
-  console.log(values);
   var loc = d3.select(params.location).html("");
 
   loc.selectAll("rect")
@@ -349,7 +355,6 @@ DataVis.prototype.heatMapColorGuide = function(params){
 };
 
 DataVis.prototype.renderScatterPlot = function(params) {
-  console.log(params);
   var defaults = {
       width: 600,
       height: 600,
@@ -359,12 +364,13 @@ DataVis.prototype.renderScatterPlot = function(params) {
       axisTitle: {
         x: "",
         y: ""
-      }
+      },
+      lineFunction: null
   };
 
 
-$.extend(true, defaults, params);
-params = defaults;
+  $.extend(true, defaults, params);
+  params = defaults;
 
   if(!params.scaleY){
     params.scaleY = {min: null, max: null};
@@ -444,7 +450,7 @@ params = defaults;
     .data(params.data)
     .enter().append("circle")
     .attr("class","dot")
-    .attr("r", 3.5)
+    .attr("r", 4.5)
     .attr("cx", function(d) {
       if(params.xScaleIsDate) {
         return xScale(d.date);
@@ -466,43 +472,173 @@ params = defaults;
     .attr("stroke", function(d) {
       if(d.included){
         return "black";
+        var xs = d3.scale.linear()
+          .domain([params.scaleX.min, params.scaleX.max])
+          .range([50, params.width]);
+
+        var ys = d3.scale.linear()
+          .domain([params.scaleY.min, params.scaleY.max])
+          .range([params.height - 50, 0]);
+
+        var points = [];
+        var diff = ( params.scaleX.max - params.scaleX.min ) / 200;
+        var x = params.scaleX.min;
+        var y = params.lineFunction(x);
+        while(x < params.scaleX.max & y < params.scaleY.max){
+          points.push({
+            x: x,
+            y: params.lineFunction(x)
+          });
+          x += diff;
+          y = params.lineFunction(x);
+        }
+
+
+        var lineFunction = d3.svg.line()
+          .x(function(d) { return  xs(d.x); })
+          .y(function(d) { return ys(d.y); })
+          .interpolate("basis");
+
+        svg.append("path").attr("d", lineFunction(points))
+          .attr("stroke", "blue")
+          .attr("stroke-width", 2)
+          .attr("fill", "none");
+
       }else{
         return "red";
       }
     })
-    .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } );;
+    .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } );
 
+    if(params.lineFunction != null){
+      this.renderLine({
+        hasAxis: false,
+        width: params.width,
+        height: params.height,
+        location: params.location,
+        scaleX: params.scaleX,
+        scaleY: params.scaleY,
+        lineFunction: params.lineFunction,
+        color: "blue"
+      });
+    }
 };
 
+DataVis.prototype.renderLine = function(params) {
+
+  var svg = d3.select(params.location);
+
+  var xs = d3.scale.linear()
+    .domain([params.scaleX.min, params.scaleX.max])
+    .range([50, params.width]);
+
+  var ys = d3.scale.linear()
+    .domain([params.scaleY.min, params.scaleY.max])
+    .range([params.height - 50, 0]);
+
+  var points = [];
+  var diff = ( params.scaleX.max - params.scaleX.min ) / 200;
+  var x = params.scaleX.min;
+  var y = params.lineFunction(x);
+  while(x < params.scaleX.max & y < params.scaleY.max){
+    points.push({
+      x: x,
+      y: params.lineFunction(x)
+    });
+    x += diff;
+    y = params.lineFunction(x);
+  }
+
+  if(params.hasAxis){
+
+    var yScale = d3.scale.linear()
+      .domain([params.scaleY.max, params.scaleY.min])
+      .range([50, (params.height - 50 )]);
+
+    var yAxis = d3.svg.axis()
+      .scale(yScale).orient("left");
+
+    var xScale = d3.svg.axis().scale()
+      .domain([ params.scaleX.min, params.scaleX.max ])
+      .range([50, (params.width - 50 )]);
+
+    var xAxis = d3.svg.axis()
+      .scale(xScale)
+      .orient("bottom")
+      .ticks(5);
+
+
+    // x-axis
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + (params.height - 30) + ")")
+      .call(xAxis)
+      .append("text")
+      .attr("class", "label")
+      .attr("x", params.width - 10)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .text(params.axisTitle.x);
+
+    // y-axis
+    svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(30,0)")
+      .call(yAxis)
+      .append("text")
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text(params.axisTitle.y);
+  }
+
+  var line = d3.svg.line()
+    .x(function(d) { return  xs(d.x); })
+    .y(function(d) { return ys(d.y); })
+    .interpolate("basis");
+
+  svg.append("path").attr("d", line(points))
+    .attr("stroke", params.color)
+    .attr("stroke-width", 2)
+    .attr("fill", "none");
+};
 
 DataVis.prototype.getDummmyPlateData = function (){
 
-  var NOISE = 0.05;
+  var NOISE = 0.1;
 
   function calPoint(x){
-    return  1/(1+Math.exp(-.2 * x));
+    return  1/(1+Math.exp(-.07 * x));
   }
 
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   var dataSet = [];
   var index = 0;
-  for (var num = 0; num < 40; num++) {
+  for (var num = 0; num < 150; num++) {
     var array = [];
     for (var i = 0; i < 9; i++) {
       for (var j = 0; j < 9; j++) {
+
 
         array.push({
           wellIndex: index++,
           row: i,
           col: j,
-          amount: (Math.random() * 200) - 100,
+          amount: (Math.random() * 200),
           included: true,
           wellType: "NORMAL",
-          compound: "A",
+          compound: possible.charAt(Math.floor(Math.random() * possible.length)),
           date: new Date() - (Math.random() * 20000000)
         });
 
-        array[array.length - 1].value = calPoint(array[array.length - 1].amount) + (NOISE * Math.random()) - NOISE;
+        if(Math.random() < 0.10){
+          array[array.length - 1].value = Math.random();
+        }else{
+          array[array.length - 1].value = Math.abs(calPoint(array[array.length - 1].amount - 100) + (NOISE * Math.random()) - NOISE);
+        }
 
         if(Math.random() <= 0.025){
           array[array.length - 1].wellType = "NEG_CONTROL";
@@ -511,13 +647,6 @@ DataVis.prototype.getDummmyPlateData = function (){
           array[array.length - 1].wellType = "POS_CONTROL";
           array[array.length - 1].value = 1.0 - (0.1 * Math.random());
         }
-
-        if(Math.random() <= .33){
-          array[array.length - 1].compound = "B";
-        }else if(Math.random() <= .33){
-          array[array.length - 1].compound = "C";
-        }
-
       }
     }
     dataSet[num] = array;
@@ -533,7 +662,106 @@ DataVis.prototype.getDummmyPlateData = function (){
         pos_avg: Math.round(Math.random() * 100) / 100,
         neg_avg: Math.round(Math.random() * 100) / 100
       };
+      result.data.forEach(function(d) {d.plate = result.name;});
       return result;
     })
   };
+};
+
+DataVis.prototype.linear_regression = function (){
+  var linreg = {},
+    data = [];
+
+  // Assign data to the model. Data is assumed to be an array.
+  linreg.data = function(x) {
+    if (!arguments.length) return data;
+    data = x.slice();
+    return linreg;
+  };
+
+  // Calculate the slope and y-intercept of the regression line
+  // by calculating the least sum of squares
+  linreg.mb = function() {
+    var m, b;
+
+    // Store data length in a local variable to reduce
+    // repeated object property lookups
+    var data_length = data.length;
+
+    //if there's only one point, arbitrarily choose a slope of 0
+    //and a y-intercept of whatever the y of the initial point is
+    if (data_length === 1) {
+      m = 0;
+      b = data[0][1];
+    } else {
+      // Initialize our sums and scope the `m` and `b`
+      // variables that define the line.
+      var sum_x = 0, sum_y = 0,
+        sum_xx = 0, sum_xy = 0;
+
+      // Use local variables to grab point values
+      // with minimal object property lookups
+      var point, x, y;
+
+      // Gather the sum of all x values, the sum of all
+      // y values, and the sum of x^2 and (x*y) for each
+      // value.
+      //
+      // In math notation, these would be SS_x, SS_y, SS_xx, and SS_xy
+      for (var i = 0; i < data_length; i++) {
+        point = data[i];
+        x = point[0];
+        y = point[1];
+
+        sum_x += x;
+        sum_y += y;
+
+        sum_xx += x * x;
+        sum_xy += x * y;
+      }
+
+      // `m` is the slope of the regression line
+      m = ((data_length * sum_xy) - (sum_x * sum_y)) /
+      ((data_length * sum_xx) - (sum_x * sum_x));
+
+      // `b` is the y-intercept of the line.
+      b = (sum_y / data_length) - ((m * sum_x) / data_length);
+    }
+
+    // Return both values as an object.
+    return { m: m, b: b };
+  };
+
+  // a shortcut for simply getting the slope of the regression line
+  linreg.m = function() {
+    return linreg.mb().m;
+  };
+
+  // a shortcut for simply getting the y-intercept of the regression
+  // line.
+  linreg.b = function() {
+    return linreg.mb().b;
+  };
+
+  // ## Fitting The Regression Line
+  //
+  // This is called after `.data()` and returns the
+  // equation `y = f(x)` which gives the position
+  // of the regression line at each point in `x`.
+  linreg.line = function() {
+
+    // Get the slope, `m`, and y-intercept, `b`, of the line.
+    var mb = linreg.mb(),
+      m = mb.m,
+      b = mb.b;
+
+    // Return a function that computes a `y` value for each
+    // x value it is given, based on the values of `b` and `a`
+    // that we just computed.
+    return function(x) {
+      return b + (m * x);
+    };
+  };
+
+  return linreg;
 }

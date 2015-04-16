@@ -19,7 +19,8 @@ angular
     'ui.bootstrap',
     'smart-table',
     'angularFileUpload',
-    'ngJoyRide'
+    'ngJoyRide',
+    "checklist-model"
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -31,6 +32,9 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
+      // ##################
+      // Plate Management
+      // ##################
       .when('/add-plate-set', {
         templateUrl: 'views/plate-mgmt/addplateset.html',
         controller: 'AddPlateSetCtrl'
@@ -42,6 +46,17 @@ angular
       .when('/plate-type-editor', {
         templateUrl: 'views/plate-mgmt/platetypeeditor.html',
         controller: 'PlateTypeEditorCtrl'
+      })
+      .when('/plate-map-editor', {
+        templateUrl: 'views/plate-mgmt/platemapeditor.html',
+        controller: 'PlateMapEditorCtrl'
+      })
+      // ###################
+      // Plate Results
+      // ###################
+      .when('/analysis/importResults', {
+        templateUrl: 'views/plate-analysis/importresults.html',
+        controller: 'ImportResultsCtrl'
       })
       .when('/heatmap', {
         templateUrl: 'views/plate-analysis/heatmap.html',
@@ -59,6 +74,13 @@ angular
         templateUrl: 'views/plate-analysis/doseresponse.html',
         controller: 'DoseResponseCntrl'
       })
+      .when('/compoundresults', {
+        templateUrl: 'views/plate-analysis/compoundresult.html',
+        controller: 'CompoundResultsCntrl'
+      })
+      // #####################
+      // Experiment Management
+      // #####################
       .when('/experiment', {
         templateUrl: 'views/experiment/experimentList.html',
         controller: 'ExperimentListCtrl'
@@ -75,10 +97,9 @@ angular
         templateUrl: 'views/plate-mgmt/addplate.html',
         controller: 'AddPlateCtrl'
       })
-      .when('/plate-map-editor', {
-        templateUrl: 'views/plate-mgmt/platemapeditor.html',
-        controller: 'PlateMapEditorCtrl'
-      })
+      // #####################
+      // Admin
+      // #####################
       .when('/admin/settings', {
         templateUrl: 'views/admin/settings.html',
         controller: 'AdminSettingsCtrl'
@@ -87,13 +108,13 @@ angular
         templateUrl: 'views/admin/compounds.html',
         controller: 'CompoundsCtrl'
       })
-      .when('/analysis/importResults', {
-        templateUrl: 'views/plate-analysis/importresults.html',
-        controller: 'ImportResultsCtrl'
-      })
+      // #####################
+      // Otherwise
+      // #####################
       .otherwise({
         redirectTo: '/experiment'
       });
+
 //})
 ///** Intercept HTTP 401 Forbidden*/
 //.factory('Interceptor401', function(){

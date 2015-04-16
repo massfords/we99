@@ -31,7 +31,7 @@ angular.module('we99App')
 
     // Deletes an experiment from database
     $scope.removeItem=function(row){
-      var confirmed = confirm('Are you sure you want to delete ' + row.name + '?');
+      var confirmed = confirm('Delete \'' + row.name + '\'?');
       if (confirmed) {
         RestService.deleteExperiment(row.id)
           .success(function (response) {
@@ -49,7 +49,7 @@ angular.module('we99App')
 
     // publish an experiment
     $scope.publish = function(experiment) {
-      var confirmed = confirm('Are you sure you want to publish?\n' +
+      var confirmed = confirm('Publish \'experiment.id\'?\n' +
                               'This will lock down the experiment data.');
       if (confirmed) {
         RestService.publishExperiment(experiment.id).then(function success() {

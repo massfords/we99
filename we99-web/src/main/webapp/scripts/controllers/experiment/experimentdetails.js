@@ -26,10 +26,13 @@ angular.module('we99App')
 
       // Deletes a plate from the experiment
       $scope.removePlate = function(plate) {
-        SelectedExperimentSvc.removePlate(plate.id).then(function(){
-          console.log('plate ' + plate.id + ' was  removed');
-          $scope.refreshPlates();
-        });
+        var confirmed = confirm('Delete \''+ plate.name +'\'?');
+        if (confirmed) {
+          SelectedExperimentSvc.removePlate(plate.id).then(function () {
+            console.log('plate ' + plate.id + ' was  removed');
+            $scope.refreshPlates();
+          });
+        }
       };
 
       // Gets the list of experiment plates from the server
@@ -37,6 +40,7 @@ angular.module('we99App')
         SelectedExperimentSvc.getPlates($scope.experiment.id).then(function (plates){
           $scope.plates = plates;
           $scope.displayedPlates = plates;
+          $scope.show.addPlateForm = false;
         });
       }
 

@@ -122,7 +122,7 @@ angular.module('we99App')
         onCellClick: function(d) {
           $scope.data[$scope.selectedIndex].data.forEach(function(dinner){
             if(dinner.wellIndex === d.wellIndex){
-              dinner.included = false;
+              dinner.included = !dinner.included;
             }
           });
           renderListView($scope.data);
@@ -228,7 +228,6 @@ angular.module('we99App')
         doPaging: function(direction) {
           switch(direction){
             case 'NEXT':
-              console.log($scope.pagination);
               if( ( ($scope.pagination.pageSize * ($scope.pagination.paginationIndex + 1) )) < $scope.pagination.of){
                 $scope.pagination.paginationIndex ++;
               }

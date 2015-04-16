@@ -66,7 +66,7 @@ angular.module('we99App')
       });
 
     function fullDisplayRefresh(){
-      d3.select(displayBoxLocation).html("");
+      var svg = d3.select(displayBoxLocation).html("");
       v.renderScatterPlot({
         location: displayBoxLocation,
         data: $scope.compound.wells,
@@ -83,6 +83,7 @@ angular.module('we99App')
           y: "Result Value"
         }
       });
+
     }
 
   }]);

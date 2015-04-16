@@ -3,10 +3,10 @@
 
 /**
  * @ngdoc function
- * @name we99App.controller:WellQcCntrl
+ * @name we99App.controller:DoseResponseCntrl
  * @description
  *
- * # HeatmapCtrl
+ * # DoseResponseCntrl
  * Controller of the we99App
  */
 angular.module('we99App')
@@ -66,6 +66,18 @@ angular.module('we99App')
 
     function fullDisplayRefresh(){
       d3.select(displayBoxLocation).html("");
+
+      var data = [];
+      $scope.compound.wells.forEach(function(d){
+        if(d.included){
+          data.push( [d.amount, d.value] );
+        }
+      });
+
+      var lineFit = v.linear_regression()
+        .data(data)
+        .line();
+
       v.renderScatterPlot({
         location: displayBoxLocation,
         data: $scope.compound.wells,
@@ -82,7 +94,8 @@ angular.module('we99App')
           x: "Dose",
           y: "Response"
         },
-        scaleY: {min: 0.0, max: 1.0}
+        scaleY: {min: 0.0, max: 1.0},
+        lineFunction: function (x) { return lineFit(x) ; }
       });
     }
 
