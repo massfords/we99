@@ -16,6 +16,12 @@ public class Sample extends BaseEntity {
 
     private Long id;
 
+    public Sample() {}
+
+    public Sample(Double value) {
+        this.value = value;
+    }
+
     /**
      * The value from the device
      */

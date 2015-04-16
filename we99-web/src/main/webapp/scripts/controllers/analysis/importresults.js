@@ -8,13 +8,16 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ImportResultsCtrl', function ($scope,$upload,RestURLs,RestService) {
+  .controller('ImportResultsCtrl', function ($scope,$upload,RestURLs,RestService,experiment,plate) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
+    $scope.experiment=experiment;
+    $scope.plate=plate;
+    //nonsense
     $scope.allPlates=[];
     $scope.inhibitionValues=[10,20,30,40,50];
     $scope.calculationValues=['EC50','Heatmap','All'];
@@ -30,23 +33,23 @@ angular.module('we99App')
         });
 
     //autoupload watch
-  //$scope.$watch('files', function () {
-  //  $scope.upload($scope.files);
-  //});
+  $scope.$watch('files', function () {
+    $scope.upload($scope.files);
+  });
 
 
 
     $scope.upload = function () {
-      if(!$scope.selectedPlate){
-        $scope.errorText="You must select a plate before uploading results";
-        return;
-      }
+      //if(!$scope.selectedPlate){
+      //  $scope.errorText="You must select a plate before uploading results";
+      //  return;
+      //}
 
       if ($scope.files && $scope.files.length) {
         for (var i = 0; i < $scope.files.length; i++) {
           var file = $scope.files[i];
           $upload.upload({
-            url: RestURLs.resultsUpload($scope.currentExperiment.id,$scope.selectedPlate.id),
+            url: RestURLs.resultsUpload($scope.experiment.id,plate.id),
             method: "POST",
             file: file
           }).progress(function (evt) {

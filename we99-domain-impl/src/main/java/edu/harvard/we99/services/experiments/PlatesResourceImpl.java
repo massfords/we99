@@ -6,6 +6,7 @@ import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.PlateMap;
 import edu.harvard.we99.domain.PlateMapMergeInfo;
 import edu.harvard.we99.domain.Well;
+import edu.harvard.we99.domain.WellLabelMapping;
 import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.domain.lists.Plates;
@@ -26,7 +27,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author mford
@@ -58,6 +63,7 @@ public abstract class PlatesResourceImpl implements PlatesResource {
 
     @Override
     public Plate create(PlateMapMergeInfo mergeInfo) {
+        validate(mergeInfo);
         try {
             PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
 
@@ -98,6 +104,45 @@ public abstract class PlatesResourceImpl implements PlatesResource {
         } catch(Exception e) {
             log.error("Error creating a plate from merge info", e);
             throw new WebApplicationException(Response.status(500).build());
+        }
+    }
+
+    private void validate(PlateMapMergeInfo mergeInfo) {
+        try {
+            for (WellLabelMapping wlm : mergeInfo.getMappings().values()) {
+                if (wlm.getWellType() == WellType.EMPTY) {
+                    if (wlm.getDose() != null) {
+                        throw new WebApplicationException(
+                                Response.status(409)
+                                        .entity("Wells marked as empty cannot contain a compound")
+                                        .build());
+                    }
+                } else {
+                    if (wlm.getDose() == null) {
+                        throw new WebApplicationException(
+                                Response.status(409)
+                                        .entity("Non-empty wells must have a Dose")
+                                        .build());
+                    }
+                    if (wlm.getDose().getCompound() == null) {
+                        String message = "Dose in well label %s is missing its compound";
+                        throw new WebApplicationException(
+                                Response.status(409)
+                                        .entity(String.format(message, wlm.getLabel()))
+                                        .build());
+                    }
+                    if (wlm.getDose().getAmount() == null) {
+                        String message = "Dose in well label %s is missing its amount";
+                        throw new WebApplicationException(
+                                Response.status(409)
+                                        .entity(String.format(message, wlm.getLabel()))
+                                        .build());
+                    }
+                }
+            }
+        } catch(WebApplicationException e) {
+            log.error("error validating plate merge request:" + e.getResponse().getEntity().toString());
+            throw e;
         }
     }
 

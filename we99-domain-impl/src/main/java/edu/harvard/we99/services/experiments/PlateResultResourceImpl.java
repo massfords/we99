@@ -9,7 +9,9 @@ import edu.harvard.we99.domain.results.StatusChange;
 import edu.harvard.we99.domain.results.WellResults;
 import edu.harvard.we99.domain.results.analysis.NormalizationFunction;
 import edu.harvard.we99.domain.results.analysis.PlateMetricsFunction;
+import edu.harvard.we99.services.io.MatrixParser;
 import edu.harvard.we99.services.io.PlateResultCSVReader;
+import edu.harvard.we99.services.io.PlateResultsReader;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
 import org.apache.commons.io.IOUtils;
@@ -56,7 +58,7 @@ public class PlateResultResourceImpl implements PlateResultResource {
     }
 
     @Override
-    public PlateResult uploadResults(InputStream csv) {
+    public PlateResult uploadResults(String format, InputStream csv) {
         // get the plate w/ the given id
         // read the csv into a PlateResult
         // assign the Plate / Experiment to the PlateResult
@@ -66,7 +68,7 @@ public class PlateResultResourceImpl implements PlateResultResource {
         try {
             source = IOUtils.toString(csv);
 
-            PlateResultCSVReader reader = new PlateResultCSVReader();
+            PlateResultsReader reader = createReader(format);
             PlateResult pr = reader.read(new BufferedReader(new StringReader(source)));
             pr.setPlate(new Plate().setId(plateId).setExperimentId(experiment.getId()));
             pr.setSource(source);
@@ -80,6 +82,10 @@ public class PlateResultResourceImpl implements PlateResultResource {
             throw new WebApplicationException(Response.serverError().build());
         }
 
+    }
+
+    private PlateResultsReader createReader(String format) {
+        return "matrix".equalsIgnoreCase(format)? new MatrixParser() : new PlateResultCSVReader();
     }
 
     @Override
