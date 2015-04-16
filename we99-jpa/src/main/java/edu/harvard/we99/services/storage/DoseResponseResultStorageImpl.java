@@ -7,7 +7,14 @@ import edu.harvard.we99.domain.FitParameter;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.ResultStatus;
-import edu.harvard.we99.services.storage.entities.*;
+import edu.harvard.we99.services.storage.entities.CompoundEntity;
+import edu.harvard.we99.services.storage.entities.DoseResponseResultEntity;
+import edu.harvard.we99.services.storage.entities.ExperimentPointEntity;
+import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.PlateEntity;
+import edu.harvard.we99.services.storage.entities.QDoseResponseResultEntity;
+import edu.harvard.we99.services.storage.entities.QExperimentPointEntity;
+import edu.harvard.we99.services.storage.entities.WellEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -17,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
-import static edu.harvard.we99.services.storage.TypeAheadLike.applyTypeAhead;
 
 /**
  * @author alan orcharton
@@ -39,7 +45,7 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         List<DoseResponseResult> list = new ArrayList<>(resultList.size());
         resultList.forEach(drre -> list.add(Mappers.DOSERESPONSES.map(drre)));
 
-        Integer i = count != null ? count.intValue() : null;
+        Integer i = count.intValue();
         return new DoseResponseResults(count,0,i,list);
 
     }
@@ -74,7 +80,7 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
     @Transactional
     public DoseResponseResult create(DoseResponseResult drr) {
         drr.setId(null);
-        DoseResponseResultEntity entity = null;
+        DoseResponseResultEntity entity;
         JPAQuery query = new JPAQuery(em);
         query.from(QDoseResponseResultEntity.doseResponseResultEntity)
                 .where(QDoseResponseResultEntity.doseResponseResultEntity
@@ -113,14 +119,13 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
     public void delete(Long id) {
         DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class,id);
         em.remove(dre);
-
     }
 
     @Override
     @Transactional
     public DoseResponseResult addFitParameter(Long doseResponseId, FitParameter fitParam) throws EntityNotFoundException {
         DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class, doseResponseId);
-        dre.getFitParameterMap().put(fitParam.getName(),fitParam);
+        dre.getFitParameterMap().put(fitParam.getName(), fitParam);
         em.persist(dre);
         return Mappers.DOSERESPONSES.map(dre);
     }
@@ -133,7 +138,6 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         em.merge(dre);
         return Mappers.DOSERESPONSES.map(dre);
     }
-
 
     @Override
     @Transactional
@@ -148,16 +152,12 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
                 .join(QDoseResponseResultEntity.doseResponseResultEntity.experimentPoints, expoints)
                 .where(expoints.associatedWell.id.eq(type.getAssociatedWell().getId()));
 
-
         long count = query.count();
         if (count > 0 ){
-            Long targetId = type.getAssociatedWell().getId();
+//            Long targetId = type.getAssociatedWell().getId();
             //ExperimentPointEntity targetPointEntity = em.find(ExperimentPointEntity.class, get(targetId));
             return type;
-
         }
-
-
 
         ExperimentPointEntity epe = Mappers.EXPERIMENTPOINT.mapReverse(type);
         epe.setAssociatedPlate(pe);
@@ -167,7 +167,6 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         em.persist(epe);
 
         return Mappers.EXPERIMENTPOINT.map(epe);
-
     }
 
     @Override
@@ -190,7 +189,6 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         em.persist(epe);
 
         return Mappers.EXPERIMENTPOINT.map(epe);
-
     }
 
     @Transactional
@@ -225,13 +223,7 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         dre.getCurveFitPoints().clear();
         type.getCurveFitPoints().forEach(pt -> dre.addCurveFitPoint(Mappers.CURVEFITPOINT.mapReverse(pt)));
         dre.getCurveFitPoints().forEach(em::merge);
-        type.getFitParameterMap().values().forEach(param -> dre.addFitParameter(param));
+        type.getFitParameterMap().values().forEach(dre::addFitParameter);
 
     }
-
-
-
-
-
-
 }

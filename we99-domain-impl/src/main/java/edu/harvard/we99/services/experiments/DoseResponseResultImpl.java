@@ -1,6 +1,12 @@
 package edu.harvard.we99.services.experiments;
 
-import edu.harvard.we99.domain.*;
+import edu.harvard.we99.domain.Compound;
+import edu.harvard.we99.domain.Coordinate;
+import edu.harvard.we99.domain.Dose;
+import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.ExperimentPoint;
+import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.Sample;
 import edu.harvard.we99.domain.results.WellResults;
@@ -8,10 +14,12 @@ import edu.harvard.we99.domain.results.analysis.CurveFit;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 
-
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by HUID 70786729 on 4/1/15.
@@ -22,9 +30,6 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
     private final PlateStorage plateStorage;
     private final DoseResponseResultStorage doseResponseResultStorage;
     private Experiment experiment;
-
-
-
 
     public DoseResponseResultImpl(PlateStorage plateStorage, DoseResponseResultStorage doseResponseStorage){
         this.plateStorage = plateStorage;
@@ -61,7 +66,6 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
     @Override
     public DoseResponseResult create(Compound compound, List<Plate> plates) {
 
-
         DoseResponseResult drr = new DoseResponseResult()
                 .setCompound(compound);
         DoseResponseResult result = doseResponseResultStorage.create(drr);
@@ -79,14 +83,11 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
                                 .setX(d.getAmount().getNumber());
 
                         doseResponseResultStorage.addExperimentPoint(result.getId(),ep);
-
-
                     }
 
                 }
             }
         }
-
 
         return doseResponseResultStorage.get(result.getId());
 
@@ -121,15 +122,22 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
 
         Set<Long> plateIds = plateIdPointsMap.keySet();
         Map<Long,PlateResultResource> resultResources = new HashMap<>();
-        plateIds.forEach(id -> {    PlateResultResource prr =createPlateResultResource();
+        plateIds.forEach(id -> {    // what's going on with PlateResultResource prr here? You're creating it,
+                                    // assigning some stuff on it and then disregarding it
+                                    PlateResultResource prr =createPlateResultResource();
                                     prr.setPlateId(id);
                                     prr.setExperiment(experiment);
-                                    resultResources.put(id, createPlateResultResource());
-                                    });
+                                    // I made this more obvious now. I don't think prr == prr2
+                                    // is what you want.
+                                    PlateResultResource prr2 = createPlateResultResource();
+                                    //assert prr != prr2; // this assertion will fail
+                                    resultResources.put(id, prr2);
+                                });
 
 
         plateIdPointsMap.forEach((pid, list) -> {
-            Map<Coordinate, WellResults> wr = resultResources.get(pid).get().getWellResults();
+            PlateResultResource plateResultResource = resultResources.get(pid);
+            Map<Coordinate, WellResults> wr = plateResultResource.get().getWellResults();
             list.forEach(point -> {
                 WellResults results = wr.get(point.getAssociatedWell().getCoordinate());
                 if (results != null) {
@@ -160,8 +168,6 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
 
     }
 
-
-
     public abstract PlateResultResource createPlateResultResource();
 
     @Override
@@ -183,7 +189,6 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
     @Override
     public void setDoseResponseId(Long doseResponseId) {
         this.doseResponseResultId = doseResponseId;
-
     }
 
 }

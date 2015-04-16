@@ -3,7 +3,7 @@ package edu.harvard.we99.domain;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 
 import javax.annotation.Generated;
-import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author alan orcharton
@@ -17,6 +17,7 @@ public class AbstractPoint<T extends AbstractPoint> extends BaseEntity {
 
     private Double someText;
 
+    @XmlTransient
     protected DoseResponseResult associatedDoseResponseResult;
 
 

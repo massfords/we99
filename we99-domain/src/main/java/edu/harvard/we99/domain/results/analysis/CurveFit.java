@@ -1,19 +1,13 @@
 package edu.harvard.we99.domain.results.analysis;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.harvard.we99.domain.CurveFitPoint;
-import edu.harvard.we99.domain.ExperimentPoint;
-import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.results.DoseResponseResult;
-import static edu.harvard.we99.util.JacksonUtil.toJsonString;
-
 import org.apache.cxf.helpers.IOUtils;
+
+import java.io.InputStream;
+import java.io.StringWriter;
 
 import static edu.harvard.we99.util.JacksonUtil.fromString;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
-
-import java.io.*;
-import java.net.URL;
 
 /**
  * @author alan orcharton
@@ -41,11 +35,11 @@ public class CurveFit {
 
             StringWriter writer = new StringWriter();
             String theString = IOUtils.toString(in,"UTF-8");
-            response = (DoseResponseResult)  fromString(theString,DoseResponseResult.class);
+            response = fromString(theString,DoseResponseResult.class);
 
 
         } catch (Exception e){
-            System.out.println("Found and Exception : " + e);
+            System.out.println("Found an Exception : " + e);
         }
         return response;
     }
