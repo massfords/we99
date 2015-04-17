@@ -5,16 +5,7 @@ import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.CompoundService;
 import edu.harvard.we99.services.PlateMapService;
-import edu.harvard.we99.services.storage.entities.ExperimentEntity;
-import edu.harvard.we99.services.storage.entities.Mappers;
-import edu.harvard.we99.services.storage.entities.PermissionEntity;
-import edu.harvard.we99.services.storage.entities.PlateEntity;
-import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
-import edu.harvard.we99.services.storage.entities.ProtocolEntity;
-import edu.harvard.we99.services.storage.entities.RoleEntity;
-import edu.harvard.we99.services.storage.entities.UserEntity;
-import edu.harvard.we99.services.storage.entities.VersionEntity;
-import edu.harvard.we99.services.storage.entities.WellEntity;
+import edu.harvard.we99.services.storage.entities.*;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
@@ -27,10 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Populates the database with some initial data. We'll only execute this if
@@ -72,6 +60,7 @@ public class DbPopulator {
 
             loadCompounds(cs);
 
+
             loadExperiments(sf, em);
 
             // add plates
@@ -84,6 +73,18 @@ public class DbPopulator {
     private void loadCompounds(CompoundService cs) {
         cs.upload(getClass().getResourceAsStream("/sample-data/compounds.csv"));
     }
+
+
+    private List<WellAmountMapping> loadWellContents(StreamFactory sf) throws IOException {
+        // create new doses
+        List<WellAmountMapping> amounts =  loadData(WellAmountMapping.class, sf,
+                "/sample-data/wellamounts.csv","wellamounts");
+        return amounts;
+
+    }
+
+
+
 
     private void loadExperiments(StreamFactory sf, EntityManager em) throws IOException {
         // get the corning plate type
@@ -98,8 +99,8 @@ public class DbPopulator {
         List<UserEntity> userEntities = query.getResultList();
 
         PlateTypeEntity pte = em.createQuery("select pte from PlateTypeEntity pte", PlateTypeEntity.class).getResultList().get(0);
-
-
+        CompoundEntity cmpe = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().get(0);
+        Compound comp1 = new Compound(cmpe.getId(),cmpe.getName());
 
         for(ExperimentMapping expMapping : experimentMappings) {
             ExperimentEntity ee = new ExperimentEntity(expMapping.getName())
@@ -132,6 +133,30 @@ public class DbPopulator {
                     }
                 }
             }
+            PlateEntity peDose = new PlateEntity()
+                    .setName("plate dose resp for exp " + ee.getId())
+                    .setBarcode("doseresp1")
+                    .setExperiment(ee)
+                    .setPlateType(pte);
+            em.persist(peDose);
+            pte.addPlate(peDose);
+            em.merge(pte);
+            List<WellAmountMapping> wellcontents = loadWellContents(sf);
+            wellcontents.forEach(wcontent -> {
+                WellEntity we = new WellEntity(wcontent.getRow(), wcontent.getCol());
+                we.setLabel("loc", "well" + wcontent.getRow() + "," + wcontent.getCol());
+                we.setType(wcontent.getType());
+                DoseEntity de = new DoseEntity().setCompound(cmpe);
+                Set<DoseEntity> doseSet = new HashSet<>();
+                doseSet.add(de.setAmount(new Amount(wcontent.getNumber(), wcontent.getUnits())));
+                we.setContents(doseSet);
+                peDose.withWells(we);
+                em.persist(we);
+                em.merge(peDose);
+            });
+
+            
+            
         }
 
         em.getTransaction().commit();

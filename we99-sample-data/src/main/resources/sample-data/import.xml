@@ -67,4 +67,18 @@
             <field name="desc" required="true" trim="true"/>
         </record>
     </stream>
+    <stream name="wellamounts" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <record name="wellamount" class="edu.harvard.we99.domain.WellAmountMapping">
+            <field name="type" required="true" trim="true"/>
+            <field name="wellLabelName" required="true" trim="true"/>
+            <field name="row" required="true" trim="true"/>
+            <field name="col" required="true" trim="true"/>
+            <field name="number" required="true" trim="true"/>
+            <field name="units" required="true" trim="true"/>
+        </record>
+    </stream>
 </beanio>

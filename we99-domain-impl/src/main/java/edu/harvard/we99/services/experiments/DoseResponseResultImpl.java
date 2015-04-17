@@ -129,9 +129,9 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
                                     prr.setExperiment(experiment);
                                     // I made this more obvious now. I don't think prr == prr2
                                     // is what you want.
-                                    PlateResultResource prr2 = createPlateResultResource();
+                                    //PlateResultResource prr2 = createPlateResultResource();
                                     //assert prr != prr2; // this assertion will fail
-                                    resultResources.put(id, prr2);
+                                    resultResources.put(id, prr);
                                 });
 
 
