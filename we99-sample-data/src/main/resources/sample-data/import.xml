@@ -2,6 +2,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03">
 
+    <typeHandler class="edu.harvard.we99.services.io.DateTimeHandler" type="org.joda.time.DateTime"/>
     <!-- 'format' identifies the type of stream -->
     <stream name="plateTypes" format="csv">
         <parser>
@@ -93,6 +94,24 @@
             <field name="value" required="true" trim="true"/>
             <field name="label" required="false" trim="false"/>
             <field name="measuredAt" required="true" trim="true"/>
+        </record>
+    </stream>
+    <stream name="results" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <!-- Detail records are bound to example.Contact -->
+        <record name="result" class="edu.harvard.we99.services.storage.entities.WellResultsEntity">
+            <segment name="coordinate" class="edu.harvard.we99.domain.Coordinate">
+                <field name="row" required="true" trim="true"/>
+                <field name="col" required="true" trim="true"/>
+            </segment>
+            <segment name="samples" class="edu.harvard.we99.services.storage.entities.SampleEntity" collection="list">
+                <field name="value" required="true" trim="true"/>
+                <field name="label" required="false" trim="true"/>
+                <field name="measuredAt" required="false" trim="true"/>
+            </segment>
         </record>
     </stream>
 </beanio>

@@ -66,7 +66,6 @@ public class DbPopulator {
 
             loadCompounds(cs);
 
-            loadDrPlateResults(sf, em);
 
             loadExperiments(sf, em);
 
@@ -95,14 +94,11 @@ public class DbPopulator {
     }
 
 
-    private void loadDrPlateResults(StreamFactory sf, EntityManager em) throws IOException {
-       /*
-        List<DrPlateResultMapping> results = loadData(DrPlateResultMapping.class, sf,
-                                        "/sample-data/drplateresults.csv", "drplateresults");
-                                                                                              */
-       // List<WellResults> wr = loadData()
+    private List<WellResultsEntity> loadDrPlateResults(StreamFactory sf) throws IOException {
 
+       List<WellResultsEntity> wr = loadData(WellResultsEntity.class, sf, "/sample-data/drplateresults.csv","results");
 
+       return wr;
 
     }
 
@@ -127,7 +123,7 @@ public class DbPopulator {
         CompoundEntity cmpe = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().get(0);
 
         // Used for assigning random compounds.
-        List <CompoundEntity> compounds = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().subList(0,20);
+        List <CompoundEntity> compounds = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().subList(0, 20);
 
         Compound comp1 = new Compound(cmpe.getId(),cmpe.getName());
 
@@ -207,6 +203,8 @@ public class DbPopulator {
                 }
 
             }
+
+            //add a dose response plate and results to every experiment data from file.
             PlateEntity peDose = new PlateEntity()
                     .setName("plate dose resp for exp " + ee.getId())
                     .setBarcode("doseresp1")
@@ -228,47 +226,23 @@ public class DbPopulator {
                 em.persist(we);
                 em.merge(peDose);
             });
+            List<WellResultsEntity> wresults = loadDrPlateResults(sf);
+            PlateResultEntity pre = new PlateResultEntity().setPlate(peDose).setSource("testdata");
+            wresults.forEach(r -> {
+                pre.add(r);
+                em.persist(r);
+            });
+            peDose.setResults(pre);
+            em.persist(pre);
+            em.merge(peDose);
 
-
-            
         }
 
         em.getTransaction().commit();
 
-       // loadResults(em, sf, es);
-
-
     }
 
-    private void loadResults(EntityManager em, ExperimentService es){
 
-        TypedQuery<ExperimentEntity> query = em.createQuery("select exp from ExperimentEntity as exp", ExperimentEntity.class);
-        List<ExperimentEntity> expList = query.getResultList();
-        for(ExperimentEntity e : expList){
-            TypedQuery<PlateEntity> ptquery = em.createQuery("select plates from PlateEntity as plates", PlateEntity.class);
-            List<PlateEntity> ptlist = ptquery.getResultList();
-            for(PlateEntity plate : ptlist){
-               // addPlateResult(sf,em);
-            }
-
-        }
-    }
-
-    private void addPlateResult(StreamFactory sf, EntityManager em){
-
-    }
-
-    private PlateEntity selectPlate(EntityManager em, DrPlateResultMapping drpm){
-        PlateEntity pe;
-        try {
-            TypedQuery<PlateEntity> query = em.createQuery("select pe from PlateEntity as pe where pe.name=:name", PlateEntity.class);
-            query.setParameter("name", drpm.getLabel());
-            pe = query.getSingleResult();
-        } catch (NoResultException e){
-            pe = null;
-        }
-        return pe;
-    }
 
     private ProtocolEntity selectProtocol(EntityManager em, ExperimentMapping expMapping) {
         ProtocolEntity pe;
