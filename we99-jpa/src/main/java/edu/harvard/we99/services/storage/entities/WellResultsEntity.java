@@ -22,6 +22,8 @@ import java.util.List;
 @Entity
 @Table(name = "wellresults")
 public class WellResultsEntity {
+
+
     /**
      * Primary key field is auto generated
      */
@@ -36,6 +38,32 @@ public class WellResultsEntity {
     private Coordinate coordinate;
 
     private ResultStatus resultStatus = ResultStatus.INCLUDED;
+
+    /**
+     * Default no argument constructor;
+     */
+    public WellResultsEntity(){
+    }
+
+    /**
+     * Helper constructor for creating a well results entity at a particular
+     * row and column.
+     *
+     * @param row
+     * @param col
+     */
+    public WellResultsEntity(int row, int col){
+        coordinate = new Coordinate(row,col);
+    }
+
+    /**
+     * Add the sample to the samples property.
+     *
+     * @param sampleEntity
+     */
+    public void addSample(SampleEntity sampleEntity){
+        samples.add(sampleEntity);
+    }
 
     /**
      * All of the samples associated w/ this well's results. This may be multiple

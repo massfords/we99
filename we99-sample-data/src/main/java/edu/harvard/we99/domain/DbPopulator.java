@@ -12,6 +12,7 @@ import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.services.storage.entities.*;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
+import org.joda.time.DateTime;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 
@@ -109,6 +110,8 @@ public class DbPopulator {
 
 
     private void loadExperiments(StreamFactory sf, EntityManager em) throws IOException {
+
+        Random rand = new Random();
         // get the corning plate type
         List<ExperimentMapping> experimentMappings = loadData(
                 ExperimentMapping.class, sf,
@@ -122,6 +125,10 @@ public class DbPopulator {
 
         PlateTypeEntity pte = em.createQuery("select pte from PlateTypeEntity pte", PlateTypeEntity.class).getResultList().get(0);
         CompoundEntity cmpe = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().get(0);
+
+        // Used for assigning random compounds.
+        List <CompoundEntity> compounds = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().subList(0,20);
+
         Compound comp1 = new Compound(cmpe.getId(),cmpe.getName());
 
         for(ExperimentMapping expMapping : experimentMappings) {
@@ -136,24 +143,69 @@ public class DbPopulator {
 
             // add some plates to the experiment
             for(int i=0; i<3; i++) {
+
                 PlateEntity pe = new PlateEntity()
                         .setName("plate " + i + " for exp " + ee.getId())
                         .setBarcode("abc" + i)
                         .setExperiment(ee)
                         .setPlateType(pte);
+
+                PlateResultEntity pre = new PlateResultEntity();
+                pre.setSource("Test Lab");
+                pre.setPlate(pe);
+                pe.setResults(pre);
+
+                em.persist(pre);
                 em.persist(pe);
                 pte.addPlate(pe);
                 em.merge(pte);
+
+                // Used for the well result assignment date.
+                DateTime analysisDate = new DateTime().minusMinutes(rand.nextInt(10000));
                 for(int row=0; row<pte.getDim().getRows(); row++) {
                     for(int col=0; col<pte.getDim().getCols(); col++) {
                         WellEntity we = new WellEntity(row, col);
                         we.setLabel("loc", "well" + row + "," + col);
-                        we.setType(WellType.EMPTY);
+
+                        // Add control wells if you're in the first or last column.
+                        // Positive are on the top of the plate, and negative are on
+                        // the bottom of the plate.
+                        if(col == 0 || col == pte.getDim().getCols() - 1){
+                            if(row / pte.getDim().getRows() > 0.5) {
+                                we.setType(WellType.NEGATIVE);
+                            }else{
+                                we.setType(WellType.POSITIVE);
+                            }
+                        }else{
+                            we.setType(WellType.COMP);
+                        }
+                        Set <DoseEntity> doses = new HashSet<>();
+
+                        Amount amount = new Amount();
+                        amount.setUnits(DoseUnit.MICROMOLAR);
+                        amount.setNumber(Math.random());
+
+                        DoseEntity dose = new DoseEntity();
+                        dose.setCompound(compounds.get(rand.nextInt(20)));
+                        dose.setWell(we);
+                        dose.setAmount(amount);
+                        doses.add(dose);
+                        we.setContents(doses);
+
                         pe.withWells(we);
                         em.persist(we);
                         em.merge(pe);
+
+                        // Create a random well result.
+                        WellResultsEntity wre = new WellResultsEntity(row, col);
+                        wre.addSample(new SampleEntity().setMeasuredAt(analysisDate).setValue(rand.nextDouble()));
+                        pre.add(wre);
+                        em.persist(wre);
+                        em.merge(pre);
+
                     }
                 }
+
             }
             PlateEntity peDose = new PlateEntity()
                     .setName("plate dose resp for exp " + ee.getId())

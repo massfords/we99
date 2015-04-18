@@ -10,11 +10,13 @@ import edu.harvard.we99.services.storage.entities.PlateEntity;
 import edu.harvard.we99.services.storage.entities.PlateResultEntity;
 import edu.harvard.we99.services.storage.entities.QPlateResultEntity;
 import edu.harvard.we99.services.storage.entities.WellResultsEntity;
+import org.hibernate.Hibernate;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +57,15 @@ public class ResultStorageImpl implements ResultStorage {
                 .map(Mappers.PLATERESULT::map)
                 .collect(Collectors.toList());
         return new PlateResults(count, page, pageSize, collected);
+    }
+
+    @Override
+    @Transactional
+    public PlateResult getByPlateId(Long plateId) {
+        PlateEntity plate = em.find(PlateEntity.class, plateId);
+        Hibernate.initialize(plate.getWells());
+        PlateResultEntity plateResult = plate.getResults();
+        return mapToDomain(plateResult);
     }
 
     @Override

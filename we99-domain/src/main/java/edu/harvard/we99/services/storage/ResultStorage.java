@@ -14,4 +14,7 @@ public interface ResultStorage extends CRUDStorage<PlateResult> {
 
     PlateResults listAllByExperiment(Long experimentId, Integer page,
                                      Integer pageSize, String typeAhead);
+
+    PlateResult getByPlateId(Long plateId);
+
 }
