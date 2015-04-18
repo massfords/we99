@@ -51,7 +51,7 @@ public class PlateResultResourceImpl implements PlateResultResource {
     @Override
     public PlateResult get() {
         PlateResult plateResult = getPlateResult();
-        if (!plateResult.getPlate().getExperimentId().equals(experiment.getId())) {
+        if (plateResult == null || !plateResult.getPlate().getExperimentId().equals(experiment.getId())) {
             throw new WebApplicationException(Response.status(404).build());
         }
         return plateResult;
@@ -124,9 +124,10 @@ public class PlateResultResourceImpl implements PlateResultResource {
     }
 
     private PlateResult getPlateResult() {
+
         PlateResult plateResult;
         try {
-            plateResult = resultStorage.get(plateId);
+            plateResult = resultStorage.getByPlateId(plateId);
 
         } catch(PersistenceException e) {
             throw new WebApplicationException(Response.status(404).build());

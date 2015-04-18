@@ -43,6 +43,18 @@ angular.module('we99App')
 
         $scope.$watch('selectedExperiment', function(newValue, oldValue){
 
+          var experimentId = newValue.id;
+
+          RestService.getExperimentPlates(experimentId)
+            .success(function(response){
+              var plateIds = reponse.map(function(plate){return plate.id;});
+              console.log(response);
+            }).error(function(response){
+              $scope.errorText="Could not retrieve plate list for expriment [id=" + experimentId + "]";
+            });;
+
+          console.log($scope.selectedExperiment);
+
           // Data Set
           $scope.data = v.getDummmyPlateData(newValue.id).dataSets;
 
