@@ -1,14 +1,19 @@
 package edu.harvard.we99.domain;
 
+import edu.harvard.we99.domain.results.WellResults;
 import edu.harvard.we99.security.AuthenticatedContext;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.CompoundService;
+import edu.harvard.we99.services.ExperimentService;
 import edu.harvard.we99.services.PlateMapService;
+import edu.harvard.we99.services.experiments.PlateResource;
+import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.services.storage.entities.*;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -60,8 +65,10 @@ public class DbPopulator {
 
             loadCompounds(cs);
 
+            loadDrPlateResults(sf, em);
 
             loadExperiments(sf, em);
+
 
             // add plates
             pms.create("5x5", getClass().getResourceAsStream("/sample-data/platemap5x5.csv"));
@@ -75,11 +82,26 @@ public class DbPopulator {
     }
 
 
+
+
+
     private List<WellAmountMapping> loadWellContents(StreamFactory sf) throws IOException {
         // create new doses
         List<WellAmountMapping> amounts =  loadData(WellAmountMapping.class, sf,
                 "/sample-data/wellamounts.csv","wellamounts");
         return amounts;
+
+    }
+
+
+    private void loadDrPlateResults(StreamFactory sf, EntityManager em) throws IOException {
+       /*
+        List<DrPlateResultMapping> results = loadData(DrPlateResultMapping.class, sf,
+                                        "/sample-data/drplateresults.csv", "drplateresults");
+                                                                                              */
+       // List<WellResults> wr = loadData()
+
+
 
     }
 
@@ -155,11 +177,45 @@ public class DbPopulator {
                 em.merge(peDose);
             });
 
-            
+
             
         }
 
         em.getTransaction().commit();
+
+       // loadResults(em, sf, es);
+
+
+    }
+
+    private void loadResults(EntityManager em, ExperimentService es){
+
+        TypedQuery<ExperimentEntity> query = em.createQuery("select exp from ExperimentEntity as exp", ExperimentEntity.class);
+        List<ExperimentEntity> expList = query.getResultList();
+        for(ExperimentEntity e : expList){
+            TypedQuery<PlateEntity> ptquery = em.createQuery("select plates from PlateEntity as plates", PlateEntity.class);
+            List<PlateEntity> ptlist = ptquery.getResultList();
+            for(PlateEntity plate : ptlist){
+               // addPlateResult(sf,em);
+            }
+
+        }
+    }
+
+    private void addPlateResult(StreamFactory sf, EntityManager em){
+
+    }
+
+    private PlateEntity selectPlate(EntityManager em, DrPlateResultMapping drpm){
+        PlateEntity pe;
+        try {
+            TypedQuery<PlateEntity> query = em.createQuery("select pe from PlateEntity as pe where pe.name=:name", PlateEntity.class);
+            query.setParameter("name", drpm.getLabel());
+            pe = query.getSingleResult();
+        } catch (NoResultException e){
+            pe = null;
+        }
+        return pe;
     }
 
     private ProtocolEntity selectProtocol(EntityManager em, ExperimentMapping expMapping) {

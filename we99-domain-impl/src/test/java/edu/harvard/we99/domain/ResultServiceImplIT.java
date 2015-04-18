@@ -164,7 +164,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
         /**
          * Removing temporarily until everyone gets python integration
          */
-       // assertJsonEquals(load("/ResultServiceImplIT/all-doseresponse-results.json"),
+        //assertJsonEquals(load("/ResultServiceImplIT/all-doseresponse-results.json"),
         //        toJsonString(newResult), scrubber);
 
     }

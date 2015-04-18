@@ -81,4 +81,18 @@
             <field name="units" required="true" trim="true"/>
         </record>
     </stream>
+    <stream name="drplateresults" format="csv">
+        <parser>
+            <property name="comments" value="#"/>
+            <property name="whitespaceAllowed" value="true"/>
+        </parser>
+        <record name="drplateresult" class="edu.harvard.we99.domain.DrPlateResultMapping">
+            <field name="plateBarcode" required="true" trim="true"/>
+            <field name="row" required="true" trim="true"/>
+            <field name="col" required="true" trim="true"/>
+            <field name="value" required="true" trim="true"/>
+            <field name="label" required="false" trim="false"/>
+            <field name="measuredAt" required="true" trim="true"/>
+        </record>
+    </stream>
 </beanio>
