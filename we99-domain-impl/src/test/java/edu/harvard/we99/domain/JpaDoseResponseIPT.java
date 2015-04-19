@@ -64,6 +64,15 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
         List<DoseResponseResultEntity> drentities = query2.getResultList();
 
     }
+
+
+    @Test
+    public void testGettingPlateIds() throws Exception {
+        doseResponseResultStorage.createAll(1L);
+        List<Long> ids = doseResponseResultStorage.getPlateIds(1L);
+
+
+    }
     @Test
     public void testGettingAllCompoundsByExperiment() throws Exception{
 

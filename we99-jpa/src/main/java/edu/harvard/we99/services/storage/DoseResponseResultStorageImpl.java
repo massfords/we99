@@ -68,11 +68,15 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
     }
 
     @Transactional
-    public List<Long> getPlateIds(Long experimentId, Long doseResponseId){
+    public List<Long> getPlateIds(Long doseResponseId) throws EntityNotFoundException{
         TypedQuery<DoseResponseResultEntity> query = em.createQuery("select dr from DoseResponseResultEntity dr where dr.id=:id",DoseResponseResultEntity.class);
         query.setParameter("id", doseResponseId);
-        List<DoseResponseResultEntity> response = query.getResultList();
-        response.forEach(resp -> resp.getDoses());
+        DoseResponseResultEntity response = query.getResultList().get(0);
+        List<ExperimentPoint> epts = response.getExperimentPoints();
+        List<Long> plateIds = new ArrayList<>();
+        epts.forEach(ep -> plateIds.add(ep.getPlateId()));
+
+        return plateIds;
 
     }
     @Override

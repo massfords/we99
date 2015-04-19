@@ -43,6 +43,7 @@
     <bean id="doseResponseResultResource" class="edu.harvard.we99.services.experiments.DoseResponseResultImpl" scope="prototype">
         <constructor-arg ref="plateStorage"/>
         <constructor-arg ref="doseResponseResultStorage"/>
+        <constructor-arg ref="resultStorage"/>
         <lookup-method name="createPlateResultResource" bean="plateResultResource" />
     </bean>
 

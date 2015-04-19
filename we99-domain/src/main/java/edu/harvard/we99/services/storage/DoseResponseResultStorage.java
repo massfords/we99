@@ -16,6 +16,7 @@ import java.util.List;
 public interface DoseResponseResultStorage extends CRUDStorage<DoseResponseResult> {
 
     public void createAll(Long experimentId);
+    List<Long> getPlateIds(Long doseResponseId);
     ExperimentPoint addExperimentPoint(Long doseResponseId, ExperimentPoint point);
     ExperimentPoint updateExperimentPoint(Long doseResponseId, ExperimentPoint type);
     void updateAllExperimentPoints(Long doseResponseId,List<ExperimentPoint> experimentPointTypes);
