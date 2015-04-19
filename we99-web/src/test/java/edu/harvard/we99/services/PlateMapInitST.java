@@ -68,13 +68,13 @@ public class PlateMapInitST {
 
     @Test
     public void plate5x5WasCreated() throws Exception {
-        Optional result = findPlate("5x5", 5, 5);
+        Optional result = findPlate("24x16", 5, 5);
         assertTrue(result.isPresent());
     }
 
     @Test
     public void plate5x5HasLabelValues() throws Exception {
-        PlateMap plateMap = (PlateMap)findPlate("5x5", 5, 5).get();
+        PlateMap plateMap = (PlateMap)findPlate("24x16", 5, 5).get();
         Set<String> labels = new HashSet<>();
         for (WellMap well : plateMap.getWells().values()) {
             labels.addAll(
@@ -91,7 +91,7 @@ public class PlateMapInitST {
 
     @Test
     public void plate5x5CreatesTheProperJson() throws Exception {
-        PlateMap plateMap = (PlateMap)findPlate("5x5", 5, 5).get();
+        PlateMap plateMap = (PlateMap)findPlate("24x16", 5, 5).get();
         String actual = toJsonString(plateMap);
         assertJsonEquals(load("/PlateMapInitST/expected5x5.json"), actual, jsonScrubber);
     }

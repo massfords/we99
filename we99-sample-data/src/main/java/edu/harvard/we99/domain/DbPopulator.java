@@ -1,20 +1,29 @@
 package edu.harvard.we99.domain;
 
-import edu.harvard.we99.domain.results.WellResults;
 import edu.harvard.we99.security.AuthenticatedContext;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.CompoundService;
-import edu.harvard.we99.services.ExperimentService;
 import edu.harvard.we99.services.PlateMapService;
-import edu.harvard.we99.services.experiments.PlateResource;
-import edu.harvard.we99.services.experiments.PlatesResource;
-import edu.harvard.we99.services.storage.entities.*;
+import edu.harvard.we99.services.storage.entities.CompoundEntity;
+import edu.harvard.we99.services.storage.entities.DoseEntity;
+import edu.harvard.we99.services.storage.entities.ExperimentEntity;
+import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.PermissionEntity;
+import edu.harvard.we99.services.storage.entities.PlateEntity;
+import edu.harvard.we99.services.storage.entities.PlateResultEntity;
+import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
+import edu.harvard.we99.services.storage.entities.ProtocolEntity;
+import edu.harvard.we99.services.storage.entities.RoleEntity;
+import edu.harvard.we99.services.storage.entities.SampleEntity;
+import edu.harvard.we99.services.storage.entities.UserEntity;
+import edu.harvard.we99.services.storage.entities.VersionEntity;
+import edu.harvard.we99.services.storage.entities.WellEntity;
+import edu.harvard.we99.services.storage.entities.WellResultsEntity;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
 import org.joda.time.DateTime;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
-
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,7 +33,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Populates the database with some initial data. We'll only execute this if
@@ -69,9 +84,8 @@ public class DbPopulator {
 
             loadExperiments(sf, em);
 
-
             // add plates
-            pms.create("5x5", getClass().getResourceAsStream("/sample-data/platemap5x5.csv"));
+            pms.create("24x16", getClass().getResourceAsStream("/sample-data/platemap24x16.csv"));
         } finally {
             em.close();
         }
@@ -81,16 +95,11 @@ public class DbPopulator {
         cs.upload(getClass().getResourceAsStream("/sample-data/compounds.csv"));
     }
 
-
-
-
-
     private List<WellAmountMapping> loadWellContents(StreamFactory sf) throws IOException {
         // create new doses
         List<WellAmountMapping> amounts =  loadData(WellAmountMapping.class, sf,
                 "/sample-data/wellamounts.csv","wellamounts");
         return amounts;
-
     }
 
 
@@ -99,11 +108,7 @@ public class DbPopulator {
        List<WellResultsEntity> wr = loadData(WellResultsEntity.class, sf, "/sample-data/drplateresults.csv","results");
 
        return wr;
-
     }
-
-
-
 
     private void loadExperiments(StreamFactory sf, EntityManager em) throws IOException {
 
