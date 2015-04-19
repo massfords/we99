@@ -83,6 +83,7 @@ DataVis.prototype.colorScale =  function(params){
  */
 DataVis.prototype.renderSingleHeatMap = function(params){
 
+  console.log(params);
   // Merge in defaults.
   var defaults = {
     mapClass: "heatmap",
@@ -134,7 +135,7 @@ DataVis.prototype.renderSingleHeatMap = function(params){
   // If fixed size is enabled then derive the cell size to fit the space.
   if(params.mapFormat.fixedsize_x & params.mapFormat.fixedsize_y) {
 
-    if(  params.mapFormat.fixedsize_x / cols >
+    if(  params.mapFormat.fixedsize_x / cols <
          params.mapFormat.fixedsize_y / rows ) {
       // Cols are the limiting factor.
       params.cellFormat.cellSize = ( (params.mapFormat.fixedsize_x  + (params.mapFormat.margin_x * 2) ) / cols ) -  params.cellFormat.cellMargin;
@@ -605,7 +606,78 @@ DataVis.prototype.renderLine = function(params) {
     .attr("fill", "none");
 };
 
+DataVis.prototype.convertPlateResultData = function(plateResults){
 
+
+  var plateResults = plateResults.map(function(plateResult){
+
+    // Create well array.
+    var wd = [];
+    var row = 0;
+    var col = 0;
+
+    for(row = 0; row < plateResult.plate.plateType.dim.rows; row++){
+      wd.push([]);
+      for(col = 0; col < plateResult.plate.plateType.dim.cols; col++){
+        wd[row].push({ row: row, col: col });
+      }
+    }
+
+    // Build array.
+    plateResult.wellResults.forEach(function(wr){
+
+      row = wr.coordinate.row;
+      col = wr.coordinate.col;
+
+      if(wr.resultStatus === "INCLUDED"){
+        wd[row][col].included = true;
+      }else{
+        wd[row][col].included = false;
+      }
+
+      wd[row][col].value = wr.samples[0].value;
+
+      wd[row][col].date = Date.parse(wr.samples[0].measuredAt);
+
+    });
+    plateResult.plate.wells.forEach(function(well){
+
+      row = well.coordinate.row;
+      col = well.coordinate.col;
+
+      var wellType;
+      switch(well.type){
+        case "COMP": wellType = "NORMAL"; break;
+        case "NEGATIVE": wellType = "NEG_CONTROL"; break;
+        case "POSITIVE": wellType = "POS_CONTROL"; break;
+      }
+
+      wd[row][col].wellType = wellType;
+      wd[row][col].wellIndex = well.id;
+
+      wd[row][col].compound = well.contents[0].compound.name;
+      wd[row][col].amount = well.contents[0].amount.number;
+
+    });
+
+    var dataSet = [];
+    wd.forEach(function(row) {row.forEach(function(d) { dataSet.push(d); })} );
+
+    return {
+      data: dataSet,
+      name: plateResult.plate.barcode,
+      z: 0,
+      z_prime: 0,
+      pos_avg: 0,
+      neg_avg: 0
+    };
+  });
+
+  console.log(plateResults);
+
+  return plateResults;
+
+};
 
 DataVis.prototype.getDummmyPlateData = function (){
 
