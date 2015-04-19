@@ -120,7 +120,8 @@ public class DbPopulator {
         List<UserEntity> userEntities = query.getResultList();
 
         PlateTypeEntity pte = em.createQuery("select pte from PlateTypeEntity pte", PlateTypeEntity.class).getResultList().get(0);
-        CompoundEntity cmpe = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().get(0);
+        CompoundEntity cmpe = em.createQuery("select cmpe from CompoundEntity cmpe where cmpe.name = 'Urea'", CompoundEntity.class).getResultList().get(0);
+
 
         // Used for assigning random compounds.
         List <CompoundEntity> compounds = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().subList(0, 20);

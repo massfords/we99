@@ -1,27 +1,18 @@
 package edu.harvard.we99.services.storage;
 
 import com.mysema.query.jpa.impl.JPAQuery;
-import edu.harvard.we99.domain.Coordinate;
-import edu.harvard.we99.domain.ExperimentPoint;
-import edu.harvard.we99.domain.FitParameter;
+import edu.harvard.we99.domain.*;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.ResultStatus;
-import edu.harvard.we99.services.storage.entities.CompoundEntity;
-import edu.harvard.we99.services.storage.entities.DoseResponseResultEntity;
-import edu.harvard.we99.services.storage.entities.ExperimentPointEntity;
-import edu.harvard.we99.services.storage.entities.Mappers;
-import edu.harvard.we99.services.storage.entities.PlateEntity;
-import edu.harvard.we99.services.storage.entities.QDoseResponseResultEntity;
-import edu.harvard.we99.services.storage.entities.QExperimentPointEntity;
-import edu.harvard.we99.services.storage.entities.WellEntity;
+import edu.harvard.we99.services.storage.entities.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.TypedQuery;
+import java.util.*;
 
 import static edu.harvard.we99.services.EntityListingSettings.pageToFirstResult;
 
@@ -76,9 +67,117 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
 
     }
 
+    @Transactional
+    public List<Long> getPlateIds(Long experimentId, Long doseResponseId){
+        TypedQuery<DoseResponseResultEntity> query = em.createQuery("select dr from DoseResponseResultEntity dr where dr.id=:id",DoseResponseResultEntity.class);
+        query.setParameter("id", doseResponseId);
+        List<DoseResponseResultEntity> response = query.getResultList();
+        response.forEach(resp -> resp.getDoses());
+
+    }
     @Override
     @Transactional
-    public DoseResponseResult create(DoseResponseResult drr) {
+    public void createAll(Long experimentId) throws EntityNotFoundException {
+
+        TypedQuery<DoseResponseResultEntity> query = em.createQuery("select dr from DoseResponseResultEntity dr where dr.experiment.id=:id",DoseResponseResultEntity.class);
+        query.setParameter("id", experimentId);
+        List<DoseResponseResultEntity> existing = query.getResultList();
+        for( DoseResponseResultEntity dre : existing){
+            em.remove(dre);
+        }
+
+
+
+        //Get all plate ids and wells for the experiment
+        TypedQuery<Object[]> query2 = em.createQuery("select distinct pe.id, we  from PlateEntity AS pe JOIN pe.wells as we where pe.experiment.id=:id",Object[].class);
+        query2.setParameter("id", experimentId);
+        List<Object[]> experiment2 = query2.getResultList();
+        experiment2.size();
+
+        //Mapping wellsid to plate Id
+        Map<Long,Long> wellIdToPlateId = new HashMap<>();
+        List<Long> wellId = new ArrayList<>();
+
+        for( Object[] results : experiment2){
+            Long id = (Long) results[0];
+            WellEntity we = (WellEntity) results[1];
+            wellId.add(we.getId());
+            Collections.sort(wellId);
+            wellIdToPlateId.put(we.getId(),id);
+        }
+
+        //Get DoseEntities from Wells
+        //Map the compound Id and DoseEntities
+
+        Map<DoseEntity, Long> dosePlateMap = new HashMap<>();
+        Map<Long, Long> dosetoPlate = new HashMap<>();
+        Map<Long, List<DoseEntity>> compoundDoseMap = new HashMap<>();
+
+        //Iterate all wellId's
+        Iterator it = wellIdToPlateId.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            Long plateId = (Long)pair.getValue();
+            Long wellEntityId = (Long) pair.getKey();
+
+            WellEntity wellEntity = em.find(WellEntity.class, wellEntityId);
+            Set<DoseEntity> doses = wellEntity.getContents();
+            Object[] dosearray = doses.toArray();
+            if (dosearray.length > 0){
+                DoseEntity d = (DoseEntity) dosearray[0];
+                dosePlateMap.put(d, plateId);
+                dosetoPlate.put(d.getId(),plateId);
+
+                //create compoud Id to dose list
+                Long compoundId = d.getCompound().getId();
+                List<DoseEntity> compoundDoseList = compoundDoseMap.get(compoundId);
+                if(compoundDoseList == null) {
+                    compoundDoseList = new ArrayList<DoseEntity>();
+                    compoundDoseList.add(d);
+                    compoundDoseMap.put(compoundId,compoundDoseList);
+                } else {
+                    compoundDoseList.add(d);
+                }
+
+            }
+            //it.remove(); // avoids a ConcurrentModificationException
+        }
+
+        //create DoseResponseResults for each compound
+        Iterator cpdit = compoundDoseMap.entrySet().iterator();
+        while (cpdit.hasNext()) {
+            Map.Entry pair = (Map.Entry)cpdit.next();
+            Long compoundId = (Long)pair.getKey();
+            List<DoseEntity> delist = (List<DoseEntity>)pair.getValue();
+
+            CompoundEntity ce = em.find(CompoundEntity.class, compoundId);
+            ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
+
+            List<ExperimentPoint> expt = new ArrayList<>();
+            delist.forEach(ent -> {
+                Long plateId = dosePlateMap.get(ent);
+                expt.add(new ExperimentPoint(plateId, ent.getId()));
+            });
+            DoseResponseResultEntity dre = new DoseResponseResultEntity()
+                    .setCompound(ce)
+                    .setExperiment(ee);
+            dre.withExperimentPoints(expt);
+            dre.setDoses(delist);
+            em.persist(dre);
+
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public DoseResponseResult create(DoseResponseResult dr) {
+
+        DoseResponseResultEntity dre = new DoseResponseResultEntity();
+
+
+
+        /*
         drr.setId(null);
         DoseResponseResultEntity entity;
         JPAQuery query = new JPAQuery(em);
@@ -94,8 +193,9 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
             updateCompound(drr, entity);
             em.persist(entity);
         }
+        */
+        return Mappers.DOSERESPONSES.map(dre);
 
-        return Mappers.DOSERESPONSES.map(entity);
     }
 
     @Override
@@ -142,6 +242,8 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
     @Override
     @Transactional
     public ExperimentPoint addExperimentPoint(Long doseResponseId, ExperimentPoint type) throws EntityNotFoundException{
+
+        /*
         PlateEntity pe = em.find(PlateEntity.class, type.getAssociatedPlate().getId());
         WellEntity we = em.find(WellEntity.class, type.getAssociatedWell().getId());
         DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class, doseResponseId);
@@ -167,6 +269,8 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         em.persist(epe);
 
         return Mappers.EXPERIMENTPOINT.map(epe);
+        */
+        return new ExperimentPoint();
     }
 
     @Override
@@ -178,6 +282,7 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
     @Override
     @Transactional
     public ExperimentPoint updateExperimentPoint(Long doseResponseId, ExperimentPoint type) throws EntityNotFoundException{
+        /*
         PlateEntity pe = em.find(PlateEntity.class, type.getAssociatedPlate().getId());
         WellEntity we = em.find(WellEntity.class, type.getAssociatedWell().getId());
         DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class, doseResponseId);
@@ -189,14 +294,16 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
         em.persist(epe);
 
         return Mappers.EXPERIMENTPOINT.map(epe);
+        */
+        return new ExperimentPoint();
     }
 
     @Transactional
     public void addWell(Long doseResponseId, Long wellId){
         WellEntity we = em.find(WellEntity.class, wellId);
         DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class, doseResponseId);
-        dre.addWell(wellId, we);
-        em.persist(dre);
+        //dre.addWell(wellId, we);
+        //em.persist(dre);
     }
     @Transactional
     public void addWells(Long doseResponseId,List<Long> wellsId){
@@ -218,12 +325,12 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
     }
 
     private void updateCurveFit(DoseResponseResult type, DoseResponseResultEntity dre){
-
+       /*
         dre.getFitParameterMap().clear();
         dre.getCurveFitPoints().clear();
         type.getCurveFitPoints().forEach(pt -> dre.addCurveFitPoint(Mappers.CURVEFITPOINT.mapReverse(pt)));
         dre.getCurveFitPoints().forEach(em::merge);
         type.getFitParameterMap().values().forEach(dre::addFitParameter);
-
+       */
     }
 }

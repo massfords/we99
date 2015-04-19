@@ -71,7 +71,7 @@ public class DoseResponseResultMapperTest {
         assertEquals("hello",dre.getComments());
     }
 
-
+   /*
     @Test
          public void entityToDomain() throws Exception {
         DoseResponseResultEntity dre = new DoseResponseResultEntity()
@@ -98,6 +98,8 @@ public class DoseResponseResultMapperTest {
         DoseResponseResult drr = Mappers.DOSERESPONSES.map(dre);
         //assertJsonEquals(load("/Mappers/doseresponseresult.json"), toJsonString(fromCaller));
     }
+
+    */
     private WellEntity makeWell() {
         return new WellEntity(1,2).setId(15L);
     }

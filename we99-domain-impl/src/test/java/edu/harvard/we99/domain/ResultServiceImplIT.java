@@ -1,5 +1,6 @@
 package edu.harvard.we99.domain;
 
+import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.ResultStatus;
@@ -153,12 +154,13 @@ public class ResultServiceImplIT extends JpaSpringFixture {
 
         List<Plate> platesfordr = new ArrayList<>();
         platesfordr.add(plate);
-        DoseResponseResult drr = dr.createForCompound(c2, platesfordr);
-        DoseResponseResultResource d3 = dr.getDoseResponseResults(drr.getId());
+        //DoseResponseResult drr = dr.createForCompound(c2, platesfordr);
+        //DoseResponseResultResource d3 = dr.getDoseResponseResults(drr.getId());
+        DoseResponseResults results = dr.generateAllResults(0, 100, "");
 
 
         PlateResult plateResult = plates.getPlateResult().uploadResults("csv", stream("/ResultServiceImplIT/results-single.csv"));
-        DoseResponseResult newResult = d3.addResponseValues();
+        //DoseResponseResult newResult = d3.addResponseValues();
         Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey);
         // assert the results
         /**

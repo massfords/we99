@@ -37,4 +37,5 @@ public class WellEntity extends AbstractWellEntity<WellEntity> {
         this.contents = contents;
         return this;
     }
+
 }

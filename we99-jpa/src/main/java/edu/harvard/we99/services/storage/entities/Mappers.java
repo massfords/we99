@@ -30,8 +30,7 @@ public class Mappers {
     public static final BoundMapperFacade<WellEntity,Well> WELL;
     public static final BoundMapperFacade<WellResultsEntity,WellResults> WELLRESULT;
     public static final BoundMapperFacade<LabelEntity,Label> LABEL;
-    public static final BoundMapperFacade<ExperimentPointEntity,ExperimentPoint> EXPERIMENTPOINT;
-    public static final BoundMapperFacade<CurveFitPointEntity,CurveFitPoint> CURVEFITPOINT;
+
 
 
     private static final MapperFactory mapperFactory =
@@ -52,13 +51,6 @@ public class Mappers {
         mapperFactory.getConverterFactory().registerConverter(
                 new PassThroughConverter(FitParameter.class));
 
-
-
-        mapperFactory
-                .classMap(CurveFitPointEntity.class, CurveFitPoint.class)
-                .mapNullsInReverse(false)
-                .byDefault()
-                .register();
 
         mapperFactory
                 .classMap(CompoundEntity.class, Compound.class)
@@ -152,14 +144,7 @@ public class Mappers {
                 .fieldAToB("compound", "compound")
                 .byDefault()
                 .register();
-        mapperFactory
-                .classMap(ExperimentPointEntity.class, ExperimentPoint.class)
-                .mapNullsInReverse(false)
-                .fieldAToB("associatedDoseResponseResult", "associatedDoseResponseResult")
-                .fieldAToB("associatedPlate", "associatedPlate")
-                .fieldAToB("associatedWell","associatedWell")
-                .byDefault()
-                .register();
+
 
 
         COMPOUND = mapperFactory.getMapperFacade(CompoundEntity.class, Compound.class);
@@ -175,8 +160,7 @@ public class Mappers {
         WELL = mapperFactory.getMapperFacade(WellEntity.class, Well.class);
         WELLRESULT = mapperFactory.getMapperFacade(WellResultsEntity.class, WellResults.class);
         LABEL = mapperFactory.getMapperFacade(LabelEntity.class, Label.class);
-        EXPERIMENTPOINT = mapperFactory.getMapperFacade(ExperimentPointEntity.class,ExperimentPoint.class);
-        CURVEFITPOINT = mapperFactory.getMapperFacade(CurveFitPointEntity.class, CurveFitPoint.class);
+
 
     }
 }

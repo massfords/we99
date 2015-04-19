@@ -34,7 +34,7 @@ public class ExperimentPointMapperTest {
 
 
 
-
+  /*
     @Test
     public void domainToEntity_new() throws Exception {
         Well well = makeWell();
@@ -94,6 +94,7 @@ public class ExperimentPointMapperTest {
         assertEquals(300L, epe.getAssociatedPlate().getId().longValue());
 
     }
+    */
 
 
 

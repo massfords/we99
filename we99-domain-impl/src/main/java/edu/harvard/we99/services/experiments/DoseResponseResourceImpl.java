@@ -76,6 +76,7 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
 
     @Override
     public DoseResponseResult createForCompound(Compound compound, List<Plate> plates) {
+        /*
         DoseResponseResult drr = new DoseResponseResult().setCompound(compound).setExperiment(experiment);
         DoseResponseResult result = doseResponseResultStorage.create(drr);
         for (Plate p : plates){
@@ -97,6 +98,8 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
             }
         }
         return doseResponseResultStorage.get(result.getId());
+        */
+        return null;
     }
 
     @Override
@@ -122,9 +125,10 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
                of the functions using the domain objects but if that proves too
                costly then perhaps the entities should be use.
          */
+        doseResponseResultStorage.createAll(experiment.getId());
         DoseResponseResults drResults = doseResponseResultStorage.getAll(experiment.getId());
-        drResults.getValues().forEach(result -> { DoseResponseResultResource resultResource = getDoseResponseResults(result.getId());
-                                                    resultResource.addResponseValues();  } );
+       // drResults.getValues().forEach(result -> { DoseResponseResultResource resultResource = getDoseResponseResults(result.getId());
+        //                                            resultResource.addResponseValues();  } );
         DoseResponseResults doseResponseResults = doseResponseResultStorage.listAll(experiment.getId(), page, pageSize, typeAhead);
         return doseResponseResults;
     }

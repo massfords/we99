@@ -48,14 +48,28 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
             new AuthenticatedUserRule("we99.2015@gmail.com", this);
 
 
+
+    @Test
+    public void testCreatingAllResponseResults() throws Exception {
+
+        TypedQuery<WellEntity> query7 = em.createQuery("select w from WellEntity w", WellEntity.class);
+        List<WellEntity> experimentEntities7 = query7.getResultList();
+
+        TypedQuery<ExperimentEntity> query = em.createQuery("select e from ExperimentEntity e", ExperimentEntity.class);
+        List<ExperimentEntity> experimentEntities = query.getResultList();
+
+        doseResponseResultStorage.createAll(experimentEntities.get(0).getId());
+
+        TypedQuery<DoseResponseResultEntity> query2 = em.createQuery("select d from DoseResponseResultEntity d", DoseResponseResultEntity.class);
+        List<DoseResponseResultEntity> drentities = query2.getResultList();
+
+    }
     @Test
     public void testGettingAllCompoundsByExperiment() throws Exception{
 
         beginTx();
 
-        TypedQuery<Object[]> query = em.createQuery("select ee.plates from ExperimentEntity ee",Object[].class);
-        List<Object[]> experiment = query.getResultList();
-        experiment.size();
+
 
         TypedQuery<Object[]> query2 = em.createQuery("select pe.id, wid  from PlateEntity AS pe JOIN pe.wells as wid where pe.experiment.name=:name",Object[].class);
         query2.setParameter("name", "experiment uno");
@@ -102,6 +116,7 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
        // List<Object[]> experiment5 = query5.getResultList();
     }
 
+    /*
     @Test
     public void createDoseResponseWithFitParameter() throws Exception{
 
@@ -153,7 +168,7 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
 
 
     }
-
+      */
 
     protected static Well[] makeDoseCompoundWells(int rowCount, int colCount, Compound c1, Compound c2) {
         Set<Well> wells = new HashSet<>();

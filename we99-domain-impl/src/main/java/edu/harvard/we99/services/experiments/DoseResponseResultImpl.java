@@ -65,7 +65,7 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
 
     @Override
     public DoseResponseResult create(Compound compound, List<Plate> plates) {
-
+      /*
         DoseResponseResult drr = new DoseResponseResult()
                 .setCompound(compound);
         DoseResponseResult result = doseResponseResultStorage.create(drr);
@@ -90,7 +90,8 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
         }
 
         return doseResponseResultStorage.get(result.getId());
-
+          */
+        return null;
     }
 
     /**
@@ -103,6 +104,10 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
     @Override
     public DoseResponseResult addResponseValues(){
 
+        DoseResponseResult currentResult = get();
+        doseResponseResultStorage.getPlateIds(experiment, doseResponseResultId);
+
+       /*
         DoseResponseResult currentResult = get();
         //get the plates
         List<ExperimentPoint> points = currentResult.getExperimentPoints();
@@ -152,6 +157,8 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
 
         //return get();
         return calculateCurveFit();
+        */
+        return null;
     }
 
     private DoseResponseResult calculateCurveFit(){
