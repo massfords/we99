@@ -22,11 +22,11 @@
       </div>
       <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
-          <p>Plate: {{ data[selectedIndex].name }}</p>
-          <p>Z Factor: {{ data[selectedIndex].z }}</p>
-          <p>Z Prime: {{ data[selectedIndex].z_prime }}</p>
-          <p>POS Control Average: {{ data[selectedIndex].pos_avg }}</p>
-          <p>NEG Control Average: {{ data[selectedIndex].neg_avg }}</p>
+          <p>Plate: {{ data[selectedIndex - 1].name }}</p>
+          <p>Z Factor: {{ data[selectedIndex - 1].z }}</p>
+          <p>Z Prime: {{ data[selectedIndex - 1].z_prime }}</p>
+          <p>POS Control Average: {{ data[selectedIndex - 1].pos_avg }}</p>
+          <p>NEG Control Average: {{ data[selectedIndex - 1].neg_avg }}</p>
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('HeatmapCtrl', ["$scope", "RestService", function ($scope, RestService) {
+  .controller('HeatmapCtrl', ["$q", "$scope", "RestService", function ($q, $scope, RestService) {
 
     var v = new DataVis();
 
@@ -47,28 +47,26 @@ angular.module('we99App')
 
           RestService.getExperimentPlates(experimentId)
             .success(function(response){
-              var plateIds = reponse.map(function(plate){return plate.id;});
-              console.log(response);
+              var plateIds = response.values.filter(function(plate){ return plate.hasResults;}).map(function(plate){return plate.id;});
+              var promises = plateIds.map(function(plateId){ return RestService.getPlateResults(experimentId, plateId); });
+              $q.all(promises).then(function(response){
+                $scope.data = v.convertPlateResultData(response.map(function(d){return d.data;}));
+
+                // Stores the index of the presently selected value in the display box
+                // relative to the dataset as a whole.
+                $scope.selectedIndex = 1;
+
+                // Coloration change watcher.
+                $scope.$watch('coloring.colorOption', function(newValue, oldValue){ fullDisplayRefresh() });
+
+                // Pagination
+                $scope.pagination = getDefaultPaginationInfo($scope.data);
+                fullDisplayRefresh();
+
+              });
             }).error(function(response){
-              $scope.errorText="Could not retrieve plate list for expriment [id=" + experimentId + "]";
+              $scope.errorText="Could not retrieve plate list for expriement [id=" + experimentId + "]";
             });;
-
-          console.log($scope.selectedExperiment);
-
-          // Data Set
-          $scope.data = v.getDummmyPlateData(newValue.id).dataSets;
-
-          // Stores the index of the presently selected value in the display box
-          // relative to the dataset as a whole.
-          $scope.selectedIndex = 1;
-
-          // Coloration change watcher.
-          $scope.$watch('coloring.colorOption', function(newValue, oldValue){ fullDisplayRefresh() });
-
-          // Pagination
-          $scope.pagination = getDefaultPaginationInfo($scope.data);
-          fullDisplayRefresh();
-
 
         });
 
@@ -125,14 +123,14 @@ angular.module('we99App')
       // Render single largish heatmap.
       v.renderSingleHeatMap({
         location: displayBoxLocation,
-        data: $scope.data[$scope.selectedIndex].data,
+        data: $scope.data[$scope.selectedIndex - 1].data,
         colorScale:  $scope.coloring.colorScale,
         mapFormat: {
           fixedsize_x: 400,
           fixedsize_y: 400
         },
         onCellClick: function(d) {
-          $scope.data[$scope.selectedIndex].data.forEach(function(dinner){
+          $scope.data[$scope.selectedIndex - 1].data.forEach(function(dinner){
             if(dinner.wellIndex === d.wellIndex){
               dinner.included = !dinner.included;
             }
@@ -155,7 +153,7 @@ angular.module('we99App')
      */
     function renderListView(dataSets){
 
-      var myData = dataSets.slice($scope.pagination.from, $scope.pagination.to + 1);
+      var myData = dataSets.slice($scope.pagination.from - 1, $scope.pagination.to);
 
       // Relative index in the array.
       var relativeIndex = $scope.selectedIndex - ($scope.pagination.from);
