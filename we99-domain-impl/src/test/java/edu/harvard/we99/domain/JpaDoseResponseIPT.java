@@ -1,23 +1,22 @@
 package edu.harvard.we99.domain;
 
 import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.domain.results.Sample;
 import edu.harvard.we99.services.ExperimentService;
 import edu.harvard.we99.services.PlateTypeService;
 import edu.harvard.we99.services.experiments.DoseResponseResource;
 import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
-import edu.harvard.we99.services.storage.entities.DoseResponseResultEntity;
+import edu.harvard.we99.services.storage.entities.*;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import org.junit.Rule;
 import org.junit.Test;
 
 import javax.inject.Inject;
+import javax.persistence.TypedQuery;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static edu.harvard.we99.test.BaseFixture.name;
 import static org.junit.Assert.assertEquals;
@@ -50,6 +49,60 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
 
 
     @Test
+    public void testGettingAllCompoundsByExperiment() throws Exception{
+
+        beginTx();
+
+        TypedQuery<Object[]> query = em.createQuery("select ee.plates from ExperimentEntity ee",Object[].class);
+        List<Object[]> experiment = query.getResultList();
+        experiment.size();
+
+        TypedQuery<Object[]> query2 = em.createQuery("select pe.id, wid  from PlateEntity AS pe JOIN pe.wells as wid where pe.experiment.name=:name",Object[].class);
+        query2.setParameter("name", "experiment uno");
+        List<Object[]> experiment2 = query2.getResultList();
+        experiment2.size();
+
+        TypedQuery<Object[]> query3 = em.createQuery("select de from DoseEntity AS de where de.compound.name='Acetaldehyde'",Object[].class);
+        List<Object[]> experiment3 = query3.getResultList();
+        experiment3.size();
+
+
+        Map<WellEntity,Long> wellEntityMap = new HashMap<>();
+        for( Object[] results : experiment2){
+            Long id = (Long) results[0];
+            WellEntity we = (WellEntity) results[1];
+            wellEntityMap.put(we,id);
+
+        }
+
+        Map<DoseEntity, Long> dosePlateMap = new HashMap<>();
+        Iterator it = wellEntityMap.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            Long plateId = (Long)pair.getValue();
+            WellEntity wellEntity = (WellEntity) pair.getKey();
+            Set<DoseEntity> doses = wellEntity.getContents();
+            Object[] dosearray = doses.toArray();
+            if (dosearray.length > 0){
+                DoseEntity d = (DoseEntity) dosearray[0];
+                dosePlateMap.put(d,plateId);
+            }
+
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+
+        commitTx();
+
+        //query.setParameter("roleName", RoleName.BuiltIn.Admin.asName());
+
+        //TypeQuery<Object[]> query4 = em.createQuery("select we from PlateEntity.wells JOIN pe.wells where de.well.id = pe.  pe.experiment.name='experiment uno'",Object[].class);
+       // List<Object[]> experiment4 = query4.getResultList();
+
+       // TypedQuery<Object[]> query5 = em.createQuery("select de from DoseEntity de where de.well EXISTS (select pe.wells from PlateEntity pe where pe.experiment.name='experiment uno')", Object[].class);
+       // List<Object[]> experiment5 = query5.getResultList();
+    }
+
+    @Test
     public void createDoseResponseWithFitParameter() throws Exception{
 
         Compound c2 = new Compound().setName("Smarties");
@@ -75,7 +128,8 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
     @Test
     public void validateDoseResponseWithFitParameter() throws Exception{
 
-        Compound c2 = new Compound().setName("Smarties");
+        Compound c2 = new Compound().setName("WhamBar");
+        compoundStorage.create(c2);
         Experiment exp = experimentService.create(
                 new Experiment(name("xp"))
                         .setProtocol(new Protocol(name("protocol"))));
