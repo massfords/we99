@@ -13,7 +13,7 @@ angular.module('we99App')
     // if given id, this is an edit of an existing experiment
     if ($routeParams.addeditId==='new') {
       $scope.editMode = false;
-      $scope.pageTitle = 'Create New Experiment';
+      $scope.pageTitle = 'Create New Assay';
       $scope.newExp = {};
       refreshProtocolList();
       refreshUsersList();

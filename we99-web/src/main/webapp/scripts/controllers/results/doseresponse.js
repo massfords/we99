@@ -10,7 +10,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('DoseResponseCntrl', ["$scope", "RestService", function ($scope, RestService) {
+  .controller('DoseResponseCntrl', ["$q", "$scope", "RestService", function ($q, $scope, RestService) {
 
     var v = new DataVis();
     var displayBoxLocation = "#scatter-plot";
@@ -51,15 +51,28 @@ angular.module('we99App')
         console.log(response.values);
         $scope.selectedExperiment = $scope.experiments[0];
 
-
         $scope.$watch('selectedExperiment', function(newValue, oldValue) {
-          $scope.compounds = transform(v.getDummmyPlateData(newValue.id).dataSets);
-          $scope.compound = $scope.compounds[0];
-          fullDisplayRefresh();
 
-          $scope.$watch('compound', function(){
-            fullDisplayRefresh();
-          });
+          var experimentId = newValue.id;
+          RestService.getExperimentPlates(experimentId)
+            .success(function(response){
+              var plateIds = response.values.filter(function(plate){ return plate.hasResults;}).map(function(plate){return plate.id;});
+              var promises = plateIds.map(function(plateId){ return RestService.getPlateResults(experimentId, plateId); });
+              $q.all(promises).then(function(response){
+                $scope.compounds = transform(v.convertPlateResultData(response.map(function(d){return d.data;})));
+
+                $scope.compound = $scope.compounds[0];
+                fullDisplayRefresh();
+
+                $scope.$watch('compound', function(){
+                  fullDisplayRefresh();
+                });
+
+              });
+            }).error(function(response){
+              $scope.errorText="Could not retrieve plate list for expriement [id=" + experimentId + "]";
+            });;
+
         });
 
       });
@@ -73,6 +86,9 @@ angular.module('we99App')
           data.push( [d.amount, d.value] );
         }
       });
+
+      var min = d3.min($scope.compound.wells.map(function(d) {return d.value;}).concat([0.0]));
+      var max = d3.max($scope.compound.wells.map(function(d) {return d.value;}).concat([1.0]));
 
       var lineFit = v.linear_regression()
         .data(data)
@@ -94,7 +110,7 @@ angular.module('we99App')
           x: "Dose",
           y: "Response"
         },
-        scaleY: {min: 0.0, max: 1.0},
+        scaleY: {min: min, max: max},
         lineFunction: function (x) { return lineFit(x) ; }
       });
     }

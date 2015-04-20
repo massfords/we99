@@ -1,6 +1,6 @@
 
 <div style="margin-left: 100px" id="controls">
-  Select Experiment:
+  Select Assay:
   <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
   Coloring:
   <select ng-model="coloring.colorOption" ng-options="opt as opt.colorName for opt in coloring.colorOptions"></select>
@@ -21,12 +21,28 @@
         </h4>
       </div>
       <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-        <div class="panel-body">
-          <p>Plate: {{ data[selectedIndex - 1].name }}</p>
-          <p>Z Factor: {{ data[selectedIndex - 1].z }}</p>
-          <p>Z Prime: {{ data[selectedIndex - 1].z_prime }}</p>
-          <p>POS Control Average: {{ data[selectedIndex - 1].pos_avg }}</p>
-          <p>NEG Control Average: {{ data[selectedIndex - 1].neg_avg }}</p>
+        <div style="height: 200px; overflow-y: scroll;" class="panel-body">
+          <table class="table table-condensed">
+            <thead>
+              <th>Plate</th>
+              <th>Z</th>
+              <th>Z'</th>
+              <th>POS</th>
+              <th>NEG</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="plate in data track by $index"
+                  ng-class="{active:  (selectedIndex - 1) == $index}"
+                  ng-click="selectPlate(plate.plateIndex)">
+                <td>{{ plate.name }}</td>
+                <td>{{ plate.z }}</td>
+                <td>{{ plate.z_prime }}</td>
+                <td>{{ plate.pos_avg }}</td>
+                <td>{{ plate.neg_avg }}</td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
     </div>
@@ -40,7 +56,6 @@
       </div>
       <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="panel-body">
-
           <div>
 
             <p>

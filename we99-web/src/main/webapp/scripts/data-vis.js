@@ -1,11 +1,4 @@
 function DataVis(){
-    this.debug = false;
-
-  this.log = function(d){
-    if(this.debug){
-      console.log(d);
-    }
-  }
 }
 
 /**
@@ -32,7 +25,6 @@ DataVis.prototype.colorScale =  function(params){
   $.extend(true, defaults, params );
   params = defaults;
 
-  this.log(params);
 
   // Make sure params are complete.
   if(!params.data){
@@ -83,7 +75,7 @@ DataVis.prototype.colorScale =  function(params){
  */
 DataVis.prototype.renderSingleHeatMap = function(params){
 
-  console.log(params);
+  console.log(params.data);
   // Merge in defaults.
   var defaults = {
     mapClass: "heatmap",
@@ -110,8 +102,6 @@ DataVis.prototype.renderSingleHeatMap = function(params){
   };
   $.extend(true, defaults, params );
   params = defaults;
-
-  this.log(params);
 
 
   // Validate input
@@ -190,9 +180,7 @@ DataVis.prototype.renderSingleHeatMap = function(params){
       .attr("class", "collabels")
       .text(function(d) {return d;})
       .attr("x", function(d, i){
-
         return (i * params.cellFormat.itemSize) + 16 + params.mapFormat.margin_x;
-
       })
       .attr("y", function(d, i){
         return params.mapFormat.margin_y;
@@ -223,8 +211,10 @@ DataVis.prototype.renderSingleHeatMap = function(params){
     .attr("style", function(d) {
       if(!d.included) {
         return "stroke-width:3;stroke:rgb(203,24,29)";
-      }else if (d.wellType === "NEG_CONTROL" || d.wellType === "POS_CONTROL"){
+      }else if (d.wellType === "NEG_CONTROL" || d.wellType === "POS_CONTROL") {
         return "stroke-width:3;stroke:rgb(82,82,82)";
+      }else if(d.wellType === "EMPTY"){
+        return "stroke-width:3;stroke:rgb(0,0,0)";
       }else {
         return "stroke-width:2;stroke:rgb(192,192,192)";
       }
@@ -234,9 +224,7 @@ DataVis.prototype.renderSingleHeatMap = function(params){
     .on('mousedown', function(d) {if(params.onMouseDown) { params.onMouseDown(d);} })
     .on('mouvemove', function() { if(params.onMouseMove) { params.onMouseMove();}})
     .append("title")
-    .text(function(d) {
-      return "Well " + d.col + "x" + d.row + " in plate " + d.plate;
-    });
+    .text(function(d) { return "Well " + d.col + "x" + d.row + " with value " + (Math.round(d.value * 100) / 100); });
 
   // Add Text
 
@@ -606,10 +594,12 @@ DataVis.prototype.renderLine = function(params) {
     .attr("fill", "none");
 };
 
-DataVis.prototype.convertPlateResultData = function(plateResults){
 
+DataVis.prototype.convertPlateResultData = function(data){
 
-  var plateResults = plateResults.map(function(plateResult){
+  console.log(data);
+
+  var plateResults = data.map(function(plateResult){
 
     // Create well array.
     var wd = [];
@@ -650,6 +640,8 @@ DataVis.prototype.convertPlateResultData = function(plateResults){
         case "COMP": wellType = "NORMAL"; break;
         case "NEGATIVE": wellType = "NEG_CONTROL"; break;
         case "POSITIVE": wellType = "POS_CONTROL"; break;
+        case "EMPTY": wellType = "EMPTY"; break;
+        default: throw "Processing error: welltype=" + well.type;
       }
 
       wd[row][col].wellType = wellType;
@@ -664,6 +656,7 @@ DataVis.prototype.convertPlateResultData = function(plateResults){
     wd.forEach(function(row) {row.forEach(function(d) { dataSet.push(d); })} );
 
     return {
+      plateIndex: plateResult.plate.id,
       data: dataSet,
       name: plateResult.plate.barcode,
       z: 0,
@@ -672,6 +665,7 @@ DataVis.prototype.convertPlateResultData = function(plateResults){
       neg_avg: 0
     };
   });
+
 
   console.log(plateResults);
 

@@ -10,7 +10,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('OmniMapCtrl', ["$scope", "RestService", function ($scope, RestService) {
+  .controller('OmniMapCtrl', ["$q", "$scope", "RestService", function ($q, $scope, RestService) {
 
     var v = new DataVis();
 
@@ -51,16 +51,25 @@ angular.module('we99App')
 
         $scope.$watch('selectedExperiment', function(newValue, oldValue){
 
-          // Data Set
-          $scope.data = transform(v.getDummmyPlateData(newValue.id).dataSets);
+          var experimentId = newValue.id;
 
-          console.log($scope.data);
+          RestService.getExperimentPlates(experimentId)
+            .success(function(response){
+              var plateIds = response.values.filter(function(plate){ return plate.hasResults;}).map(function(plate){return plate.id;});
+              var promises = plateIds.map(function(plateId){ return RestService.getPlateResults(experimentId, plateId); });
+              $q.all(promises).then(function(response){
+                $scope.data = transform(v.convertPlateResultData(response.map(function(d){return d.data;})));
 
-          // Coloration change watcher.
-          $scope.$watch('coloring.colorOption', function(newValue, oldValue){ fullDisplayRefresh() });
+                // Coloration change watcher.
+                $scope.$watch('coloring.colorOption', function(newValue, oldValue){ fullDisplayRefresh() });
 
-          renderBox = null;
-          fullDisplayRefresh();
+                renderBox = null;
+                fullDisplayRefresh();
+
+              });
+            }).error(function(response){
+              $scope.errorText="Could not retrieve plate list for expriement [id=" + experimentId + "]";
+            });;
 
 
         });
@@ -239,8 +248,8 @@ angular.module('we99App')
             };
 
             // Determine if render box is 'big' enough.
-            if ((renderBox.row.two - renderBox.row.one) > 8 &
-              (renderBox.col.two - renderBox.col.one) > 8) {
+            if ((renderBox.row.two - renderBox.row.one) > 2 &
+              (renderBox.col.two - renderBox.col.one) > 2) {
               renderMap();
             } else {
               renderBox = null;

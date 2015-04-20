@@ -10,7 +10,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('WellQcCntrl', ["$scope", "RestService", function ($scope, RestService) {
+  .controller('WellQcCntrl', ["$q", "$scope", "RestService", function ($q, $scope, RestService) {
 
     var v = new DataVis();
     var displayBoxLocation = "#scatter-plot";
@@ -19,23 +19,9 @@ angular.module('we99App')
       var result = [];
       data.forEach(function(plate){
         plate.data.forEach(function(well) {
-          if (well.wellType === 'NEG_CONTROL' || well.wellType === "POS_CONTROL") {
-
-            var found = false;
-
-            result.forEach(function (r) {
-              if (r.compound === well.compound) {
-                found = true;
-                r.wells.push(well);
-              }
-            });
-
-            if(!found){
-              result.push(
-                {compound: well.compound, wells: []}
-              );
-            }
-
+          if (well.wellType === 'NEG_CONTROL' || well.wellType === "POS_CONTROL")
+          {
+            result.push(well);
           }
         });
       });
@@ -48,18 +34,24 @@ angular.module('we99App')
 
         // Experiment Drop Down
         $scope.experiments = response.values;
-        console.log(response.values);
         $scope.selectedExperiment = $scope.experiments[0];
 
-
         $scope.$watch('selectedExperiment', function(newValue, oldValue) {
-          $scope.compounds = transform(v.getDummmyPlateData(newValue.id).dataSets);
-          $scope.compound = $scope.compounds[0];
-          fullDisplayRefresh();
 
-          $scope.$watch('compound', function(){
-            fullDisplayRefresh();
-          });
+            var experimentId = newValue.id;
+
+            RestService.getExperimentPlates(experimentId)
+              .success(function(response){
+                var plateIds = response.values.filter(function(plate){ return plate.hasResults;}).map(function(plate){return plate.id;});
+                var promises = plateIds.map(function(plateId){ return RestService.getPlateResults(experimentId, plateId); });
+                $q.all(promises).then(function(response){
+                  $scope.data = transform(v.convertPlateResultData(response.map(function(d){return d.data;})));
+                  fullDisplayRefresh();
+                });
+              }).error(function(response){
+                $scope.errorText="Could not retrieve plate list for expriement [id=" + experimentId + "]";
+              });
+
         });
 
 
@@ -69,7 +61,7 @@ angular.module('we99App')
       var svg = d3.select(displayBoxLocation).html("");
       v.renderScatterPlot({
         location: displayBoxLocation,
-        data: $scope.compound.wells,
+        data: $scope.data,
         onCellClick: function(d) {
             $scope.compound.wells.forEach(function(dataPoint){
               if(dataPoint.wellIndex == d.wellIndex){
