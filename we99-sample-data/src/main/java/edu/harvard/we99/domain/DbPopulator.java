@@ -1,20 +1,29 @@
 package edu.harvard.we99.domain;
 
-import edu.harvard.we99.domain.results.WellResults;
 import edu.harvard.we99.security.AuthenticatedContext;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.CompoundService;
-import edu.harvard.we99.services.ExperimentService;
 import edu.harvard.we99.services.PlateMapService;
-import edu.harvard.we99.services.experiments.PlateResource;
-import edu.harvard.we99.services.experiments.PlatesResource;
-import edu.harvard.we99.services.storage.entities.*;
+import edu.harvard.we99.services.storage.entities.CompoundEntity;
+import edu.harvard.we99.services.storage.entities.DoseEntity;
+import edu.harvard.we99.services.storage.entities.ExperimentEntity;
+import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.PermissionEntity;
+import edu.harvard.we99.services.storage.entities.PlateEntity;
+import edu.harvard.we99.services.storage.entities.PlateResultEntity;
+import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
+import edu.harvard.we99.services.storage.entities.ProtocolEntity;
+import edu.harvard.we99.services.storage.entities.RoleEntity;
+import edu.harvard.we99.services.storage.entities.SampleEntity;
+import edu.harvard.we99.services.storage.entities.UserEntity;
+import edu.harvard.we99.services.storage.entities.VersionEntity;
+import edu.harvard.we99.services.storage.entities.WellEntity;
+import edu.harvard.we99.services.storage.entities.WellResultsEntity;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
 import org.joda.time.DateTime;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
-
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,7 +33,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Populates the database with some initial data. We'll only execute this if
@@ -69,9 +84,8 @@ public class DbPopulator {
 
             loadExperiments(sf, em);
 
-
             // add plates
-            pms.create("5x5", getClass().getResourceAsStream("/sample-data/platemap5x5.csv"));
+            pms.create("24x16", getClass().getResourceAsStream("/sample-data/platemap24x16.csv"));
         } finally {
             em.close();
         }
@@ -81,16 +95,11 @@ public class DbPopulator {
         cs.upload(getClass().getResourceAsStream("/sample-data/compounds.csv"));
     }
 
-
-
-
-
     private List<WellAmountMapping> loadWellContents(StreamFactory sf) throws IOException {
         // create new doses
         List<WellAmountMapping> amounts =  loadData(WellAmountMapping.class, sf,
                 "/sample-data/wellamounts.csv","wellamounts");
         return amounts;
-
     }
 
 
@@ -99,11 +108,7 @@ public class DbPopulator {
        List<WellResultsEntity> wr = loadData(WellResultsEntity.class, sf, "/sample-data/drplateresults.csv","results");
 
        return wr;
-
     }
-
-
-
 
     private void loadExperiments(StreamFactory sf, EntityManager em) throws IOException {
 
@@ -124,7 +129,7 @@ public class DbPopulator {
 
 
         // Used for assigning random compounds.
-        List <CompoundEntity> compounds = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().subList(0, 20);
+        List <CompoundEntity> compounds = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().subList(0, 5);
 
         Compound comp1 = new Compound(cmpe.getId(),cmpe.getName());
 
@@ -139,7 +144,7 @@ public class DbPopulator {
             userEntities.forEach(em::merge);
 
             // add some plates to the experiment
-            for(int i=0; i<3; i++) {
+            for(int i=0; i<20; i++) {
 
                 PlateEntity pe = new PlateEntity()
                         .setName("plate " + i + " for exp " + ee.getId())
@@ -151,27 +156,41 @@ public class DbPopulator {
                 pre.setSource("Test Lab");
                 pre.setPlate(pe);
                 pe.setResults(pre);
+                pte.addPlate(pe);
 
                 em.persist(pre);
                 em.persist(pe);
-                pte.addPlate(pe);
-                em.merge(pte);
 
                 // Used for the well result assignment date.
+                CompoundEntity currentCompound = null;
+
                 DateTime analysisDate = new DateTime().minusMinutes(rand.nextInt(10000));
                 for(int row=0; row<pte.getDim().getRows(); row++) {
+
+                    // Make a new compound at the start of a row.
+                    currentCompound = new CompoundEntity().setName("C" + rand.nextInt(2000) + "-" + rand.nextInt(2000));
+                    Double variance = (Math.random());
+                    em.persist(currentCompound);
+
                     for(int col=0; col<pte.getDim().getCols(); col++) {
+
                         WellEntity we = new WellEntity(row, col);
                         we.setLabel("loc", "well" + row + "," + col);
 
                         // Add control wells if you're in the first or last column.
                         // Positive are on the top of the plate, and negative are on
                         // the bottom of the plate.
+
+
+                        Double compAmount = ( col ) * (200.0 / (pte.getDim().getCols() ));
+                        Double value =  ( 1 /(1 + Math.exp( -0.07 * (compAmount - 100.0))) ) + (variance * (Math.random() - 1));
                         if(col == 0 || col == pte.getDim().getCols() - 1){
-                            if(row / pte.getDim().getRows() > 0.5) {
+                            if(row  <  pte.getDim().getRows() / 2) {
                                 we.setType(WellType.NEGATIVE);
+                                value = 0.0 + (Math.random() / 10.0);
                             }else{
                                 we.setType(WellType.POSITIVE);
+                                value = 1.0 - (Math.random() / 10.0);
                             }
                         }else{
                             we.setType(WellType.COMP);
@@ -180,10 +199,10 @@ public class DbPopulator {
 
                         Amount amount = new Amount();
                         amount.setUnits(DoseUnit.MICROMOLAR);
-                        amount.setNumber(Math.random());
+                        amount.setNumber(compAmount);
 
                         DoseEntity dose = new DoseEntity();
-                        dose.setCompound(compounds.get(rand.nextInt(20)));
+                        dose.setCompound(currentCompound);
                         dose.setWell(we);
                         dose.setAmount(amount);
                         doses.add(dose);
@@ -191,20 +210,22 @@ public class DbPopulator {
 
                         pe.withWells(we);
                         em.persist(we);
-                        em.merge(pe);
 
                         // Create a random well result.
                         WellResultsEntity wre = new WellResultsEntity(row, col);
-                        wre.addSample(new SampleEntity().setMeasuredAt(analysisDate).setValue(rand.nextDouble()));
+                        wre.addSample(new SampleEntity()
+                                .setMeasuredAt(analysisDate)
+                                .setValue(value)
+                        );
                         pre.add(wre);
                         em.persist(wre);
-                        em.merge(pre);
 
                     }
                 }
 
             }
 
+            /*
             //add a dose response plate and results to every experiment data from file.
             PlateEntity peDose = new PlateEntity()
                     .setName("plate dose resp for exp " + ee.getId())
@@ -236,6 +257,7 @@ public class DbPopulator {
             peDose.setResults(pre);
             em.persist(pre);
             em.merge(peDose);
+            */
 
         }
 

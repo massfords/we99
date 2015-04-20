@@ -70,7 +70,6 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     getPlateResults: function(experimentId,plateId){
       return $http.get(RestURLs.experiment+'/'+experimentId+'/plates/'+plateId+'/results');
     },
-
     //email filter
     getEmailFilter: function(){
       return $http.get(RestURLs.emailFilter);

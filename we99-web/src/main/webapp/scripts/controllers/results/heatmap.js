@@ -41,6 +41,20 @@ angular.module('we99App')
         $scope.coloring.colorOption = $scope.coloring.colorOptions[0];
 
 
+        $scope.selectPlate = function (plateId){
+          var counter = 0;
+          $scope.data.forEach(function (d){
+            counter = counter + 1;
+            if(d.plateIndex === plateId){
+              $scope.selectedIndex = counter;
+            }
+          });
+          console.log($scope.selectedIndex);
+          renderListView($scope.data);
+          renderSingleView();
+          console.log(plateId);
+        }
+
         $scope.$watch('selectedExperiment', function(newValue, oldValue){
 
           var experimentId = newValue.id;
@@ -50,6 +64,7 @@ angular.module('we99App')
               var plateIds = response.values.filter(function(plate){ return plate.hasResults;}).map(function(plate){return plate.id;});
               var promises = plateIds.map(function(plateId){ return RestService.getPlateResults(experimentId, plateId); });
               $q.all(promises).then(function(response){
+                console.log(response);
                 $scope.data = v.convertPlateResultData(response.map(function(d){return d.data;}));
 
                 // Stores the index of the presently selected value in the display box
@@ -180,7 +195,6 @@ angular.module('we99App')
           }
         })
         .on('click', function(d, i) {
-          $scope.selectedIndex = i + $scope.pagination.from;
           $scope.selectedIndex = i + $scope.pagination.from;
           renderListView($scope.data);
           renderSingleView();

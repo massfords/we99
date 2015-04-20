@@ -74,7 +74,6 @@ public class PlateResultEntity {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(updatable = false)
-    @NotNull
     private String source;
 
     @OneToMany(cascade = CascadeType.ALL)

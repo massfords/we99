@@ -56,14 +56,14 @@ public interface PlatesResource {
      * @statuscode 409 If we don't understand the format of the CSV
      */
     @POST
-    @Consumes("multipart/form-data")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @ApiOperation("Processes the uploaded CSV and returns a PlateMap")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     @ApiImplicitParams({
             @ApiImplicitParam(name="name", value = "name of the new plate", required = true, dataType = "String", paramType = "form"),
             @ApiImplicitParam(name="plateTypeName", value = "name of the plate type", required = true, dataType = "String", paramType = "form"),
             @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
-    Plate create(@Multipart(value = "name", required = false) String name,
+    Plates create(@Multipart(value = "name", required = false) String name,
                  @Multipart(value = "plateTypeName", required = false) String plateTypeName,
                             @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
 

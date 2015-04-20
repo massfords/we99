@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import javax.persistence.PersistenceException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static edu.harvard.we99.test.BaseFixture.name;
@@ -132,7 +133,7 @@ public class JpaIT extends JpaSpringFixture {
 
         commitTx();
 
-        Set<PlateEntity> plates = getPlates(xp.getId());
+        List<PlateEntity> plates = getPlates(xp.getId());
         assertEquals(2, plates.size());
 
         // now delete one of the plates
@@ -146,10 +147,10 @@ public class JpaIT extends JpaSpringFixture {
         assertEquals(1, plates.size());
     }
 
-    private Set<PlateEntity> getPlates(Long experimentId) {
+    private List<PlateEntity> getPlates(Long experimentId) {
         beginTx();
         ExperimentEntity xp = em.find(ExperimentEntity.class, experimentId);
-        Set<PlateEntity> plates =  xp.getPlates();
+        List<PlateEntity> plates =  xp.getPlates();
         commitTx();
         return plates;
     }
