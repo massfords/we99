@@ -1,6 +1,5 @@
 package edu.harvard.we99.services.io;
 
-import edu.harvard.we99.domain.Plate;
 import org.junit.Test;
 
 import java.io.StringReader;
@@ -16,9 +15,9 @@ public class PlateCSVReaderTest {
     @Test
     public void small() throws Exception {
         PlateCSVReader reader = new PlateCSVReader();
-        Plate p = reader.read(new StringReader(load("/PlateCSVReaderTest/input.csv")));
+        PlateWithOptionalResults p = reader.read(new StringReader(load("/PlateCSVReaderTest/input.csv")));
 
-        String actual = toJsonString(p);
+        String actual = toJsonString(p.getPlate());
         assertJsonEquals(load("/PlateCSVReaderTest/expected.json"), actual);
     }
 }

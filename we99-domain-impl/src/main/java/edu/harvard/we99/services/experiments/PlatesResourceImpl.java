@@ -11,10 +11,12 @@ import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.services.io.PlateCSVReader;
+import edu.harvard.we99.services.io.PlateWithOptionalResults;
 import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.PlateMapStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.PlateTypeStorage;
+import edu.harvard.we99.services.storage.ResultStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,14 +46,17 @@ public abstract class PlatesResourceImpl implements PlatesResource {
     private final CompoundStorage compoundStorage;
     private final PlateTypeStorage plateTypeStorage;
     private final PlateMapStorage plateMapStorage;
+    private final ResultStorage resultStorage;
     private Experiment experiment;
 
     public PlatesResourceImpl(PlateStorage plateStorage, CompoundStorage compoundStorage,
-                              PlateTypeStorage plateTypeStorage, PlateMapStorage plateMapStorage) {
+                              PlateTypeStorage plateTypeStorage, PlateMapStorage plateMapStorage,
+                              ResultStorage resultStorage) {
         this.plateStorage = plateStorage;
         this.compoundStorage = compoundStorage;
         this.plateTypeStorage = plateTypeStorage;
         this.plateMapStorage = plateMapStorage;
+        this.resultStorage = resultStorage;
     }
 
     @Override
@@ -153,7 +158,8 @@ public abstract class PlatesResourceImpl implements PlatesResource {
             if (name == null) {
                 name = UUID.randomUUID().toString();
             }
-            Plate plate = reader.read(r).setName(name);
+            PlateWithOptionalResults read = reader.read(r);
+            Plate plate = read.getPlate().setName(name);
             plate.setExperimentId(experiment.getId());
             plate.setPlateType(plateTypeStorage.getByName(plateTypeName));
             // walk all of the compounds to set their id's or leave null if we're persisting
@@ -162,6 +168,13 @@ public abstract class PlatesResourceImpl implements PlatesResource {
             Map<Compound, Long> resolvedIds = compoundStorage.resolveIds(compounds);
             plate.getWells().values().forEach(well -> well.getContents().forEach(d -> d.getCompound().setId(resolvedIds.get(d.getCompound()))));
             Plate created = plateStorage.create(plate);
+
+            if (read.getResults() != null) {
+                read.getResults().setPlate(created);
+                resultStorage.create(read.getResults());
+                created.setHasResults(true);
+            }
+
             return created;
         } catch (IOException e) {
             log.error("error parsing csv", e);

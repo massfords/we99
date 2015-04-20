@@ -1,0 +1,161 @@
+{
+  "name": "plateuuid",
+  "labels": [],
+  "wellCount": 8,
+  "wells": [
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 0
+      },
+      "labels": [],
+      "type": "NEGATIVE",
+      "contents": [
+        {
+          "amount": {
+            "number": 5.0,
+            "units": "PICOMOLAR"
+          },
+          "compound": {"name": "H20"}
+        },
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICOMOLAR"
+          },
+          "compound": {"name": "NaCl"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 2
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICOMOLAR"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 1
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICOMOLAR"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 3
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICOMOLAR"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 2
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICOMOLAR"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 0,
+        "col": 3
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICOMOLAR"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 0
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICOMOLAR"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    },
+    {
+      "coordinate": {
+        "row": 2,
+        "col": 1
+      },
+      "labels": [],
+      "type": "COMP",
+      "contents": [
+        {
+          "amount": {
+            "number": 1.0,
+            "units": "PICOMOLAR"
+          },
+          "compound": {"name": "Cx"}
+        }
+      ]
+    }
+  ],
+  "plateType": {
+    "name": "Corning-3788",
+    "description": "Clear high-grade polystyrene for research diagnostic assays Formulated for uniform binding\\",
+    "dim": {
+      "rows": 8,
+      "cols": 12
+    },
+    "manufacturer": "Corning",
+    "orderLink": "http://www.coleparmer.com/Product/Corning_Plate_96_Well_ps_round_100_cs_Clear/UX-01728-07"
+  },
+  "hasResults": true
+}

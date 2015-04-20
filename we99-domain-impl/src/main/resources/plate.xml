@@ -22,6 +22,10 @@
             <field name="compoundName" required="true" trim="true"/>
             <field name="amount" required="true" trim="true"/>
             <field name="units" required="true" trim="true"/>
+            <segment name="sample" class="edu.harvard.we99.domain.results.Sample"
+                     minOccurs="0" maxOccurs="1">
+                <field name="value" required="true" trim="true"/>
+            </segment>
         </record>
     </stream>
 </beanio>

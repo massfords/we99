@@ -22,6 +22,7 @@
         <constructor-arg ref="compoundStorage"/>
         <constructor-arg ref="plateTypeStorage"/>
         <constructor-arg ref="plateTemplateStorage"/>
+        <constructor-arg ref="resultStorage"/>
         <lookup-method name="createPlateResource" bean="plateResource"/>
     </bean>
     <bean id="plateResource" class="edu.harvard.we99.services.experiments.PlateResourceImpl" scope="prototype">

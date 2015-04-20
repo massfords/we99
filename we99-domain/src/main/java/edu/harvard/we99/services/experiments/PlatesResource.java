@@ -56,7 +56,7 @@ public interface PlatesResource {
      * @statuscode 409 If we don't understand the format of the CSV
      */
     @POST
-    @Consumes("multipart/form-data")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @ApiOperation("Processes the uploaded CSV and returns a PlateMap")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     @ApiImplicitParams({

@@ -36,6 +36,7 @@ public class PlateImportST {
     public static List<Object[]> params() throws Exception {
         List<Object[]> params = new ArrayList<>();
         params.add(array("/PlateImportST/input.csv", "/PlateImportST/expected.json"));
+        params.add(array("/PlateImportST/input-withSamples.csv", "/PlateImportST/expected-withSamples.json"));
         return params;
     }
 

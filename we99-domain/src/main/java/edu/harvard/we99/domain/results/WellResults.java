@@ -88,4 +88,8 @@ public class WellResults extends BaseEntity {
         this.samples = samples;
         return this;
     }
+
+    public void addSample(Sample sample) {
+        getSamples().add(sample);
+    }
 }
