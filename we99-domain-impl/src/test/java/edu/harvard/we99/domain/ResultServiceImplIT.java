@@ -139,7 +139,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
                         .setName(name("PlateType"))
                         .setDim(new PlateDimension(5, 5))
                         .setManufacturer(name("Man")));
-        PlatesResource pr = experimentService.getExperiment(exp.getId()).getPlates();
+        PlatesResource pr = experimentService.getExperiment(1L).getPlates();
         DoseResponseResource dr = experimentService.getExperiment(exp.getId()).getDoseResponses();
         Plate plate = pr.create(
                 new Plate()
@@ -160,7 +160,8 @@ public class ResultServiceImplIT extends JpaSpringFixture {
 
 
         PlateResult plateResult = plates.getPlateResult().uploadResults("csv", stream("/ResultServiceImplIT/results-single.csv"));
-        //DoseResponseResult newResult = d3.addResponseValues();
+        DoseResponseResultResource drr = dr.getDoseResponseResults(1L);// addResponseValues();
+        //drr.addResponseValues();
         Function<String, String> scrubber = Scrubbers.iso8601.andThen(Scrubbers.uuid).andThen(Scrubbers.pkey);
         // assert the results
         /**

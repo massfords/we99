@@ -3,6 +3,7 @@ package edu.harvard.we99.domain.results.analysis;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import org.apache.cxf.helpers.IOUtils;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.StringWriter;
 
@@ -25,9 +26,10 @@ public class CurveFit {
             String jsonDoseResponse = toJsonString(doseResponseResult);
 
             //String s = System.getProperty("we99");
-            //File f = new File(System.getProperty("we99"), "WEB-INF/classes/curveFitting.py");
+            File f = new File(System.getProperty("we99"), "WEB-INF/classes/curveFitting.py");
+            //src/main/resources/curveFitting.py
 
-            ProcessBuilder pb = new ProcessBuilder("python", "src/main/resources/curveFitting.py", jsonDoseResponse);
+            ProcessBuilder pb = new ProcessBuilder("python", f.getPath(), jsonDoseResponse);
             Process p = pb.start();
 
             InputStream in = p.getInputStream();

@@ -67,18 +67,35 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
 
     }
 
+    @Override
     @Transactional
-    public List<Long> getPlateIds(Long doseResponseId) throws EntityNotFoundException{
+    public Set<Long> getPlateIds(Long doseResponseId) throws EntityNotFoundException{
         TypedQuery<DoseResponseResultEntity> query = em.createQuery("select dr from DoseResponseResultEntity dr where dr.id=:id",DoseResponseResultEntity.class);
         query.setParameter("id", doseResponseId);
-        DoseResponseResultEntity response = query.getResultList().get(0);
+        List<DoseResponseResultEntity> responses = query.getResultList();
+        if(responses.isEmpty()){
+            return new HashSet<>();
+        }
+        DoseResponseResultEntity response = responses.get(0);
         List<ExperimentPoint> epts = response.getExperimentPoints();
-        List<Long> plateIds = new ArrayList<>();
+        Set<Long> plateIds = new HashSet<>();
         epts.forEach(ep -> plateIds.add(ep.getPlateId()));
 
         return plateIds;
 
+
     }
+
+    @Override
+    @Transactional
+    public void replaceExperimentPoints(Long doseResponseId, List<ExperimentPoint> newPoints) throws EntityNotFoundException{
+        DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class, doseResponseId);
+        dre.getExperimentPoints().clear();
+        dre.setExperimentPoints(newPoints);
+        em.merge(dre);
+
+    }
+
     @Override
     @Transactional
     public void createAll(Long experimentId) throws EntityNotFoundException {
@@ -129,6 +146,9 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
             Object[] dosearray = doses.toArray();
             if (dosearray.length > 0){
                 DoseEntity d = (DoseEntity) dosearray[0];
+                d.setWell(wellEntity);
+                em.merge(d);
+                em.merge(wellEntity);
                 dosePlateMap.put(d, plateId);
                 dosetoPlate.put(d.getId(),plateId);
 

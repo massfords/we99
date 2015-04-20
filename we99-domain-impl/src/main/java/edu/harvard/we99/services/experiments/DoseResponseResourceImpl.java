@@ -126,9 +126,10 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
                costly then perhaps the entities should be use.
          */
         doseResponseResultStorage.createAll(experiment.getId());
+
         DoseResponseResults drResults = doseResponseResultStorage.getAll(experiment.getId());
-       // drResults.getValues().forEach(result -> { DoseResponseResultResource resultResource = getDoseResponseResults(result.getId());
-        //                                            resultResource.addResponseValues();  } );
+        drResults.getValues().forEach(result -> { DoseResponseResultResource resultResource = getDoseResponseResults(result.getId());
+                                                    resultResource.addResponseValues();  } );
         DoseResponseResults doseResponseResults = doseResponseResultStorage.listAll(experiment.getId(), page, pageSize, typeAhead);
         return doseResponseResults;
     }

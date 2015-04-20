@@ -3,14 +3,7 @@ package edu.harvard.we99.services.storage.entities;
 import edu.harvard.we99.domain.Amount;
 
 import javax.annotation.Generated;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -44,7 +37,7 @@ public class DoseEntity {
     /**
      * A back pointer to the parent well in which this Dose lives
      */
-    @ManyToOne @JoinColumn(updatable = false)
+    @ManyToOne
     @XmlTransient
     private WellEntity well;
 

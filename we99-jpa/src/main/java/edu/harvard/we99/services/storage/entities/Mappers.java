@@ -30,7 +30,7 @@ public class Mappers {
     public static final BoundMapperFacade<WellEntity,Well> WELL;
     public static final BoundMapperFacade<WellResultsEntity,WellResults> WELLRESULT;
     public static final BoundMapperFacade<LabelEntity,Label> LABEL;
-
+    public static final BoundMapperFacade<DoseEntity,Dose> DOSE;
 
 
     private static final MapperFactory mapperFactory =
@@ -50,6 +50,8 @@ public class Mappers {
                 new PassThroughConverter(PlateDimension.class));
         mapperFactory.getConverterFactory().registerConverter(
                 new PassThroughConverter(FitParameter.class));
+        mapperFactory.getConverterFactory().registerConverter(
+                new PassThroughConverter(Dose.class));
 
 
         mapperFactory
@@ -144,6 +146,11 @@ public class Mappers {
                 .fieldAToB("compound", "compound")
                 .byDefault()
                 .register();
+        mapperFactory
+                .classMap(DoseEntity.class, Dose.class)
+                .mapNullsInReverse(false)
+                .byDefault()
+                .register();
 
 
 
@@ -160,7 +167,7 @@ public class Mappers {
         WELL = mapperFactory.getMapperFacade(WellEntity.class, Well.class);
         WELLRESULT = mapperFactory.getMapperFacade(WellResultsEntity.class, WellResults.class);
         LABEL = mapperFactory.getMapperFacade(LabelEntity.class, Label.class);
-
+        DOSE = mapperFactory.getMapperFacade(DoseEntity.class, Dose.class);
 
     }
 }

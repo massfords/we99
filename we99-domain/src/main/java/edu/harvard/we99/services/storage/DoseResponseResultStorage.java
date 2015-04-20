@@ -8,6 +8,7 @@ import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.ResultStatus;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -16,7 +17,8 @@ import java.util.List;
 public interface DoseResponseResultStorage extends CRUDStorage<DoseResponseResult> {
 
     public void createAll(Long experimentId);
-    List<Long> getPlateIds(Long doseResponseId);
+    Set<Long> getPlateIds(Long doseResponseId);
+    void replaceExperimentPoints(Long doseResponseResultId,List<ExperimentPoint>newPoints);
     ExperimentPoint addExperimentPoint(Long doseResponseId, ExperimentPoint point);
     ExperimentPoint updateExperimentPoint(Long doseResponseId, ExperimentPoint type);
     void updateAllExperimentPoints(Long doseResponseId,List<ExperimentPoint> experimentPointTypes);

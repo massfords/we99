@@ -12,6 +12,7 @@ import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.Sample;
 import edu.harvard.we99.domain.results.WellResults;
 import edu.harvard.we99.domain.results.analysis.CurveFit;
+import edu.harvard.we99.domain.results.analysis.ExperimentPointsFunction;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
@@ -109,7 +110,7 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
     public DoseResponseResult addResponseValues(){
 
         DoseResponseResult currentResult = get();
-        List<Long> plateIds = doseResponseResultStorage.getPlateIds(doseResponseResultId);
+        Set<Long> plateIds = doseResponseResultStorage.getPlateIds(doseResponseResultId);
 
         Map<Long,List<WellResults>> resultByPlate = new HashMap<>();
         for (Long id : plateIds){
@@ -118,7 +119,7 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
             List<WellResults> wrList = new ArrayList<>(wellResults.values());
             resultByPlate.put(id,wrList);
         }
-        computeResults(resultByPlate);
+        computeResults(resultByPlate, plateIds);
 
 
 
@@ -176,9 +177,14 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
         return null;
     }
 
-    private void computeResults(Map<Long,List<WellResults>> resultsByPlate){
+    private void computeResults(Map<Long,List<WellResults>> resultsByPlate, Set<Long> plateIds){
 
+        DoseResponseResult current = this.get();
+        ExperimentPointsFunction epf = new ExperimentPointsFunction(current,plateIds);
+        List<ExperimentPoint> newPoints = epf.apply(resultsByPlate);
+        doseResponseResultStorage.replaceExperimentPoints(doseResponseResultId,newPoints);
 
+        calculateCurveFit();
 
 
 

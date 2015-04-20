@@ -11,6 +11,7 @@ import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.*;
 
@@ -47,7 +48,7 @@ public class DoseResponseResult extends BaseEntity {
      */
     private String comments;
 
-    @XmlJavaTypeAdapter(value= DoseResponseWellAdapter.class) // custom JAXB adapter to convert the map to an array and back again
+    @XmlTransient
     private List<Dose> doses = new ArrayList<>();
 
     @XmlJavaTypeAdapter(value=ExperimentPointAdapter.class)

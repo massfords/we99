@@ -69,7 +69,7 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
     @Test
     public void testGettingPlateIds() throws Exception {
         doseResponseResultStorage.createAll(1L);
-        List<Long> ids = doseResponseResultStorage.getPlateIds(1L);
+        Set<Long> ids = doseResponseResultStorage.getPlateIds(1L);
 
 
     }
