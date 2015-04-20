@@ -63,7 +63,7 @@ public interface PlatesResource {
             @ApiImplicitParam(name="name", value = "name of the new plate", required = true, dataType = "String", paramType = "form"),
             @ApiImplicitParam(name="plateTypeName", value = "name of the plate type", required = true, dataType = "String", paramType = "form"),
             @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
-    Plate create(@Multipart(value = "name", required = false) String name,
+    Plates create(@Multipart(value = "name", required = false) String name,
                  @Multipart(value = "plateTypeName", required = false) String plateTypeName,
                             @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
 

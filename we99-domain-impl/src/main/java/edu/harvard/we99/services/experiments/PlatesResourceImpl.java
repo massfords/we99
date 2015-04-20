@@ -31,6 +31,7 @@ import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -152,30 +153,37 @@ public abstract class PlatesResourceImpl implements PlatesResource {
     }
 
     @Override
-    public Plate create(String name, String plateTypeName, InputStream csv) {
+    public Plates create(String name, String plateTypeName, InputStream csv) {
+        Plates plates = new Plates();
         PlateCSVReader reader = new PlateCSVReader();
         try (Reader r = new BufferedReader(new InputStreamReader(csv))) {
             if (name == null) {
                 name = UUID.randomUUID().toString();
             }
-            PlateWithOptionalResults read = reader.read(r);
-            Plate plate = read.getPlate().setName(name);
-            plate.setExperimentId(experiment.getId());
-            plate.setPlateType(plateTypeStorage.getByName(plateTypeName));
-            // walk all of the compounds to set their id's or leave null if we're persisting
-            Set<Compound> compounds = new HashSet<>();
-            plate.getWells().values().forEach(well -> well.getContents().forEach(d -> compounds.add(d.getCompound())));
-            Map<Compound, Long> resolvedIds = compoundStorage.resolveIds(compounds);
-            plate.getWells().values().forEach(well -> well.getContents().forEach(d -> d.getCompound().setId(resolvedIds.get(d.getCompound()))));
-            Plate created = plateStorage.create(plate);
+            List<PlateWithOptionalResults> read = reader.read(r);
+            for(PlateWithOptionalResults por : read) {
+                Plate plate = por.getPlate().setName(name);
+                plate.setExperimentId(experiment.getId());
+                plate.setPlateType(plateTypeStorage.getByName(plateTypeName));
+                // walk all of the compounds to set their id's or leave null if we're persisting
+                Set<Compound> compounds = new HashSet<>();
+                plate.getWells().values().forEach(well -> well.getContents().forEach(d -> compounds.add(d.getCompound())));
+                Map<Compound, Long> resolvedIds = compoundStorage.resolveIds(compounds);
+                plate.getWells().values().forEach(well -> well.getContents().forEach(d -> d.getCompound().setId(resolvedIds.get(d.getCompound()))));
+                Plate created = plateStorage.create(plate);
 
-            if (read.getResults() != null) {
-                read.getResults().setPlate(created);
-                resultStorage.create(read.getResults());
-                created.setHasResults(true);
+                if (por.getResults() != null) {
+                    por.getResults().setPlate(created);
+                    resultStorage.create(por.getResults());
+                    created.setHasResults(true);
+                }
+
+                plates.getValues().add(plate);
             }
-
-            return created;
+            plates.setPage(0)
+                    .setPageSize(plates.getValues().size())
+                    .setTotalCount((long) plates.getValues().size());
+            return plates;
         } catch (IOException e) {
             log.error("error parsing csv", e);
             throw new WebApplicationException(Response.status(409).build());
