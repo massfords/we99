@@ -32,6 +32,10 @@ public class CurveFit {
             ProcessBuilder pb = new ProcessBuilder("python", f.getPath(), jsonDoseResponse);
             Process p = pb.start();
 
+            String error = IOUtils.toString(p.getErrorStream(), "UTF-8");
+            if(error == null || error.isEmpty()){
+                System.out.println(error);
+            }
             InputStream in = p.getInputStream();
 
 
