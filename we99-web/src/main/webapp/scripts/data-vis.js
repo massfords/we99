@@ -655,14 +655,18 @@ DataVis.prototype.convertPlateResultData = function(data){
     var dataSet = [];
     wd.forEach(function(row) {row.forEach(function(d) { dataSet.push(d); })} );
 
+    var ro = function(d){
+      return Math.round( d * 100.0) / 100.0;
+    }
+
     return {
       plateIndex: plateResult.plate.id,
       data: dataSet,
       name: plateResult.plate.barcode,
-      z: 0,
-      z_prime: 0,
-      pos_avg: 0,
-      neg_avg: 0
+      z: ro(plateResult.metrics[0].zee),
+      z_prime: ro(plateResult.metrics[0].zeePrime),
+      pos_avg: ro(plateResult.metrics[0].avgPositive),
+      neg_avg: ro(plateResult.metrics[0].avgNegative)
     };
   });
 

@@ -10,7 +10,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('CompoundResultsCntrl', ["$scope", "RestService", function ($scope, RestService) {
+  .controller('CompoundResultsCntrl', ["$q", "$scope", "RestService", function ($q , $scope, RestService) {
 
     var v = new DataVis();
     var displayBoxLocation = "#scatter-plot";
@@ -50,22 +50,40 @@ angular.module('we99App')
         $scope.experiments = response.values;
         $scope.selectedExperiment = $scope.experiments[0];
 
-
         $scope.$watch('selectedExperiment', function(newValue, oldValue) {
 
-          $scope.compounds = transform(v.getDummmyPlateData(newValue.id).dataSets);
+          var experimentId = newValue.id;
+          RestService.getExperimentPlates(experimentId)
+            .success(function(response){
+              var plateIds = response.values.filter(function(plate){ return plate.hasResults;}).map(function(plate){return plate.id;});
+              var promises = plateIds.map(function(plateId){ return RestService.getPlateResults(experimentId, plateId); });
+              $q.all(promises).then(function(response){
+                $scope.compounds = transform(v.convertPlateResultData(response.map(function(d){return d.data;})));
 
-          $scope.compound = {
-            selections: [$scope.compounds[0]]
-          };
+                console.log($scope.compounds);
+                $scope.selectedCompounds = [$scope.compounds[0]];
+                fullDisplayRefresh();
 
-          console.log($scope.compound);
-          fullDisplayRefresh();
+                $scope.toggleCompound = function(compound){
+                  console.log(compound);
+                  var index = -1;
+                  $scope.selectedCompounds.forEach(function(d,i){
+                    if(compound.compound === d.compound){
+                      index = i;
+                    }
+                  })
+                  if(index > -1){
+                    $scope.selectedCompounds.slice(index, 1);
+                  }else{
+                    $scope.selectedCompounds.push(compound);
+                  }
+                  fullDisplayRefresh();
+                }
 
-          $scope.listUpdate = function() {
-            console.log($scope.compound);
-            fullDisplayRefresh();
-          };
+              });
+            }).error(function(response){
+              $scope.errorText="Could not retrieve plate list for expriement [id=" + experimentId + "]";
+            });;
 
         });
 
@@ -73,11 +91,13 @@ angular.module('we99App')
 
     function fullDisplayRefresh(){
 
+      d3.select(".coloration").attr("fill","white");
       d3.select(displayBoxLocation).html("");
 
       var colors = d3.scale.category20();
 
-      $scope.compound.selections.forEach(function(compound, i){
+      console.log($scope.selectedCompounds);
+      $scope.selectedCompounds.forEach(function(compound, i){
 
         var color = colors(i);
         var data = [];

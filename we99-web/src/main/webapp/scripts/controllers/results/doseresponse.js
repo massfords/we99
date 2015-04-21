@@ -61,12 +61,15 @@ angular.module('we99App')
               $q.all(promises).then(function(response){
                 $scope.compounds = transform(v.convertPlateResultData(response.map(function(d){return d.data;})));
 
-                $scope.compound = $scope.compounds[0];
+                console.log($scope.compounds);
+                $scope.selectedCompound = $scope.compounds[0];
                 fullDisplayRefresh();
 
-                $scope.$watch('compound', function(){
-                  fullDisplayRefresh();
-                });
+                $scope.selectCompound = function(compound){
+                  $scope.selectedCompound = compound;
+
+                    fullDisplayRefresh();
+                }
 
               });
             }).error(function(response){
@@ -81,14 +84,14 @@ angular.module('we99App')
       d3.select(displayBoxLocation).html("");
 
       var data = [];
-      $scope.compound.wells.forEach(function(d){
+      $scope.selectedCompound.wells.forEach(function(d){
         if(d.included){
           data.push( [d.amount, d.value] );
         }
       });
 
-      var min = d3.min($scope.compound.wells.map(function(d) {return d.value;}).concat([0.0]));
-      var max = d3.max($scope.compound.wells.map(function(d) {return d.value;}).concat([1.0]));
+      var min = d3.min($scope.selectedCompound.wells.map(function(d) {return d.value;}).concat([0.0]));
+      var max = d3.max($scope.selectedCompound.wells.map(function(d) {return d.value;}).concat([1.0]));
 
       var lineFit = v.linear_regression()
         .data(data)
@@ -96,10 +99,10 @@ angular.module('we99App')
 
       v.renderScatterPlot({
         location: displayBoxLocation,
-        data: $scope.compound.wells,
+        data: $scope.selectedCompound.wells,
         xScaleIsDate: false,
         onCellClick: function(d) {
-            $scope.compound.wells.forEach(function(dataPoint){
+            $scope.selectedCompound.wells.forEach(function(dataPoint){
               if(dataPoint.wellIndex == d.wellIndex){
                 dataPoint.included = !dataPoint.included;
               }
