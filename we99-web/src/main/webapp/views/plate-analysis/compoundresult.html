@@ -1,23 +1,34 @@
 
-<div style="" id="controls">
+<div style="margin: 15px" id="controls">
   Select Assay:
   <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
 
 </div>
 
+<div style="border: 1px solid grey; width: 200px; position: relative; float: left; height: 600px; overflow-y: scroll">
 
-<div style="width: 200px; position: relative; float: left;">
-  Select Compound To View:
-  <span ng-repeat="comp in compounds">
-    <br/>
-  <label>
-    <input type="checkbox" checklist-model="compound.selections"
-           checklist-change="listUpdate()" checklist-value="comp"> {{comp.compound}}
-  </label>
-    <svg style="position: relative; width:20px; height:20px;">
-      <rect id="{{comp.compound}}" fill="white" width="20" height="20"/>
-    </svg>
-  </span>
+  <b>Selected Compounds:</b>
+  <table class="table table-condensed">
+    <thead>
+      <th>Compound</th>
+      <th>Color</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="comp in compounds">
+        <td>
+          <label>
+            <input type="checkbox" checklist-model="selectedCompounds"
+                   checklist-change="toggleCompound(comp)" checklist-value="comp"> {{comp.compound}}
+          </label>
+        </td>
+        <td>
+          <svg style="position: relative; width:20px; height:20px;">
+            <rect class="coloration" id="{{comp.compound}}" fill="white" width="20" height="20"/>
+          </svg>
+        </td>
+      </tr>
+    </tbody>
+    </table>
 </div>
 <div style="width: 600px; height: 600px; position: relative; float: left;" id="display-container">
   <svg style="width: 600px; height: 600px" id="scatter-plot"></svg>

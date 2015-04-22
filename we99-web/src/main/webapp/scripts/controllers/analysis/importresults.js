@@ -8,29 +8,32 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ImportResultsCtrl', function ($scope,$upload,RestURLs,RestService,$modalInstance,experiment,plate) {
+  .controller('ImportResultsCtrl', function ($scope,$upload,RestURLs,RestService,$modalInstance,experiment) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
+    //need to display in html modal
     $scope.experiment=experiment;
-    $scope.plate=plate;
+
+    //$scope.plate=plate;
     //nonsense
-    $scope.allPlates=[];
-    $scope.inhibitionValues=[10,20,30,40,50];
-    $scope.calculationValues=['EC50','Heatmap','All'];
+    //
+    //$scope.allPlates=[];
+    //$scope.inhibitionValues=[10,20,30,40,50];
+    //$scope.calculationValues=['EC50','Heatmap','All'];
 
 
-    if($scope.currentExperiment)
-      RestService.getExperimentPlates($scope.currentExperiment.id)
-        .success(function(resp){
-          $scope.allPlates=resp.values;
-        })
-        .error(function(resp){
-          $scope.errorText="Couldn't load plates for experiment.";
-        });
+    //if($scope.currentExperiment)
+    //  RestService.getExperimentPlates($scope.currentExperiment.id)
+    //    .success(function(resp){
+    //      $scope.allPlates=resp.values;
+    //    })
+    //    .error(function(resp){
+    //      $scope.errorText="Couldn't load plates for experiment.";
+    //    });
 
     //autoupload watch
   $scope.$watch('files', function () {
@@ -49,7 +52,7 @@ angular.module('we99App')
         for (var i = 0; i < $scope.files.length; i++) {
           var file = $scope.files[i];
           $upload.upload({
-            url: RestURLs.resultsUpload($scope.experiment.id,plate.id),
+            url: RestURLs.resultsUpload(experiment.id),
             method: "POST",
             file: file
           }).progress(function (evt) {

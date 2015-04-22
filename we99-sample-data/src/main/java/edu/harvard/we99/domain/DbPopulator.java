@@ -1,25 +1,16 @@
 package edu.harvard.we99.domain;
 
+import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.domain.results.PlateMetrics;
+import edu.harvard.we99.domain.results.WellResults;
+import edu.harvard.we99.domain.results.analysis.CurveFit;
+import edu.harvard.we99.domain.results.analysis.PlateMetricsFunction;
 import edu.harvard.we99.security.AuthenticatedContext;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.CompoundService;
 import edu.harvard.we99.services.PlateMapService;
-import edu.harvard.we99.services.storage.entities.CompoundEntity;
-import edu.harvard.we99.services.storage.entities.DoseEntity;
-import edu.harvard.we99.services.storage.entities.ExperimentEntity;
-import edu.harvard.we99.services.storage.entities.Mappers;
-import edu.harvard.we99.services.storage.entities.PermissionEntity;
-import edu.harvard.we99.services.storage.entities.PlateEntity;
-import edu.harvard.we99.services.storage.entities.PlateResultEntity;
-import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
-import edu.harvard.we99.services.storage.entities.ProtocolEntity;
-import edu.harvard.we99.services.storage.entities.RoleEntity;
-import edu.harvard.we99.services.storage.entities.SampleEntity;
-import edu.harvard.we99.services.storage.entities.UserEntity;
-import edu.harvard.we99.services.storage.entities.VersionEntity;
-import edu.harvard.we99.services.storage.entities.WellEntity;
-import edu.harvard.we99.services.storage.entities.WellResultsEntity;
+import edu.harvard.we99.services.storage.entities.*;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
 import org.joda.time.DateTime;
@@ -33,13 +24,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Populates the database with some initial data. We'll only execute this if
@@ -129,10 +114,6 @@ public class DbPopulator {
 
 
         // Used for assigning random compounds.
-        List <CompoundEntity> compounds = em.createQuery("select cmpe from CompoundEntity cmpe", CompoundEntity.class).getResultList().subList(0, 5);
-
-        Compound comp1 = new Compound(cmpe.getId(),cmpe.getName());
-
         for(ExperimentMapping expMapping : experimentMappings) {
             ExperimentEntity ee = new ExperimentEntity(expMapping.getName())
                     .setDescription(expMapping.getDesc())
@@ -144,7 +125,7 @@ public class DbPopulator {
             userEntities.forEach(em::merge);
 
             // add some plates to the experiment
-            for(int i=0; i<20; i++) {
+            for(int i=0; i<3; i++) {
 
                 PlateEntity pe = new PlateEntity()
                         .setName("plate " + i + " for exp " + ee.getId())
@@ -163,13 +144,19 @@ public class DbPopulator {
 
                 // Used for the well result assignment date.
                 CompoundEntity currentCompound = null;
+                Set <String> compounds = new HashSet<>();
 
                 DateTime analysisDate = new DateTime().minusMinutes(rand.nextInt(10000));
                 for(int row=0; row<pte.getDim().getRows(); row++) {
 
-                    // Make a new compound at the start of a row.
-                    currentCompound = new CompoundEntity().setName("C" + rand.nextInt(2000) + "-" + rand.nextInt(2000));
                     Double variance = (Math.random());
+
+                    // Make a new compound at the start of a row.
+                    String compoundName = "C" + rand.nextInt(2000) + "-" + rand.nextInt(2000);
+                    while(compounds.contains(compoundName)){
+                        compoundName = "C" + rand.nextInt(2000) + "-" + rand.nextInt(2000);
+                    }
+                    currentCompound = new CompoundEntity().setName(compoundName);
                     em.persist(currentCompound);
 
                     for(int col=0; col<pte.getDim().getCols(); col++) {
@@ -180,8 +167,6 @@ public class DbPopulator {
                         // Add control wells if you're in the first or last column.
                         // Positive are on the top of the plate, and negative are on
                         // the bottom of the plate.
-
-
                         Double compAmount = ( col ) * (200.0 / (pte.getDim().getCols() ));
                         Double value =  ( 1 /(1 + Math.exp( -0.07 * (compAmount - 100.0))) ) + (variance * (Math.random() - 1));
                         if(col == 0 || col == pte.getDim().getCols() - 1){
@@ -216,12 +201,62 @@ public class DbPopulator {
                         wre.addSample(new SampleEntity()
                                 .setMeasuredAt(analysisDate)
                                 .setValue(value)
+                                .setLabel("Test Item")
                         );
                         pre.add(wre);
                         em.persist(wre);
 
                     }
                 }
+
+                PlateMetricsFunction pmf = new PlateMetricsFunction(Mappers.PLATES.map(pe));
+                PlateMetrics pmetrics = pmf.apply(new LinkedList<>(Mappers.PLATERESULT.map(pre).getWellResults().values())).get(0);
+
+                PlateMetricsEntity pme = new PlateMetricsEntity();
+                pme.setAvgNegative(pmetrics.getAvgNegative());
+                pme.setAvgPositive(pmetrics.getAvgPositive());
+                pme.setLabel(pmetrics.getLabel());
+                pme.setZee(pmetrics.getZee());
+                pme.setZeePrime(pmetrics.getZeePrime());
+                em.persist(pme);
+                pre.getMetrics().put("BASIC_PLATE_SUMMARY", pme);
+
+
+                Map <String, DoseResponseResultEntity> drMap = new HashMap <>();
+                for(WellResultsEntity wr : pre.getWellResults().values()){
+                    for(WellEntity we : pe.getWells().values()){
+                        if(we.getCoordinate().equals(wr.getCoordinate())){
+                            CompoundEntity c = we.getContents().iterator().next().getCompound();
+                            if(!drMap.containsKey(c.getName())){
+                                drMap.put(c.getName(), new DoseResponseResultEntity());
+                            }
+                            DoseResponseResultEntity drr = drMap.get(c.getName());
+                            drr.setCompound(c);
+                            drr.setDoses(new LinkedList<>(we.getContents()));
+                            drr.setExperiment(ee);
+                            drr.getExperimentPoints().add(new ExperimentPoint()
+                                .setDoseId(we.getContents().iterator().next().getId())
+                                .setPlateId(pe.getId())
+                                .setX(we.getContents().iterator().next().getAmount().getNumber())
+                                .setY(wr.getSamples().iterator().next().getValue())
+                            );
+                        }
+                    }
+                }
+
+                for(DoseResponseResultEntity drre : drMap.values()){
+
+                    em.persist(drre);
+                    DoseResponseResult doseResponseResult = Mappers.DOSERESPONSES.map(drre);
+                    doseResponseResult = CurveFit.fitCurve(doseResponseResult);
+                    DoseResponseResultEntity processed = Mappers.DOSERESPONSES.mapReverse(doseResponseResult);
+                    if(processed != null){
+                        em.persist(processed);
+                    }
+
+                }
+
+
 
             }
 
