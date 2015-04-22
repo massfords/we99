@@ -8,18 +8,22 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ExperimentListCtrl', ['$scope','$rootScope','$location', 'RestService',function ($scope,$rootScope,$location,RestService) {
+  .controller('ExperimentListCtrl', ['$scope','$rootScope','$location', 'RestService','$modal',function ($scope,$rootScope,$location,RestService,$modal) {
 
 
     //retrieve list of experiments
-    RestService.getExperiments()
-    	.success(function(response){
-    		$scope.experiments=response.values;
-    		$scope.displayExperiments=[].concat($scope.experiments);
-    		})
-    	.error(function(response){
-    		$scope.errorText="Could not retrieve experiments list.";
-    		});
+    function refreshExperiments(){
+      RestService.getExperiments()
+        .success(function(response){
+          $scope.experiments=response.values;
+          $scope.displayExperiments=[].concat($scope.experiments);
+          })
+        .error(function(response){
+          $scope.errorText="Could not retrieve experiments list.";
+          });
+    };
+
+    refreshExperiments();
 
     $scope.editRow=function(){
       for(var i=0;i<$scope.experiments.length;i++)
@@ -75,6 +79,23 @@ angular.module('we99App')
 
     }, true);
 
+    $scope.uploadFile=function(row){
+        var modalInstance = $modal.open({
+          backdrop: true,
+          size: 'lg',
+          templateUrl: 'views/plate-analysis/importresults.html',
+          controller: 'ImportResultsCtrl',
+          resolve: {
+            experiment: function () {
+              return row;
+            }
+          }
+        });
+        modalInstance.result.then(function (returnVal) {
+          $scope.refreshPlates(); // Refreshes plate  when add result screen closed
+        });
+
+    };
 
     $scope.dismiss=function(type){
     	if(type==='info'){
@@ -83,6 +104,8 @@ angular.module('we99App')
     	else if(type==='error')
     		$scope.errorText=null;
     }
+
+    // Tour Settings:
 
     $scope.startTour=function(){
       $scope.startJoyRide=true;

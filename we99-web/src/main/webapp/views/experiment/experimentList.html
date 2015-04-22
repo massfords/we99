@@ -24,8 +24,7 @@
            ng-if="row.status==='UNPUBLISHED'">Unpublished</a>
       </td>
       <td>{{row.protocol.name}}</td>
-      <!-- TODO: Fix links -->
-      <td><a ng-href="#">Files</a></td>
+      <td><button type="button" ng-click="uploadFile(row)" class="btn btn-link">Upload CSV</button></td>
       <td>
 			  <i ng-click="removeItem(row)" class="glyphicon glyphicon-remove-circle"></i>
         <a style="color:black;" ng-href="#/experiment/{{row.id}}"><i class="glyphicon glyphicon-zoom-in"></i></a>

@@ -8,11 +8,26 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('PlateMapEditorCtrl', function ($scope, $modal, PlateMapModel) {
+  .controller('PlateMapEditorCtrl', function ($scope, $modal,$log, PlateMapModel) {
     $scope.displayPlateMaps = [];
     $scope.plateMaps = [];
 
     /* Actions */
+
+    /**
+     * Removes plate map from system
+     * @param row
+     */
+    $scope.removePlateMap=function(row){
+      PlateMapModel.delete({ id: row.id },function done(resp){
+        $log.info('delete response:'+resp);
+        //remove deleted map from our backing list
+        for(var i in $scope.plateMaps){
+          if($scope.plateMaps[i].id===row.id)
+            $scope.plateMaps.splice(i,1);
+        }
+      });
+    }
 
     /** Modal popover showing addPlate Type Wizard
      * @param option optional param for pre-populating rows or columns

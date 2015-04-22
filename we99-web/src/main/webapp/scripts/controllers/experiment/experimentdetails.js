@@ -38,38 +38,12 @@ angular.module('we99App')
       // Gets the list of experiment plates from the server
       $scope.refreshPlates = function(){
         SelectedExperimentSvc.getPlates($scope.experiment.id).then(function (plates){
-          for(var i=0;i<plates.length;i++){
-            var plate=plates[i];
-            plate.hasResults=false;
-            SelectedExperimentSvc.getResults(plate.id).then(
-              function(){plate.hasResults=true;},
-              function(){plate.hasResults=false;});
-          };
           $scope.plates = plates;
           $scope.displayedPlates = plates;
           $scope.show.addPlateForm = false;
         });
       }
 
-      $scope.addResult = function(plate) {
-        var modalInstance = $modal.open({
-          backdrop: true,
-          size: 'lg',
-          templateUrl: 'views/plate-analysis/importresults.html',
-          controller: 'ImportResultsCtrl',
-          resolve: {
-            experiment: function () {
-              return $scope.experiment;
-            },
-            plate: function () {
-              return plate;
-            }
 
-          }
-        });
-        modalInstance.result.then(function (returnVal) {
-          $scope.refreshPlates(); // Refreshes plate  when add result screen closed
-        });
-      };
 
     }]);
