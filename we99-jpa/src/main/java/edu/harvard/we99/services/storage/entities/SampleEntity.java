@@ -33,6 +33,7 @@ public class SampleEntity {
     @NotNull
     private Double value;
 
+
     /**
      * Optional label to help aggregate this sample with others
      */
@@ -125,4 +126,6 @@ public class SampleEntity {
         this.status = status;
         return this;
     }
+
+
 }

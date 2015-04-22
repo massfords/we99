@@ -47,7 +47,7 @@ public class ExperimentPointsFunction implements Function<Map<Long,List<WellResu
                     npoint.setX(epdosesmap.get(ep.getDoseId()).getAmount().getNumber());
                     cord.keySet().forEach(wellcoord -> {
                         if (wellcoord.equals(epdosesmap.get(ep.getDoseId()).getWell().getCoordinate())) {
-                            npoint.setY(cord.get(wellcoord).get(0).getValue());
+                            npoint.setY(cord.get(wellcoord).get(0).getValue());      //protectet against no well at co-ord
                         }
                     });
                     newpoints.add(npoint);
