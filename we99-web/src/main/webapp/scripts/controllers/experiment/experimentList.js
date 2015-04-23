@@ -103,13 +103,13 @@ angular.module('we99App')
     	}
     	else if(type==='error')
     		$scope.errorText=null;
-    }
+    };
 
     // Tour Settings:
 
     $scope.startTour=function(){
       $scope.startJoyRide=true;
-    }
+    };
 
     $scope.config = [
       {

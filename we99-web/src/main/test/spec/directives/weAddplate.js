@@ -585,6 +585,26 @@ describe('Controller: AddPlateCtrl', function () {
             });
         })
     });
+
+
+    describe('Create Button', function(){
+      it('should be disabled when there is an empty label table', function(){
+        scope.labelTable = [];
+        expect(scope.showCreateButton()).toBe(false);
+      });
+      it('should be disabled when there is an empty compound option', function(){
+        scope.labelTable =
+          [{label: 'A', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: ""}, dilutionFactor: 2},
+            {label: 'B', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: "def"}, dilutionFactor: 2}];
+        expect(scope.showCreateButton()).toBe(false);
+      });
+      it('should be enabled when all the compounds have values', function(){
+        scope.labelTable =
+          [{label: 'A', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: "abc"}, dilutionFactor: 2},
+            {label: 'B', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: "def"}, dilutionFactor: 2}];
+        expect(scope.showCreateButton()).toBe(true);
+      });
+    });
 });
 
 describe('Service: LabelTableSvc', function () {
