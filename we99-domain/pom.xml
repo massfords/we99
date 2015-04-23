@@ -11,7 +11,34 @@
 
     <artifactId>we99-domain</artifactId>
 
+    <repositories>
+        <repository>
+            <id>fileLocal</id>
+            <url>file://${basedir}/../repo</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <dependency>
+            <groupId>JNL</groupId>
+            <artifactId>JNL</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>Jama</groupId>
+            <artifactId>Jama</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>CurveFitter</groupId>
+            <artifactId>CurveFitter</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.efficient-java-matrix-library</groupId>
+            <artifactId>ejml</artifactId>
+            <version>0.17</version>
+        </dependency>
 
         <dependency>
             <groupId>edu.harvard.we99</groupId>
