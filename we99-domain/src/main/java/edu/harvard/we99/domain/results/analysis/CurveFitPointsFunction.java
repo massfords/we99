@@ -1,0 +1,80 @@
+package edu.harvard.we99.domain.results.analysis;
+
+import edu.harvard.we99.domain.CurveFitPoint;
+import edu.harvard.we99.domain.ExperimentPoint;
+import edu.harvard.we99.domain.FitEquation;
+import edu.harvard.we99.domain.FitParameter;
+
+import java.util.*;
+import java.util.function.Function;
+
+/**
+ * @author alan orcharton
+ */
+public class CurveFitPointsFunction implements Function<List<ExperimentPoint>, List<CurveFitPoint>> {
+
+    private final List<FitParameter> fitParameters;
+    private final int numPoints;
+    private Function<List<Double>,List<Double>> curveFunction;
+    private static final Double DEFAULT_MIN = -10.0;
+    private static final Double DEFAULT_MAX = -5.0;
+    private static final FitEquation fitequation = FitEquation.HILLEQUATION;
+
+    public CurveFitPointsFunction (List<FitParameter> fitParameters, int numPoints,
+                                   FitEquation fitEquation){
+        this.fitParameters = fitParameters;
+        this.numPoints = numPoints;
+        //this.fitequation = fitEquation;
+
+    }
+
+     private List<CurveFitPoint> createCurvePoints(List<Double> xs, List<Double> ys){
+         List<CurveFitPoint> curvePointsList = new ArrayList<>();
+         for(int i=0; i< xs.size(); i++){
+               CurveFitPoint cfp = new CurveFitPoint().setX(xs.get(i));
+               cfp.setY(ys.get(i));
+               cfp.setSequenceNumber(i);
+               curvePointsList.add(cfp);
+           }
+         return curvePointsList;
+     }
+
+    @Override
+    public List<CurveFitPoint> apply(List<ExperimentPoint> experimentPoints) {
+
+        Optional<Double> max = experimentPoints.stream()
+                                    .map(ExperimentPoint::getX)
+                                    .reduce(Double::max);
+
+        Optional<Double> min = experimentPoints.stream()
+                .map(ExperimentPoint::getX)
+                .reduce(Double::min);
+
+        Double step = (max.orElse(DEFAULT_MAX) - min.orElse(DEFAULT_MIN))/ (double)numPoints ;
+
+        //generate points
+        List<Double> xpoints = new ArrayList<>();
+        for(int x=0; x < numPoints; x++){
+            Double xpoint = min.orElse(DEFAULT_MIN) + step;
+            xpoints.add(xpoint);
+        }
+
+        //if(fitequation == FitEquation.HILLEQUATION)
+        Map<String,Double> fitParameterMap = new HashMap<>();
+        for(FitParameter f : fitParameters){
+            fitParameterMap.put(f.getName(),f.getValue());
+
+        }
+
+        //new HillEquationFunction(fitParameterMap.get("Max"),fitParameterMap.get("Min"),
+          //      fitParameterMap.get("Slope"),fitParameterMap("EC50"));
+        HillEquationFunction func = new HillEquationFunction(fitParameterMap.get("Max"),fitParameterMap.get("Min"),
+                fitParameterMap.get("Slope"),fitParameterMap.get("EC50"));
+
+        List<Double> ypoints = func.apply(xpoints);
+
+        List<CurveFitPoint> curveFitPoints = createCurvePoints(xpoints,ypoints);
+
+        return curveFitPoints;
+    }
+}
