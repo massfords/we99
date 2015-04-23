@@ -1,0 +1,11 @@
+#row, col, well-type, label, value
+0, 0, COMP, compound, A
+0, 1, COMP, compound, A
+0, 2, COMP, compound, A
+0, 3, COMP, compound, A
+0, 4, EMPTY
+2, 0, COMP, compound, B
+2, 1, COMP, compound, B
+2, 2, COMP, compound, B
+2, 3, COMP, compound, B
+2, 4, EMPTY
