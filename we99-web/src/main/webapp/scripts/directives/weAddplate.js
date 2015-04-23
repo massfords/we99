@@ -59,6 +59,12 @@ angular.module('we99App')
                 });
         };
 
+        $scope.showCreateButton = function(){
+          return $scope.labelTable.length > 0 && $scope.labelTable.every(function(row){
+            return (row.dose.compound && row.dose.compound.length > 0);
+          });
+        };
+
         /** Gets the merge info object from the server based on the plate map and type
          *  and uses it to populate the label table display.
          */

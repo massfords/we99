@@ -11,6 +11,14 @@
 	<artifactId>we99-web</artifactId>
 	<packaging>war</packaging>
 
+	<repositories>
+		<repository>
+			<id>fileLocal</id>
+			<url>file://${basedir}/../repo</url>
+		</repository>
+	</repositories>
+
+
 	<dependencies>
         <dependency>
             <groupId>edu.harvard.we99</groupId>
