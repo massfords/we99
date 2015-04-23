@@ -7,17 +7,26 @@ import edu.harvard.we99.domain.FitParameter;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author alan orcharton
+ *
+ * This function takes the Experiment Points, finds the max and min points
+ * and generate new points between the max and min that have been fitted to
+ * the Best Fit curve. These points can be used for plotting the best fit
+ * curve.
+ *
+ * The constructor takes the fit parameters and the equation to draw the curve
+ *
  */
 public class CurveFitPointsFunction implements Function<List<ExperimentPoint>, List<CurveFitPoint>> {
 
     private final List<FitParameter> fitParameters;
     private final int numPoints;
     private Function<List<Double>,List<Double>> curveFunction;
-    private static final Double DEFAULT_MIN = -10.0;
-    private static final Double DEFAULT_MAX = -5.0;
+    private static final Double DEFAULT_MIN = 1.0E-10;
+    private static final Double DEFAULT_MAX = 6.309573444801929E-5;
     private static final FitEquation fitequation = FitEquation.HILLEQUATION;
 
     public CurveFitPointsFunction (List<FitParameter> fitParameters, int numPoints,
@@ -46,18 +55,40 @@ public class CurveFitPointsFunction implements Function<List<ExperimentPoint>, L
                                     .map(ExperimentPoint::getX)
                                     .reduce(Double::max);
 
+
         Optional<Double> min = experimentPoints.stream()
                 .map(ExperimentPoint::getX)
                 .reduce(Double::min);
 
-        Double step = (max.orElse(DEFAULT_MAX) - min.orElse(DEFAULT_MIN))/ (double)numPoints ;
+        Double maxlog10 = Math.log10(max.orElse(DEFAULT_MAX));
+        Double minlog10 = Math.log10(min.orElse(DEFAULT_MIN));
+
+        Double logStep = (maxlog10 - minlog10) / (double)numPoints;
 
         //generate points
-        List<Double> xpoints = new ArrayList<>();
+        List<Double> xlogpoints = new ArrayList<>();
+        Double xlogpoint = minlog10;
+        xlogpoints.add(xlogpoint);
         for(int x=0; x < numPoints; x++){
-            Double xpoint = min.orElse(DEFAULT_MIN) + step;
-            xpoints.add(xpoint);
+            xlogpoint = xlogpoint + logStep;
+            xlogpoints.add(xlogpoint);
         }
+
+        List<Double> xpoints = xlogpoints.stream()
+                    .map(xlog -> Math.pow(10,xlog))
+                    .collect(Collectors.toList());
+
+
+       // Double step = (max.orElse(DEFAULT_MAX) - min.orElse(DEFAULT_MIN))/ (double)numPoints ;
+
+//        //generate points
+//        List<Double> xpoints = new ArrayList<>();
+//        Double xpoint = min.orElse(DEFAULT_MIN);
+//        xpoints.add(xpoint);
+//        for(int x=0; x < numPoints; x++){
+//            xpoint = xpoint + step;
+//            xpoints.add(xpoint);
+//        }
 
         //if(fitequation == FitEquation.HILLEQUATION)
         Map<String,Double> fitParameterMap = new HashMap<>();
