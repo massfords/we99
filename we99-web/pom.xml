@@ -92,6 +92,12 @@
 		</dependency>
 
 	</dependencies>
+	<repositories>
+		<repository>
+		    <id>fileLocal</id>
+		    <url>file://${basedir}/../repo</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<finalName>we99</finalName>
