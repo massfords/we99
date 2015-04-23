@@ -137,7 +137,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
 
   it('should load in create mode if route params = new', function () {
     expect(scope.editMode).toBe(false);
-    expect(scope.pageTitle).toBe('Create New Experiment');
+    expect(scope.pageTitle).toBe('Create New Assay');
 
     httpBackend.flush();
 
