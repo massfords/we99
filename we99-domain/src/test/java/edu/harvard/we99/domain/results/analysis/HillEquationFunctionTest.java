@@ -2,11 +2,10 @@ package edu.harvard.we99.domain.results.analysis;
 
 import edu.harvard.we99.domain.FitParameter;
 import edu.harvard.we99.domain.ParameterStatus;
-import org.assertj.core.util.Arrays;
 import org.junit.Test;
 
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -16,7 +15,7 @@ import static org.junit.Assert.*;
  */
 public class HillEquationFunctionTest {
 
-    private static final DELTA = 1-E8''
+    private static final double DELTA = 1E-8;
 
     @Test
     public void testConvertingASinglePoint(){
@@ -34,28 +33,36 @@ public class HillEquationFunctionTest {
                 6.30957344480193e-07, 1e-06, 1.584893192461114e-06, 2.5118864315095823e-06, 3.981071705534969e-06, 6.30957344480193e-06, 1e-05, 1.584893192461114e-05, 2.5118864315095822e-05,
                 3.9810717055349695e-05, 6.309573444801929e-05};
 
-        List<Double> points= new ArrayList<Double>(java.util.Arrays.asList(raw));
+        List<Double> points= new ArrayList<>(java.util.Arrays.asList(raw));
 
 
-        FitParameter max = new FitParameter("Max",94.20960104195203, ParameterStatus.FLOAT);
-        FitParameter min = new FitParameter("Min",-1.2252920335931403,ParameterStatus.FLOAT);
-        FitParameter slope = new FitParameter("Slope",0.6880552631612014, ParameterStatus.FLOAT);
-        FitParameter ec50 = new FitParameter("EC50",-6.991609838101542, ParameterStatus.FLOAT);
+
 
         HillEquationFunction hefunc = new HillEquationFunction(94.20960104195203,-1.2252920335931403,0.6880552631612014,-6.991609838101542 );
         List<Double> results = hefunc.apply(points);
 
-        double[] actual = Arrays.toArray(results);
-        double[] expected = new double[expectedResponses.length];
+        Double[] arrayResutls = results.toArray(new Double[0]);
+        double[] actual = doubleTodoubleArray(arrayResutls);
+        double[] expected = doubleTodoubleArray(expectedResponses);
 
-        for (int i =0; i < expected.length; i++){
-             expected[i] = expectedResponses[i];
-        }
-
-        //assertArrayEquals(expected,actual,DELTA);
+        assertArrayEquals(expected,actual,DELTA);
 
     }
 
+    private static double[] listTodoubleArray(List<Double> input){
+        double[] output = new double[input.size()];
+        for (int i =0; i < input.size(); i++) {
+            output[i] = input.get(i);
+        }
+        return output;
+    }
 
+    private static double[]  doubleTodoubleArray(Double[] input){
+        double[] output = new double[input.length];
+        for (int i =0; i < input.length; i++) {
+            output[i] = input[i];
+        }
+        return output;
+    }
 
 }

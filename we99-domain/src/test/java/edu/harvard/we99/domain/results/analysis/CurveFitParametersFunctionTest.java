@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Created by HUID 70786729 on 4/22/15.
+ * @author alan orcharton
  */
 public class CurveFitParametersFunctionTest {
 

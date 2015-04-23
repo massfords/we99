@@ -98,7 +98,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Prof's curve fitter jars -->
+        <!-- Prof's curve fitter jars
         <dependency>
             <groupId>curvefitter</groupId>
             <artifactId>curvefitter</artifactId>
@@ -138,6 +138,7 @@
             <version>1.2.16</version>
             <systemPath>${basedir}/src/libs/log4j-1.2.16.jar</systemPath>
         </dependency>
+        -->
 
 
         <!-- Spring Dependencies -->
