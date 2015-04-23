@@ -2,18 +2,65 @@
 
 /**
  * @ngdoc function
- * @name we99App.controller:PlateMgmtImportplatemapCtrl
+ * @name we99App.controller:CompoundsCtrl
  * @description
- * # PlateMgmtImportplatemapCtrl
+ * # CompoundsCtrl
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('CompoundsCtrl', function ($scope, $upload,RestURLs) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('CompoundsCtrl', function ($scope, $upload,RestURLs,RestService,$modal) {
+
+
+    //max compounds to display
+    $scope.maxCompounds=10;
+
+    $scope.compoundList=[];
+    $scope.searchFilter="";
+
+    $scope.$watch('searchFilter', function () {
+      refreshCompounds();
+    });
+
+
+    $scope.importCompounds=function(){
+      var modalInstance = $modal.open({
+        backdrop: true,
+        size: 'md',
+        templateUrl: 'views/admin/importcompounds.html',
+        controller: 'ImportCompoundsCtrl'
+      });
+      modalInstance.result.then(function (returnVal) {
+        refreshCompounds();
+      });
+
+    };
+
+    /**
+     * Refreshes the list of available compounds, should only retrieve up to a max of "maxCompounds"
+     */
+    function refreshCompounds(){
+      RestService.getCompounds($scope.searchFilter,$scope.maxCompounds).success(function(resp){
+        console.log('# of compounds returned:'+resp.values.length);
+        $scope.compoundList=resp.values;
+      });
+
+    };
+
+    refreshCompounds();
+
+  });
+
+  /// Modal section ///
+
+    /**
+     * @ngdoc function
+     * @name we99App.controller:ImportCompoundsCtrl
+     * @description
+     * # ImportCompoundsCtrl
+     * Controller of the we99App
+     */
+    angular.module('we99App')
+      .controller('ImportCompoundsCtrl', function ($scope,$upload,RestURLs,RestService,$modalInstance) {
 
     $scope.$watch('files', function () {
       $scope.upload($scope.files);
@@ -47,5 +94,9 @@ angular.module('we99App')
         }
       }
     };
+
+        $scope.dismiss = function () {
+          $modalInstance.dismiss('cancel');
+        };
 
   });
