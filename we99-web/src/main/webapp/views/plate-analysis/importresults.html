@@ -1,23 +1,29 @@
-<h1>Upload Results</h1>
-<h3>{{experiment.name}}</h3>
-<form role="form" name="uploadResultsForm">
-<div class="form-group">
-<div ng-file-drop ng-file-select ng-model="files" class="drop-box"
-     drag-over-class="dragover" ng-multiple="true" allow-dir="true"
-     accept="text/csv">Drop csv files here or click to upload</div>
-<div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
-<ul>
-  <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
-</ul>
+<div class="modal-header">
+  <h3 class="modal-title">Upload Results</h3>
 </div>
-  <!--<button class="btn btn-primary" ng-click="upload()" data-ng-disabled="uploadResultsForm.$invalid">Load Results</button>-->
+<div class="modal-body">
+  <strong>{{experiment.name}}</strong>
 
-</form>
-<div>
-  <!-- Just a basic text output for response for now, better implementation to come later -->
-  <label for="output">Response:</label>
+  <form role="form" name="uploadResultsForm">
+    <div class="form-group">
+      <div ng-file-drop ng-file-select ng-model="files" class="drop-box"
+           drag-over-class="dragover" ng-multiple="true" allow-dir="true"
+           accept="text/csv">Drop csv files here or click to upload
+      </div>
+      <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
+      <ul>
+        <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
+      </ul>
+    </div>
+    <!--<button class="btn btn-primary" ng-click="upload()" data-ng-disabled="uploadResultsForm.$invalid">Load Results</button>-->
+
+  </form>
+  <div>
+    <!-- Just a basic text output for response for now, better implementation to come later -->
+    <label for="output">Response:</label>
      <textarea id="output" rows=5 style="width: 100%;" readonly>
      {{uploadOutput}}
      </textarea>
-  <button class="btn btn-primary" ng-click="dismiss()">Close</button>
+    <button class="btn btn-primary" ng-click="dismiss()">Close</button>
+  </div>
 </div>

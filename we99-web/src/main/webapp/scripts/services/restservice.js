@@ -103,6 +103,12 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
 
     addProtocol:  function(proc){
       return $http.put(RestURLs.protocol,proc);
+    },
+
+    //compound
+    getCompounds: function(searchFilter,pageSize){
+      var config={params:{"pageSize": pageSize, page:0, q: searchFilter}};
+      return $http.get(RestURLs.compoundUpload,config);
     }
 
   };
