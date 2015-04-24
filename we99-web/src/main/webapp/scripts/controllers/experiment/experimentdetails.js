@@ -58,7 +58,7 @@ angular.module('we99App')
 
       $scope.openAddWCompoundCsvModal = function(){
         var modalInstance = $modal.open({
-          templateUrl: 'views/plate-mgmt/addplate-w-compounds.html',
+          templateUrl: 'views/plate-mgmt/addplate-w-compoundfile.html',
           controller: 'AddPlateCtrl',
           size: 'lg'
         });
