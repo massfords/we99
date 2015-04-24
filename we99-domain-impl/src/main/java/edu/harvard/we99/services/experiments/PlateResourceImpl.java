@@ -2,15 +2,22 @@ package edu.harvard.we99.services.experiments;
 
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.services.experiments.internal.PlateResourceInternal;
+import edu.harvard.we99.services.experiments.internal.PlateResultResourceInternal;
 import edu.harvard.we99.services.storage.PlateStorage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Generated;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 /**
  * @author mford
  */
-public abstract class PlateResourceImpl implements PlateResource {
+public abstract class PlateResourceImpl implements PlateResourceInternal {
+
+    private static final Logger log = LoggerFactory.getLogger(PlateResourceImpl.class);
 
     private Long plateId;
     private final PlateStorage plateStorage;
@@ -22,12 +29,22 @@ public abstract class PlateResourceImpl implements PlateResource {
 
     @Override
     public Plate get() {
-        return plateStorage.get(plateId);
+        try {
+            return plateStorage.get(plateId);
+        } catch(Exception e) {
+            log.error("error getting plate resource {}", plateId, e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
     }
 
     @Override
     public Plate update(Plate plate) {
-        return plateStorage.update(plateId, plate);
+        try {
+            return plateStorage.update(plateId, plate);
+        } catch(Exception e) {
+            log.error("error updating plate resource {} with {}", plateId, plate, e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
     }
 
     @Override
@@ -38,13 +55,13 @@ public abstract class PlateResourceImpl implements PlateResource {
 
     @Override
     public PlateResultResource getPlateResult() {
-        PlateResultResource prr = createPlateResult();
+        PlateResultResourceInternal prr = createPlateResult();
         prr.setExperiment(experiment);
         prr.setPlateId(plateId);
         return prr;
     }
 
-    protected abstract PlateResultResource createPlateResult();
+    protected abstract PlateResultResourceInternal createPlateResult();
 
     @Override
     public void setPlateId(Long plateId) {

@@ -5,6 +5,8 @@ import edu.harvard.we99.domain.lists.Compounds;
 import edu.harvard.we99.services.storage.CompoundStorage;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -23,6 +25,8 @@ import java.util.Set;
  */
 public class CompoundServiceImpl extends BaseRESTServiceImpl<Compound>  implements CompoundService {
 
+    private final Logger log = LoggerFactory.getLogger(CompoundServiceImpl.class);
+
     public CompoundServiceImpl(CompoundStorage storage) {
         super(storage);
     }
@@ -35,8 +39,14 @@ public class CompoundServiceImpl extends BaseRESTServiceImpl<Compound>  implemen
 
     @Override
     public Compounds listAll(Integer page, Integer pageSize, String queryString) {
-        CompoundStorage cs = (CompoundStorage) storage;
-        return cs.listAll(page, pageSize, queryString);
+        try {
+            CompoundStorage cs = (CompoundStorage) storage;
+            return cs.listAll(page, pageSize, queryString);
+        } catch(Exception e) {
+            log.error("error listing compounds. Page {} pageSize {} queryString {}",
+                    page, pageSize, queryString, e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
     }
 
     @Override
@@ -63,9 +73,13 @@ public class CompoundServiceImpl extends BaseRESTServiceImpl<Compound>  implemen
                 counter += set.size();
             }
         } catch (IOException e) {
+            log.error("error processing compounds stream", e);
             throw new WebApplicationException(
                     Response.status(409).entity(e.getMessage()).build()
             );
+        } catch (Exception e) {
+            log.error("error processing compounds stream", e);
+            throw new WebApplicationException(Response.serverError().build());
         }
         return Response.ok().entity("Uploaded " + counter).build();
     }

@@ -4,7 +4,6 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiImplicitParam;
 import com.wordnik.swagger.annotations.ApiImplicitParams;
 import com.wordnik.swagger.annotations.ApiOperation;
-import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.StatusChange;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
@@ -57,8 +56,4 @@ public interface PlateResultResource {
     @PreAuthorize("hasRole('PERM_MODIFY_RESULTS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     @Consumes(MediaType.APPLICATION_JSON)
     PlateResult updateStatus(StatusChange statusChange);
-
-    void setPlateId(Long plateId);
-    void setExperiment(Experiment experiment);
-    Experiment getExperiment();
 }

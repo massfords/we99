@@ -63,7 +63,4 @@ public interface MemberResource {
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
     Response removeMember(@PathParam("userId") Long userId);
-
-    Long getId();
-    void setId(Long id);
 }

@@ -62,13 +62,23 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
         } catch (IOException e) {
             log.error("error parsing csv", e);
             throw new WebApplicationException(Response.status(409).build());
+        } catch(Exception e) {
+            log.error("error creating PlateMap {}", name, e);
+            throw new WebApplicationException(Response.serverError().build());
         }
     }
 
     @Override
     public PlateMaps listAll(Integer page, Integer pageSize,
                              Integer maxRows, Integer maxCols, String typeAhead) {
-        return plateMapStorage().listAll(page, pageSize, new PlateDimension(maxRows, maxCols), typeAhead);
+        try {
+            return plateMapStorage().listAll(page, pageSize,
+                    new PlateDimension(maxRows, maxCols), typeAhead);
+        } catch(Exception e) {
+            log.error("error listing plate maps. Page {}, pageSize {}, maxRows {}, maxCols {}, query {}",
+                    page, pageSize, maxRows, maxCols, typeAhead, e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
     }
 
     @Override

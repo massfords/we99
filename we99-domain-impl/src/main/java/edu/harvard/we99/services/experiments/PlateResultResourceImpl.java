@@ -9,6 +9,7 @@ import edu.harvard.we99.domain.results.StatusChange;
 import edu.harvard.we99.domain.results.WellResults;
 import edu.harvard.we99.domain.results.analysis.NormalizationFunction;
 import edu.harvard.we99.domain.results.analysis.PlateMetricsFunction;
+import edu.harvard.we99.services.experiments.internal.PlateResultResourceInternal;
 import edu.harvard.we99.services.io.MatrixParser;
 import edu.harvard.we99.services.io.PlateResultCSVReader;
 import edu.harvard.we99.services.io.PlateResultsReader;
@@ -34,7 +35,7 @@ import java.util.Map;
 /**
  * @author mford
  */
-public class PlateResultResourceImpl implements PlateResultResource {
+public class PlateResultResourceImpl implements PlateResultResourceInternal {
 
     private static final Logger log = LoggerFactory.getLogger(PlatesResourceImpl.class);
 
@@ -92,14 +93,19 @@ public class PlateResultResourceImpl implements PlateResultResource {
 
     @Override
     public PlateResult updateStatus(StatusChange statusChange) {
-        resultStorage.updateStatus(plateId, statusChange.getCoordinate(), statusChange.getStatus());
+        try {
+            resultStorage.updateStatus(plateId, statusChange.getCoordinate(), statusChange.getStatus());
 
-        PlateResult plateResult = resultStorage.get(plateId);
-        plateResult.setMetrics(compute(plateResult));
+            PlateResult plateResult = resultStorage.get(plateId);
+            plateResult.setMetrics(compute(plateResult));
 
-        PlateResult updated = resultStorage.update(plateId, plateResult);
+            PlateResult updated = resultStorage.update(plateId, plateResult);
 
-        return updated;
+            return updated;
+        } catch(Exception e) {
+            log.error("error updating well status {}", statusChange, e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
     }
 
     private List<PlateMetrics> compute(PlateResult result) {

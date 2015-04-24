@@ -21,6 +21,7 @@ public interface DoseResponseResultStorage extends CRUDStorage<DoseResponseResul
     Set<Long> getPlateIds(Long doseResponseId);
     Dose getDose(Long doseResponseId, Long doseId);
     DoseResponseResult getByCompoundName(String compoundName);
+    Long getKOPointDrAndPlateId(Long experimentId, Long doseId);
     void replaceExperimentPoints(Long doseResponseResultId,List<ExperimentPoint>newPoints);
     ExperimentPoint addExperimentPoint(Long doseResponseId, ExperimentPoint point);
     ExperimentPoint updateExperimentPoint(Long doseResponseId, ExperimentPoint type);

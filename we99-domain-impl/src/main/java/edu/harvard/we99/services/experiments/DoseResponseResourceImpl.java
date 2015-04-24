@@ -8,10 +8,15 @@ import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.services.experiments.internal.DoseResponseResourceInternal;
+import edu.harvard.we99.services.experiments.internal.DoseResponseResultResourceInternal;
+import edu.harvard.we99.domain.results.EPointStatusChange;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 
 import javax.annotation.Generated;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +26,7 @@ import java.util.Set;
 /**
  * @author alan orcharton
  */
-public abstract class DoseResponseResourceImpl implements DoseResponseResource {
+public abstract class DoseResponseResourceImpl implements DoseResponseResourceInternal {
 
     private final PlateStorage plateStorage;
     private final DoseResponseResultStorage doseResponseResultStorage;
@@ -29,30 +34,30 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
 
 
     public DoseResponseResourceImpl(PlateStorage plateStorage,
-                                    DoseResponseResultStorage doseResponseResultStorage){
+                                    DoseResponseResultStorage doseResponseResultStorage) {
 
         this.plateStorage = plateStorage;
         this.doseResponseResultStorage = doseResponseResultStorage;
     }
 
-    protected abstract DoseResponseResultResource createDoseResponseResultResource();
+    protected abstract DoseResponseResultResourceInternal createDoseResponseResultResource();
 
 
     public DoseResponseResult create() {
         Plates plates = plateStorage.getAll(experiment.getId());
         List<Plate> plateList = plates.getValues();
-        Map<Long,Compound> allCompounds = getCompoundsFromPlates(plateList);
-        List<Compound> compounds =  new ArrayList<>(allCompounds.values());
-        DoseResponseResult drr = createForCompound(compounds.get(0),plateList);
+        Map<Long, Compound> allCompounds = getCompoundsFromPlates(plateList);
+        List<Compound> compounds = new ArrayList<>(allCompounds.values());
+        DoseResponseResult drr = createForCompound(compounds.get(0), plateList);
         return drr;
     }
 
-    public Map<Long,Compound> getCompoundsFromPlates(List<Plate> plateList){
+    public Map<Long, Compound> getCompoundsFromPlates(List<Plate> plateList) {
 
         Map<Long, Compound> compoundList = new HashMap<>();
-        for(Plate p : plateList){
+        for (Plate p : plateList) {
             Plate aPlate = plateStorage.get(p.getId());
-            for(Well w : aPlate.getWells().values()){
+            for (Well w : aPlate.getWells().values()) {
                 Set<Dose> doses = w.getContents();
                 doses.stream()
                         .filter(d -> d.getCompound() != null)
@@ -92,39 +97,42 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
 
     @Override
     public DoseResponseResults generateAllResults(Integer page, Integer pageSize, String typeAhead) {
-        /*
-            There's a lot going on here:
-            - list all of the results
-            - for each result:
-             -- create a DoseResponseResultResource that...
-             -- get the same result which had at the start of the forEach
-             -- arrange its ExperimentPoints into a Map<plateId,List<points>>
-             -- for each plateId, get its PlateResults (sort of, see comment in DoseResponseResultImpl)
-             -- lost track of the rest in DoseResponseResultImpl line 138
 
-             A couple of concerns...
-             - there's a lot of being fetched from the storage layer and then
-             written back and this all happens in different transactions.
-             - another approach would be to fetch all of the data you need into
-             this tier, perform calculations on it, and then write it back.
-             - this way, it would all happen in a single transaction
-             - another option would be to push this all to the storage layer and
-               work with the JPA entities directly. My hope was to implement all
-               of the functions using the domain objects but if that proves too
-               costly then perhaps the entities should be use.
-         */
         doseResponseResultStorage.createAll(experiment.getId());
 
         DoseResponseResults drResults = doseResponseResultStorage.getAll(experiment.getId());
-        drResults.getValues().forEach(result -> { DoseResponseResultResource resultResource = getDoseResponseResults(result.getId());
-                                                    resultResource.addResponseValues();  } );
+        drResults.getValues()
+                .forEach(result -> {
+                    DoseResponseResultResourceInternal resultResource = getDoseResponseResults(result.getId());
+                    resultResource.addResponseValues();
+                });
         DoseResponseResults doseResponseResults = doseResponseResultStorage.listAll(experiment.getId(), page, pageSize, typeAhead);
         return doseResponseResults;
     }
 
     @Override
-    public DoseResponseResultResource getDoseResponseResults(Long doseResponseId) {
-        DoseResponseResultResource drr = createDoseResponseResultResource();
+    public DoseResponseResult KoPointAndReCalc(EPointStatusChange ePointstatusChange){
+
+        DoseResponseResult result;
+        try{
+            Long doseId = ePointstatusChange.getDoseId();
+            Long doseResponseId = doseResponseResultStorage.getKOPointDrAndPlateId(experiment.getId(), doseId);
+
+            DoseResponseResultResource drrr = getDoseResponseResults(doseResponseId);
+
+            result = drrr.updateStatus(ePointstatusChange);
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.status(404).build());
+        }
+
+        return result;
+
+
+    }
+
+    @Override
+    public DoseResponseResultResourceInternal getDoseResponseResults(Long doseResponseId) {
+        DoseResponseResultResourceInternal drr = createDoseResponseResultResource();
         drr.setExperiment(experiment);
         drr.setDoseResponseId(doseResponseId);
         return drr;

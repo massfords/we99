@@ -11,6 +11,8 @@ import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.domain.results.PlateResult;
+import edu.harvard.we99.services.experiments.internal.PlateResourceInternal;
+import edu.harvard.we99.services.experiments.internal.PlatesResourceInternal;
 import edu.harvard.we99.services.io.MultiResultCollector;
 import edu.harvard.we99.services.io.PlateCSVReader;
 import edu.harvard.we99.services.io.PlateResultCollector;
@@ -53,7 +55,7 @@ import static edu.harvard.we99.services.experiments.PlateResultResourceImpl.crea
 /**
  * @author mford
  */
-public abstract class PlatesResourceImpl implements PlatesResource {
+public abstract class PlatesResourceImpl implements PlatesResourceInternal {
 
     private static final Logger log = LoggerFactory.getLogger(PlatesResourceImpl.class);
 
@@ -76,9 +78,14 @@ public abstract class PlatesResourceImpl implements PlatesResource {
 
     @Override
     public Plate create(Plate plate) {
-        plate.setId(null);
-        plate.setExperimentId(experiment.getId());
-        return plateStorage.create(plate);
+        try {
+            plate.setId(null);
+            plate.setExperimentId(experiment.getId());
+            return plateStorage.create(plate);
+        } catch(Exception e) {
+            log.error("error creating plate {}", plate, e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
     }
 
     @Override
@@ -115,7 +122,7 @@ public abstract class PlatesResourceImpl implements PlatesResource {
             return plateStorage.create(plate);
         } catch(Exception e) {
             log.error("Error creating a plate from merge info", e);
-            throw new WebApplicationException(Response.status(500).build());
+            throw new WebApplicationException(Response.serverError().build());
         }
     }
 
@@ -232,51 +239,6 @@ public abstract class PlatesResourceImpl implements PlatesResource {
         }
     }
 
-    private static class SinglePlateMergeValidation extends CompoundlessPlateValidation {
-
-        @Override
-        public Void apply(WellLabelMapping wlm) {
-            if (wlm.getWellType() != WellType.EMPTY && wlm.getDose().getCompound() == null) {
-                String message = "Dose in well label %s is missing its compound";
-                throw new WebApplicationException(
-                        Response.status(409)
-                                .entity(String.format(message, wlm.getLabel()))
-                                .build());
-            }
-            return null;
-        }
-    }
-
-    private static class CompoundlessPlateValidation implements Function<WellLabelMapping, Void> {
-
-        @Override
-        public Void apply(WellLabelMapping wlm) {
-            if (wlm.getWellType() == WellType.EMPTY) {
-                if (wlm.getDose() != null) {
-                    throw new WebApplicationException(
-                            Response.status(409)
-                                    .entity("Wells marked as empty cannot contain a compound")
-                                    .build());
-                }
-            } else {
-                if (wlm.getDose() == null) {
-                    throw new WebApplicationException(
-                            Response.status(409)
-                                    .entity("Non-empty wells must have a Dose")
-                                    .build());
-                }
-                if (wlm.getDose().getAmount() == null) {
-                    String message = "Dose in well label %s is missing its amount";
-                    throw new WebApplicationException(
-                            Response.status(409)
-                                    .entity(String.format(message, wlm.getLabel()))
-                                    .build());
-                }
-            }
-            return null;
-        }
-    }
-
     @Override
     public Plates create(String name, String plateTypeName, InputStream csv) {
         Plates plates = new Plates();
@@ -320,18 +282,24 @@ public abstract class PlatesResourceImpl implements PlatesResource {
 
     @Override
     public Plates list(Integer page, Integer pageSize, String typeAhead) {
-        return plateStorage.listAll(experiment.getId(), page, pageSize, typeAhead);
+        try {
+            return plateStorage.listAll(experiment.getId(), page, pageSize, typeAhead);
+        } catch(Exception e) {
+            log.error("error listing plates. Page {}, pageSize {}, query {}",
+                    page, pageSize, typeAhead, e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
     }
 
     @Override
     public PlateResource getPlates(Long plateId) {
-        PlateResource pr = createPlateResource();
+        PlateResourceInternal pr = createPlateResource();
         pr.setExperiment(experiment);
         pr.setPlateId(plateId);
         return pr;
     }
 
-    protected abstract PlateResource createPlateResource();
+    protected abstract PlateResourceInternal createPlateResource();
 
     @Override
     @Generated(value = "generated by IDE")
