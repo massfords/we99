@@ -63,7 +63,7 @@ angular.module('we99App')
         location: displayBoxLocation,
         data: $scope.data,
         onCellClick: function(d) {
-            $scope.compound.wells.forEach(function(dataPoint){
+            $scope.data.forEach(function(dataPoint){
               if(dataPoint.wellIndex == d.wellIndex){
                 dataPoint.included = !dataPoint.included;
               }
