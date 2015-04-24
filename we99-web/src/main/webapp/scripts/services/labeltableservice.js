@@ -24,12 +24,20 @@ angular.module('we99App')
     };
 
     factory.hasMergeInfoObject = function(){return angular.isObject(mergeInfoObject);};
-    factory.submitMergeInfo = function(experimentId, mappings){
+
+    /** Submit Merge Info request
+     *
+     * @param experimentId
+     * @param mappings label table and plate info mapping object
+     * @param csvFile (optional)
+     * @returns {*}
+     */
+    factory.submitMergeInfo = function(experimentId, mappings, csvFile){
       if (!mergeInfoObject) {
         throw new Error("mergeInfoObject needs to exist before running...");
       }
       mergeInfoObject.mappings = mappings;
-      return PlateMergeRestService.submitMergeInfo(experimentId, mergeInfoObject);
+      return PlateMergeRestService.submitMergeInfo(experimentId, mergeInfoObject, csvFile);
     };
 
     /** Process merge object retrieved from server

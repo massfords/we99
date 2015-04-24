@@ -3,7 +3,6 @@
 # This will only start a new plate if it is NOT next to another 0,0 well. otherwise
 # it will append the chemical to the well.
 #
-
 0, 0, NEGATIVE, A, 123, H20, 5, PICOMOLAR, 1234
 0, 0, NEGATIVE, A, 123, NaCl, 1, PICOMOLAR, 123
 0, 1, COMP, A1, 123, Cx, 1, PICOMOLAR, 12

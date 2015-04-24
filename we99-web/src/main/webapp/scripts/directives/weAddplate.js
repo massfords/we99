@@ -100,6 +100,16 @@ angular.module('we99App')
         });
     };
 
+    $scope.submitPlateSetWithCompoundList = function () {
+      var csvFile = $scope.csvFiles[0];
+      LabelTableSvc.submitMergeInfo($routeParams.experimentId, $scope.labelTable, csvFile)
+        .then(function (resp) {
+          console.log('submitted!');
+          console.log(resp.data);
+          $modalInstance.close();
+        });
+    };
+
     $scope.submitPlateSetFullMonty = function () {
       if (!$scope.selectedPlateType || !$scope.csvFiles || !$scope.csvFiles[0]) {
         console.error("A Parameter is missing.");
