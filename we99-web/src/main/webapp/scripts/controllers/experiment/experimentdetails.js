@@ -8,8 +8,8 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ExperimentDetailsCtrl', ['$scope', '$routeParams', 'SelectedExperimentSvc','$modal',
-    function ($scope, $routeParams, SelectedExperimentSvc, $modal) {
+  .controller('ExperimentDetailsCtrl', ['$scope', '$routeParams', '$modal', 'SelectedExperimentSvc',
+    function ($scope, $routeParams, $modal, SelectedExperimentSvc) {
       $scope.experiment = null;
       $scope.plates = null;
       $scope.show = {
@@ -44,6 +44,38 @@ angular.module('we99App')
         });
       }
 
+      // opens the add plate map modal
+      $scope.openAddPlateModal = function(){
+        var modalInstance = $modal.open({
+          templateUrl: 'views/plate-mgmt/addplate.html',
+          controller: 'AddPlateCtrl',
+          size: 'lg'
+        });
+        modalInstance.result.then(function(){
+          $scope.refreshPlates();
+        });
+      };
 
+      $scope.openAddWCompoundCsvModal = function(){
+        var modalInstance = $modal.open({
+          templateUrl: 'views/plate-mgmt/addplate-w-compounds.html',
+          controller: 'AddPlateCtrl',
+          size: 'lg'
+        });
+        modalInstance.result.then(function(){
+          $scope.refreshPlates();
+        });
+      };
+
+      $scope.openAddFullMontyCsvModal = function(){
+        var modalInstance = $modal.open({
+          templateUrl: 'views/plate-mgmt/addplate-w-results-from-file.html',
+          controller: 'AddPlateCtrl',
+          size: 'lg'
+        });
+        modalInstance.result.then(function(){
+          $scope.refreshPlates();
+        });
+      };
 
     }]);

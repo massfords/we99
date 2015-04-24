@@ -30,7 +30,6 @@
               <th st-sort="type">Type</th>
               <th st-sort="count">Count</th>
               <th st-sort="replicates">Replicates</th>
-              <th st-sort="compounds">Compound</th>
               <th>Initial Dose</th>
               <th>Dilution Factor</th>
             </tr>
@@ -47,13 +46,6 @@
               </select>
             </td>
             <td>
-              <input type="text"
-                     ng-model="row.dose.compound"
-                     placeholder="Compound..."
-                     typeahead="compound.name for compound in findCompoundMatches($viewValue) | limitTo:4">
-              <i ng-show="loadingCompounds" class="glyphicon glyphicon-refresh"></i>
-            </td>
-            <td>
               <input type="number" ng-model="row.dose.amount.number"/>
               <select ng-options="option.value as option.key for option in UOMOptions" ng-model="row.dose.amount.units">
                 <option value="MICROMOLAR">uM</option>
@@ -67,7 +59,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="submitPlateSet()" ng-disabled="!showCreateButton(MergeType.ADD)">Create</button>
+    <button class="btn btn-primary" ng-click="submitPlateSet()" ng-disabled="!showCreateButton(MergeType.ADD_W_CMPD)">Create</button>
     <button type="button" class="btn btn-link" ng-click="cancel()">Cancel</button>
   </div>
 </div>

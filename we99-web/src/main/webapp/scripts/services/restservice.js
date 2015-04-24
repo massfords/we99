@@ -116,14 +116,45 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
 }]);
 
 
-app.factory('PlateMergeRestService', ['$http', 'RestURLs', function($http, RestURLs){
+app.factory('PlateMergeRestService', ['$http', '$q', '$upload', 'RestURLs', function($http,$q,$upload,RestURLs){
   return {
-    getMergeInfoTemplate: function(plateMapId, plateType) {
+    // For Label Table Gets a partially completed platemap merge info object
+    getMergeInfoTemplate: function (plateMapId, plateType) {
       return $http.post(replaceId(RestURLs.mergeInfoTemplate, plateMapId), plateType);
     },
-    submitMergeInfo: function(experimentId, mergeInfoObject){
+    // Submit to make plate from user parameters
+    submitMergeInfo: function (experimentId, mergeInfoObject) {
       //if (!mergeInfoObject.plateName) {mergeInfoObject.plateName = 'Plate-TS' + Date.now();}
       return $http.put(replaceId(RestURLs.mergeInfoSubmit, experimentId), mergeInfoObject);
+    },
+    // Make plates from Full Monty Csv.
+    submitPlatesWithResults: function (experimentId, plateType, csvFiles) {
+      if (!csvFiles || csvFiles.length !== 1) {
+        console.error('No csv file attached');
+        return null;
+      }
+      var file = csvFiles[0],
+        upload = $upload.upload({
+          url: RestURLs.experiment + "/" + experimentId + "/fullMonty",
+          method: "POST",
+          fields: {
+            plateType: plateType
+          },
+          file: file
+        }).progress(function (event) {
+          var progressPercentage = parseInt(100.0 * event.loaded / event.total);
+          console.log('progress: ' + progressPercentage + '% ' +
+          event.config.file.name);
+        }).success(function (data, status, headers, config) {
+          var result = JSON.stringify(data);
+          console.log('file ' + config.file.name + 'uploaded. Response: ' +
+          result);
+        }).error(function (data, status, headers, config) {
+          var result = JSON.stringify(data);
+          console.log('error in file ' + config.file.name + 'uploaded. Response: ' +
+          result);
+        });
+      return $q.when(upload);
     }
   };
 
