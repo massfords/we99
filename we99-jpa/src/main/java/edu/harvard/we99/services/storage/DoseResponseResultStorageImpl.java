@@ -162,26 +162,30 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
 
             WellEntity wellEntity = em.find(WellEntity.class, wellEntityId);
             Set<DoseEntity> doses = wellEntity.getContents();
+
             Object[] dosearray = doses.toArray();
             if (dosearray.length > 0){
                 DoseEntity d = (DoseEntity) dosearray[0];
                 d.setWell(wellEntity);
                 em.merge(d);
                 em.merge(wellEntity);
-                dosePlateMap.put(d, plateId);
-                dosetoPlate.put(d.getId(),plateId);
 
-                //create compoud Id to dose list
-                Long compoundId = d.getCompound().getId();
-                List<DoseEntity> compoundDoseList = compoundDoseMap.get(compoundId);
-                if(compoundDoseList == null) {
-                    compoundDoseList = new ArrayList<DoseEntity>();
-                    compoundDoseList.add(d);
-                    compoundDoseMap.put(compoundId,compoundDoseList);
-                } else {
-                    compoundDoseList.add(d);
+                //Only interested in compound wells
+                if(wellEntity.getType() == WellType.COMP) {
+                    dosePlateMap.put(d, plateId);
+                    dosetoPlate.put(d.getId(), plateId);
+
+                    //create compoud Id to dose list
+                    Long compoundId = d.getCompound().getId();
+                    List<DoseEntity> compoundDoseList = compoundDoseMap.get(compoundId);
+                    if (compoundDoseList == null) {
+                        compoundDoseList = new ArrayList<DoseEntity>();
+                        compoundDoseList.add(d);
+                        compoundDoseMap.put(compoundId, compoundDoseList);
+                    } else {
+                        compoundDoseList.add(d);
+                    }
                 }
-
             }
             //it.remove(); // avoids a ConcurrentModificationException
         }

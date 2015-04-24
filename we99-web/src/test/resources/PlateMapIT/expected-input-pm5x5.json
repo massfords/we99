@@ -150,6 +150,14 @@
       "orderLink": "http://www.universalmedicalinc.com/BrandTech-384-Well-Plate-pureGrade-Non-Treated-p/781620-UMI.htm"
     },
     {
+      "name": "DoseResponsePlate",
+      "dim": {
+        "rows": 16,
+        "cols": 24
+      },
+      "manufacturer": "Man"
+    },
+    {
       "name": "ptuuid",
       "dim": {
         "rows": 10,

@@ -12,10 +12,7 @@ import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 
 import javax.ws.rs.core.Response;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static edu.harvard.we99.test.BaseFixture.name;
 import static org.junit.Assert.assertEquals;
@@ -36,7 +33,7 @@ public class DoseResponseResultsFixture {
         PlateTypeService plateTypeService = cf.create(PlateTypeService.class);
         plateType = plateTypeService.create(
                 new PlateType()
-                        .setDim(new PlateDimension(10, 10))
+                        .setDim(new PlateDimension(16, 24))
                         .setName(name("pt"))
                         .setManufacturer("Foo Inc.")
         );
@@ -51,49 +48,76 @@ public class DoseResponseResultsFixture {
     }
 
 
-    protected Plate createPlate(Experiment experiment) {
-        Compound c1 = new Compound("SourPlums");
-        compoundService.create(c1);
-        ExperimentResource er = experimentService.getExperiment(experiment.getId());
-        return er.getPlates().create(new Plate(name("plate"), plateType).withWells(makeDoseCompoundWells(plateType, c1)));
-    }
 
 
     protected Plate createDoseResponseForCompound(Experiment experiment) {
+        Double[] wellDoses = {0.00003,9.49E-06,3.00E-06,9.51E-07,3.01E-07,
+                9.52E-08,3.01E-08,9.53E-09,3.02E-09,9.55E-10,3.02E-10};
         Compound c1 = new Compound().setName("SourPlums");
         Compound aCompound = compoundService.create(c1);
         ExperimentResource er = experimentService.getExperiment(experiment.getId());
-        Plate plate = er.getPlates().create(new Plate(name("plate"), plateType).withWells(makeDoseCompoundWells(plateType, aCompound)));
-        //List<Plate> plates = new ArrayList<>();
-        //plates.add(plate);
-        DoseResponseResult doseResponseResult = er.getDoseResponses().create();
-        //DoseResponseResult doseResponseResult =er.getDoseResponses().createForCompound(c1, plates);
-        //DoseResponseResult doseResponseResult2 = er.getDoseResponses().
+        Plate plate = er.getPlates().create(new Plate(name("plate"), plateType).withWells(makeDoseCompoundWells(16,24,aCompound,wellDoses)));
+
         return plate;
     }
 
 
-    private Well[] makeDoseCompoundWells(PlateType plateType, Compound compound) {
-        List<Well> wells = new ArrayList<>();
+    private static Well[] makeDoseCompoundWells(int rowCount, int colCount, Compound c1, Double[] doses) {
+        Set<Well> wells = new HashSet<>();
 
-        Dose dose1 = new Dose()
-                .setCompound(compound)
-                .setAmount(new Amount(575, DoseUnit.MICROMOLAR));
-        Set<Dose> set1 = new HashSet<>();
-        set1.add(dose1);
+        Queue<Dose> doseQueue = new LinkedList<>();
+        for (Double d: doses){
+            Dose aDose = new Dose();
+            aDose.setAmount(new Amount(d, DoseUnit.MICROMOLAR));
+            aDose.setCompound(c1);
+            doseQueue.add(aDose);
 
-        for(int row=0; row<plateType.getDim().getRows(); row++) {
-            for(int col=0; col<plateType.getDim().getCols(); col++) {
-                wells.add(new Well(row, col).setType(WellType.COMP)
-                        .withLabel("A", "A")
-                        .setContents(set1));
-
-
-            }
         }
 
-        Well[] array = new Well[wells.size()];
-        return wells.toArray(array);
+
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < colCount; col++) {
+                if(col == 0){
+                    wells.add(
+                            new Well(row,col)
+                                    .setType(WellType.POSITIVE)
+                    );
+                }
+                else if (col == 1){
+                    if(!doseQueue.isEmpty()) {
+                        Dose d = (Dose) doseQueue.remove();
+                        Set<Dose> ds = new HashSet<>();
+                        ds.add(d);
+                        wells.add(
+                                new Well(row, col)
+                                        .setType(WellType.COMP)
+                                        .setContents(ds)
+
+                        );
+                    } else {
+                        wells.add(
+                                new Well(row, col)
+                                        .setType(WellType.EMPTY)
+                        );
+
+                    }
+                } else if(col == 23){
+                    wells.add(
+                            new Well(row, col)
+                                    .setType(WellType.NEGATIVE)
+                    );
+
+                } else {
+                    wells.add(
+                            new Well(row, col)
+                                    .setType(WellType.EMPTY)
+                    );
+
+                }
+            }
+        }
+        assertEquals(rowCount * colCount, wells.size());
+        return wells.toArray(new Well[wells.size()]);
     }
 
     protected Response postResults(DoseResponseResult doseResponseResult, String file) {

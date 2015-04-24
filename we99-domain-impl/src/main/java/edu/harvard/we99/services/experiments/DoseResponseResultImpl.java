@@ -1,18 +1,11 @@
 package edu.harvard.we99.services.experiments;
 
-import edu.harvard.we99.domain.Compound;
-import edu.harvard.we99.domain.Coordinate;
-import edu.harvard.we99.domain.Dose;
-import edu.harvard.we99.domain.Experiment;
-import edu.harvard.we99.domain.ExperimentPoint;
-import edu.harvard.we99.domain.Plate;
-import edu.harvard.we99.domain.Well;
+import edu.harvard.we99.domain.*;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.Sample;
 import edu.harvard.we99.domain.results.WellResults;
-import edu.harvard.we99.domain.results.analysis.CurveFit;
-import edu.harvard.we99.domain.results.analysis.ExperimentPointsFunction;
+import edu.harvard.we99.domain.results.analysis.*;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
@@ -25,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by HUID 70786729 on 4/1/15.
+ * @author alan orcharton
  */
 public abstract class DoseResponseResultImpl implements DoseResponseResultResource {
 
@@ -41,61 +34,12 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
         this.resultStorage = resultStorage;
     }
 
-    /*
-    @Override
-    public DoseResponseResult create(List<Plate> plates){
 
-        List<Long> wellIds = new ArrayList<>();
-        for (Plate p : plates){
-            Plate aPlate = plateStorage.get(p.getId());
-            for(Well w : aPlate.getWells().values()){
-                Set<Dose> doses = w.getContents();
-                for (Iterator<Dose> it = doses.iterator(); it.hasNext(); ) {
-                    Dose d = it.next();
-                    DoseResponseResult drr = new DoseResponseResult()
-                            .setCompound(d.getCompound());
-                    doseResponseResultStorage.create(drr);
-                    wellIds.add(w.getId());
-
-                    }
-                }
-
-            }
-
-        return null;
-
-    }
-    */
 
 
     @Override
     public DoseResponseResult create(Compound compound, List<Plate> plates) {
-      /*
-        DoseResponseResult drr = new DoseResponseResult()
-                .setCompound(compound);
-        DoseResponseResult result = doseResponseResultStorage.create(drr);
-        for (Plate p : plates){
-            Plate aPlate = plateStorage.get(p.getId());
-            for(Well w : aPlate.getWells().values()){
-                Set<Dose> doses = w.getContents();
-                for(Iterator<Dose> it = doses.iterator(); it.hasNext();){
-                    Dose d = it.next();
-                    if(d.getCompound().equals(compound)){
-                        ExperimentPoint ep = new ExperimentPoint()
-                                .setAssociatedDoseResponseResult(result)
-                                .setAssociatedPlate(aPlate)
-                                .setAssociatedWell(w)
-                                .setX(d.getAmount().getNumber());
 
-                        doseResponseResultStorage.addExperimentPoint(result.getId(),ep);
-                    }
-
-                }
-            }
-        }
-
-        return doseResponseResultStorage.get(result.getId());
-          */
         return null;
     }
 
@@ -114,82 +58,48 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
 
         Map<Long,List<WellResults>> resultByPlate = new HashMap<>();
         for (Long id : plateIds){
+            Plate plate = plateStorage.get(id);
             PlateResult plateResult = resultStorage.getByPlateId(id);
             Map<Coordinate, WellResults> wellResults = plateResult.getWellResults();
+            PlateNormalizationForDoseResponseFunction pnf = new PlateNormalizationForDoseResponseFunction(plate);
             List<WellResults> wrList = new ArrayList<>(wellResults.values());
-            resultByPlate.put(id,wrList);
+            List<WellResults> normalized = pnf.apply(wrList);
+            resultByPlate.put(id, normalized);
         }
-        computeResults(resultByPlate, plateIds);
+        computeResults(resultByPlate, plateIds, currentResult);
 
 
 
-       /*
-        DoseResponseResult currentResult = get();
-        //get the plates
-        List<ExperimentPoint> points = currentResult.getExperimentPoints();
-        Map<Long,List<ExperimentPoint>> plateIdPointsMap = new HashMap<>();
-        for(ExperimentPoint p : points){
-            Long plateId = p.getAssociatedPlate().getId();
-            List<ExperimentPoint> pointsByPlate = plateIdPointsMap.get(plateId);
-            if(pointsByPlate == null){
-                List<ExperimentPoint> newPointsByPlate = new ArrayList<>();
-                plateIdPointsMap.put(plateId, newPointsByPlate);
-                newPointsByPlate.add(p);
-            } else {
-                pointsByPlate.add(p);
-            }
-
-        }
-
-        Set<Long> plateIds = plateIdPointsMap.keySet();
-        Map<Long,PlateResultResource> resultResources = new HashMap<>();
-        plateIds.forEach(id -> {    // what's going on with PlateResultResource prr here? You're creating it,
-                                    // assigning some stuff on it and then disregarding it
-                                    PlateResultResource prr =createPlateResultResource();
-                                    prr.setPlateId(id);
-                                    prr.setExperiment(experiment);
-                                    // I made this more obvious now. I don't think prr == prr2
-                                    // is what you want.
-                                    //PlateResultResource prr2 = createPlateResultResource();
-                                    //assert prr != prr2; // this assertion will fail
-                                    resultResources.put(id, prr);
-                                });
-
-
-        plateIdPointsMap.forEach((pid, list) -> {
-            PlateResultResource plateResultResource = resultResources.get(pid);
-            Map<Coordinate, WellResults> wr = plateResultResource.get().getWellResults();
-            list.forEach(point -> {
-                WellResults results = wr.get(point.getAssociatedWell().getCoordinate());
-                if (results != null) {
-                    Sample s = results.getSamples().get(0);
-                    point.setY(s.getValue());
-                }
-            });
-        });
-
-         plateIdPointsMap.values()
-                 .forEach(list -> doseResponseResultStorage.updateAllExperimentPoints(doseResponseResultId, list));
-
-        //return get();
-        return calculateCurveFit();
-        */
         return null;
     }
 
-    private void computeResults(Map<Long,List<WellResults>> resultsByPlate, Set<Long> plateIds){
+    private DoseResponseResult computeResults(Map<Long,List<WellResults>> resultsByPlate, Set<Long> plateIds, DoseResponseResult current){
 
-        DoseResponseResult current = this.get();
+        //DoseResponseResult current = this.get();
         ExperimentPointsFunction epf = new ExperimentPointsFunction(current,plateIds);
         List<ExperimentPoint> newPoints = epf.apply(resultsByPlate);
-        doseResponseResultStorage.replaceExperimentPoints(doseResponseResultId,newPoints);
 
-        calculateCurveFit();
+        current.setExperimentPoints(newPoints);
+        CurveFitParametersFunction cfp = new CurveFitParametersFunction();
+        List<FitParameter> fit = cfp.apply(newPoints);
+        CurveFitPointsFunction cfpf = new CurveFitPointsFunction(fit,39,FitEquation.HILLEQUATION);
+        List<CurveFitPoint> curvePoints = cfpf.apply(newPoints);
+        Map<String,FitParameter> fitMap = new HashMap<>();
+        current.setCurveFitPoints(curvePoints);
+        for(FitParameter f : fit){
+            fitMap.put(f.getName(), f);
+        }
+
+        current.setFitParameterMap(fitMap);
+        return doseResponseResultStorage.update(current.getId(),current);
+
+        //calculateCurveFit();
 
 
 
     }
 
+    //no longer used to calculate curve fit remove soon
     private DoseResponseResult calculateCurveFit(){
 
         DoseResponseResult currentResult = get();

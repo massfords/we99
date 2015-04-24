@@ -1,10 +1,4 @@
-# -----------------------------------------------------------------------------
-#
-# CSV file for Amount types. This is only loaded into the database if we're
-# initializing the db because it's empty.
-#
-# row, col, value, label, measuredAt
-# -----------------------------------------------------------------------------
+#row,col,value,label,datetime
 0,0,138.478,,2015-01-02T10:20:30.100Z
 1,0,144.927,,2015-01-02T10:20:30.100Z
 2,0,144.34,,2015-01-02T10:20:30.100Z

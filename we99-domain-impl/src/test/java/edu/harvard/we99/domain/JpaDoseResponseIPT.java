@@ -65,7 +65,48 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
     public AuthenticatedUserRule authenticatedUserRule =
             new AuthenticatedUserRule("we99.2015@gmail.com", this);
 
+    @Test
+    public void doseResponseFromDB() throws Exception {
 
+        DoseResponseResult current = doseResponseResultStorage.getByCompoundName("Urea");
+
+        //Set<Long> plateIds = doseResponseResultStorage.getPlateIds(doseResponseResultId);
+
+        Set<Long> plateIds = doseResponseResultStorage.getPlateIds(current.getId());
+
+        Map<Long,List<WellResults>> resultsByPlate = new HashMap<>();
+        for (Long id : plateIds){
+            Plate plate = plateStorage.get(id);
+            PlateResult plateResult = resultStorage.getByPlateId(id);
+            Map<Coordinate, WellResults> wellResults = plateResult.getWellResults();
+            PlateNormalizationForDoseResponseFunction pnf = new PlateNormalizationForDoseResponseFunction(plate);
+            List<WellResults> wrList = new ArrayList<>(wellResults.values());
+            List<WellResults> normalized = pnf.apply(wrList);
+            resultsByPlate.put(id, normalized);
+        }
+
+        //DoseResponseResult current = this.get();
+        ExperimentPointsFunction epf = new ExperimentPointsFunction(current,plateIds);
+        List<ExperimentPoint> newPoints = epf.apply(resultsByPlate);
+        //doseResponseResultStorage.replaceExperimentPoints(co,newPoints);
+        current.setExperimentPoints(newPoints);
+        CurveFitParametersFunction cfp = new CurveFitParametersFunction();
+        List<FitParameter> fit = cfp.apply(newPoints);
+        CurveFitPointsFunction cfpf = new CurveFitPointsFunction(fit,39,FitEquation.HILLEQUATION);
+        List<CurveFitPoint> curvePoints = cfpf.apply(newPoints);
+        Map<String,FitParameter> fitMap = new HashMap<>();
+        current.setCurveFitPoints(curvePoints);
+        for(FitParameter f : fit){
+            fitMap.put(f.getName(), f);
+        }
+
+        current.setFitParameterMap(fitMap);
+        DoseResponseResult dr = doseResponseResultStorage.update(current.getId(), current);
+
+        DoseResponseResult dr2 = doseResponseResultStorage.get(dr.getId());
+        System.out.println("hello");
+
+    }
 
     @Test
     public void testCreationOfDoseResponseResult() throws Exception {
@@ -116,11 +157,11 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
         Map<Long,List<WellResults>> resultByPlate = new HashMap<>();
         for(Long id : plateIds){
 
-            //Plate plate1 = plateStorage.get(id);
-            //PlateResult plateResult = resultStorage.getByPlateId(id);
-            Map<Coordinate, WellResults> wellResults2 = plateResult.getWellResults();
+            Plate plate1 = plateStorage.get(id);
+            PlateResult plateResult2 = resultStorage.getByPlateId(id);
+            Map<Coordinate, WellResults> wellResults2 = plateResult2.getWellResults();
             //resultByPlate.put(id,wrList);
-            PlateNormalizationForDoseResponseFunction pnf = new PlateNormalizationForDoseResponseFunction(plate);
+            PlateNormalizationForDoseResponseFunction pnf = new PlateNormalizationForDoseResponseFunction(plate1);
             List<WellResults> wrList = new ArrayList<>(wellResults2.values());
             List<WellResults> normalized = pnf.apply(wrList);
             resultByPlate.put(id, normalized);

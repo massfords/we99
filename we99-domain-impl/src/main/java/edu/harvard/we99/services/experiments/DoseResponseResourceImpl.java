@@ -46,7 +46,7 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
 
     protected abstract DoseResponseResultResource createDoseResponseResultResource();
 
-    @Override
+
     public DoseResponseResult create() {
         Plates plates = plateStorage.getAll(experiment.getId());
         List<Plate> plateList = plates.getValues();

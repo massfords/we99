@@ -22,10 +22,6 @@ public interface DoseResponseResource {
 
 
 
-    @PUT
-    @ApiOperation("Creates a new plate for the experiment.")
-    @PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
-    DoseResponseResult create();
 
     /**
      * Creates a new plate in our system.
@@ -59,7 +55,7 @@ public interface DoseResponseResource {
     @GET
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Path("/results")
-    @ApiOperation("Gets all the Dose Response Results")
+    @ApiOperation("Calculates and returns all the Dose Response Results")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     DoseResponseResults generateAllResults(@QueryParam("page") @DefaultValue("0") Integer page,
                                           @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
@@ -69,7 +65,7 @@ public interface DoseResponseResource {
 
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Path("/{doseResponseId}")
-    @ApiOperation("Gets the plate by its id")
+    @ApiOperation("Gets the dose response by id")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     DoseResponseResultResource getDoseResponseResults(@PathParam("doseResponseId")Long doseResponseId);
 
