@@ -40,7 +40,7 @@ public class CurveFitPointsFunction implements Function<List<ExperimentPoint>, L
      private List<CurveFitPoint> createCurvePoints(List<Double> xs, List<Double> ys){
          List<CurveFitPoint> curvePointsList = new ArrayList<>();
          for(int i=0; i< xs.size(); i++){
-               CurveFitPoint cfp = new CurveFitPoint().setX(xs.get(i));
+               CurveFitPoint cfp = new CurveFitPoint().setX(Math.log10(xs.get(i)));
                cfp.setY(ys.get(i));
                cfp.setSequenceNumber(i);
                curvePointsList.add(cfp);
@@ -79,17 +79,6 @@ public class CurveFitPointsFunction implements Function<List<ExperimentPoint>, L
                     .collect(Collectors.toList());
 
 
-       // Double step = (max.orElse(DEFAULT_MAX) - min.orElse(DEFAULT_MIN))/ (double)numPoints ;
-
-//        //generate points
-//        List<Double> xpoints = new ArrayList<>();
-//        Double xpoint = min.orElse(DEFAULT_MIN);
-//        xpoints.add(xpoint);
-//        for(int x=0; x < numPoints; x++){
-//            xpoint = xpoint + step;
-//            xpoints.add(xpoint);
-//        }
-
         //if(fitequation == FitEquation.HILLEQUATION)
         Map<String,Double> fitParameterMap = new HashMap<>();
         for(FitParameter f : fitParameters){
@@ -97,8 +86,6 @@ public class CurveFitPointsFunction implements Function<List<ExperimentPoint>, L
 
         }
 
-        //new HillEquationFunction(fitParameterMap.get("Max"),fitParameterMap.get("Min"),
-          //      fitParameterMap.get("Slope"),fitParameterMap("EC50"));
         HillEquationFunction func = new HillEquationFunction(fitParameterMap.get("Max"),fitParameterMap.get("Min"),
                 fitParameterMap.get("Slope"),fitParameterMap.get("EC50"));
 

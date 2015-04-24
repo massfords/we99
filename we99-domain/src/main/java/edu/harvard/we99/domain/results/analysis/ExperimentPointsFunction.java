@@ -13,7 +13,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * Created by HUID 70786729 on 4/19/15.
+ * @author alan orcharton
  */
 public class ExperimentPointsFunction implements Function<Map<Long,List<WellResults>>, List<ExperimentPoint>> {
 
@@ -34,20 +34,20 @@ public class ExperimentPointsFunction implements Function<Map<Long,List<WellResu
 
         List<ExperimentPoint> newpoints = new ArrayList<>();
         for(Long id : plateIds){
-            Map<Coordinate, List<Sample>> cord = new HashMap<>();
-            List<WellResults> plateResults = longWellResultsMap.get(id);
-            plateResults.forEach(wr -> cord.put(wr.getCoordinate(), wr.getSamples()));
-            List<Dose> epdoses = doseResponse.getDoses();
-            Map<Long, Dose> epdosesmap = new HashMap<>();
+            Map<Coordinate, List<Sample>> cord = new HashMap<>();    //stores samples results by coordinate
+            List<WellResults> plateResults = longWellResultsMap.get(id);   //gets list well results for a plate
+            plateResults.forEach(wr -> cord.put(wr.getCoordinate(), wr.getSamples()));   //map sample to co-ordinate
+            List<Dose> epdoses = doseResponse.getDoses();         // Gets the Doses for the DR
+            Map<Long, Dose> epdosesmap = new HashMap<>();         // store dose per dose id
             epdoses.forEach(d -> epdosesmap.put(d.getId(),d));
-            List<ExperimentPoint> dosepoints = doseResponse.getExperimentPoints();
+            List<ExperimentPoint> dosepoints = doseResponse.getExperimentPoints();   //gets all the Experiment points
             for( ExperimentPoint ep : dosepoints){
                 if(ep.getPlateId() == id) {
                     ExperimentPoint npoint = new ExperimentPoint(id, ep.getDoseId());
                     npoint.setX(epdosesmap.get(ep.getDoseId()).getAmount().getNumber());
                     cord.keySet().forEach(wellcoord -> {
                         if (wellcoord.equals(epdosesmap.get(ep.getDoseId()).getWell().getCoordinate())) {
-                            npoint.setY(cord.get(wellcoord).get(0).getValue());      //protectet against no well at co-ord
+                            npoint.setY(cord.get(wellcoord).get(0).getNormalized());      //protectet against no well at co-ord
                         }
                     });
                     newpoints.add(npoint);

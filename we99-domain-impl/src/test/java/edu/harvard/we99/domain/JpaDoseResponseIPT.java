@@ -1,13 +1,23 @@
 package edu.harvard.we99.domain;
 
 import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.domain.results.PlateResult;
+import edu.harvard.we99.domain.FitParameter;
 import edu.harvard.we99.domain.results.Sample;
+import edu.harvard.we99.domain.results.WellResults;
+import edu.harvard.we99.domain.results.analysis.CurveFitParametersFunction;
+import edu.harvard.we99.domain.results.analysis.CurveFitPointsFunction;
+import edu.harvard.we99.domain.results.analysis.ExperimentPointsFunction;
+import edu.harvard.we99.domain.results.analysis.PlateNormalizationForDoseResponseFunction;
 import edu.harvard.we99.services.ExperimentService;
 import edu.harvard.we99.services.PlateTypeService;
 import edu.harvard.we99.services.experiments.DoseResponseResource;
+import edu.harvard.we99.services.experiments.PlateResource;
 import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
+import edu.harvard.we99.services.storage.PlateStorage;
+import edu.harvard.we99.services.storage.ResultStorage;
 import edu.harvard.we99.services.storage.entities.*;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import org.junit.Rule;
@@ -17,8 +27,10 @@ import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static edu.harvard.we99.test.BaseFixture.name;
+import static edu.harvard.we99.test.BaseFixture.stream;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -40,6 +52,12 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
     @Inject
     private DoseResponseResultStorage doseResponseResultStorage;
 
+    @Inject
+    private PlateStorage plateStorage;
+
+    @Inject
+    private ResultStorage resultStorage;
+
     @Rule
     public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
@@ -47,6 +65,88 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
     public AuthenticatedUserRule authenticatedUserRule =
             new AuthenticatedUserRule("we99.2015@gmail.com", this);
 
+
+
+    @Test
+    public void testCreationOfDoseResponseResult() throws Exception {
+
+        Double[] positive = {138.478,144.927,144.34,145.219,145.654,145.924,144.77,140.504,
+                138.814,142.404,144.539,145.242,142.971,139.508,145.795,141.695};
+
+        Double[] negative = {30.046,29.32,31.546,26.173,29.214,25.645,27.317,30.404,
+                30.939,27.316,25.647,27.482,25.806,30.73,29.419,27.189};
+
+        Double[] wellResults = {110.794,82.435,53.098,34.547,24.925,21.977,21.68,25.515,24.101,
+                28.793,28.194};
+
+        Double[] wellDoses = {0.00003,9.49E-06,3.00E-06,9.51E-07,3.01E-07,
+                9.52E-08,3.01E-08,9.53E-09,3.02E-09,9.55E-10,3.02E-10};
+
+        Double[] responses = {71.79121535497015,47.08544254001027,21.527656402541446,5.3664098321291975,-3.0160770688737975,-5.584313546129757,
+                -5.843053788241366,-2.502081301716058,-3.7339287843618965,0.35364433344168644,-0.16819204711337463};
+
+        Compound c = new Compound("Sugar");
+        compoundStorage.create(c);
+
+        Experiment exp = experimentService.create(
+                new Experiment(name("drxp")).setProtocol(new Protocol(name("proto")))
+        );
+        PlateType pt = plateTypeService.create(
+                new PlateType()
+                        .setName(name("DoseResponsePlate"))
+                        .setDim(new PlateDimension(16, 24))
+                        .setManufacturer(name("Man")));
+        PlatesResource pr = experimentService.getExperiment(exp.getId()).getPlates();
+        Plate plate = pr.create(
+                new Plate()
+                        .setName(name("Plate"))
+                        .withWells(makeDoseCompoundWells(16, 24, c, wellDoses))
+                        .setPlateType(pt)
+        );
+        PlateResource plates = pr.getPlates(plate.getId());
+        PlateResult plateResult = plates.getPlateResult().uploadResults("csv", stream("/DoseResponsePlateIT/results-single-dr.csv"));
+
+        doseResponseResultStorage.createAll(exp.getId());
+
+        //TypedQuery<DoseResponseResultEntity> query2 = em.createQuery("select d from DoseResponseResultEntity d where d.compound.name='Sugar'", DoseResponseResultEntity.class);
+        //List<DoseResponseResultEntity> drentities = query2.getResultList();
+        DoseResponseResult drResult = doseResponseResultStorage.getByCompoundName("Sugar");
+        Set<Long> plateIds = doseResponseResultStorage.getPlateIds(drResult.getId());
+
+        Map<Long,List<WellResults>> resultByPlate = new HashMap<>();
+        for(Long id : plateIds){
+
+            //Plate plate1 = plateStorage.get(id);
+            //PlateResult plateResult = resultStorage.getByPlateId(id);
+            Map<Coordinate, WellResults> wellResults2 = plateResult.getWellResults();
+            //resultByPlate.put(id,wrList);
+            PlateNormalizationForDoseResponseFunction pnf = new PlateNormalizationForDoseResponseFunction(plate);
+            List<WellResults> wrList = new ArrayList<>(wellResults2.values());
+            List<WellResults> normalized = pnf.apply(wrList);
+            resultByPlate.put(id, normalized);
+            //System.out.println("Hello");
+            //ExperimentPointsFunction epf = new ExperimentPointsFunction(current,plateIds);
+
+        }
+
+        ExperimentPointsFunction epf = new ExperimentPointsFunction(drResult,plateIds);
+        List<ExperimentPoint> newPoints = epf.apply(resultByPlate);
+        CurveFitParametersFunction cfp = new CurveFitParametersFunction();
+        List<FitParameter> fit = cfp.apply(newPoints);
+        CurveFitPointsFunction cfpf = new CurveFitPointsFunction(fit,39,FitEquation.HILLEQUATION);
+        List<CurveFitPoint> curvePoints = cfpf.apply(newPoints);
+        Map<String,FitParameter> fitMap = new HashMap<>();
+        drResult.setCurveFitPoints(curvePoints);
+        for(FitParameter f : fit){
+           fitMap.put(f.getName(), f);
+        }
+
+        drResult.setFitParameterMap(fitMap);
+        doseResponseResultStorage.update(drResult.getId(),drResult);
+
+
+
+    }
 
 
     @Test
@@ -179,44 +279,60 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
     }
       */
 
-    protected static Well[] makeDoseCompoundWells(int rowCount, int colCount, Compound c1, Compound c2) {
+
+    private static Well[] makeDoseCompoundWells(int rowCount, int colCount, Compound c1, Double[] doses) {
         Set<Well> wells = new HashSet<>();
 
+        Queue<Dose> doseQueue = new LinkedList<>();
+        for (Double d: doses){
+            Dose aDose = new Dose();
+            aDose.setAmount(new Amount(d, DoseUnit.MICROMOLAR));
+            aDose.setCompound(c1);
+            doseQueue.add(aDose);
 
+        }
 
-        Dose dose1 = new Dose()
-                .setCompound(c1)
-                .setAmount(new Amount(575, DoseUnit.MICROMOLAR));
-        Set<Dose> set1 = new HashSet<>();
-        set1.add(dose1);
-
-
-
-        Dose dose2 = new Dose()
-                .setCompound(c2)
-                .setAmount(new Amount(220, DoseUnit.MICROMOLAR));
-        Set<Dose> set2 = new HashSet<>();
-        set2.add(dose2);
 
         for (int row = 0; row < rowCount; row++) {
             for (int col = 0; col < colCount; col++) {
 
-                if (row % 2 == 0) {
+
+                if(col == 0){
+                    wells.add(
+                            new Well(row,col)
+                                    .setType(WellType.POSITIVE)
+                    );
+                }
+                else if (col == 1){
+                    if(!doseQueue.isEmpty()) {
+                        Dose d = (Dose) doseQueue.remove();
+                        Set<Dose> ds = new HashSet<>();
+                        ds.add(d);
+                        wells.add(
+                                new Well(row, col)
+                                        .setType(WellType.COMP)
+                                        .setContents(ds)
+
+                        );
+                    } else {
+                        wells.add(
+                                new Well(row, col)
+                                        .setType(WellType.EMPTY)
+                        );
+
+                    }
+                } else if(col == 23){
                     wells.add(
                             new Well(row, col)
-                                    .setType(WellType.COMP)
-                                    .setContents(set1)
-
-
+                                    .setType(WellType.NEGATIVE)
                     );
+
                 } else {
-
                     wells.add(
                             new Well(row, col)
-                                    .setType(WellType.COMP)
-                                    .setContents(set1)
-
+                                    .setType(WellType.EMPTY)
                     );
+
                 }
             }
         }
@@ -224,4 +340,51 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
 
         return wells.toArray(new Well[wells.size()]);
     }
+
+
+//    protected static Well[] makeDoseCompoundWells(int rowCount, int colCount, Compound c1, Compound c2) {
+//        Set<Well> wells = new HashSet<>();
+//
+//
+//
+//        Dose dose1 = new Dose()
+//                .setCompound(c1)
+//                .setAmount(new Amount(575, DoseUnit.MICROMOLAR));
+//        Set<Dose> set1 = new HashSet<>();
+//        set1.add(dose1);
+//
+//
+//
+//        Dose dose2 = new Dose()
+//                .setCompound(c2)
+//                .setAmount(new Amount(220, DoseUnit.MICROMOLAR));
+//        Set<Dose> set2 = new HashSet<>();
+//        set2.add(dose2);
+//
+//        for (int row = 0; row < rowCount; row++) {
+//            for (int col = 0; col < colCount; col++) {
+//
+//                if (row % 2 == 0) {
+//                    wells.add(
+//                            new Well(row, col)
+//                                    .setType(WellType.COMP)
+//                                    .setContents(set1)
+//
+//
+//                    );
+//                } else {
+//
+//                    wells.add(
+//                            new Well(row, col)
+//                                    .setType(WellType.COMP)
+//                                    .setContents(set1)
+//
+//                    );
+//                }
+//            }
+//        }
+//        assertEquals(rowCount * colCount, wells.size());
+//
+//        return wells.toArray(new Well[wells.size()]);
+//    }
 }

@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 
 /**
  * @author alan orcharton
+ *
+ * Returns a list of compound WellResults normalized against positive and negative control wells.
+ *
  */
 public class NormalizeForPercentEffectFunction implements Function<List<WellResults>,List<WellResults>> {
 
@@ -76,10 +79,6 @@ public class NormalizeForPercentEffectFunction implements Function<List<WellResu
                                                 })
                                                 .collect(Collectors.toList());
 
-
-
-
-        //List<Double> collect = compoundGroup.stream().map(data -> 100 * (((data - negativeMean) / (positiveMean - negativeMean)))).collect(Collectors.toList());
 
         return normalizedCompounds;
     }

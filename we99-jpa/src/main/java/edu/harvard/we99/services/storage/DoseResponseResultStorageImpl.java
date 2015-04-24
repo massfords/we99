@@ -61,6 +61,25 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
 
     @Override
     @Transactional
+    public DoseResponseResult getByCompoundName(String compoundName){
+
+        JPAQuery query = new JPAQuery(em);
+        query.from(QDoseResponseResultEntity.doseResponseResultEntity)
+                .where(QDoseResponseResultEntity.doseResponseResultEntity.compound.name.eq(compoundName));
+
+        DoseResponseResult dr = null;
+        long count = query.count();
+        if (count == 1) {
+            DoseResponseResultEntity dre = query.singleResult(QDoseResponseResultEntity.doseResponseResultEntity);
+            dr = Mappers.DOSERESPONSES.map(dre);
+        }
+        return dr;
+    }
+
+
+
+    @Override
+    @Transactional
     public void updateStatus(Long id, Coordinate coordinate, ResultStatus status) {
         //DoseResponseResultEntity dr = getDoseResponseResultEntity(id);
         //WellResultsEntity wr = pr.getWellResults().get(coordinate);
@@ -233,7 +252,7 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
     @Transactional
     public DoseResponseResult update(Long id, DoseResponseResult type) throws EntityNotFoundException {
         DoseResponseResultEntity dre = em.find(DoseResponseResultEntity.class, id);
-        Mappers.DOSERESPONSES.mapReverse(type,dre);
+        updateResults(dre,type);
         em.merge(dre);
         return Mappers.DOSERESPONSES.map(dre);
     }
@@ -347,7 +366,14 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
             }
         }
     }
-
+    private void updateResults(DoseResponseResultEntity dre,DoseResponseResult type){
+        dre.getFitParameterMap().clear();
+        dre.getExperimentPoints().clear();
+        dre.getCurveFitPoints().clear();
+        dre.withCurveFitPoints(type.getCurveFitPoints());
+        dre.setFitParameterMap(type.getFitParameterMap());
+        dre.withExperimentPoints(type.getExperimentPoints());
+    }
     private void updateCurveFit(DoseResponseResult type, DoseResponseResultEntity dre){
        /*
         dre.getFitParameterMap().clear();

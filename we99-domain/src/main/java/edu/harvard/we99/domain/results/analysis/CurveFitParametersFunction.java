@@ -16,6 +16,8 @@ import edu.harvard.we99.domain.ParameterStatus;
 
 /**
  * @author alan orcharton.
+ *
+ * Gets the parameters for curve fitting based on the experiment points
  */
 public class CurveFitParametersFunction implements java.util.function.Function<List<ExperimentPoint>, List<FitParameter>> {
 

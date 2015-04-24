@@ -2,12 +2,14 @@ package edu.harvard.we99.domain.results.analysis;
 
 import edu.harvard.we99.domain.*;
 import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.Sample;
 import edu.harvard.we99.domain.results.WellResults;
 import org.junit.Test;
 
 import java.util.*;
 
+import static edu.harvard.we99.test.BaseFixture.name;
 import static org.junit.Assert.*;
 
 /**
@@ -84,6 +86,106 @@ public class ExperimentPointsFunctionTest {
         List<ExperimentPoint> newPoints = epf.apply(plateToResults);
 
 
+    }
+
+    @Test
+    public void testExperimentPointsCreationWithPlateData() {
+
+        Double[] positive = {138.478,144.927,144.34,145.219,145.654,145.924,144.77,140.504,
+                138.814,142.404,144.539,145.242,142.971,139.508,145.795,141.695};
+
+        Double[] negative = {30.046,29.32,31.546,26.173,29.214,25.645,27.317,30.404,
+                30.939,27.316,25.647,27.482,25.806,30.73,29.419,27.189};
+
+        Double[] wellResults = {110.794,82.435,53.098,34.547,24.925,21.977,21.68,25.515,24.101,
+                28.793,28.194};
+
+        Double[] wellDoses = {0.00003,9.49E-06,3.00E-06,9.51E-07,3.01E-07,
+                9.52E-08,3.01E-08,9.53E-09,3.02E-09,9.55E-10,3.02E-10};
+
+        Double[] responses = {71.79121535497015,47.08544254001027,21.527656402541446,5.3664098321291975,-3.0160770688737975,-5.584313546129757,
+                -5.843053788241366,-2.502081301716058,-3.7339287843618965,0.35364433344168644,-0.16819204711337463};
+
+
+        Compound c = new Compound("Sugar");
+//        PlateType pt =  new PlateType()
+//                .setName(name("PlateType"))
+//                .setDim(new PlateDimension(16, 24))
+//                .setManufacturer(name("Man"));
+//
+//        Plate testPlate = new Plate()
+//                .setName(name("Plate"))
+//                .withWells(makeDoseCompoundWells(5,5,c,c))
+//                .setPlateType(pt);
+//
+//        PlateResult = new PlateResult().setWellResults()
+
+        Well[] wells = makeDoseCompoundWells(16,24,c,wellDoses);
+        System.out.println("Hello");
+
+
+    }
+
+
+    private static Well[] makeDoseCompoundWells(int rowCount, int colCount, Compound c1, Double[] doses) {
+        Set<Well> wells = new HashSet<>();
+
+        Queue<Dose> doseQueue = new LinkedList<>();
+        for (Double d: doses){
+            Dose aDose = new Dose();
+            aDose.setAmount(new Amount(d, DoseUnit.MICROMOLAR));
+            aDose.setCompound(c1);
+            doseQueue.add(aDose);
+
+        }
+
+
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < colCount; col++) {
+
+
+                if(col == 0){
+                    wells.add(
+                            new Well(row,col)
+                                    .setType(WellType.POSITIVE)
+                    );
+                }
+                else if (col == 1){
+                    if(!doseQueue.isEmpty()) {
+                        Dose d = (Dose) doseQueue.remove();
+                        Set<Dose> ds = new HashSet<>();
+                        ds.add(d);
+                        wells.add(
+                                new Well(row, col)
+                                        .setType(WellType.COMP)
+                                        .setContents(ds)
+
+                        );
+                    } else {
+                        wells.add(
+                                new Well(row, col)
+                                        .setType(WellType.EMPTY)
+                        );
+
+                    }
+                } else if(col == 23){
+                    wells.add(
+                            new Well(row, col)
+                                    .setType(WellType.NEGATIVE)
+                    );
+
+                } else {
+                    wells.add(
+                            new Well(row, col)
+                                    .setType(WellType.EMPTY)
+                    );
+
+                }
+            }
+        }
+        assertEquals(rowCount * colCount, wells.size());
+
+        return wells.toArray(new Well[wells.size()]);
     }
 
 }
