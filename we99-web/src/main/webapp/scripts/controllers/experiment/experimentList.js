@@ -8,8 +8,9 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ExperimentListCtrl', ['$scope','$rootScope','$location', 'RestService','$modal',function ($scope,$rootScope,$location,RestService,$modal) {
-
+  .controller('ExperimentListCtrl', ['$scope','$timeout','$rootScope','$location', 'RestService','$modal',
+      function ($scope,$timeout,$rootScope,$location,RestService,$modal) {
+    var waitingForSecondClick = false;
 
     //retrieve list of experiments
     function refreshExperiments(){
@@ -21,15 +22,16 @@ angular.module('we99App')
         .error(function(response){
           $scope.errorText="Could not retrieve experiments list.";
           });
-    };
+    }
 
     refreshExperiments();
 
+    /** Opens the edit screen for an experiment
+     * uses the currently selected experiment
+     */
     $scope.editRow=function(){
-      for(var i=0;i<$scope.experiments.length;i++)
-        if ($scope.experiments[i].isSelected) {
-          $location.path('/experiment/addedit/' + $scope.experiments[i].id);
-          break;
+      if ($scope.currentExperiment) {
+        $location.path('/experiment/addedit/' + $scope.currentExperiment.id);
       }
     };
 
@@ -66,17 +68,28 @@ angular.module('we99App')
     };
 
     // fired when table rows are selected
-    $scope.$watch('displayExperiments', function(newVal) {
-      if(newVal){
-        var list=newVal.filter(function(item) {
-          return item.isSelected;
-        });
-        if(list.length==0)
-          $rootScope.currentExperiment=null;
-        else
-          $rootScope.currentExperiment=list[0];
+    $scope.$watch('displayExperiments', function(newVal, oldVal) {
+      if(newVal) {
+        if (waitingForSecondClick) {
+          waitingForSecondClick = false;
+          console.log('second');
+          $scope.editRow();
+        } else {
+          waitingForSecondClick = true;
+          console.log(waitingForSecondClick);
+          $timeout(function(){
+            waitingForSecondClick = false;
+            console.log(waitingForSecondClick);
+          }, 600);
+          var list = newVal.filter(function (item) {
+            return item.isSelected;
+          });
+          if (list.length == 0)
+            $rootScope.currentExperiment = null;
+          else
+            $rootScope.currentExperiment = list[0];
+        }
       }
-
     }, true);
 
     $scope.uploadFile=function(row){

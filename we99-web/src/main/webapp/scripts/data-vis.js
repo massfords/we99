@@ -407,6 +407,10 @@ DataVis.prototype.renderScatterPlot = function(params) {
 
   var svg = d3.select(params.location);
 
+  function jitter(){
+    return 0;
+  }
+
   // x-axis
   svg.append("g")
     .attr("class", "x axis")
@@ -442,12 +446,14 @@ DataVis.prototype.renderScatterPlot = function(params) {
     .attr("r", 4.5)
     .attr("cx", function(d) {
       if(params.xScaleIsDate) {
-        return xScale(d.date);
+        return xScale(d.date) + jitter();
       } else {
-        return xScale(d.amount);
+        return xScale(d.amount) + jitter();
       }
     })
-    .attr("cy", function(d) {return yScale(d.value);} )
+    .attr("cy", function(d) {
+      return yScale(d.value) + jitter();
+    } )
     .style("fill", function(d) {
       if (d.wellType === "NEG_CONTROL"){
         return "rgb(239,237,245)";

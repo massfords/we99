@@ -121,10 +121,9 @@ describe('Controller: ExperimentCtrl', function () {
   it('should get new url path after edit call', function () {
     var targetIndex=2;
     httpBackend.flush();
-    scope.experiments[targetIndex].isSelected=true;
-    var targetId=scope.experiments[targetIndex].id;
+    scope.currentExperiment = scope.experiments[targetIndex];
     scope.editRow();
-    expect(location.saved).toBe('/experiment/addedit/'+targetId);
+    expect(location.saved).toBe('/experiment/addedit/'+ scope.currentExperiment.id);
 
   });
 });
