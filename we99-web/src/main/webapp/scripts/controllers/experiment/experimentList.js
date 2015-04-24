@@ -67,19 +67,20 @@ angular.module('we99App')
       }
     };
 
+    function gotoExperimentDetails(){
+      $location.url('/experiment/{{row.id}}');
+    }
+
     // fired when table rows are selected
     $scope.$watch('displayExperiments', function(newVal, oldVal) {
       if(newVal) {
         if (waitingForSecondClick) {
           waitingForSecondClick = false;
-          console.log('second');
-          $scope.editRow();
+          gotoExperimentDetails();
         } else {
           waitingForSecondClick = true;
-          console.log(waitingForSecondClick);
           $timeout(function(){
             waitingForSecondClick = false;
-            console.log(waitingForSecondClick);
           }, 600);
           var list = newVal.filter(function (item) {
             return item.isSelected;
@@ -123,6 +124,20 @@ angular.module('we99App')
         scroll: true
       },{
         type: "element",
+        selector: "#expTable",
+        heading: "Manage Experiments",
+        text: "Click the zoom in icon or double click the row to see experiment plates",
+        placement: "bottom",
+        scroll: true
+      },{
+        type: "element",
+        selector: "#expTable",
+        heading: "Manage Experiments",
+        text: "You can also delete experiments to remove them or publish experiments to lock them down.",
+        placement: "bottom",
+        scroll: true
+      },{
+        type: "element",
         selector: "#searchbar",
         heading: "Manage Experiments",
         text: "Use the searchbar to filter for specific experiments and click the column headers to sort the table",
@@ -133,7 +148,7 @@ angular.module('we99App')
         type: "element",
         selector: "#btnPanel",
         heading: "Manage Experiments",
-        text: "You can add new experiments and edit existing ones using these buttons",
+        text: "You can add new experiments and edit settings on existing ones using these buttons",
         placement: "top",
         scroll: true
       },{

@@ -17,7 +17,7 @@
     <tr st-select-row="row" ng-repeat="row in displayExperiments">
       <td><a style="color:black;" ng-href="#/experiment/{{row.id}}">
         <i class="glyphicon glyphicon-zoom-in">
-        {{row.name}}
+          <span class="icon-label">{{row.name}}</span>
         </i>
       </a></td>
       <td>{{row.description}}</td>
@@ -36,7 +36,7 @@
 
   <!-- <button class="btn btn-primary" ng-click="newExperiment()">Add New</button> -->
   <div id="btnPanel"><a class="btn btn-primary" ng-href="#/experiment/addedit/new">Add New</a>
-      <button id="editBtn" class="btn btn-primary" ng-click="editRow()" data-ng-disabled="!currentExperiment">Reassign Users</button>
+      <button id="editBtn" class="btn btn-primary" ng-click="editRow()" data-ng-disabled="!currentExperiment">Experiment Settings</button>
   </div>
 
   <div class="row">
