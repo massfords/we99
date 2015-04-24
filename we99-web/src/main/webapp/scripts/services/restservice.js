@@ -125,12 +125,17 @@ app.factory('PlateMergeRestService', ['$http', '$q', '$log', '$upload', 'RestURL
      */
     submitMergeInfo: function (experimentId, mergeInfoObject, compoundCsv) {
       if (compoundCsv){
+        var mi = angular.toJson(mergeInfoObject);
+        var mio = angular.fromJson(mergeInfoObject);
         var upload = $upload.upload({
           url: replaceId(RestURLs.mergeInfoSubmitWithCompound, experimentId),
           method: 'POST',
           file: compoundCsv,
-          fields:{merge: mergeInfoObject},
-          sendObjectsAsJsonBlob: true
+          fields:{merge: mio},
+          formDataAppender: function(fd,k,v) {
+            fd.append(k, new Blob([mi], {type: "application/json"}));
+          }
+          //sendObjectsAsJsonBlob: true
         }).success(function(data){
             $log.info('New plate created');
           }).error(function(err){
