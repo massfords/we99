@@ -48,7 +48,7 @@ public class PlatesClient {
 
     public Plates bulkMerge(Experiment experiment, PlateMapMergeInfo mergeInfo, InputStream compounds) throws Exception {
 
-        Response response = postJsonWithStream(experiment, compounds, "/experiment/%d/plates/merge", "merge", toJsonString(mergeInfo));
+        Response response = postJsonWithStream(experiment, compounds, "/experiment/%d/plates/bulkmerge", "merge", toJsonString(mergeInfo));
         InputStream is = (InputStream) response.getEntity();
         return fromString(IOUtils.toString(is), Plates.class);
     }

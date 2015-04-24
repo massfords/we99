@@ -65,7 +65,7 @@ public interface PlatesResource {
      * @statuscode 409 If we don't understand the format of the CSV
      */
     @POST
-    @Path("/merge")
+    @Path("/bulkmerge")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @ApiOperation("Merges the info from the mergeInfo payload and compounds csv into a set of plates")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
