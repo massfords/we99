@@ -131,8 +131,7 @@ app.factory('PlateMergeRestService', ['$http', '$q', '$log', '$upload', 'RestURL
           file: compoundCsv,
           fields:{merge: mergeInfoObject},
           sendObjectsAsJsonBlob: true
-        }).progress(angular.noop)
-          .success(function(data){
+        }).success(function(data){
             $log.info('New plate created');
           }).error(function(err){
             $log.error('Error creating plate:' + JSON.stringify(err));

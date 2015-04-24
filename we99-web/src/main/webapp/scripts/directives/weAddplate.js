@@ -53,19 +53,20 @@ angular.module('we99App')
     $scope.showCreateButton = function (mergeType) {
 
       switch (mergeType) {
-        case MergeType.FULL_MONTY:
-          return $scope.selectedPlateType &&
-            $scope.csvFiles &&
-            $scope.csvFiles.length === 1;
-        case MergeType.ADD_W_CMPD:
-          return $scope.labelTable.length > 0 &&
-            $scope.csvFiles &&
-            $scope.csvFiles.length === 1;
         case MergeType.ADD:
           return $scope.labelTable.length > 0 &&
             $scope.labelTable.every(function (row) {
               return (row.dose.compound && row.dose.compound.length > 0);
             });
+        case MergeType.ADD_W_CMPD:
+          return $scope.labelTable.length > 0 &&
+            $scope.csvFiles &&
+            $scope.csvFiles.length === 1;
+        case MergeType.FULL_MONTY:
+          return !!$scope.selectedPlateType &&
+            $scope.selectedPlateType.length > 0 &&
+            $scope.csvFiles &&
+            $scope.csvFiles.length === 1;
         default:
           console.error("Need to set parameters for merge type: " + mergeType);
           return false;

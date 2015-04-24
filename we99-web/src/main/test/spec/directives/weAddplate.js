@@ -599,21 +599,69 @@ describe('Controller: AddPlateCtrl', function () {
 
 
     describe('Create Button', function(){
-      it('should be disabled when there is an empty label table', function(){
-        scope.labelTable = [];
-        expect(scope.showCreateButton()).toBe(false);
+      var MergeType = {
+        ADD: 'ADD',
+        ADD_W_CMPD: 'ADD_W_CMPD',
+        FULL_MONTY: 'FULL_MONTY'
+      };
+
+      describe('add plate', function(){
+        it('should be disabled when there is an empty label table', function(){
+          scope.labelTable = [];
+          expect(scope.showCreateButton(MergeType.ADD)).toBe(false);
+        });
+        it('should be disabled when there is an empty compound option', function(){
+          scope.labelTable =
+            [{label: 'A', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: ""}, dilutionFactor: 2},
+              {label: 'B', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: "def"}, dilutionFactor: 2}];
+          expect(scope.showCreateButton(MergeType.ADD)).toBe(false);
+        });
+        it('should be enabled when all the compounds have values', function(){
+          scope.labelTable =
+            [{label: 'A', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: "abc"}, dilutionFactor: 2},
+              {label: 'B', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: "def"}, dilutionFactor: 2}];
+          expect(scope.showCreateButton(MergeType.ADD)).toBe(true);
+        });
       });
-      it('should be disabled when there is an empty compound option', function(){
-        scope.labelTable =
-          [{label: 'A', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: ""}, dilutionFactor: 2},
-            {label: 'B', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: "def"}, dilutionFactor: 2}];
-        expect(scope.showCreateButton()).toBe(false);
+
+      describe('add plate with compound list', function(){
+        it('should be disabled when there is an empty label table', function(){
+          scope.labelTable = [];
+          expect(scope.showCreateButton(MergeType.ADD_W_CMPD)).toBe(false);
+        });
+        it('should be disabled when there is no csv file added', function(){
+          scope.csvFiles = [];
+          scope.labelTable =
+            [{label: 'A', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100}, dilutionFactor: 2},
+              {label: 'B', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100}, dilutionFactor: 2}];
+          expect(scope.showCreateButton(MergeType.ADD_W_CMPD)).toBe(false);
+        });
+        it('should be enabled when all parameters set', function(){
+          scope.csvFiles = ['something'];
+          scope.labelTable =
+            [{label: 'A', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100}, dilutionFactor: 2},
+              {label: 'B', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100}, dilutionFactor: 2}];
+          expect(scope.showCreateButton(MergeType.ADD_W_CMPD)).toBe(true);
+
+        });
       });
-      it('should be enabled when all the compounds have values', function(){
-        scope.labelTable =
-          [{label: 'A', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: "abc"}, dilutionFactor: 2},
-            {label: 'B', wellType: 'COMP', count: 4, replicates: 1, dose: {amount: 100, compound: "def"}, dilutionFactor: 2}];
-        expect(scope.showCreateButton()).toBe(true);
+
+      describe('add plate full monty', function(){
+        it('should be disabled when there is no csv file added', function(){
+          scope.csvFiles = [];
+          scope.selectedPlateType = 'fine china';
+          expect(scope.showCreateButton(MergeType.FULL_MONTY)).toBe(false);
+        });
+        it('should be disabled when there is no plate type file added', function(){
+          scope.csvFiles = ['selected'];
+          scope.selectedPlateType = '';
+          expect(scope.showCreateButton(MergeType.FULL_MONTY)).toBe(false);
+        });
+        it('should be enabled when all parameters are set', function(){
+          scope.selectedPlateType = 'fine china';
+          scope.csvFiles = ['something'];
+          expect(scope.showCreateButton(MergeType.FULL_MONTY)).toBe(true);
+        });
       });
     });
 });
