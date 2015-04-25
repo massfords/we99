@@ -10,8 +10,8 @@ describe('Controller: AddPlateTypeCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    fakeOption={isCustom:true};
-    fakePlateTypeModal={};
+    fakeOption={isCustom:false,name: 'name',rows:5, cols:5};
+    fakePlateTypeModal={create: function(resp,callback){callback();}};
     fakeModal = {
       result: {
         then: function(confirmCallback, cancelCallback) {
@@ -45,7 +45,7 @@ describe('Controller: AddPlateTypeCtrl', function () {
   it('should start with an empty plate type', function () {
     expect(scope.plateType).toBeDefined();
     expect(scope.plateType).not.toBeNull();
-    expect(scope.plateType.name).toEqual('');
+    expect(scope.plateType.name).toEqual('name Plate');
     expect(scope.plateType.description).toEqual('');
     expect(scope.plateType.manufacturer).toEqual('');
     expect(scope.plateType.material).toEqual('');
@@ -57,5 +57,11 @@ describe('Controller: AddPlateTypeCtrl', function () {
     scope.cancel();
     expect(fakeModal.canceled).toBe(true);
   });
+
+  it('should add plate type', function () {
+    scope.addPlateType();
+    //expect(fakeModal.canceled).toBe(true);
+  });
+
 
 });

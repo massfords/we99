@@ -678,10 +678,6 @@ describe('Service: LabelTableSvc', function () {
         LabelTableSvc = _LabelTableSvc_;
     }));
 
-    describe('Create plates Request', function () {
-        it('should request that a new set of plate maps gets created')
-    });
-
     function sortLabels(l, r) {
         if (l.label > r.label) {
             return 1;

@@ -60,10 +60,17 @@ describe('Controller: AdminSettingsCtrl', function () {
     expect(scope.infoText).toBe("Saved new server email settings.");
   });
 
-  it('should save email pattern on post', function () {
-    scope.saveEmailFilter()
-    httpBackend.flush();
-    expect(scope.infoText).toBe('Saved email filter settings.');
+  it('should set flag at start tour', function () {
+    scope.startTour();
+    expect(scope.startJoyRide).toBeTruthy();
   });
+
+  it('should set error message', function () {
+    var text='ack an error!';
+    AdminSettingsCtrl.setError(text);
+    expect(scope.errorText).toBe(text);
+    expect(scope.infoText).toBeNull();
+  });
+
 
 });

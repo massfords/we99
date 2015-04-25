@@ -17,10 +17,14 @@ describe('Controller: ImportResultsCtrl', function () {
         // return fake promises for progress, success, error
         return {
           progress: function (f) {
+            var evt={loaded: 1, total:1,config:{file:{name:'myfile'}}};
+            f(evt);
             return {
               success: function (f) {
+                f('good');
                 return {
                   error: function (f) {
+                    f('error case');
                   }
                 }
               }

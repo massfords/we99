@@ -8,7 +8,19 @@ describe('Controller: ExperimentDetailsCtrl', function () {
   var ExperimentDetailsCtrl,
       scope,
       routeParams,
-      $httpBackend;
+      $httpBackend,
+      fakeModalCall,fakeResult;
+
+
+  //mocks for modal stuff
+  fakeResult={then:function(f){}};
+  fakeModalCall = {
+    open: function (config) {
+      this.config = config;
+      return {result: fakeResult};
+    }
+
+  };
 
   // mock http calls
   var sampleExperiment = {
@@ -71,7 +83,8 @@ describe('Controller: ExperimentDetailsCtrl', function () {
     scope = $rootScope.$new();
     ExperimentDetailsCtrl = $controller('ExperimentDetailsCtrl', {
       $scope: scope,
-      $routeParams: routeParams
+      $routeParams: routeParams,
+      $modal: fakeModalCall
     });
   }));
 
@@ -84,5 +97,50 @@ describe('Controller: ExperimentDetailsCtrl', function () {
     $httpBackend.flush();
     expect(scope.plates).toEqual(samplePlates);
   });
+
+  it('should set tour flag', function() {
+    $httpBackend.flush();
+    scope.startTour();
+    //empty becaues no elements to tour
+    expect(scope.tourConfig).toEqual([]);
+  });
+
+  it('should open modal for add plate', function() {
+    $httpBackend.flush();
+    scope.openAddPlateModal();
+
+    expect('AddPlateCtrl').toBe(fakeModalCall.config.controller);
+    expect(fakeModalCall.config.templateUrl).toBeDefined();
+
+  });
+
+  it('should open modal for bulk add plate w/ compounds', function() {
+    $httpBackend.flush();
+    scope.openAddWCompoundCsvModal ();
+
+    expect('AddPlateCtrl').toBe(fakeModalCall.config.controller);
+    expect(fakeModalCall.config.templateUrl).toBeDefined();
+
+  });
+
+  it('should open modal for full monty add plate', function() {
+    $httpBackend.flush();
+    scope.openAddFullMontyCsvModal();
+
+    expect('AddPlateCtrl').toBe(fakeModalCall.config.controller);
+    expect(fakeModalCall.config.templateUrl).toBeDefined();
+
+  });
+
+  it('should open modal for add plate', function() {
+    $httpBackend.flush();
+    scope.openBulkResultsModal();
+
+    expect('ImportResultsCtrl').toBe(fakeModalCall.config.controller);
+    expect(fakeModalCall.config.templateUrl).toBeDefined();
+
+  });
+
+
 
 });
