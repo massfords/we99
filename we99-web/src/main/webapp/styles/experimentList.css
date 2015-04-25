@@ -5,3 +5,7 @@
 .select-experiment .glyphicon-remove-circle {
   line-height:28px;
 }
+
+.select-experiment a.white{
+  color:white;
+}

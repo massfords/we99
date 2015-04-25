@@ -12,12 +12,12 @@
           <select ng-options="plateType as plateType.name for plateType in plateTypes"
                   ng-change="plateMapsForPlateType()"
                   ng-model="selectedPlateType"></select>
-        </label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span><br>
+        </label> <span class="add-edit">[<a href="#/plate-type-editor" ng-click="cancel()">Add/Edit</a>]</span><br>
         <label>Plate Map:
           <select ng-options="plateMap.name for plateMap in plateMaps"
                   ng-model="selectedPlateMap"
                   ng-change="getMergeInfo()"></select>
-        </label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span>
+        </label> <span class="add-edit">[<a href="#/plate-map-editor" ng-click="cancel()">Add/Edit</a>]</span>
       </div>
     </form>
     <!--<div class="mapping-table" ng-if="selectedPlateMap">-->

@@ -24,7 +24,7 @@
     </thead>
     <tbody>
     <tr st-select-row="row" ng-repeat="row in displayExperiments">
-      <td><a ng-href="#/experiment/{{row.id}}">
+      <td><a ng-href="#/experiment/{{row.id}}" ng-class="{white:row.isSelected}">
         <i class="glyphicon glyphicon-zoom-in">
           <span class="icon-label">{{row.name}}</span>
         </i>

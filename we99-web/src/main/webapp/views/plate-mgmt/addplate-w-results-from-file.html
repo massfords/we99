@@ -11,12 +11,7 @@
           <select ng-options="plateType as plateType.name for plateType in plateTypes"
                   ng-change="plateMapsForPlateType()"
                   ng-model="selectedPlateType"></select>
-        </label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span><br>
-        <!--<label>Plate Map:-->
-          <!--<select ng-options="plateMap.name for plateMap in plateMaps"-->
-                  <!--ng-model="selectedPlateMap"-->
-                  <!--ng-change="getMergeInfo()"></select>-->
-        <!--</label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span>-->
+        </label> <span class="add-edit">[<a href="#/plate-type-editor" ng-click="cancel()">Add/Edit</a>]</span><br>
         <label>Add CSV of Plates and Results:</label>
         <span class="view-sample">[<a href="#">Sample CSV</a>]</span>
         <div class="upload-box">
