@@ -147,22 +147,27 @@ app.factory('PlateMergeRestService', ['$http', '$q', '$log', '$upload', 'RestURL
       }
     },
     // Make plates from Full Monty Csv.
-    submitPlatesWithResults: function (experimentId, plateType, csvFiles) {
+    submitPlatesWithResults: function (experimentId, plateName, plateType, csvFiles) {
       if (!csvFiles || csvFiles.length !== 1) {
         $log.error('No csv file attached');
         return null;
       }
-      var pt = angular.toJson(plateType);
-      var pto = angular.fromJson(pt);
+      //var pto = angular.fromJson(pt);
       var file = csvFiles[0],
         upload = $upload.upload({
           url: RestURLs.experiment + "/" + experimentId + "/fullMonty",
           method: "POST",
           fields: {
-            plateType: pto
+            plateName: plateName,
+            plateType: plateType
           },
-          formDataAppender: function(fd,k,v) {
-            fd.append(k, new Blob([pt], {type: "application/json"}));
+          formDataAppender: function(fd,key,value) {
+            if (key === 'plateType') {
+              var pt = angular.toJson(value);
+              fd.append(key, new Blob([pt], {type: "application/json"}));
+            } else {
+              fd.append(key, value);
+            }
           },
           file: file
         }).progress(function (event) {

@@ -299,7 +299,7 @@ app.constant('TourConstants', {
       text: "Specify the mail server settings for this server. This is used for sending new user"
             +" registration emails.",
       placement: "top"
-    },
+    }
     ],
 
   //===== Heatmap Tour

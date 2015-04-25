@@ -115,7 +115,7 @@ angular.module('we99App')
         console.error("A Parameter is missing.");
         console.error("SelectedPlateType: " + $scope.selectedPlateType + "\nCsvFiles: " + JSON.stringify($scope.csvFiles));
       }
-      PlateMergeRestService.submitPlatesWithResults($routeParams.experimentId, $scope.selectedPlateType, $scope.csvFiles)
+      PlateMergeRestService.submitPlatesWithResults($routeParams.experimentId, $scope.plateName, $scope.selectedPlateType, $scope.csvFiles)
         .then(function (resp) {
           console.log('submitted!');
           console.log(resp.data);
