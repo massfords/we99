@@ -2,6 +2,11 @@
   <h3 class="modal-title">Add Compounds</h3>
 </div>
 <div class="modal-body">
+  <div class="row" style="margin-left:10px;">
+      <span class="view-sample">
+        [<a href="sample_csv/sample-compound-list.csv" download>Sample csv</a>]
+      </span>
+  </div>
   <div class="row">
     <div class="col-md-6">
       <!-- not sure if i should include application/csv as well -->
@@ -12,7 +17,7 @@
       <div ng-no-file-drop>File Drag/Drop is not supported for this browser
       </div>
       <ul>
-        <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
+        <li ng-repeat="f in files" style="font-size:smaller">{{f.name}}</li>
       </ul>
 
       <div>
