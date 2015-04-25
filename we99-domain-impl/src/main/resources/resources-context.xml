@@ -10,6 +10,7 @@
         <constructor-arg ref="experimentStorage"/>
         <constructor-arg ref="resultStorage"/>
         <constructor-arg ref="doseResponseResultStorage"/>
+        <constructor-arg ref="plateStorage"/>
         <lookup-method name="createMemberResource" bean="memberResource"/>
         <lookup-method name="createPlatesResource" bean="platesResource"/>
         <lookup-method name="createDoseResponseResource" bean="doseResponseResource" />
@@ -29,7 +30,7 @@
         <constructor-arg ref="plateStorage"/>
         <lookup-method name="createPlateResult" bean="plateResultResource"/>
     </bean>
-    <bean id="plateResultResource" class="edu.harvard.we99.services.experiments.PlateResultResourceImpl">
+    <bean id="plateResultResource" class="edu.harvard.we99.services.experiments.PlateResultResourceImpl" scope="prototype">
         <constructor-arg ref="resultStorage"/>
         <constructor-arg ref="plateStorage"/>
     </bean>
