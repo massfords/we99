@@ -19,7 +19,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // bower:js
-      'webapp/bower_components/jquery/jquery.js',
+      'webapp/bower_components/jquery/dist/jquery.js',
       'webapp/bower_components/angular/angular.js',
       'webapp/bower_components/bootstrap/dist/js/bootstrap.js',
       'webapp/bower_components/angular-animate/angular-animate.js',
@@ -34,8 +34,8 @@ module.exports = function(config) {
       'webapp/bower_components/ng-file-upload/angular-file-upload.js',
       'webapp/bower_components/lodash/lodash.js',
       'webapp/bower_components/ng-joyride/ng-joyride.js',
-      'webapp/bower_components/angular-mocks/angular-mocks.js',
       'webapp/bower_components/checklist-model/checklist-model.js',
+      'webapp/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'webapp/scripts/**/*.js',
       'test/mock/**/*.js',
