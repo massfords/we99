@@ -25,7 +25,7 @@ angular.module('we99App')
     /** Grabs a list of plate maps when a plate type is selected */
     $scope.plateMapsForPlateType = function () {
       var maxRows = $scope.selectedPlateType.dim.rows,
-        maxCols = $scope.selectedPlateType.dim.cols;
+          maxCols = $scope.selectedPlateType.dim.cols;
       $scope.plateMaps = PlateMapModel.listPlateMaps({maxRows: maxRows, maxCols: maxCols},
         function done(data) {
           $scope.plateMaps = data;
@@ -64,7 +64,6 @@ angular.module('we99App')
             $scope.csvFiles.length === 1;
         case MergeType.FULL_MONTY:
           return !!$scope.selectedPlateType &&
-            $scope.selectedPlateType.length > 0 &&
             $scope.csvFiles &&
             $scope.csvFiles.length === 1;
         default:
@@ -93,7 +92,7 @@ angular.module('we99App')
      * Submits a completed label table to produce the new plate sets for the experiment
      */
     $scope.submitPlateSet = function () {
-      LabelTableSvc.submitMergeInfo($routeParams.experimentId, $scope.labelTable)
+      LabelTableSvc.submitMergeInfo($routeParams.experimentId, $scope.plateName, $scope.labelTable)
         .then(function (resp) {
           console.log('submitted!');
           console.log(resp.data);
@@ -103,7 +102,7 @@ angular.module('we99App')
 
     $scope.submitPlateSetWithCompoundList = function () {
       var csvFile = $scope.csvFiles[0];
-      LabelTableSvc.submitMergeInfo($routeParams.experimentId, $scope.labelTable, csvFile)
+      LabelTableSvc.submitMergeInfo($routeParams.experimentId, $scope.plateName, $scope.labelTable, csvFile)
         .then(function (resp) {
           console.log('submitted!');
           console.log(resp.data);

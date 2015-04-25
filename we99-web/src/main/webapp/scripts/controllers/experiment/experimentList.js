@@ -69,7 +69,7 @@ angular.module('we99App')
     };
 
     function gotoExperimentDetails(){
-      $location.url('/experiment/{{row.id}}');
+      $location.url('/experiment/' + $rootScope.currentExperiment.id);
     }
 
     // fired when table rows are selected

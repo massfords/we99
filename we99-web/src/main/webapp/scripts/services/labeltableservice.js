@@ -32,9 +32,12 @@ angular.module('we99App')
      * @param csvFile (optional)
      * @returns {*}
      */
-    factory.submitMergeInfo = function(experimentId, mappings, csvFile){
+    factory.submitMergeInfo = function(experimentId, plateName, mappings, csvFile){
       if (!mergeInfoObject) {
         throw new Error("mergeInfoObject needs to exist before running...");
+      }
+      if (plateName) {
+        mergeInfoObject.plateName = plateName;
       }
       mergeInfoObject.mappings = mappings;
       return PlateMergeRestService.submitMergeInfo(experimentId, mergeInfoObject, csvFile);

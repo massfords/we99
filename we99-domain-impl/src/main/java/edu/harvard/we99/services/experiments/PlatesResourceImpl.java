@@ -139,7 +139,9 @@ public abstract class PlatesResourceImpl implements PlatesResourceInternal {
 
             PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
 
-            String namePattern = "My Plate " + DateTime.now() + " ";
+            String namePattern = (mergeInfo.getPlateName() != null && mergeInfo.getPlateName().length() > 0) ?
+                    mergeInfo.getPlateName() : "My Plate " + DateTime.now();
+            namePattern += " ";
 
             // walk the compoundSet and create one plate for each of the given compounds
             List<Plate> list = new ArrayList<>();
