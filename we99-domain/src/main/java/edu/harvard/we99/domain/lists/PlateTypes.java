@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author mford
  */
-public class PlateTypes extends AbstractList<PlateType> {
+public class PlateTypes extends AbstractList<PlateType, PlateTypes> {
     public PlateTypes() {}
     public PlateTypes(Long count, int page, int pageSize, List<PlateType> values) {
         super(count, page, pageSize, values);

@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -53,7 +53,7 @@ public class CompoundStorageImpl implements CompoundStorage {
     @Override
     @Transactional
     public Map<Compound, Long> resolveIds(Set<Compound> compounds) {
-        Map<Compound, Long> resolvedMap = new HashMap<>();
+        Map<Compound, Long> resolvedMap = new LinkedHashMap<>();
         JPAQuery query = new JPAQuery(em);
         ParamExpression<String> param = new Param<>(String.class);
         query.from(QCompoundEntity.compoundEntity).where(QCompoundEntity.compoundEntity.name.eq(param));
@@ -61,13 +61,12 @@ public class CompoundStorageImpl implements CompoundStorage {
             query.set(param, c.getName());
             CompoundEntity resolved = query.uniqueResult(QCompoundEntity.compoundEntity);
             if (resolved != null) {
-                resolvedMap.put(new Compound(resolved.getName()), resolved.getId());
+                resolvedMap.put(new Compound(resolved.getId(), resolved.getName()), resolved.getId());
             } else {
                 CompoundEntity ce = new CompoundEntity(null, c.getName());
                 em.persist(ce);
-                resolved = ce;
+                resolvedMap.put(new Compound(ce.getId(), ce.getName()), ce.getId());
             }
-            resolvedMap.put(new Compound(resolved.getName()), resolved.getId());
         }
         return resolvedMap;
     }

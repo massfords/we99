@@ -57,6 +57,29 @@ public class PlateStorageImpl implements PlateStorage {
 
     @Override
     @Transactional
+    public Plates create(List<Plate> list) {
+        assert !list.isEmpty();
+        ExperimentEntity ee = em.find(ExperimentEntity.class, list.get(0).getExperimentId());
+        PlateTypeEntity pte = em.find(PlateTypeEntity.class, list.get(0).getPlateType().getId());
+
+        Plates plates = new Plates();
+
+        for(Plate type : list) {
+            type.setId(null);
+            PlateEntity pe = Mappers.PLATES.mapReverse(type);
+            pe.setPlateType(pte);
+            pte.addPlate(pe);
+            pe.setExperiment(ee);
+            updateWells(type, pe);
+            em.persist(pe);
+            plates.getValues().add(Mappers.PLATES.map(pe));
+        }
+        em.merge(pte);
+        return plates.setPage(0).setPageSize(plates.getValues().size());
+    }
+
+    @Override
+    @Transactional
     public Plate create(Plate type) {
         type.setId(null);
 

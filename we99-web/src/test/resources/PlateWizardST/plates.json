@@ -1,0 +1,857 @@
+{
+  "totalCount": null,
+  "page": 0,
+  "pageSize": 5,
+  "values": [
+    {
+      "name": "My Plate iso8601 0",
+      "labels": [],
+      "wellCount": 10,
+      "wells": [
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetaldehyde"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetamide"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetaldehyde"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetamide"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetaldehyde"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetaldehyde"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetamide"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetamide"}
+            }
+          ]
+        }
+      ],
+      "plateType": {
+        "name": "typeuuid",
+        "dim": {
+          "rows": 10,
+          "cols": 10
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": false
+    },
+    {
+      "name": "My Plate iso8601 1",
+      "labels": [],
+      "wellCount": 10,
+      "wells": [
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetic acid"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetone"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetic acid"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetone"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetic acid"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetic acid"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetone"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetone"}
+            }
+          ]
+        }
+      ],
+      "plateType": {
+        "name": "typeuuid",
+        "dim": {
+          "rows": 10,
+          "cols": 10
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": false
+    },
+    {
+      "name": "My Plate iso8601 2",
+      "labels": [],
+      "wellCount": 10,
+      "wells": [
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetonitrile"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium chloride"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetonitrile"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium chloride"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetonitrile"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Acetonitrile"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium chloride"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium chloride"}
+            }
+          ]
+        }
+      ],
+      "plateType": {
+        "name": "typeuuid",
+        "dim": {
+          "rows": 10,
+          "cols": 10
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": false
+    },
+    {
+      "name": "My Plate iso8601 3",
+      "labels": [],
+      "wellCount": 10,
+      "wells": [
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium nitrate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium sulfate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium nitrate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium sulfate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium nitrate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium nitrate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium sulfate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Aluminium sulfate"}
+            }
+          ]
+        }
+      ],
+      "plateType": {
+        "name": "typeuuid",
+        "dim": {
+          "rows": 10,
+          "cols": 10
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": false
+    },
+    {
+      "name": "My Plate iso8601 4",
+      "labels": [],
+      "wellCount": 10,
+      "wells": [
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Ammonium acetate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Ammonium carbonate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Ammonium acetate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 100.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Ammonium carbonate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 2
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Ammonium acetate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 3
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Ammonium acetate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 0,
+            "col": 4
+          },
+          "labels": [],
+          "type": "EMPTY",
+          "contents": []
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 0
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Ammonium carbonate"}
+            }
+          ]
+        },
+        {
+          "coordinate": {
+            "row": 2,
+            "col": 1
+          },
+          "labels": [],
+          "type": "COMP",
+          "contents": [
+            {
+              "amount": {
+                "number": 20.0,
+                "units": "MICROMOLAR"
+              },
+              "compound": {"name": "Ammonium carbonate"}
+            }
+          ]
+        }
+      ],
+      "plateType": {
+        "name": "typeuuid",
+        "dim": {
+          "rows": 10,
+          "cols": 10
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": false
+    }
+  ]
+}

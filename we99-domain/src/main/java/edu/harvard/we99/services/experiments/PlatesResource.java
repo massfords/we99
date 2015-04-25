@@ -40,11 +40,43 @@ public interface PlatesResource {
     Plate create(Plate plate);
 
 
+    /**
+     * Creates a new plate in our system from a populated merge info. This assumes
+     * that the caller populated the mergeInfo payload with the mappings for each
+     * well label to its doses.
+     *
+     * @param mergeInfo
+     * @return
+     */
     @PUT
     @Path("/merge")
     @ApiOperation("Creates a new plate for the experiment.")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     Plate create(PlateMapMergeInfo mergeInfo);
+
+    /**
+     * Merges the info from the mergeInfo payload and compounds csv into a set
+     * of plates. This allows the user to quickly create a large number of plates
+     * all laid out the same way.
+     *
+     * @param mergeInfo
+     * @param csv
+     * @statuscode 409 If we don't understand the format of the CSV
+     */
+    @POST
+    @Path("/merge")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @ApiOperation("Merges the info from the mergeInfo payload and compounds csv into a set of plates")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="merge", value = "Merge info for the plates",
+                    required = true, dataType = "edu.harvard.we99.domain.PlateMapMergeInfo",
+                    paramType = "form"),
+            @ApiImplicitParam(name="file", value = "CSV", required = true,
+                    dataType = "file", paramType = "form")})
+    Plates bulkCreate(
+                  @Multipart("merge") @ApiParam("DO NOT SET THROUGH SWAGGER") PlateMapMergeInfo mergeInfo,
+                  @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
 
     /**
      * Creates a new plate from the merged PlateMap/Compound-Mapping file

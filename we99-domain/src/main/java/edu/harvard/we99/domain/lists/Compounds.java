@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author mford
  */
-public class Compounds extends AbstractList<Compound> {
+public class Compounds extends AbstractList<Compound,Compounds> {
     public Compounds() {
     }
 

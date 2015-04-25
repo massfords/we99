@@ -17,6 +17,8 @@ import edu.harvard.we99.services.storage.PlateMapStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.PlateTypeStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
+import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,12 +31,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 
 /**
  * @author mford
@@ -69,7 +74,7 @@ public abstract class PlatesResourceImpl implements PlatesResource {
 
     @Override
     public Plate create(PlateMapMergeInfo mergeInfo) {
-        validate(mergeInfo);
+        validate(mergeInfo, new SinglePlateMergeValidation());
         try {
             PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
 
@@ -87,15 +92,7 @@ public abstract class PlatesResourceImpl implements PlatesResource {
             // wells are copied by their coordinate
             // each of the wells
 
-            for (WellMap wm : plateMap.getWells().values()) {
-                Well well = new Well().setType(wm.getType());
-                well.setCoordinate(wm.getCoordinate());
-                well.setLabels(wm.getLabels());
-                plate.getWells().put(wm.getCoordinate(), well);
-                if (well.getType() != WellType.EMPTY) {
-                    well.dose(mergeInfo.getMappings().get(well.getContentsLabel()).take());
-                }
-            }
+            wellLabelMappingToWell(mergeInfo, plateMap, plate);
 
             // get all of the compounds
             Set<Compound> compounds = new HashSet<>();
@@ -113,42 +110,121 @@ public abstract class PlatesResourceImpl implements PlatesResource {
         }
     }
 
-    private void validate(PlateMapMergeInfo mergeInfo) {
+    @Override
+    public Plates bulkCreate(PlateMapMergeInfo mergeInfo, InputStream csv) {
+        assert mergeInfo != null;
         try {
-            for (WellLabelMapping wlm : mergeInfo.getMappings().values()) {
-                if (wlm.getWellType() == WellType.EMPTY) {
-                    if (wlm.getDose() != null) {
-                        throw new WebApplicationException(
-                                Response.status(409)
-                                        .entity("Wells marked as empty cannot contain a compound")
-                                        .build());
-                    }
-                } else {
-                    if (wlm.getDose() == null) {
-                        throw new WebApplicationException(
-                                Response.status(409)
-                                        .entity("Non-empty wells must have a Dose")
-                                        .build());
-                    }
-                    if (wlm.getDose().getCompound() == null) {
-                        String message = "Dose in well label %s is missing its compound";
-                        throw new WebApplicationException(
-                                Response.status(409)
-                                        .entity(String.format(message, wlm.getLabel()))
-                                        .build());
-                    }
-                    if (wlm.getDose().getAmount() == null) {
-                        String message = "Dose in well label %s is missing its amount";
-                        throw new WebApplicationException(
-                                Response.status(409)
-                                        .entity(String.format(message, wlm.getLabel()))
-                                        .build());
-                    }
-                }
+            validate(mergeInfo, new CompoundlessPlateValidation());
+            Set<Compound> compoundSet = parse(csv);
+            if (compoundSet.isEmpty()) {
+                throw new WebApplicationException(Response.status(409).build());
             }
+            Map<Compound, Long> resolveIds = compoundStorage.resolveIds(compoundSet);
+
+            PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
+
+            String namePattern = "My Plate " + DateTime.now() + " ";
+
+            // walk the compoundSet and create one plate for each of the given compounds
+            List<Plate> list = new ArrayList<>();
+            List<Compound> compounds = new ArrayList<>(resolveIds.keySet());
+
+            Plate plate;
+
+            do {
+                plate = new Plate()
+                        .setName(namePattern + list.size())
+                        .setExperimentId(experiment.getId())
+                        .setPlateType(mergeInfo.getPlateType());
+                list.add(plate);
+
+                // ensure that our well mappings are in the default position
+                mergeInfo.getMappings().values().forEach(
+                        wlm -> wlm.setDoses(null)
+                );
+
+                // assign compounds to each well mapping for the  plate
+                // pop a compound off of the list and assign it to the first
+                // well label mapping. There should be at least one available.
+                // If we've run out within this for loop then we'll just mark
+                // the remaining mappings as empty
+                mergeInfo.getMappings().values()
+                        .stream()
+                        .filter(wlm -> wlm.getWellType() != WellType.EMPTY)
+                        .forEach(wlm -> {
+                            if (!compounds.isEmpty()) {
+                                wlm.getDose().setCompound(compounds.remove(0));
+                            } else {
+                                wlm.setDose(null);
+                                wlm.setWellType(WellType.EMPTY);
+                            }
+                        });
+
+                wellLabelMappingToWell(mergeInfo, plateMap, plate);
+
+            } while (!compounds.isEmpty());
+
+            return plateStorage.create(list);
+        } catch(WebApplicationException e) {
+            log.error("Error with bulk plate add", e);
+            throw e;
+        } catch(Exception e) {
+            log.error("Error with bulk plate add", e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
+    }
+
+    private void validate(PlateMapMergeInfo mergeInfo, Function<WellLabelMapping, Void> validationFunction) {
+        try {
+            mergeInfo.getMappings().values().forEach(validationFunction::apply);
         } catch(WebApplicationException e) {
             log.error("error validating plate merge request:" + e.getResponse().getEntity().toString());
             throw e;
+        }
+    }
+
+    private static class SinglePlateMergeValidation extends CompoundlessPlateValidation {
+
+        @Override
+        public Void apply(WellLabelMapping wlm) {
+            if (wlm.getWellType() != WellType.EMPTY && wlm.getDose().getCompound() == null) {
+                String message = "Dose in well label %s is missing its compound";
+                throw new WebApplicationException(
+                        Response.status(409)
+                                .entity(String.format(message, wlm.getLabel()))
+                                .build());
+            }
+            return null;
+        }
+    }
+
+    private static class CompoundlessPlateValidation implements Function<WellLabelMapping, Void> {
+
+        @Override
+        public Void apply(WellLabelMapping wlm) {
+            if (wlm.getWellType() == WellType.EMPTY) {
+                if (wlm.getDose() != null) {
+                    throw new WebApplicationException(
+                            Response.status(409)
+                                    .entity("Wells marked as empty cannot contain a compound")
+                                    .build());
+                }
+            } else {
+                if (wlm.getDose() == null) {
+                    throw new WebApplicationException(
+                            Response.status(409)
+                                    .entity("Non-empty wells must have a Dose")
+                                    .build());
+                }
+                if (wlm.getDose().getAmount() == null) {
+                    String message = "Dose in well label %s is missing its amount";
+                    throw new WebApplicationException(
+                            Response.status(409)
+                                    .entity(String.format(message, wlm.getLabel()))
+                                    .build());
+                }
+            }
+            return null;
         }
     }
 
@@ -218,5 +294,39 @@ public abstract class PlatesResourceImpl implements PlatesResource {
     @Generated(value = "generated by IDE")
     public Experiment getExperiment() {
         return experiment;
+    }
+
+    private Set<Compound> parse(InputStream csv) {
+        Set<Compound> compoundSet = new LinkedHashSet<>();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(csv))) {
+            String line;
+            while((line = br.readLine()) != null) {
+                String name = line.trim();
+                if (!name.startsWith("#") && StringUtils.isNotBlank(name)) {
+                    compoundSet.add(new Compound(name));
+                }
+            }
+        } catch (IOException e) {
+            throw new WebApplicationException(Response.serverError().build());
+        }
+        return compoundSet;
+    }
+
+    private void wellLabelMappingToWell(PlateMapMergeInfo mergeInfo, PlateMap plateMap, Plate plate) {
+        for (WellMap wm : plateMap.getWells().values()) {
+            Well well = new Well().setType(wm.getType());
+            well.setCoordinate(wm.getCoordinate());
+            well.setLabels(wm.getLabels());
+            plate.getWells().put(wm.getCoordinate(), well);
+            if (well.getType() != WellType.EMPTY) {
+                WellLabelMapping wlm = mergeInfo.getMappings().get(well.getContentsLabel());
+                // make sure our well hasn't been flipped to empty
+                if (wlm.getWellType() == WellType.EMPTY) {
+                    well.setType(WellType.EMPTY);
+                } else {
+                    well.dose(wlm.take());
+                }
+            }
+        }
     }
 }

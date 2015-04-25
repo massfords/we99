@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author mford
  */
-public class Users extends AbstractList<User> {
+public class Users extends AbstractList<User, Users> {
     public Users() {}
     public Users(long count, int page, int pageSize, List<User> users) {
         super(count, page, pageSize, users);

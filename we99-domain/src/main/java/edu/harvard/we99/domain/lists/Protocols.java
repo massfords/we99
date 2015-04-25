@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author mford
  */
-public class Protocols extends AbstractList<Protocol> {
+public class Protocols extends AbstractList<Protocol, Protocols> {
     public Protocols() {}
     public Protocols(Long count, int page, int pageSize, List<Protocol> values) {
         super(count, page, pageSize, values);

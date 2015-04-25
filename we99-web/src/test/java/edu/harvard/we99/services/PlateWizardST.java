@@ -13,10 +13,12 @@ import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.Protocol;
 import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.domain.lists.PlateMaps;
+import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.test.LogTestRule;
 import edu.harvard.we99.test.Scrubbers;
 import edu.harvard.we99.util.ClientFactory;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,6 +31,7 @@ import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.test.BaseFixture.name;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
@@ -56,8 +59,11 @@ public class PlateWizardST {
         es = null;
     }
 
-    @Test
-    public void test() throws Exception {
+    private Experiment experiment;
+    private PlateMapMergeInfo mergeInfo;
+
+    @Before
+    public void setUp() throws Exception {
         // ---------------------------------------------------------------------
         // First, create a plate type. There are likely ones in the system already
         // but let's make sure there's one that suits our needs
@@ -82,7 +88,7 @@ public class PlateWizardST {
         // Now we create experiment. You cannot create any plates outside
         // of an experiment.
         // ---------------------------------------------------------------------
-        Experiment experiment = es.create(
+        experiment = es.create(
                 new Experiment((name("exp"))).setProtocol(new Protocol(name("p")))
         );
 
@@ -114,7 +120,11 @@ public class PlateWizardST {
         // - How many wells have the same contents label value?
         // - What is the well type for each of these labeled wells?
         // ---------------------------------------------------------------------
-        PlateMapMergeInfo mergeInfo = plateMapService.prepare(found.getId(), plateType);
+        mergeInfo = plateMapService.prepare(found.getId(), plateType);
+    }
+
+    @Test
+    public void singlePlate() throws Exception {
 
         // ---------------------------------------------------------------------
         // The UI will render the mergeInfo in a table of some sorts and prompt
@@ -149,7 +159,6 @@ public class PlateWizardST {
                 });
 
         String request = toJsonString(mergeInfo);
-//        System.out.println(request);
         assertJsonEquals(load("/PlateWizardST/request.json"), request,
                 Scrubbers.uuid.andThen(Scrubbers.pkey));
 
@@ -157,11 +166,57 @@ public class PlateWizardST {
         // ---------------------------------------------------------------------
         // At this point the merge info is fully populated and we're ready to
         // create a new plate. There's a new service on the PlatesResource that
-        // accepts the merge info. The response of this call is a
+        // accepts the merge info.
         // ---------------------------------------------------------------------
         Plate plate = es.getExperiment(experiment.getId()).getPlates().create(mergeInfo);
         assertJsonEquals(load("/PlateWizardST/expected-plate.json"),
                 toJsonString(plate), Scrubbers.pkey.andThen(
                         Scrubbers.uuid.andThen(Scrubbers.iso8601).andThen(Scrubbers.xpId)));
+    }
+
+    @Test
+    public void bulkAdd() throws Exception {
+
+        // ---------------------------------------------------------------------
+        // The UI will render the mergeInfo in a table of some sorts and prompt
+        // the user to provide the missing information in order to make a new
+        // plate for Dose Response Curves.
+        //
+        // Missing info at this point is the following:
+        // - what is the name of the plate we want to create?
+        // - given a label A, B, C, etc, what Dose should we use?
+        // - note: In bulk mode, a Dose = Amount only (no compound)
+        // - should a dilution factor be applied to the well? If so, this dilution
+        //   factor will dilute each well of the same label/Dose after the first
+        //   by the given factor each time.
+        // - should multiple copies of wells get replicated? Meaning, if there are
+        //   12 copies of compound A, the user might want 2 copies of each Dose
+        // ---------------------------------------------------------------------
+        mergeInfo.setPlateName(name("my plate name"));
+
+        // set the compounds in place
+        mergeInfo.getMappings().values()
+                .stream()
+                .filter(wlm -> wlm.getWellType() != WellType.EMPTY)
+                .forEach(wlm -> {
+                    wlm.setReplicates(2);
+                    wlm.setDilutionFactor(5d);
+                    wlm.setDose(new Dose(null,
+                            new Amount(100, DoseUnit.MICROMOLAR)));
+                });
+
+
+        // ---------------------------------------------------------------------
+        // At this point the merge info is fully populated and we're ready to
+        // create the plates. There's a new service on the PlatesResource that
+        // accepts the merge info and a list of compounds
+        // ---------------------------------------------------------------------
+        Plates plates = new PlateClient(
+                new URL(WebAppIT.WE99_URL), WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW)
+                .bulk(experiment, mergeInfo,
+                        getClass().getResourceAsStream("/PlateWizardST/compounds4merge.csv"));
+        assertEquals(5, plates.getValues().size());
+        assertJsonEquals(load("/PlateWizardST/plates.json"), toJsonString(plates),
+                Scrubbers.pkey.andThen(Scrubbers.uuid).andThen(Scrubbers.iso8601));
     }
 }

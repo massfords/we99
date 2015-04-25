@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author mford
  */
-public class PlateResults extends AbstractList<PlateResult> {
+public class PlateResults extends AbstractList<PlateResult, PlateResults> {
     @SuppressWarnings("UnusedDeclaration")
     public PlateResults() {}
     public PlateResults(long count, int page, int pageSize, List<PlateResult> values) {
