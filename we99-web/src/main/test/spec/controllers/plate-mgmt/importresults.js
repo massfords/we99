@@ -68,7 +68,7 @@ describe('Controller: ImportResultsCtrl', function () {
   }));
 
 
-  it('should start with a defined experiment and success=false ', function () {
+  it('should start with a defined scope.experiment and success=false ', function () {
     expect(scope.experiment).toBeDefined();
     expect(scope.experiment).not.toBeNull();
     expect(scope.success).toBe(false);

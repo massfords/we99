@@ -24,7 +24,7 @@ angular.module('we99App')
         }
       });
 
-      // Deletes a plate from the experiment
+      // Deletes a plate from the assay
       $scope.removePlate = function(plate) {
         var confirmed = confirm('Delete \''+ plate.name +'\'?');
         if (confirmed) {
@@ -35,7 +35,7 @@ angular.module('we99App')
         }
       };
 
-      // Gets the list of experiment plates from the server
+      // Gets the list of assay plates from the server
       $scope.refreshPlates = function(){
         SelectedExperimentSvc.getPlates($scope.experiment.id).then(function (plates){
           $scope.plates = plates;

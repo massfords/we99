@@ -18,11 +18,11 @@ angular.module('we99App')
     var listBoxLocation = "#list-box";
     var displayBoxLocation = "#display-box";
 
-    // Retrieve list of experiments
+    // Retrieve list of assays
     RestService.getExperiments()
       .success(function(response){
 
-        // Experiment Drop Down
+        // Assay Drop Down
         $scope.experiments= response.values;
         $scope.selectedExperiment = $scope.experiments[0];
 
@@ -79,14 +79,14 @@ angular.module('we99App')
 
               });
             }).error(function(response){
-              $scope.errorText="Could not retrieve plate list for expriement [id=" + experimentId + "]";
+              $scope.errorText="Could not retrieve plate list for assay [id=" + experimentId + "]";
             });;
 
         });
 
       })
       .error(function(response){
-        $scope.errorText="Could not retrieve experiments list.";
+        $scope.errorText="Could not retrieve assays list.";
       });
 
     /**

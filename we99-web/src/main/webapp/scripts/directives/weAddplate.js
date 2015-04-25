@@ -89,7 +89,7 @@ angular.module('we99App')
 
 
     /** For Addplate Popup:
-     * Submits a completed label table to produce the new plate sets for the experiment
+     * Submits a completed label table to produce the new plate sets for the experimental assay
      */
     $scope.submitPlateSet = function () {
       LabelTableSvc.submitMergeInfo($routeParams.experimentId, $scope.plateName, $scope.labelTable)

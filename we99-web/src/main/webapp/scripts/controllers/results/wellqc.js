@@ -28,11 +28,11 @@ angular.module('we99App')
       return result;
     }
 
-    // Retrieve list of experiments
+    // Retrieve list of assays
     RestService.getExperiments()
       .success(function (response) {
 
-        // Experiment Drop Down
+        // Assay Drop Down
         $scope.experiments = response.values;
         $scope.selectedExperiment = $scope.experiments[0];
 
@@ -49,7 +49,7 @@ angular.module('we99App')
                   fullDisplayRefresh();
                 });
               }).error(function(response){
-                $scope.errorText="Could not retrieve plate list for expriement [id=" + experimentId + "]";
+                $scope.errorText="Could not retrieve plate list for assay [id=" + experimentId + "]";
               });
 
         });

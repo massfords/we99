@@ -167,7 +167,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scopeEdit.protocolValues.length).toBe(protocolResp.totalCount);
     expect(scopeEdit.assignedUsers[0]).toEqual(currUserResp);
 
-    //check that experiment loaded
+    //check that assay loaded
     expect(scopeEdit.newExp).toEqual(expResp);
 
   });
@@ -182,11 +182,11 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.protocolValues.length).toBe(protocolResp.totalCount);
     expect(scope.assignedUsers[0]).toEqual(currUserResp);
 
-    //check that experiment is fresh with no data
+    //check that assay is fresh with no data
     expect(scope.newExp).toEqual({});
   });
 
-  it('try to assign new user to experiment, no selection', function(){
+  it('try to assign new user to assay, no selection', function(){
     httpBackend.flush();
 
     var originalAvailCount=scope.availUsers.length;
@@ -196,7 +196,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.assignedUsers.length).toBe(orginalAssignedCount);
   });
 
-  it('try to assign new user to experiment, single selection', function(){
+  it('try to assign new user to assay, single selection', function(){
     httpBackend.flush();
 
     var originalAvailCount=scope.availUsers.length;
@@ -211,7 +211,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.assignedUsers[scope.assignedUsers.length-1].id).toBe(movedObjId);
   });
 
-  it('try to remove a user from experiment, no selection', function(){
+  it('try to remove a user from assay, no selection', function(){
     httpBackend.flush();
 
     var originalAvailCount=scope.availUsers.length;
@@ -223,7 +223,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.assignedUsers.length).toBe(originalAssignedCount);
   });
 
-  it('try to remove current user from experiment', function(){
+  it('try to remove current user from assay', function(){
     httpBackend.flush();
 
     var originalAvailCount=scope.availUsers.length;
@@ -237,7 +237,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.errorText).toContain('You cannot remove yourself');
   });
 
-  it('try to remove assigned user from experiment', function(){
+  it('try to remove assigned user from assay', function(){
     httpBackend.flush();
 
     var testUser= {id:100,isSelected:true};
@@ -252,7 +252,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.availUsers[scope.availUsers.length-1]).toBe(testUser);
   });
 
-  it('try to save experiment', function(){
+  it('try to save assay', function(){
     httpBackend.flush();
 
     var testId=100;

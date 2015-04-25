@@ -75,7 +75,7 @@ describe('Controller: ExperimentCtrl', function () {
     });
   }));
 
-  it('should retrieve all experiments on init', function () {
+  it('should retrieve all assays on init', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(3);
     expect(scope.experiments[0].name).toBe("experiment dos");
@@ -87,7 +87,7 @@ describe('Controller: ExperimentCtrl', function () {
 
   });
 
-  it('should remove experiment after delete call', function () {
+  it('should remove assay after delete call', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(3);
 
@@ -104,7 +104,7 @@ describe('Controller: ExperimentCtrl', function () {
     }
   });
 
-  it('should not remove experiment if delete call canceled', function () {
+  it('should not remove assay if delete call canceled', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(3);
 

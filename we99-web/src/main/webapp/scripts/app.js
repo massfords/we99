@@ -67,7 +67,7 @@ angular
         controller: 'CompoundResultsCntrl'
       })
       // #####################
-      // Experiment Management
+      // Assay Management
       // #####################
       .when('/experiment', {
         templateUrl: 'views/experiment/experimentList.html',
