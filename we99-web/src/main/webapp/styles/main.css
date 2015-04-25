@@ -126,12 +126,12 @@ table.table.table-striped .st-selected td {
   text-align: center;
 }
 
-.action .glyphicon {
-  font-size: 120%;
-}
 
 
 /* Glyphicon pretty stuff */
+.action .glyphicon {
+  font-size: 120%;
+}
 
 .glyphicon-remove-circle:hover {
   color:red;
@@ -146,10 +146,6 @@ table.table.table-striped .st-selected td {
 .glyphicon-ok:hover {
   color:limegreen;
   font-size: 110%;
-}
-
-span.glyphicon-question-sign {
-  font-size: 200%;
 }
 
 /* General Directive Formatting */

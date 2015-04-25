@@ -95,7 +95,7 @@ app.constant('TourConstants', {
       selector: "tr:last",
       //.glyphicon-zoom-in
       heading: "Manage Assays",
-      text: "Click the zoom in icon or double click the row to see assays details and its plates.",
+      text: "Click the zoom in icon to see assays details and its plates.",
       placement: "bottom",
       scroll: true
     }
