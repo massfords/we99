@@ -1,10 +1,7 @@
 package edu.harvard.we99.domain.results.analysis;
 
 import edu.harvard.we99.domain.*;
-import edu.harvard.we99.domain.results.DoseResponseResult;
-import edu.harvard.we99.domain.results.PlateResult;
-import edu.harvard.we99.domain.results.Sample;
-import edu.harvard.we99.domain.results.WellResults;
+import edu.harvard.we99.domain.results.*;
 import org.junit.Test;
 
 import java.util.*;
@@ -64,7 +61,7 @@ public class ExperimentPointsFunctionTest {
 
         List<WellResults> wellresults = new ArrayList<>();
         List<WellResults> wellresults2 = new ArrayList<>();
-        WellResults wr1 = new WellResults().setSamples(samples1).setCoordinate(co1);
+        WellResults wr1 = new WellResults().setSamples(samples1).setCoordinate(co1).setResultStatus(ResultStatus.EXCLUDED);
         WellResults wr2 = new WellResults().setSamples(samples2).setCoordinate(co2);
         WellResults wr3 = new WellResults().setSamples(samples3).setCoordinate(co3);
 
@@ -83,7 +80,7 @@ public class ExperimentPointsFunctionTest {
         plateid.add(2L);
 
         ExperimentPointsFunction epf = new ExperimentPointsFunction(dr,plateid);
-        List<ExperimentPoint> newPoints = epf.apply2(plateToResults);
+        List<ExperimentPoint> newPoints = epf.apply(plateToResults);
 
 
     }

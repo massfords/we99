@@ -36,20 +36,25 @@ public class ExperimentPointsFunction implements Function<Map<Long,List<WellResu
 
         List<ExperimentPoint> newpoints = new ArrayList<>();
         for(Long id : plateIds) {
-            Map<Coordinate, List<Sample>> cord = new HashMap<>();    //stores samples results by coordinate
+//            Map<Coordinate, List<Sample>> cord = new HashMap<>();    //stores samples results by coordinate
+            Map<Coordinate, WellResults> cordToResult = new HashMap<>();
             List<WellResults> plateResults = longWellResultsMap.get(id);   //gets list well results for a plate
-            List<WellResults> includedResults = plateResults.stream()
-                                .filter(wresult -> wresult.getResultStatus() == ResultStatus.INCLUDED)
-                                .collect(Collectors.toList());
-            includedResults.forEach(wr -> cord.put(wr.getCoordinate(), wr.getSamples()));   //map sample to co-ordinate
+//            List<WellResults> includedResults = plateResults.stream()
+//                                .filter(wresult -> wresult.getResultStatus() == ResultStatus.INCLUDED)
+//                                .collect(Collectors.toList());
+            plateResults.forEach(wr -> cordToResult.put(wr.getCoordinate(), wr));   //map Result to co-ordinate
+
+
             List<Dose> epdoses = doseResponse.getDoses();         // Gets the Doses for the DR
             for(Dose d : epdoses){
                 if(d.getPlateId() == id){
                     ExperimentPoint npoint = new ExperimentPoint(id,d.getId());
                     npoint.setX(d.getAmount().getNumber());
-                    cord.keySet().forEach(wellcoord -> {
+                    npoint.setLogx(Math.log10(d.getAmount().getNumber()));
+                    cordToResult.keySet().forEach(wellcoord -> {
                         if (wellcoord.equals(d.getWell().getCoordinate())) {
-                            npoint.setY(cord.get(wellcoord).get(0).getNormalized());
+                            npoint.setY(cordToResult.get(wellcoord).getSamples().get(0).getNormalized());
+                            npoint.setResultStatus(cordToResult.get(wellcoord).getResultStatus());
                         }
                     });
                     newpoints.add(npoint);

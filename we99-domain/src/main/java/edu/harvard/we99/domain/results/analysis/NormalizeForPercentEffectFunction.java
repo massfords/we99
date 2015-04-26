@@ -1,5 +1,6 @@
 package edu.harvard.we99.domain.results.analysis;
 
+import edu.harvard.we99.domain.results.ResultStatus;
 import edu.harvard.we99.domain.results.Sample;
 import edu.harvard.we99.domain.results.WellResults;
 import org.apache.commons.math3.stat.StatUtils;
@@ -51,17 +52,25 @@ public class NormalizeForPercentEffectFunction implements Function<List<WellResu
     @Override
     public List<WellResults> apply(List<WellResults> wrList) {
 
+        Predicate<WellResults> includedFilter = wellRes -> wellRes.getResultStatus() == ResultStatus.INCLUDED;
+
         Function<double[], Double> mean = StatUtils::mean;
 
         //filter positive controls
-        List<WellResults> group1 = wrList.stream().filter(positiveCtrlFilter).collect(Collectors.toList());
+        List<WellResults> group1 = wrList.stream()
+                .filter(positiveCtrlFilter)
+                .filter(includedFilter)
+                .collect(Collectors.toList());
         double[] group1Results = getGroupResults(group1);
 
         //mean of positive controls
         double positiveMean = mean.apply(group1Results);
 
         //filter negative controls
-        List<WellResults> group2 = wrList.stream().filter(negativeCtrlFilter).collect(Collectors.toList());
+        List<WellResults> group2 = wrList.stream()
+                .filter(negativeCtrlFilter)
+                .filter(includedFilter)
+                .collect(Collectors.toList());
         double[] group2Results = getGroupResults(group2);
 
         //mean of positive controls
