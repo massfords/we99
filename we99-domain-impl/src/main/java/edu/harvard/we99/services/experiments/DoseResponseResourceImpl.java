@@ -142,9 +142,10 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
         return drr;
     }
 
-    @Override
-    public DoseResponseResult list() {
-        return doseResponseResultStorage.get(1L);
+
+    public DoseResponseResults list(Integer page, Integer pageSize, String typeAhead) {
+
+        return doseResponseResultStorage.listAll(experiment.getId(), page, pageSize, typeAhead);
     }
 
     @Override

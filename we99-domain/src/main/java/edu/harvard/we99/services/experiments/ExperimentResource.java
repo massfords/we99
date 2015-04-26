@@ -87,11 +87,6 @@ public interface ExperimentResource {
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     DoseResponseResource getDoseResponses();
 
-    @GET
-    @Path("/doseresponseresults")
-    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    @ApiOperation("Gets the dose response results for the experiment")
-    DoseResponseResult listDoseResponseResults();
 
     @GET
     @Path("/results")

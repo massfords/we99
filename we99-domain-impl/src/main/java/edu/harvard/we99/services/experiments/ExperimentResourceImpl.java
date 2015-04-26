@@ -110,11 +110,6 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
         return dr;
     }
 
-    @Override
-    public DoseResponseResult listDoseResponseResults() {
-
-        return doseResponseResultStorage.get(1L);
-    }
 
     @Override
     public PlateResults listResults(Integer page, Integer pageSize, String typeAhead) {

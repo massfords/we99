@@ -22,21 +22,17 @@ import java.util.List;
 public interface DoseResponseResultResource  {
 
 
-    @PUT
-    @ApiOperation("Creates a new dose response result for the experiment.")
-    @PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
-    DoseResponseResult create(Compound compound, List<Plate> plates);
-
+    /**
+     * Gets an existing plate or throws an exception with 404
+     * @return
+     * @statuscode 404 If the Plate is not found
+     */
     @GET
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    @ApiOperation("Gets the results by id")
+    @ApiOperation("Gets the dose response results by id")
     @PreAuthorize("hasRole('PERM_READ_RESULTS')")
     DoseResponseResult get();
 
-
-    @PUT
-    @ApiOperation("Grabs the response values from the plate results")
-    @PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     DoseResponseResult addResponseValues();
 
 
