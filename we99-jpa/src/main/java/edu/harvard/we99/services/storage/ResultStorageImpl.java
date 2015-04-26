@@ -2,6 +2,7 @@ package edu.harvard.we99.services.storage;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import edu.harvard.we99.domain.Coordinate;
+import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.ResultStatus;
@@ -16,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +30,12 @@ public class ResultStorageImpl implements ResultStorage {
 
     @PersistenceContext
     private EntityManager em;
+
+    private final PlateStorage plateStorage;
+
+    public ResultStorageImpl(PlateStorage plateStorage) {
+        this.plateStorage = plateStorage;
+    }
 
     @Override
     @Transactional
@@ -60,8 +66,9 @@ public class ResultStorageImpl implements ResultStorage {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public PlateResult getByPlateId(Long plateId) {
+        System.out.println("ResultStorageImpl.getByPlateId: " + plateId);
         PlateEntity plate = em.find(PlateEntity.class, plateId);
         Hibernate.initialize(plate.getWells());
         PlateResultEntity plateResult = plate.getResults();
@@ -83,6 +90,26 @@ public class ResultStorageImpl implements ResultStorage {
         em.persist(pre);
         em.merge(plate);
         return mapToDomain(pre);
+    }
+
+    @Override
+    @Transactional
+    public void create(List<PlateResult> results) {
+        results.forEach(this::create);
+    }
+
+    @Override
+    @Transactional
+    public void fullMonty(List<PlateResult> results) {
+        // save all of the plates first
+        List<Plate> savedPlates = results
+                .stream()
+                .map(p -> plateStorage.create(p.getPlate()))
+                .collect(Collectors.toList());
+
+        // then save all of the results
+        results.stream().forEach(p->p.setPlate(savedPlates.remove(0)));
+        create(results);
     }
 
     @Override

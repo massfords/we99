@@ -29,7 +29,7 @@ public class PlateResultsFixture {
     protected final ExperimentService experimentService;
     protected final PlateType plateType;
 
-    public PlateResultsFixture() throws Exception {
+    public PlateResultsFixture(PlateDimension dim) throws Exception {
         URL url = new URL(WebAppIT.WE99_URL);
         ClientFactory cf = new ClientFactory(url, WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW);
 
@@ -37,7 +37,7 @@ public class PlateResultsFixture {
         PlateTypeService plateTypeService = cf.create(PlateTypeService.class);
         plateType = plateTypeService.create(
                 new PlateType()
-                        .setDim(new PlateDimension(10, 10))
+                        .setDim(dim)
                         .setName(name("pt"))
                         .setManufacturer("Foo Inc.")
         );

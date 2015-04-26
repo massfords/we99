@@ -1,10 +1,15 @@
 package edu.harvard.we99.services.experiments;
 
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
 import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.domain.results.DoseResponseResult;
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.ws.rs.Consumes;
@@ -17,6 +22,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.InputStream;
 
 /**
  * @author mford
@@ -91,6 +97,25 @@ public interface ExperimentResource {
              @QueryParam("page") @DefaultValue("0") Integer page,
              @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
              @QueryParam("q") @DefaultValue("") String typeAhead);
+
+    /**
+     * Uploads results for all of the plates in the experiment.
+     * @param csv Assay Interchange Result Format (AIRF)
+     * @statuscode 409 If we don't understand the format of the CSV
+     */
+    @POST
+    @Path("/fullMonty")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @ApiOperation("Processes the uploaded CSV and returns the parsed results")
+    @PreAuthorize("hasRole('PERM_MODIFY_RESULTS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="plateType", value = "Merge info for the plates",
+                    required = true, dataType = "edu.harvard.we99.domain.PlateType",
+                    paramType = "form"),
+            @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
+    Response fullMonty(@Multipart("plateType") @ApiParam("DO NOT SET THROUGH SWAGGER") PlateType plateType,
+                       @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER")  InputStream csv);
+
 
     Long getId();
 

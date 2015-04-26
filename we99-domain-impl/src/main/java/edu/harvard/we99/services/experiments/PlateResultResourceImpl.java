@@ -12,6 +12,7 @@ import edu.harvard.we99.domain.results.analysis.PlateMetricsFunction;
 import edu.harvard.we99.services.io.MatrixParser;
 import edu.harvard.we99.services.io.PlateResultCSVReader;
 import edu.harvard.we99.services.io.PlateResultsReader;
+import edu.harvard.we99.services.io.SinglePlateResultCollector;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
 import org.apache.commons.io.IOUtils;
@@ -27,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +69,9 @@ public class PlateResultResourceImpl implements PlateResultResource {
             source = IOUtils.toString(csv);
 
             PlateResultsReader reader = createReader(format);
-            PlateResult pr = reader.read(new BufferedReader(new StringReader(source)));
+            SinglePlateResultCollector collector = new SinglePlateResultCollector();
+            reader.read(new BufferedReader(new StringReader(source)), collector);
+            PlateResult pr = collector.getResults().get(0);
             pr.setPlate(new Plate().setId(plateId).setExperimentId(experiment.getId()));
             pr.setSource(source);
             pr.setMetrics(compute(pr));
@@ -84,7 +86,7 @@ public class PlateResultResourceImpl implements PlateResultResource {
 
     }
 
-    private PlateResultsReader createReader(String format) {
+    public static PlateResultsReader createReader(String format) {
         return "matrix".equalsIgnoreCase(format)? new MatrixParser() : new PlateResultCSVReader();
     }
 
@@ -100,10 +102,14 @@ public class PlateResultResourceImpl implements PlateResultResource {
         return updated;
     }
 
-    private Map<String,PlateMetrics> compute(PlateResult result) {
+    private List<PlateMetrics> compute(PlateResult result) {
 
         Plate plate = plateStorage.get(plateId);
 
+        return compute(result, plate);
+    }
+
+    public static List<PlateMetrics> compute(PlateResult result, Plate plate) {
         Map<Coordinate, WellResults> wellResults = result.getWellResults();
 
         // normalize all of the wells
@@ -113,9 +119,7 @@ public class PlateResultResourceImpl implements PlateResultResource {
 
         // compute the average of the positive controls, negative controls, z, and z'
         List<PlateMetrics> list = new PlateMetricsFunction(plate).apply(wrList);
-        Map<String,PlateMetrics> metrics = new HashMap<>();
-        list.forEach(pm -> metrics.put(pm.getLabel(), pm));
-        return metrics;
+        return list;
     }
 
     @Override

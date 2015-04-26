@@ -2,20 +2,16 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.LogTestRule;
-import edu.harvard.we99.test.Scrubbers;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-
-import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
-import static edu.harvard.we99.test.BaseFixture.load;
-import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 
 /**
  * @author mford
@@ -31,7 +27,7 @@ public class PlateResultServiceListingST {
 
     @BeforeClass
     public static void init() throws Exception {
-        resultsFixture = new PlateResultsFixture();
+        resultsFixture = new PlateResultsFixture(new PlateDimension(10,10));
     }
 
     @AfterClass
@@ -58,6 +54,7 @@ public class PlateResultServiceListingST {
     public void listByExperiment() throws Exception {
         ExperimentResource er = resultsFixture.experimentService.getExperiment(experiment.getId());
 
+        //noinspection unused
         PlateResults plateResults = er.listResults(null, null, null);
         /*
           Removing until everyone gets python integration

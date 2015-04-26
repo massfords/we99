@@ -1,16 +1,28 @@
 package edu.harvard.we99.domain;
 
-import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.PlateMetrics;
-import edu.harvard.we99.domain.results.WellResults;
-import edu.harvard.we99.domain.results.analysis.CurveFit;
 import edu.harvard.we99.domain.results.analysis.PlateMetricsFunction;
 import edu.harvard.we99.security.AuthenticatedContext;
 import edu.harvard.we99.security.RoleName;
 import edu.harvard.we99.security.User;
 import edu.harvard.we99.services.CompoundService;
 import edu.harvard.we99.services.PlateMapService;
-import edu.harvard.we99.services.storage.entities.*;
+import edu.harvard.we99.services.storage.entities.CompoundEntity;
+import edu.harvard.we99.services.storage.entities.DoseEntity;
+import edu.harvard.we99.services.storage.entities.ExperimentEntity;
+import edu.harvard.we99.services.storage.entities.Mappers;
+import edu.harvard.we99.services.storage.entities.PermissionEntity;
+import edu.harvard.we99.services.storage.entities.PlateEntity;
+import edu.harvard.we99.services.storage.entities.PlateMetricsEntity;
+import edu.harvard.we99.services.storage.entities.PlateResultEntity;
+import edu.harvard.we99.services.storage.entities.PlateTypeEntity;
+import edu.harvard.we99.services.storage.entities.ProtocolEntity;
+import edu.harvard.we99.services.storage.entities.RoleEntity;
+import edu.harvard.we99.services.storage.entities.SampleEntity;
+import edu.harvard.we99.services.storage.entities.UserEntity;
+import edu.harvard.we99.services.storage.entities.VersionEntity;
+import edu.harvard.we99.services.storage.entities.WellEntity;
+import edu.harvard.we99.services.storage.entities.WellResultsEntity;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
 import org.joda.time.DateTime;
@@ -24,7 +36,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Populates the database with some initial data. We'll only execute this if
@@ -296,7 +315,8 @@ public class DbPopulator {
                 pme.setZee(pmetrics.getZee());
                 pme.setZeePrime(pmetrics.getZeePrime());
                 em.persist(pme);
-                pre.getMetrics().put("BASIC_PLATE_SUMMARY", pme);
+//                pre.getMetrics().put("BASIC_PLATE_SUMMARY", pme);
+                pre.addMetrics(pme);
 
 
 //                Map <String, DoseResponseResultEntity> drMap = new HashMap <>();

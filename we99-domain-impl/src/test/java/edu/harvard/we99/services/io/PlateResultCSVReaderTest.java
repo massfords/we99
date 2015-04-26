@@ -52,7 +52,10 @@ public class PlateResultCSVReaderTest {
     @Test
     public void test() throws Exception {
         PlateResultCSVReader reader = new PlateResultCSVReader();
-        PlateResult pr = reader.read(new StringReader(load(input)));
+        PlateResultCollector collector = new SinglePlateResultCollector();
+        reader.read(new StringReader(load(input)), collector);
+
+        PlateResult pr = collector.getResults().get(0);
 
         String actual = toJsonString(pr);
         assertJsonEquals(load(expected), actual);

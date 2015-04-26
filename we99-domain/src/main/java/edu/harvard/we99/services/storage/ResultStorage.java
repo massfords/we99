@@ -5,6 +5,8 @@ import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.ResultStatus;
 
+import java.util.List;
+
 /**
  * @author mford
  */
@@ -17,4 +19,7 @@ public interface ResultStorage extends CRUDStorage<PlateResult> {
 
     PlateResult getByPlateId(Long plateId);
 
+    void create(List<PlateResult> results);
+
+    void fullMonty(List<PlateResult> results);
 }

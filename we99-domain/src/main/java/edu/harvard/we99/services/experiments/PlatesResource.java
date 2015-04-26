@@ -21,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.InputStream;
 
 /**
@@ -117,6 +118,28 @@ public interface PlatesResource {
     @ApiOperation("Gets the plate by its id")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateResource getPlates(@PathParam("plateId")Long plateId);
+
+    /**
+     * Bulk loading of results for all of the plates in this experiment.
+     *
+     * The parser here needs to be smarter in its association of results to plates.
+     * For now, we'll match up to the plates in the order of the results in the
+     * file.
+     *
+     * @param csv
+     * @statuscode 409 If we don't understand the format of the CSV
+     */
+    @POST
+    @Path("/results")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @ApiOperation("Uploads a batch of results to the experiment")
+    @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="format", value = "format of the file", required = false, dataType = "String", paramType = "form"),
+            @ApiImplicitParam(name="file", value = "CSV", required = true,
+                    dataType = "file", paramType = "form")})
+    Response bulkResults(@Multipart(value = "format", required = false) @DefaultValue("matrix") String format,
+            @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
 
     void setExperiment(Experiment experiment);
     Experiment getExperiment();

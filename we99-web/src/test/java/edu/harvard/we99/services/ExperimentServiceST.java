@@ -2,6 +2,7 @@ package edu.harvard.we99.services;
 
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.PlateDimension;
 import edu.harvard.we99.domain.Protocol;
 import edu.harvard.we99.domain.lists.Experiments;
 import edu.harvard.we99.domain.lists.Plates;
@@ -60,7 +61,7 @@ public class ExperimentServiceST {
         user = cf.create(UserService.class).list(null, null, "we99.2015@example").getValues().get(0);
         pts = cf.create(PlateTypeService.class);
         ps = cf.create(ProtocolService.class);
-        resultsFixture = new PlateResultsFixture();
+        resultsFixture = new PlateResultsFixture(new PlateDimension(10,10));
     }
 
     @AfterClass
