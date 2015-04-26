@@ -16,8 +16,8 @@
             </segment>
             <field name="type" required="true" trim="true"/>
             <segment name="label" class="edu.harvard.we99.domain.Label">
-                <field name="name" required="true" trim="true"/>
-                <field name="value" required="true" trim="true"/>
+                <field name="name" required="false" trim="true"/>
+                <field name="value" required="false" trim="true"/>
             </segment>
             <field name="compoundName" required="true" trim="true"/>
             <field name="amount" required="true" trim="true"/>

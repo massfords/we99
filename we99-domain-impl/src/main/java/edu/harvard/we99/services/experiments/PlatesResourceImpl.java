@@ -10,13 +10,18 @@ import edu.harvard.we99.domain.WellLabelMapping;
 import edu.harvard.we99.domain.WellMap;
 import edu.harvard.we99.domain.WellType;
 import edu.harvard.we99.domain.lists.Plates;
+import edu.harvard.we99.domain.results.PlateResult;
+import edu.harvard.we99.services.io.MultiResultCollector;
 import edu.harvard.we99.services.io.PlateCSVReader;
+import edu.harvard.we99.services.io.PlateResultCollector;
+import edu.harvard.we99.services.io.PlateResultsReader;
 import edu.harvard.we99.services.io.PlateWithOptionalResults;
 import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.PlateMapStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.PlateTypeStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -30,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +46,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
+
+import static edu.harvard.we99.services.experiments.PlateResultResourceImpl.compute;
+import static edu.harvard.we99.services.experiments.PlateResultResourceImpl.createReader;
 
 /**
  * @author mford
@@ -170,6 +179,46 @@ public abstract class PlatesResourceImpl implements PlatesResource {
             throw e;
         } catch(Exception e) {
             log.error("Error with bulk plate add", e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
+    }
+
+    @Override
+    public Response bulkResults(String format, InputStream csv) {
+        assert csv != null;
+
+        String source;
+        try {
+
+            List<Plate> plates = plateStorage.getAllWithWells(experiment.getId()).getValues();
+
+            source = IOUtils.toString(csv);
+
+            PlateResultsReader reader = createReader(format);
+            PlateResultCollector collector = new MultiResultCollector();
+            reader.read(new BufferedReader(new StringReader(source)), collector);
+            List<PlateResult> results = collector.getResults();
+            if (results.size() != plates.size()) {
+                String errorMessage = "wrong number of results for experiment. Results Passed: %d Actual Plates: %d";
+                throw new WebApplicationException(String.format(errorMessage, results.size(), plates.size()),
+                        Response.status(409)
+                                .entity(errorMessage)
+                                .build());
+            }
+            for (PlateResult pr : results) {
+                pr.setPlate(plates.remove(0));
+                pr.setMetrics(compute(pr, pr.getPlate()));
+            }
+            resultStorage.create(results);
+            return Response.ok().build();
+        } catch(WebApplicationException e) {
+            log.error(e.getMessage(), e);
+            throw e;
+        } catch (IOException e) {
+            log.error("error parsing results csv", e);
+            throw new WebApplicationException(Response.serverError().build());
+        } catch (Exception e) {
+            log.error("error inserting results csv", e);
             throw new WebApplicationException(Response.serverError().build());
         }
     }

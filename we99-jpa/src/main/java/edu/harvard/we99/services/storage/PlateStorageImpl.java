@@ -39,20 +39,18 @@ public class PlateStorageImpl implements PlateStorage {
         query.limit(pageSize).offset(pageToFirstResult(page, pageSize));
 
         List<PlateEntity> resultList = query.list(QPlateEntity.plateEntity);
-        List<Plate> list = map(resultList);
+        List<Plate> list = map(resultList, true);
         return new Plates(count, page, pageSize, list);
     }
 
     @Transactional(readOnly = true)
     public Plates getAll(Long experimentId) {
-        JPAQuery query = new JPAQuery(em);
-        query.from(QPlateEntity.plateEntity)
-                    .where(QPlateEntity.plateEntity.experiment.id.eq(experimentId));
-        long count = query.count();
-        List<PlateEntity> resultList = query.list(QPlateEntity.plateEntity);
-        List<Plate> list = map(resultList);
-        return new Plates(count,0,list.size(),list);
+        return getPlates(experimentId, true);
+    }
 
+    @Transactional(readOnly = true)
+    public Plates getAllWithWells(Long experimentId) {
+        return getPlates(experimentId, false);
     }
 
     @Override
@@ -130,13 +128,26 @@ public class PlateStorageImpl implements PlateStorage {
         pe.getWells().values().forEach(em::merge);
     }
 
-    private List<Plate> map(List<PlateEntity> resultList) {
+    private List<Plate> map(List<PlateEntity> resultList, boolean clearWells) {
         List<Plate> list = resultList
                 .stream()
                 .map(Mappers.PLATES::map)
                 .collect(Collectors.toList());
         // don't include the wells in listings
-        list.forEach(p -> p.getWells().clear());
+        if (clearWells) {
+            list.forEach(p -> p.getWells().clear());
+        }
         return list;
+    }
+
+
+    private Plates getPlates(Long experimentId, boolean clearWells) {
+        JPAQuery query = new JPAQuery(em);
+        query.from(QPlateEntity.plateEntity)
+                .where(QPlateEntity.plateEntity.experiment.id.eq(experimentId));
+        long count = query.count();
+        List<PlateEntity> resultList = query.list(QPlateEntity.plateEntity);
+        List<Plate> list = map(resultList, clearWells);
+        return new Plates(count,0,list.size(),list);
     }
 }

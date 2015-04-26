@@ -1,6 +1,5 @@
 package edu.harvard.we99.services.io;
 
-import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.WellResults;
 import org.beanio.BeanReader;
 import org.beanio.StreamFactory;
@@ -23,9 +22,7 @@ public class PlateResultCSVReader implements PlateResultsReader {
     }
 
     @Override
-    public PlateResult read(Reader r) {
-
-        PlateResult pr = new PlateResult();
+    public void read(Reader r, PlateResultCollector collector) {
 
         // create a BeanReader to read from "input.csv"
         BeanReader in = factory.createReader("results", r);
@@ -34,20 +31,10 @@ public class PlateResultCSVReader implements PlateResultsReader {
             Object record;
             while ((record = in.read()) != null) {
                 WellResults result = (WellResults) record;
-                WellResults existing = pr.getWellResults().get(result.getCoordinate());
-                if (existing == null) {
-                    pr.getWellResults().put(result.getCoordinate(), result);
-                } else {
-                    existing.getSamples().addAll(result.getSamples());
-                }
+                collector.collect(result);
             }
         } finally {
             in.close();
         }
-
-        // need to validate it
-
-        return pr;
     }
-
 }

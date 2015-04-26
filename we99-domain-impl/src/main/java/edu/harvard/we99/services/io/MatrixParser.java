@@ -1,7 +1,6 @@
 package edu.harvard.we99.services.io;
 
 import edu.harvard.we99.domain.Coordinate;
-import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.Sample;
 import edu.harvard.we99.domain.results.WellResults;
 
@@ -16,14 +15,12 @@ import java.util.regex.Pattern;
  */
 public class MatrixParser implements PlateResultsReader {
 
-    private final Pattern pattern = Pattern.compile("^ *([a-p])((?:\\s*(?:,)?\\s*[0-9]+(?:\\.[0-9])?){24})(?:\\s*)$", Pattern.CASE_INSENSITIVE);
+    private final Pattern pattern = Pattern.compile("^ *([a-p])((?:\\s*(?:,)?\\s*[0-9]+(?:\\.[0-9]*)?){24})(?:\\s*)$", Pattern.CASE_INSENSITIVE);
 
     private final Pattern valuesPattern = Pattern.compile("([0-9]+(?:\\.[0-9])?)");
 
     @Override
-    public PlateResult read(Reader r) throws IOException {
-
-        PlateResult pr = new PlateResult();
+    public void read(Reader r, PlateResultCollector collector) throws IOException {
 
         try (BufferedReader br = new BufferedReader(r)) {
             String line;
@@ -40,8 +37,9 @@ public class MatrixParser implements PlateResultsReader {
                         String v = values.group(1);
                         Coordinate coord = new Coordinate(row, col++);
                         WellResults result = new WellResults(coord);
-                        result.getSamples().add(new Sample(Double.parseDouble(v.trim())));
-                        pr.getWellResults().put(result.getCoordinate(), result);
+                        Sample sample = new Sample(Double.parseDouble(v.trim()));
+                        result.getSamples().add(sample);
+                        collector.collect(result);
                         offset = values.end(1);
                     }
 //                } else {
@@ -49,10 +47,6 @@ public class MatrixParser implements PlateResultsReader {
                 }
             }
         }
-
-        // need to validate it
-
-        return pr;
     }
 
 }

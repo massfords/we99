@@ -25,10 +25,12 @@ public class MatrixParserTest {
     public static List<Object[]> params() throws Exception {
         List<Object[]> params = new ArrayList<>();
 
-        params.add(array("/MatrixParserTest/envision.txt", "/MatrixParserTest/envision.json"));
-        params.add(array("/MatrixParserTest/hts.txt", "/MatrixParserTest/hts.json"));
-        params.add(array("/MatrixParserTest/kinase.csv", "/MatrixParserTest/kinase.json"));
-        params.add(array("/MatrixParserTest/kinase2.csv", "/MatrixParserTest/kinase2.json"));
+        params.add(array("/MatrixParserTest/envision.txt", "/MatrixParserTest/envision.json", 1, new SinglePlateResultCollector()));
+        params.add(array("/MatrixParserTest/hts.txt", "/MatrixParserTest/hts.json", 1, new SinglePlateResultCollector()));
+        params.add(array("/MatrixParserTest/kinase.csv", "/MatrixParserTest/kinase.json", 1, new SinglePlateResultCollector()));
+        params.add(array("/MatrixParserTest/kinase2.csv", "/MatrixParserTest/kinase2.json", 1, new SinglePlateResultCollector()));
+//        params.add(array("/MatrixParserTest/envisionMulti.txt", "/MatrixParserTest/envisionMulti.json", new MultiResultCollector()));
+        params.add(array("/MatrixParserTest/multiplate.txt", "/MatrixParserTest/multiplate.json", 9, new MultiResultCollector()));
 
         return params;
     }
@@ -37,18 +39,21 @@ public class MatrixParserTest {
 
     private final String inputPath;
     private final String expectedPath;
+    private final int count;
+    private final PlateResultCollector collector;
 
-    public MatrixParserTest(String inputPath, String expectedPath) {
+    public MatrixParserTest(String inputPath, String expectedPath, int count, PlateResultCollector collector) {
         this.inputPath = inputPath;
         this.expectedPath = expectedPath;
+        this.collector = collector;
+        this.count = count;
     }
 
     @Test
     public void test() throws Exception {
-        PlateResult pr = parser.read(
-                new StringReader(load(inputPath)));
-        assertEquals(16*24, pr.getWellResults().size());
-
-        assertJsonEquals(load(expectedPath), toJsonString(pr));
+        parser.read(new StringReader(load(inputPath)), collector);
+        List<PlateResult> results = collector.getResults();
+        assertEquals(count, results.size());
+        assertJsonEquals(load(expectedPath), toJsonString(results));
     }
 }

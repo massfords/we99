@@ -38,7 +38,7 @@ public class PlateCSVReaderTest {
     }
 
     @Test
-    public void single() throws Exception {
+    public void test() throws Exception {
         PlateCSVReader reader = new PlateCSVReader();
         List<PlateWithOptionalResults> p = reader.read(new StringReader(load(inputPath)));
 

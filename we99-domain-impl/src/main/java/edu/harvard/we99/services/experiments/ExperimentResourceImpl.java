@@ -1,35 +1,61 @@
 package edu.harvard.we99.services.experiments;
 
+import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.ExperimentStatus;
+import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.lists.PlateResults;
 import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.services.BaseRESTServiceImpl;
+import edu.harvard.we99.services.io.PlateCSVReader;
+import edu.harvard.we99.services.io.PlateWithOptionalResults;
+import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Generated;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static edu.harvard.we99.services.experiments.PlateResultResourceImpl.compute;
 
 /**
  * @author mford
  */
 public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experiment>  implements ExperimentResource {
 
+    private static final Logger log = LoggerFactory.getLogger(ExperimentResourceImpl.class);
+
     private Long id;
     private final ResultStorage resultStorage;
     private final DoseResponseResultStorage doseResponseResultStorage;
+    private final CompoundStorage compoundStorage;
     private Experiment experiment;
 
 
     public ExperimentResourceImpl(ExperimentStorage storage,
                                   ResultStorage resultStorage,
-                                  DoseResponseResultStorage doseResponseResultStorage) {
+                                  DoseResponseResultStorage doseResponseResultStorage,
+                                  CompoundStorage compoundStorage) {
         super(storage);
         this.resultStorage = resultStorage;
         this.doseResponseResultStorage = doseResponseResultStorage;
+        this.compoundStorage = compoundStorage;
     }
 
     @Override
@@ -93,6 +119,75 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
     @Override
     public PlateResults listResults(Integer page, Integer pageSize, String typeAhead) {
         return resultStorage.listAllByExperiment(id, page, pageSize, typeAhead);
+    }
+
+    @Override
+    public Response fullMonty(PlateType plateType, InputStream csv) {
+        // read the csv into a List<PlateResult>
+        // assign the Plate / Experiment to the PlateResult
+        // persist all to the storage
+
+        String source;
+        try {
+            source = IOUtils.toString(csv);
+
+            PlateCSVReader reader = new PlateCSVReader();
+            List<PlateWithOptionalResults> list = reader.read(new StringReader(source));
+
+            log.debug("Full monty will load {} plates with results", list.size());
+
+            Set<Compound> compoundSet = new LinkedHashSet<>();
+            for(PlateWithOptionalResults pwoList : list) {
+                pwoList.getPlate()
+                        .getWells()
+                        .values()
+                        .stream()
+                        .forEach(
+                                w -> w.getContents()
+                                        .stream()
+                                        .filter(d -> d.getCompound() != null)
+                                        .forEach(d -> compoundSet.add(d.getCompound())));
+            }
+
+            Map<Compound, Long> compoundLongMap = compoundStorage.resolveIds(compoundSet);
+
+            for(PlateWithOptionalResults pwoList : list) {
+                pwoList.getPlate()
+                        .getWells()
+                        .values()
+                        .stream()
+                        .forEach(
+                                w -> w.getContents()
+                                        .stream()
+                                        .filter(d -> d.getCompound() != null)
+                                        .forEach(d -> d.getCompound().setId(compoundLongMap.get(d.getCompound()))));
+            }
+
+            for(PlateWithOptionalResults pwithResult : list) {
+                PlateResult results = pwithResult.getResults();
+                Plate plate = pwithResult.getPlate();
+                plate.setName(UUID.randomUUID().toString());
+                plate.setPlateType(plateType);
+                plate.setExperimentId(experiment.getId());
+                pwithResult.getResults().setPlate(plate);
+                results.setMetrics(compute(results, plate));
+            }
+
+            List<PlateResult> resultList = list
+                    .stream()
+                    .map(PlateWithOptionalResults::getResults)
+                    .collect(Collectors.toList());
+            resultStorage.fullMonty(resultList);
+            return Response.ok().build();
+        } catch (IOException e) {
+            log.error("error parsing results csv", e);
+            throw new WebApplicationException(Response.serverError().build());
+        } catch (WebApplicationException e) {
+            throw e;
+        } catch (Exception e) {
+            log.error("error inserting results csv", e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
     }
 
     protected abstract PlatesResource createPlatesResource();

@@ -15,5 +15,7 @@ public interface PlateStorage extends CRUDStorage<Plate> {
 
     Plates getAll(Long experimentId);
 
+    Plates getAllWithWells(Long experimentId);
+
     Plates create(List<Plate> list);
 }

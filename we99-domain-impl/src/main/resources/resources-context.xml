@@ -10,7 +10,7 @@
         <constructor-arg ref="experimentStorage"/>
         <constructor-arg ref="resultStorage"/>
         <constructor-arg ref="doseResponseResultStorage"/>
-        <constructor-arg ref="plateStorage"/>
+        <constructor-arg ref="compoundStorage"/>
         <lookup-method name="createMemberResource" bean="memberResource"/>
         <lookup-method name="createPlatesResource" bean="platesResource"/>
         <lookup-method name="createDoseResponseResource" bean="doseResponseResource" />

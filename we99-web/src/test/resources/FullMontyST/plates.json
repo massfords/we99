@@ -1,0 +1,187 @@
+{
+  "totalCount": 12,
+  "page": 0,
+  "pageSize": 100,
+  "values": [
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    },
+    {
+      "name": "uuid",
+      "labels": [],
+      "wellCount": 384,
+      "wells": [],
+      "plateType": {
+        "name": "ptuuid",
+        "dim": {
+          "rows": 16,
+          "cols": 24
+        },
+        "manufacturer": "Foo Inc"
+      },
+      "hasResults": true
+    }
+  ]
+}

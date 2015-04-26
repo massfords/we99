@@ -211,9 +211,9 @@ public class PlateWizardST {
         // create the plates. There's a new service on the PlatesResource that
         // accepts the merge info and a list of compounds
         // ---------------------------------------------------------------------
-        Plates plates = new PlateClient(
+        Plates plates = new PlatesClient(
                 new URL(WebAppIT.WE99_URL), WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW)
-                .bulk(experiment, mergeInfo,
+                .bulkMerge(experiment, mergeInfo,
                         getClass().getResourceAsStream("/PlateWizardST/compounds4merge.csv"));
         assertEquals(5, plates.getValues().size());
         assertJsonEquals(load("/PlateWizardST/plates.json"), toJsonString(plates),

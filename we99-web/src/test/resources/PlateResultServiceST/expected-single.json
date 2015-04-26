@@ -3,7 +3,6 @@
     "name": "plateuuid",
     "labels": [],
     "wellCount": 100,
-    "experimentId": 7,
     "wells": [
       {
         "coordinate": {

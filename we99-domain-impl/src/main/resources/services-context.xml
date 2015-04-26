@@ -69,7 +69,9 @@
 
     <bean id="math" class="edu.harvard.we99.services.MathServiceImpl"/>
 
-    <bean id="resultStorage" class="edu.harvard.we99.services.storage.ResultStorageImpl"/>
+    <bean id="resultStorage" class="edu.harvard.we99.services.storage.ResultStorageImpl">
+        <constructor-arg ref="plateStorage"/>
+    </bean>
 
     <bean id="plateStorage" class="edu.harvard.we99.services.storage.PlateStorageImpl"/>
 
