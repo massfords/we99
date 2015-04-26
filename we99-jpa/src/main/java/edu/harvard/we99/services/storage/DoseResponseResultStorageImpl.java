@@ -96,9 +96,11 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
             return new HashSet<>();
         }
         DoseResponseResultEntity response = responses.get(0);
-        List<ExperimentPoint> epts = response.getExperimentPoints();
+        //List<ExperimentPoint> epts = response.getExperimentPoints();
+        List<DoseEntity> doses = response.getDoses();
         Set<Long> plateIds = new HashSet<>();
-        epts.forEach(ep -> plateIds.add(ep.getPlateId()));
+        //epts.forEach(ep -> plateIds.add(ep.getPlateId()));
+        doses.forEach(dose -> plateIds.add(dose.getPlateId()));
 
         return plateIds;
 
@@ -167,6 +169,7 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
             if (dosearray.length > 0){
                 DoseEntity d = (DoseEntity) dosearray[0];
                 d.setWell(wellEntity);
+                d.setPlateId(plateId); //ref to the plate Id the dose is from
                 em.merge(d);
                 em.merge(wellEntity);
 
@@ -200,15 +203,15 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
             CompoundEntity ce = em.find(CompoundEntity.class, compoundId);
             ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
 
-            List<ExperimentPoint> expt = new ArrayList<>();
-            delist.forEach(ent -> {
-                Long plateId = dosePlateMap.get(ent);
-                expt.add(new ExperimentPoint(plateId, ent.getId()));
-            });
+//            List<ExperimentPoint> expt = new ArrayList<>();
+//            delist.forEach(ent -> {
+//                Long plateId = dosePlateMap.get(ent);
+//                expt.add(new ExperimentPoint(plateId, ent.getId()));
+//            });
             DoseResponseResultEntity dre = new DoseResponseResultEntity()
                     .setCompound(ce)
                     .setExperiment(ee);
-            dre.withExperimentPoints(expt);
+            //dre.withExperimentPoints(expt);
             dre.setDoses(delist);
             em.persist(dre);
 

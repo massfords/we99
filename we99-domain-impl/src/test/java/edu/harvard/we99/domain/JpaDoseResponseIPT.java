@@ -65,6 +65,7 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
     public AuthenticatedUserRule authenticatedUserRule =
             new AuthenticatedUserRule("we99.2015@gmail.com", this);
 
+    /*
     @Test
     public void doseResponseFromDB() throws Exception {
 
@@ -107,6 +108,7 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
         System.out.println("hello");
 
     }
+    */
 
     @Test
     public void testCreationOfDoseResponseResult() throws Exception {

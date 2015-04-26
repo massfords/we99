@@ -30,11 +30,11 @@ public class ExperimentPointsFunctionTest {
 
         Compound c = new Compound("Sugar");
         List<Dose> doseList = new ArrayList<>();
-        doseList.add(new Dose(c,new Amount(3.33, DoseUnit.MICROMOLAR)).setWell(w1).setId(300L));
-        doseList.add(new Dose(c,new Amount(5.55, DoseUnit.MICROMOLAR)).setWell(w3).setId(500L));
+        doseList.add(new Dose(c,new Amount(3.33, DoseUnit.MICROMOLAR)).setWell(w1).setId(300L).setPlateId(1L));
+        doseList.add(new Dose(c,new Amount(5.55, DoseUnit.MICROMOLAR)).setWell(w3).setId(500L).setPlateId(1L));
 
         List<Dose> doseList2 = new ArrayList<>();
-        doseList2.add(new Dose(c, new Amount(4.44, DoseUnit.MICROMOLAR)).setWell(w2).setId(400L));
+        doseList2.add(new Dose(c, new Amount(4.44, DoseUnit.MICROMOLAR)).setWell(w2).setId(400L).setPlateId(2L));
 
         List<Dose> doseList3 = new ArrayList<>();
         doseList3.addAll(doseList);
@@ -83,7 +83,7 @@ public class ExperimentPointsFunctionTest {
         plateid.add(2L);
 
         ExperimentPointsFunction epf = new ExperimentPointsFunction(dr,plateid);
-        List<ExperimentPoint> newPoints = epf.apply(plateToResults);
+        List<ExperimentPoint> newPoints = epf.apply2(plateToResults);
 
 
     }
