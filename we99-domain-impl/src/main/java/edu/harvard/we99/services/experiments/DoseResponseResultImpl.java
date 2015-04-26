@@ -10,6 +10,9 @@ import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
 
+import javax.persistence.PersistenceException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -37,11 +40,7 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
 
 
 
-    @Override
-    public DoseResponseResult create(Compound compound, List<Plate> plates) {
 
-        return null;
-    }
 
     /**
      * Gets the Y value - the sample result from the wells that make up the experiment points
@@ -50,7 +49,7 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
      * todo:Note  This takes the first sample. Assuming that Dose response is only for a single sample plate
      * Saves the DoseResponseResult experiment points back to the database
      */
-    @Override
+
     public DoseResponseResult addResponseValues(){
 
         DoseResponseResult currentResult = get();
@@ -118,7 +117,11 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
 
     @Override
     public DoseResponseResult get() {
-        return doseResponseResultStorage.get(doseResponseResultId);
+        DoseResponseResult doseResponseResult = getDoseResponseResult();
+        if( doseResponseResult == null || !doseResponseResult.getExperiment().getId().equals(experiment.getId())){
+            throw new WebApplicationException(Response.status(404).build());
+        }
+        return doseResponseResult;
     }
 
     @Override
@@ -135,6 +138,18 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
     @Override
     public void setDoseResponseId(Long doseResponseId) {
         this.doseResponseResultId = doseResponseId;
+    }
+
+    private DoseResponseResult getDoseResponseResult() {
+
+        DoseResponseResult doseResponseResult;
+        try {
+            doseResponseResult= doseResponseResultStorage.get(doseResponseResultId);
+
+        } catch(PersistenceException e) {
+            throw new WebApplicationException(Response.status(404).build());
+        }
+        return doseResponseResult;
     }
 
 }

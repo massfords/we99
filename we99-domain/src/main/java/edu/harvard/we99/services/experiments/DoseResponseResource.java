@@ -28,7 +28,7 @@ public interface DoseResponseResource {
      * @param compound The compound to analyse for dose response
      * @param plates A list of plates containing compounds for analysis
      * @return
-     * @statuscode 415 If the Plate is missing any required fields
+     * @statuscode
      */
     //@PUT
     //@ApiOperation("Creates a new dose response result for the experiment.")
@@ -41,8 +41,6 @@ public interface DoseResponseResource {
      * Lists all of the existing dose response results or throws an exception with 404
      * @return
      */
-
-    /*
     @GET
     @ApiOperation("Lists all of the dose response results for this experiment")
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
@@ -50,12 +48,19 @@ public interface DoseResponseResource {
     DoseResponseResults list(@QueryParam("page") @DefaultValue("0") Integer page,
                 @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
                 @QueryParam("q") @DefaultValue("") String typeAhead);
-     */
 
+
+    /**
+     * Forces a recalcuation of all dose response results for this experiment
+     * @param page
+     * @param pageSize
+     * @param typeAhead
+     * @return
+     */
     @GET
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Path("/results")
-    @ApiOperation("Calculates and returns all the Dose Response Results")
+    @ApiOperation("Calculates and returns all the Dose Response Results for Experiment")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     DoseResponseResults generateAllResults(@QueryParam("page") @DefaultValue("0") Integer page,
                                           @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
@@ -72,11 +77,7 @@ public interface DoseResponseResource {
     void setExperiment(Experiment experiment);
     Experiment getExperiment();
 
-    @GET
-    @ApiOperation("Lists all of the dose response results for this experiment")
-    @PreAuthorize("hasRole('PERM_READ_PLATES')")
-    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
-    DoseResponseResult list();
+
 
 
 }
