@@ -35,14 +35,6 @@ angular
       // ##################
       // Plate Management
       // ##################
-      .when('/add-plate-set', {
-        templateUrl: 'views/plate-mgmt/addplateset.html',
-        controller: 'AddPlateSetCtrl'
-      })
-      .when('/plate-editor', {
-        templateUrl: 'views/plate-mgmt/plateeditor.html',
-        controller: 'PlateEditorCtrl'
-      })
       .when('/plate-type-editor', {
         templateUrl: 'views/plate-mgmt/platetypeeditor.html',
         controller: 'PlateTypeEditorCtrl'

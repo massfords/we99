@@ -8,7 +8,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('CompoundsCtrl', function ($scope, $upload,RestURLs,RestService,$modal) {
+  .controller('CompoundsCtrl', function ($scope, $log,$upload,RestURLs,RestService,$modal) {
 
 
     //max compounds to display
@@ -40,7 +40,7 @@ angular.module('we99App')
      */
     function refreshCompounds(){
       RestService.getCompounds($scope.searchFilter,$scope.maxCompounds).success(function(resp){
-        console.log('# of compounds returned:'+resp.values.length);
+        $log.info('# of compounds returned:'+resp.values.length);
         $scope.compoundList=resp.values;
       });
 
@@ -76,18 +76,12 @@ angular.module('we99App')
             file: file
           }).progress(function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progress: ' + progressPercentage + '% ' +
+            $log.log('progress: ' + progressPercentage + '% ' +
             evt.config.file.name);
-          }).success(function (data, status, headers, config) {
-            var result=JSON.stringify(data);
-            console.log('file ' + config.file.name + 'uploaded. Response: ' +
-            result);
-            $scope.uploadOutput='Success: '+result;
-          }).error(function (data, status, headers, config) {
-            var result=JSON.stringify(data);
-            console.log('error in file ' + config.file.name + 'uploaded. Response: ' +
-            result);
-            $scope.uploadOutput='Error: '+result;
+          }).success(function (resp) {
+            $scope.uploadOutput='Success! '+resp+" compound(s).";
+          }).error(function () {
+            $scope.uploadOutput='Error uploading compound csv.';
           })
 
           ;
