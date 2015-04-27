@@ -3,11 +3,11 @@
 </div>
 <div class="modal-body">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
       <!-- not sure if i should include application/csv as well -->
       <div ng-file-drop ng-file-select ng-model="files" class="drop-box"
            drag-over-class="dragover" ng-multiple="true" allow-dir="true"
-           accept="text/csv">Drop csv files here or click to upload
+           accept="text/csv">Drop compound csv file here or click to upload
       </div>
       <div ng-no-file-drop>File Drag/Drop is not supported for this browser
       </div>
@@ -16,11 +16,12 @@
       </ul>
 
       <div>
-        <!-- Just a basic text output for response for now, better implementation to come later -->
-        <label for="output">Response:</label>
-        <input id="output" cols="30" readonly value="{{uploadOutput}}"> </input>
+        <p>{{uploadOutput}}</p>
+      </div>
+      <div style="padding-top=10px;">
         <button class="btn btn-primary" ng-click="dismiss()">Close</button>
       </div>
+
     </div>
   </div>
 </div>
