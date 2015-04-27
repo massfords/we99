@@ -43,6 +43,6 @@ public interface MathService {
      */
     @POST
     @Path("fitCurve")
-    public double[] fitCurve(double[][] points);
+    double[] fitCurve(double[][] points);
     
 }

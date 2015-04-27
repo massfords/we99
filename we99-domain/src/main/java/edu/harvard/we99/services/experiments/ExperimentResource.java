@@ -8,7 +8,6 @@ import com.wordnik.swagger.annotations.ApiParam;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.lists.PlateResults;
-import edu.harvard.we99.domain.results.DoseResponseResult;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -117,7 +116,7 @@ public interface ExperimentResource {
                        @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER")  InputStream csv);
 
 
+    // todo - remove these from the resource
     Long getId();
-
     void setId(Long id);
 }

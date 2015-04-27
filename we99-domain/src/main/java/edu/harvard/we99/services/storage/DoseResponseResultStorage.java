@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public interface DoseResponseResultStorage extends CRUDStorage<DoseResponseResult> {
 
-    public void createAll(Long experimentId);
+    void createAll(Long experimentId);
     Set<Long> getPlateIds(Long doseResponseId);
     DoseResponseResult getByCompoundName(String compoundName);
     void replaceExperimentPoints(Long doseResponseResultId,List<ExperimentPoint>newPoints);

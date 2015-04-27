@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
+ * Functional wrapper around the Apache Commons-Math StatUtils.normalize call
+ *
  * @author mford
  */
 public class CommonsMathNormalization implements Function<List<Double>, List<Double>> {

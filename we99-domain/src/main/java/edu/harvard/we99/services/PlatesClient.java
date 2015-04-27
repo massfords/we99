@@ -26,6 +26,12 @@ import static edu.harvard.we99.util.JacksonUtil.fromString;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 
 /**
+ * Web client for invoking service operations that cannot be provided for by the
+ * CXF proxies. Unfortunately, CXF does not yet proxify multipart uploads or
+ * anything with Attachments (these exchanges are not covered by JAXRS)
+ *
+ * The result is that we need some ugly multipart upload and direct URI manipulation
+ *
  * @author markford
  */
 public class PlatesClient {

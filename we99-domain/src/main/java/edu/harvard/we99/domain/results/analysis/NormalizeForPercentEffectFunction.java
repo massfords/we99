@@ -23,16 +23,17 @@ public class NormalizeForPercentEffectFunction implements Function<List<WellResu
     private final Predicate<WellResults> negativeCtrlFilter;
     private final Predicate<WellResults> compoundFilter;
 
-    public NormalizeForPercentEffectFunction(String label, Predicate<WellResults> positiveCtrlFilter,
-                                             Predicate<WellResults> negativeCtrlFilter, Predicate<WellResults>compoundFilter) {
-
+    public NormalizeForPercentEffectFunction(
+            String label,
+            Predicate<WellResults> positiveCtrlFilter,
+            Predicate<WellResults> negativeCtrlFilter,
+            Predicate<WellResults>compoundFilter) {
         this.positiveCtrlFilter = positiveCtrlFilter;
         this.negativeCtrlFilter = negativeCtrlFilter;
         this.compoundFilter = compoundFilter;
         this.label = label;
 
     }
-
 
 
     //takes a list of well results gets the value and convert to a double[]
@@ -45,9 +46,7 @@ public class NormalizeForPercentEffectFunction implements Function<List<WellResu
             groupResults[i++] = d;
         }
         return groupResults;
-
     }
-
 
     @Override
     public List<WellResults> apply(List<WellResults> wrList) {
@@ -58,8 +57,7 @@ public class NormalizeForPercentEffectFunction implements Function<List<WellResu
 
         //filter positive controls
         List<WellResults> group1 = wrList.stream()
-                .filter(positiveCtrlFilter)
-                .filter(includedFilter)
+                .filter(positiveCtrlFilter.and(includedFilter))
                 .collect(Collectors.toList());
         double[] group1Results = getGroupResults(group1);
 
@@ -68,8 +66,7 @@ public class NormalizeForPercentEffectFunction implements Function<List<WellResu
 
         //filter negative controls
         List<WellResults> group2 = wrList.stream()
-                .filter(negativeCtrlFilter)
-                .filter(includedFilter)
+                .filter(negativeCtrlFilter.and(includedFilter))
                 .collect(Collectors.toList());
         double[] group2Results = getGroupResults(group2);
 

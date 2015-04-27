@@ -23,7 +23,6 @@ import java.util.List;
 @Table(name = "wellresults")
 public class WellResultsEntity {
 
-
     /**
      * Primary key field is auto generated
      */

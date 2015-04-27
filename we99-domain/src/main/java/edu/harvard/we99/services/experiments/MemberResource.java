@@ -29,7 +29,7 @@ public interface MemberResource {
     @ApiOperation("Lists the members of the experiment")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_READ_EXPERIMENTS')")
-    public Users listMembers();
+    Users listMembers();
 
     /**
      * Adds the members to the experiment
@@ -38,7 +38,7 @@ public interface MemberResource {
     @POST
     @ApiOperation("Sets the members of the experiment")
     @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
-    public Response setMembers(List<Long> userIds);
+    Response setMembers(List<Long> userIds);
 
     /**
      * Adds a member to the experiement
@@ -50,7 +50,7 @@ public interface MemberResource {
     @ApiOperation("Adds a member to the experiment")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
-    public Response addMember(@PathParam("userId") Long userId);
+    Response addMember(@PathParam("userId") Long userId);
 
     /**
      * Removes a member from the experiment
@@ -62,8 +62,8 @@ public interface MemberResource {
     @ApiOperation("Removes a member of the experiment")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @PreAuthorize("hasRole('PERM_MODIFY_EXPERIMENTS')")
-    public Response removeMember(@PathParam("userId") Long userId);
+    Response removeMember(@PathParam("userId") Long userId);
 
-    public Long getId();
-    public void setId(Long id);
+    Long getId();
+    void setId(Long id);
 }

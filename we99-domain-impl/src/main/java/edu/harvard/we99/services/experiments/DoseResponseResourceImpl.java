@@ -3,22 +3,17 @@ package edu.harvard.we99.services.experiments;
 import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.Experiment;
-import edu.harvard.we99.domain.ExperimentPoint;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.domain.results.DoseResponseResult;
-import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Generated;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,19 +23,15 @@ import java.util.Set;
  */
 public abstract class DoseResponseResourceImpl implements DoseResponseResource {
 
-    private static final Logger log = LoggerFactory.getLogger(DoseResponseResourceImpl.class);
-
     private final PlateStorage plateStorage;
-    private final CompoundStorage compoundStorage;
     private final DoseResponseResultStorage doseResponseResultStorage;
     private Experiment experiment;
 
 
-    public DoseResponseResourceImpl(PlateStorage plateStorage, CompoundStorage compoundStorage,
+    public DoseResponseResourceImpl(PlateStorage plateStorage,
                                     DoseResponseResultStorage doseResponseResultStorage){
 
         this.plateStorage = plateStorage;
-        this.compoundStorage = compoundStorage;
         this.doseResponseResultStorage = doseResponseResultStorage;
     }
 
@@ -63,12 +54,9 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
             Plate aPlate = plateStorage.get(p.getId());
             for(Well w : aPlate.getWells().values()){
                 Set<Dose> doses = w.getContents();
-                for(Iterator<Dose> it = doses.iterator(); it.hasNext();){
-                    Dose d = it.next();
-                    if(d.getCompound() != null){
-                        compoundList.put(d.getCompound().getId(), d.getCompound());
-                    }
-                }
+                doses.stream()
+                        .filter(d -> d.getCompound() != null)
+                        .forEach(d -> compoundList.put(d.getCompound().getId(), d.getCompound()));
             }
         }
         return compoundList;

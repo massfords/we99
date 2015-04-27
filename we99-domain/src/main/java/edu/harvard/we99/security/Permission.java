@@ -20,7 +20,6 @@ public class Permission extends BaseEntity {
     @NotNull
     private String name;
 
-    @SuppressWarnings("unused")
     public Permission() {}
 
     public Permission(String name) {
