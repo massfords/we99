@@ -15,7 +15,8 @@ app.constant('kCompoundUOM', {
 /** API */
 var restBase = 'services/rest/';
 app.constant('RestURLs', {
-  plateMap: restBase + 'plateMap/:id',
+  plateMap:  restBase + 'plateMap',
+  plateMapById: restBase + 'plateMap/:id',
   mergeInfoTemplate: restBase + 'plateMap/:id/merge',
   mergeInfoSubmit: restBase + 'experiment/:id/plates/merge',
   plateType: restBase + 'plateType/:id',

@@ -179,7 +179,7 @@ app.factory('PlateTypeModel', ['$resource', 'RestURLs', function ($resource, Res
 
 /** REST linked resource model for Plate Maps */
 app.factory('PlateMapModel', ['$resource', 'RestURLs', function ($resource, RestURLs) {
-  return $resource(RestURLs.plateMap, {id:'@id'}, {
+  return $resource(RestURLs.plateMapById, {id:'@id'}, {
     listPlateMaps: {
       method: "GET",
       isArray: true,

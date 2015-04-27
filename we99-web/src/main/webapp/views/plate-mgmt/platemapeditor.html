@@ -27,6 +27,9 @@
       </tbody>
     </table>
   </div>
+  <div ng-show="modalSuccessMsg">
+    <alert type="success" close="closeAlert()">{{modalSuccessMsg}}</alert>
+  </div>
   <!-- Add Button -->
   <button type="button" class="btn btn-small btn-success"
           ng-click="showAddPlateMap()">

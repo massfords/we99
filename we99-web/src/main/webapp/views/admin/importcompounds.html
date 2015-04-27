@@ -7,7 +7,7 @@
       <!-- not sure if i should include application/csv as well -->
       <div ng-file-drop ng-file-select ng-model="files" class="drop-box"
            drag-over-class="dragover" ng-multiple="true" allow-dir="true"
-           accept="text/csv">Drop compound csv file here or click to upload
+           accept="'text/csv'">Drop compound csv file here or click to upload
       </div>
       <div ng-no-file-drop>File Drag/Drop is not supported for this browser
       </div>
@@ -16,9 +16,9 @@
       </ul>
 
       <div>
-        <p>{{uploadOutput}}</p>
+        <p><b>{{uploadOutput}}</b></p>
       </div>
-      <div style="padding-top=10px;">
+      <div style="padding-top:10px;">
         <button class="btn btn-primary" ng-click="dismiss()">Close</button>
       </div>
 
