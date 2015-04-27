@@ -76,7 +76,7 @@ angular.module('we99App')
             file: file
           }).progress(function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progress: ' + progressPercentage + '% ' +
+            $log.log('progress: ' + progressPercentage + '% ' +
             evt.config.file.name);
           }).success(function (resp) {
             $scope.uploadOutput='Success! '+resp+" compound(s).";
