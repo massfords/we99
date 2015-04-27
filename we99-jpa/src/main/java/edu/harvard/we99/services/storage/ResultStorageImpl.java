@@ -68,7 +68,6 @@ public class ResultStorageImpl implements ResultStorage {
     @Override
     @Transactional(readOnly = true)
     public PlateResult getByPlateId(Long plateId) {
-        System.out.println("ResultStorageImpl.getByPlateId: " + plateId);
         PlateEntity plate = em.find(PlateEntity.class, plateId);
         Hibernate.initialize(plate.getWells());
         PlateResultEntity plateResult = plate.getResults();
