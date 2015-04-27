@@ -1,6 +1,7 @@
 package edu.harvard.we99.services.storage;
 
 import edu.harvard.we99.domain.Coordinate;
+import edu.harvard.we99.domain.Dose;
 import edu.harvard.we99.domain.ExperimentPoint;
 import edu.harvard.we99.domain.FitParameter;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
@@ -18,6 +19,7 @@ public interface DoseResponseResultStorage extends CRUDStorage<DoseResponseResul
 
     public void createAll(Long experimentId);
     Set<Long> getPlateIds(Long doseResponseId);
+    Dose getDose(Long doseResponseId, Long doseId);
     DoseResponseResult getByCompoundName(String compoundName);
     void replaceExperimentPoints(Long doseResponseResultId,List<ExperimentPoint>newPoints);
     ExperimentPoint addExperimentPoint(Long doseResponseId, ExperimentPoint point);

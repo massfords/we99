@@ -88,6 +88,17 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
 
     @Override
     @Transactional
+    public Dose getDose(Long doseResponseId, Long doseId) throws EntityNotFoundException{
+
+        DoseEntity de = em.find(DoseEntity.class, doseId);
+
+        Dose d = Mappers.DOSE.map(de);
+
+        return d;
+    }
+
+    @Override
+    @Transactional
     public Set<Long> getPlateIds(Long doseResponseId) throws EntityNotFoundException{
         TypedQuery<DoseResponseResultEntity> query = em.createQuery("select dr from DoseResponseResultEntity dr where dr.id=:id",DoseResponseResultEntity.class);
         query.setParameter("id", doseResponseId);

@@ -28,6 +28,27 @@ public class Scrubbers {
     public static Function<String,String> xpId = s -> s.replaceAll("\"experimentId\" *: *[0-9]+ *,", "");
 
     /**
+     * removes all fields named "x" and their value.
+     */
+    public static Function<String,String> xvalue = s -> s.replaceAll("\"x\" *: *[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)? *,", "\"x\" : 1.0,");
+    /**
+     * removes all fields named "y" and their value.
+     */
+    public static Function<String,String> yvalue = s -> s.replaceAll("\"y\" *: *[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)? *,", "\"y\" : 1.0,");
+    /**
+     * removes all fields named "y" last parameter and their value.
+     */
+    public static Function<String,String> yvalueend = s -> s.replaceAll("\"y\" *: *[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)? *", "\"y\" : 1.0");
+    /**
+     * removes all fields named "logx" and their value.
+     */
+    public static Function<String,String> logxvalue = s -> s.replaceAll("\"logx\" *: *[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)? *,", "\"logx\" : 1.0,");
+    /**
+     * removes all fields named "value" and their value.
+     */
+    public static Function<String,String> fitvalue = s -> s.replaceAll("\"value\" *: *[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)? *,", "\"value\" : 1.0,");
+
+    /**
      * removes all datetime values
      */
     public static Function<String,String> iso8601 = s -> s.replaceAll(

@@ -1,0 +1,307 @@
+{
+  "compound": {
+    "name": "Popcorn"
+  },
+  "experiment": {
+    "name": "drxpuuid",
+    "labels": [],
+    "status": "UNPUBLISHED",
+    "created": "iso8601",
+    "protocol": {
+      "name": "protouuid"
+    }
+  },
+  "experimentPoints": [
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "EXCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    },
+    {
+      "x": 1.0,
+      "logx": 1.0,
+      "y": 1.0,
+      "resultStatus": "INCLUDED"
+    }
+  ],
+  "curveFitPoints": [
+    {
+      "sequenceNumber": 0,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 1,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 2,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 3,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 4,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 5,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 6,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 7,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 8,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 9,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 10,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 11,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 12,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 13,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 14,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 15,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 16,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 17,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 18,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 19,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 20,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 21,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 22,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 23,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 24,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 25,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 26,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 27,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 28,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 29,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 30,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 31,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 32,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 33,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 34,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 35,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 36,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 37,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 38,
+      "x": 1.0,
+      "y": 1.0
+    },
+    {
+      "sequenceNumber": 39,
+      "x": 1.0,
+      "y": 1.0
+    }
+  ],
+  "fitEquation": "HILLEQUATION",
+  "fitParameterMap": {
+    "Min": {
+      "value": 1.0,
+      "name": "Min",
+      "status": "FLOAT"
+    },
+    "Max": {
+      "value": 1.0,
+      "name": "Max",
+      "status": "FLOAT"
+    },
+    "EC50": {
+      "value": 1.0,
+      "name": "EC50",
+      "status": "FLOAT"
+    },
+    "Slope": {
+      "value": 1.0,
+      "name": "Slope",
+      "status": "FLOAT"
+    }
+  }
+}

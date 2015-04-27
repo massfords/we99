@@ -1,10 +1,7 @@
 package edu.harvard.we99.services.experiments;
 
 import edu.harvard.we99.domain.*;
-import edu.harvard.we99.domain.results.DoseResponseResult;
-import edu.harvard.we99.domain.results.PlateResult;
-import edu.harvard.we99.domain.results.Sample;
-import edu.harvard.we99.domain.results.WellResults;
+import edu.harvard.we99.domain.results.*;
 import edu.harvard.we99.domain.results.analysis.*;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
@@ -69,7 +66,7 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
 
 
 
-        return null;
+        return currentResult;
     }
 
     private DoseResponseResult computeResults(Map<Long,List<WellResults>> resultsByPlate, Set<Long> plateIds, DoseResponseResult current){
@@ -123,6 +120,25 @@ public abstract class DoseResponseResultImpl implements DoseResponseResultResour
         }
         return doseResponseResult;
     }
+
+    @Override
+    public DoseResponseResult updateStatus(EPointStatusChange ePointstatusChange) {
+
+        DoseResponseResult result;
+        try {
+            Long doseId = ePointstatusChange.getDoseId();
+            Long plateId = ePointstatusChange.getPlateId();
+            Dose d = doseResponseResultStorage.getDose(doseResponseResultId, doseId);
+            Coordinate cord = d.getWell().getCoordinate();
+            resultStorage.updateStatus(plateId, cord, ePointstatusChange.getStatus());
+
+            result = addResponseValues();
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.status(404).build());
+        }
+        return result;
+    }
+
 
     @Override
     public void setExperiment(Experiment experiment) {
