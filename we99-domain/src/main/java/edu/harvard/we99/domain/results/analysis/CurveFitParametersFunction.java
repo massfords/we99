@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import curvefit.functions.EC50;
 
 import curvefit.wrapper.SigmoidalCurveFitter;
 import edu.harvard.we99.domain.ParameterStatus;
+import edu.harvard.we99.domain.results.ResultStatus;
 
 /**
  * @author alan orcharton.
@@ -52,8 +54,14 @@ public class CurveFitParametersFunction implements java.util.function.Function<L
     @Override
     public List<FitParameter> apply(List<ExperimentPoint> experimentPoints) {
 
-        List<Double> xarray = experimentPoints.stream().map(ExperimentPoint::getX).collect(Collectors.toList());
-        List<Double> yarray = experimentPoints.stream().map(ep -> ep.getY()).collect(Collectors.toList());
+        Predicate<ExperimentPoint> includedPoints = ep -> ep.getResultStatus() == ResultStatus.INCLUDED;
+
+        List<Double> xarray = experimentPoints.stream()
+                    .filter(includedPoints)
+                    .map(ExperimentPoint::getX).collect(Collectors.toList());
+        List<Double> yarray = experimentPoints.stream()
+                    .filter(includedPoints)
+                    .map(ep -> ep.getY()).collect(Collectors.toList());
 
         double[] xInput = convertTodouble(xarray);
         double[] yInput = convertTodouble(yarray);

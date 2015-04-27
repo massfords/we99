@@ -51,7 +51,7 @@ public class DoseResponseResult extends BaseEntity {
     @XmlTransient
     private List<Dose> doses = new ArrayList<>();
 
-    @XmlJavaTypeAdapter(value=ExperimentPointAdapter.class)
+    //@XmlJavaTypeAdapter(value=ExperimentPointAdapter.class)
     private List<ExperimentPoint> experimentPoints = new ArrayList<>();
 
     private List<CurveFitPoint> curveFitPoints = new ArrayList<>();

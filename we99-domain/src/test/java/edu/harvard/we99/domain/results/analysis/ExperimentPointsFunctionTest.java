@@ -1,10 +1,7 @@
 package edu.harvard.we99.domain.results.analysis;
 
 import edu.harvard.we99.domain.*;
-import edu.harvard.we99.domain.results.DoseResponseResult;
-import edu.harvard.we99.domain.results.PlateResult;
-import edu.harvard.we99.domain.results.Sample;
-import edu.harvard.we99.domain.results.WellResults;
+import edu.harvard.we99.domain.results.*;
 import org.junit.Test;
 
 import java.util.*;
@@ -30,11 +27,11 @@ public class ExperimentPointsFunctionTest {
 
         Compound c = new Compound("Sugar");
         List<Dose> doseList = new ArrayList<>();
-        doseList.add(new Dose(c,new Amount(3.33, DoseUnit.MICROMOLAR)).setWell(w1).setId(300L));
-        doseList.add(new Dose(c,new Amount(5.55, DoseUnit.MICROMOLAR)).setWell(w3).setId(500L));
+        doseList.add(new Dose(c,new Amount(3.33, DoseUnit.MICROMOLAR)).setWell(w1).setId(300L).setPlateId(1L));
+        doseList.add(new Dose(c,new Amount(5.55, DoseUnit.MICROMOLAR)).setWell(w3).setId(500L).setPlateId(1L));
 
         List<Dose> doseList2 = new ArrayList<>();
-        doseList2.add(new Dose(c, new Amount(4.44, DoseUnit.MICROMOLAR)).setWell(w2).setId(400L));
+        doseList2.add(new Dose(c, new Amount(4.44, DoseUnit.MICROMOLAR)).setWell(w2).setId(400L).setPlateId(2L));
 
         List<Dose> doseList3 = new ArrayList<>();
         doseList3.addAll(doseList);
@@ -64,7 +61,7 @@ public class ExperimentPointsFunctionTest {
 
         List<WellResults> wellresults = new ArrayList<>();
         List<WellResults> wellresults2 = new ArrayList<>();
-        WellResults wr1 = new WellResults().setSamples(samples1).setCoordinate(co1);
+        WellResults wr1 = new WellResults().setSamples(samples1).setCoordinate(co1).setResultStatus(ResultStatus.EXCLUDED);
         WellResults wr2 = new WellResults().setSamples(samples2).setCoordinate(co2);
         WellResults wr3 = new WellResults().setSamples(samples3).setCoordinate(co3);
 
