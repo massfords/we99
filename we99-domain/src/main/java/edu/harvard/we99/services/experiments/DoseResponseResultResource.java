@@ -2,26 +2,23 @@ package edu.harvard.we99.services.experiments;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Experiment;
-import edu.harvard.we99.domain.Plate;
-import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.EPointStatusChange;
-import edu.harvard.we99.domain.results.PlateResult;
-import edu.harvard.we99.domain.results.StatusChange;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import javax.ws.rs.*;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 /**
  * @author alan orcharton
  */
 @Api(hidden = true, value = "/", description = "Operations for getting/modifying the results for a plate")
 public interface DoseResponseResultResource  {
-
 
     /**
      * Gets an existing plate or throws an exception with 404
@@ -33,6 +30,7 @@ public interface DoseResponseResultResource  {
     @ApiOperation("Gets the dose response results by id")
     @PreAuthorize("hasRole('PERM_READ_RESULTS')")
     DoseResponseResult get();
+
 
     /**
      * Changes status of a point
@@ -48,18 +46,10 @@ public interface DoseResponseResultResource  {
 
 
 
-
+    // todo remove these
 
     DoseResponseResult addResponseValues();
-
-
-
-
     void setExperiment(Experiment experiment);
     Experiment getExperiment();
     void setDoseResponseId(Long doseResponseId);
-
-
-
-
 }

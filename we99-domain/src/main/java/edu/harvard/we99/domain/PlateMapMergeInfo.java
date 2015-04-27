@@ -8,6 +8,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * The merge info for a plate map is a summary of the well information on the
+ * plate such that it can be merged with a list of compounds to generate a
+ * set of plates.
+ *
  * @author markford
  */
 public class PlateMapMergeInfo extends BaseEntity {

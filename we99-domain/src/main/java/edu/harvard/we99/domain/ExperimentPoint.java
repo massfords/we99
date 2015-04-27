@@ -1,6 +1,5 @@
 package edu.harvard.we99.domain;
 
-import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.ResultStatus;
 
 import javax.annotation.Generated;

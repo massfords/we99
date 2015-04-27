@@ -6,13 +6,11 @@ import edu.harvard.we99.domain.ExperimentStatus;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.PlateType;
 import edu.harvard.we99.domain.lists.PlateResults;
-import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.services.BaseRESTServiceImpl;
 import edu.harvard.we99.services.io.PlateCSVReader;
 import edu.harvard.we99.services.io.PlateWithOptionalResults;
 import edu.harvard.we99.services.storage.CompoundStorage;
-import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
 import org.apache.commons.io.IOUtils;
@@ -43,18 +41,15 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
 
     private Long id;
     private final ResultStorage resultStorage;
-    private final DoseResponseResultStorage doseResponseResultStorage;
     private final CompoundStorage compoundStorage;
     private Experiment experiment;
 
 
     public ExperimentResourceImpl(ExperimentStorage storage,
                                   ResultStorage resultStorage,
-                                  DoseResponseResultStorage doseResponseResultStorage,
                                   CompoundStorage compoundStorage) {
         super(storage);
         this.resultStorage = resultStorage;
-        this.doseResponseResultStorage = doseResponseResultStorage;
         this.compoundStorage = compoundStorage;
     }
 

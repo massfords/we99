@@ -5,18 +5,18 @@
   <form>
     <div class="form-group-body">
       <label>Name:</label>
-      <input type="text" class="form-control" ng-model="plateType.name" placeholder="Name" /> <br>
+      <input type="text" class="form-control" ng-model="name" placeholder="Name" /> <br>
       <label>Description:</label>
-      <textarea class="form-control" ng-model="plateType.description" placeholder="Enter description"></textarea><br>
+      <textarea class="form-control" ng-model="description" placeholder="Enter description"></textarea><br>
     </div>
     <div>
-      Download Sample Csv File: [<a href="sample-plate-map.csv" download="sample-plate-map.csv">here</a>]
+      Download Sample Csv File: [<a href="sample_csv/sample-plate-map.csv" download="sample-plate-map.csv">here</a>]
     </div>
     <div class="upload-plate-map">
       <!-- Giant image Plate Map table here -->
       <div ng-file-drop ng-file-select ng-model="plateMapFile" class="drop-box"
            drag-over-class="dragover" ng-multiple="false" allow-dir="false"
-           accept="text/csv, text/*">Drop csv here <br>or<br> click to upload</div>
+           accept="text/csv">Drop plate map csv here <br>or<br> click to upload</div>
       <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
       Upload Plate mapping (as a csv file).
       <ul>
@@ -25,7 +25,10 @@
     </div>
   </form>
 </div>
+<div ng-show="errorTxt">
+  <alert type="danger" close="closeErrorAlert()">{{errorTxt}}</alert>
+</div>
 <div class="modal-footer">
   <button class="btn btn-primary" ng-click="addPlateMap()">Create</button>
-  <span ng-click="cancel()">Cancel</span>
+  <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
 </div>

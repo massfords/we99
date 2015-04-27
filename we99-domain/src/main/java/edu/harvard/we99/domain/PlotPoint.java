@@ -5,10 +5,11 @@ import javax.annotation.Generated;
 /**
  * @author alan orcharton
  */
-public class PlotPoint {
+public class PlotPoint extends BaseEntity {
 
    private Double x,y;
 
+    @SuppressWarnings("unused") // needed for jaxb
     public PlotPoint(){
         this.x = 0.0;
         this.y = 0.0;

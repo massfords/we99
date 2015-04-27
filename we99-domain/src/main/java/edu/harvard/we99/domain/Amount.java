@@ -6,6 +6,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
+ * An amount is a quantity of something. It has a number and units.
+ *
  * @author mford
  */
 @Embeddable
@@ -53,6 +55,11 @@ public class Amount {
         return this;
     }
 
+    /**
+     * Helper method that produces a new Amount from the given dilution factor
+     * @param dilutionFactor
+     * @return
+     */
     public Amount dilute(Double dilutionFactor) {
         return new Amount(number/dilutionFactor, units);
     }

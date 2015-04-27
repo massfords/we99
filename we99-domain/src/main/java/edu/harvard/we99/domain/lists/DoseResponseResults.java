@@ -9,7 +9,6 @@ import java.util.List;
  */
 public class DoseResponseResults extends AbstractList<DoseResponseResult, DoseResponseResults>{
 
-    @SuppressWarnings("unused")
     public DoseResponseResults(){}
     public DoseResponseResults(long count, int page, int pageSize, List<DoseResponseResult> values) {
         super(count,page,pageSize,values);

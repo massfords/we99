@@ -21,7 +21,7 @@ public class Role extends BaseEntity {
     @NotNull
     private RoleName name;
 
-    @SuppressWarnings("unused")
+//    @SuppressWarnings("unused")
     public Role() {
     }
 

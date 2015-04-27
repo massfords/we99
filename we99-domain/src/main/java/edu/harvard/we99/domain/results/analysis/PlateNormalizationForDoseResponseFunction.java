@@ -3,9 +3,7 @@ package edu.harvard.we99.domain.results.analysis;
 import edu.harvard.we99.domain.Coordinate;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.WellType;
-import edu.harvard.we99.domain.results.PlateMetrics;
 import edu.harvard.we99.domain.results.WellResults;
-import org.apache.commons.math3.stat.StatUtils;
 
 import java.util.*;
 import java.util.function.Function;
@@ -25,6 +23,7 @@ public class PlateNormalizationForDoseResponseFunction implements Function<List<
     @Override
     public List<WellResults> apply(List<WellResults> wrList) {
 
+        // todo - do we need this call to gatherSampleLabels?
         Set<String> labels = FunctionUtils.gatherSampleLabels().apply(wrList);
         String label = "";
         NormalizeForPercentEffectFunction nef = new NormalizeForPercentEffectFunction(label,

@@ -24,6 +24,7 @@ public class CurveFitPointsFunction implements Function<List<ExperimentPoint>, L
 
     private final List<FitParameter> fitParameters;
     private final int numPoints;
+    // todo - what's up w/ these unused fields?
     private Function<List<Double>,List<Double>> curveFunction;
     private static final Double DEFAULT_MIN = 1.0E-10;
     private static final Double DEFAULT_MAX = 6.309573444801929E-5;

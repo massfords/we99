@@ -20,10 +20,7 @@ public class HillEquationFunction implements Function<List<Double>,List<Double>>
         this.min = min;
         this.slope = slope;
         this.logEC50 = ec50;  //Math.log10(ec50);
-
     }
-
-
 
     @Override
     public List<Double> apply(List<Double> xPoints) {

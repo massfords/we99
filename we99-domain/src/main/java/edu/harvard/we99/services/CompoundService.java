@@ -105,6 +105,7 @@ public interface CompoundService {
      */
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.TEXT_PLAIN)
     @ApiOperation("Uploads a CSV of Compounds")
     @PreAuthorize("hasRole('PERM_MODIFY_COMPOUNDS')")
     @ApiImplicitParams({

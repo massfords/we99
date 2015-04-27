@@ -36,7 +36,8 @@ describe('Controller: AddPlateCtrl', function () {
     var AddPlateCtrl,
         scope,
         $httpBackend,
-        LabelTableSvc;
+        LabelTableSvc,
+        modalInstance;
 
     var samplePlateTypeResp = {
             values: [
@@ -253,8 +254,18 @@ describe('Controller: AddPlateCtrl', function () {
         LabelTableSvc = _LabelTableSvc_;
         scope = $rootScope.$new();
         scope.experimentName = "Project X";
+        // Mock modalInstance for testing using spies
+        modalInstance = {
+          close: jasmine.createSpy('modalInstance.close'),
+          dismiss: jasmine.createSpy('modalInstance.dismiss'),
+          result: {
+            then: jasmine.createSpy('modalInstance.result.then')
+          }
+        };
+
         AddPlateCtrl = $controller('AddPlateCtrl', {
             $scope: scope,
+            $modalInstance: modalInstance,
             kCompoundUOM: {
                 uM: 'MICROMOLAR',
                 mM: 'MILLIMOLAR'

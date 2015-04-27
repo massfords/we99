@@ -5,7 +5,6 @@ import org.apache.cxf.helpers.IOUtils;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.StringWriter;
 
 import static edu.harvard.we99.util.JacksonUtil.fromString;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
@@ -15,11 +14,8 @@ import static edu.harvard.we99.util.JacksonUtil.toJsonString;
  */
 public class CurveFit {
 
-
-
     public static DoseResponseResult fitCurve(DoseResponseResult doseResponseResult) {
         DoseResponseResult response = null;
-
 
         try {
 
@@ -33,13 +29,12 @@ public class CurveFit {
             Process p = pb.start();
 
             String error = IOUtils.toString(p.getErrorStream(), "UTF-8");
-            if(error == null || error.isEmpty()){
+            if(error.isEmpty()){
                 System.out.println(error);
             }
             InputStream in = p.getInputStream();
 
 
-            StringWriter writer = new StringWriter();
             String theString = IOUtils.toString(in,"UTF-8");
             response = fromString(theString,DoseResponseResult.class);
 

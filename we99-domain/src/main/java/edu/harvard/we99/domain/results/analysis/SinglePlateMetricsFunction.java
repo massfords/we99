@@ -8,6 +8,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
+ * Performs a computation on a single plate with the provided function and filter.
+ *
  * @author mford
  */
 public class SinglePlateMetricsFunction implements Function<List<WellResults>,Double> {

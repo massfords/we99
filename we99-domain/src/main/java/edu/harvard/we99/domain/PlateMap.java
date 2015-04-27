@@ -9,6 +9,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * A Plate Map describes the layout of wells on a plate. It's used to seed the
+ * creation of a new plate instance.
+ *
  * @author mford
  */
 public class PlateMap extends AbstractPlate<PlateMap> {

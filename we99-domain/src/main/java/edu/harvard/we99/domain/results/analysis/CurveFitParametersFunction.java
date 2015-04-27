@@ -1,7 +1,10 @@
 package edu.harvard.we99.domain.results.analysis;
 
+import curvefit.wrapper.SigmoidalCurveFitter;
 import edu.harvard.we99.domain.ExperimentPoint;
 import edu.harvard.we99.domain.FitParameter;
+import edu.harvard.we99.domain.ParameterStatus;
+import edu.harvard.we99.domain.results.ResultStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,20 +13,15 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import curvefit.functions.EC50;
-
-import curvefit.wrapper.SigmoidalCurveFitter;
-import edu.harvard.we99.domain.ParameterStatus;
-import edu.harvard.we99.domain.results.ResultStatus;
-
 /**
  * @author alan orcharton.
  *
  * Gets the parameters for curve fitting based on the experiment points
  */
-public class CurveFitParametersFunction implements java.util.function.Function<List<ExperimentPoint>, List<FitParameter>> {
+public class CurveFitParametersFunction implements Function<List<ExperimentPoint>, List<FitParameter>> {
 
     private static final String[] targetParams = {"Slope","Min","Max","EC50"};
+    public static final boolean USER_OUTLIER_DETECTION = true;
 
     public CurveFitParametersFunction() {
 
@@ -61,7 +59,7 @@ public class CurveFitParametersFunction implements java.util.function.Function<L
                     .map(ExperimentPoint::getX).collect(Collectors.toList());
         List<Double> yarray = experimentPoints.stream()
                     .filter(includedPoints)
-                    .map(ep -> ep.getY()).collect(Collectors.toList());
+                    .map(ExperimentPoint::getY).collect(Collectors.toList());
 
         double[] xInput = convertTodouble(xarray);
         double[] yInput = convertTodouble(yarray);
@@ -73,11 +71,9 @@ public class CurveFitParametersFunction implements java.util.function.Function<L
             exclusions[i] = "N";
         }
 
-
-        boolean userOutlierDetection = true;
         SigmoidalCurveFitter sigmoidalFitter = new SigmoidalCurveFitter();
 
-        HashMap<String,Object> fitResults = sigmoidalFitter.fit(xInput, yInput, exclusions, userOutlierDetection);
+        HashMap<String,Object> fitResults = sigmoidalFitter.fit(xInput, yInput, exclusions, USER_OUTLIER_DETECTION);
 
 
         List<String> prarms = fitResults.keySet().stream()

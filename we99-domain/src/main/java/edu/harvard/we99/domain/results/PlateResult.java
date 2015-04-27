@@ -22,7 +22,6 @@ import java.util.Map;
  */
 public class PlateResult extends BaseEntity {
     private Long id;
-
     private Plate plate;
 
     /**

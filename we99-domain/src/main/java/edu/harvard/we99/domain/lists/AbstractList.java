@@ -1,21 +1,39 @@
 package edu.harvard.we99.domain.lists;
 
+import edu.harvard.we99.domain.BaseEntity;
+
 import javax.annotation.Generated;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Abstract type for lists that are returned from service calls. This is in preference
+ * to returning an array since it's easier on the caller to handle objects and
+ * also gives us somewhere to hang metadata about the list of things like total
+ * count, page, and pageSize.
+ *
  * @author mford
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-public abstract class AbstractList<T,L> {
+public abstract class AbstractList<T,L> extends BaseEntity {
 
+    /**
+     * The total number of records that matched the query/listing
+     */
     private Long totalCount;
+
+    /**
+     * Zero based index into our page of list results
+     */
     private int page;
+
+    /**
+     * The size of each page as requested by the caller
+     */
     private int pageSize;
 
+    /**
+     * The actual values
+     */
     private List<T> values = new ArrayList<>();
 
     public AbstractList(Long totalCount, int page, int pageSize, List<T> values) {

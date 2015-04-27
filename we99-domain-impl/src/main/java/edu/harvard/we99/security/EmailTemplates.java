@@ -20,7 +20,7 @@ public enum EmailTemplates {
 
     private final String path;
 
-    private EmailTemplates(String path) {
+    EmailTemplates(String path) {
         this.path = path;
     }
 

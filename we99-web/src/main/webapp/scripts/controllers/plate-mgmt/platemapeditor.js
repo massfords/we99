@@ -40,35 +40,90 @@ angular.module('we99App')
         controller: 'AddPlateMapCtrl',
         resolve: {}
       });
-      modalInstance.result.then(function (returnVal) {
+
+
+      //when modal closes...
+      modalInstance.result.then(function (modalMessage) {
+        $scope.modalSuccessMsg=modalMessage;
         refreshPlateMapsList(); // Refreshes plate types when add screen closed
+      }, function () {
+        $log.log('Modal dismissed at: ' + new Date());
       });
+
     };
 
     /* HELPERS */
     function refreshPlateMapsList (){
       $scope.plateMaps = PlateMapModel.listPlateMaps(function done(plateMapList){
         $scope.displayPlateMaps = [].concat(plateMapList);
-        console.log($scope.plateMaps);
+        $log.info($scope.plateMaps);
       });
+    }
+
+    $scope.modalSuccessMsg=null;
+    $scope.closeAlert=function(){
+      $scope.modalSuccessMsg=null;
     }
 
     /* RUN ON LOAD */
     refreshPlateMapsList();
   })
-  .controller('AddPlateMapCtrl', function($scope, $modalInstance){
+  .controller('AddPlateMapCtrl', function($scope,RestURLs,$modalInstance,$log,$upload){
       $scope.name = null;
       $scope.description = null;
       $scope.plateMapFile = null;
 
     /** Close without adding */
     $scope.cancel = function () {
-      console.log('cancel clicked');
+      $log.log('cancel clicked');
       $modalInstance.dismiss();
     };
 
-    $scope.add = function(){
-      // TODO
-      alert("add() tbd...");
+    $scope.addPlateMap = function(){
+      if(!$scope.name){
+        $scope.errorTxt="Missing name field for plate map."
+        return;
+      }
+      if(!$scope.description){
+        $scope.errorTxt="Missing description field for plate map."
+        return;
+      }
+      if(!$scope.plateMapFile){
+        $scope.errorTxt="Missing csv file for plate map."
+        return;
+      }
+
+      $scope.upload($scope.plateMapFile);
+
+
+    };
+
+    $scope.errorTxt=null;
+    $scope.closeErrorAlert=function(){
+      $scope.errorTxt=null;
+    }
+
+    $scope.upload = function (files) {
+      if (files && files.length) {
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          $upload.upload({
+            url: RestURLs.plateMap,
+            method: "POST",
+            file: file,
+            fields: {name: $scope.name}
+          }).progress(function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            $log.log('progress: ' + progressPercentage + '% ' +
+            evt.config.file.name);
+          }).success(function () {
+            $modalInstance.close('New plate map uploaded!');
+          }).error(function () {
+            $scope.errorTxt='Error uploading plate map csv. Parse failed.';
+          })
+
+          ;
+        }
+      }
     };
   });

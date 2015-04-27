@@ -6,11 +6,15 @@ import edu.harvard.we99.domain.Compound;
 import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
-import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -19,9 +23,6 @@ import java.util.List;
  */
 @Api(hidden = true, value = "/", description = "Operations on dose response results within experiment")
 public interface DoseResponseResource {
-
-
-
 
     /**
      * Creates a new plate in our system.
@@ -35,8 +36,6 @@ public interface DoseResponseResource {
     //@PreAuthorize("hasRole('PERM_MODIFY_PLATES') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     DoseResponseResult createForCompound(Compound compound, List<Plate> plates);
 
-
-
     /**
      * Lists all of the existing dose response results or throws an exception with 404
      * @return
@@ -48,7 +47,6 @@ public interface DoseResponseResource {
     DoseResponseResults list(@QueryParam("page") @DefaultValue("0") Integer page,
                 @QueryParam("pageSize") @DefaultValue("100") Integer pageSize,
                 @QueryParam("q") @DefaultValue("") String typeAhead);
-
 
     /**
      * Forces a recalcuation of all dose response results for this experiment
@@ -67,17 +65,15 @@ public interface DoseResponseResource {
                                           @QueryParam("q") @DefaultValue("") String typeAhead);
 
 
-
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Path("/{doseResponseId}")
     @ApiOperation("Gets the dose response by id")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     DoseResponseResultResource getDoseResponseResults(@PathParam("doseResponseId")Long doseResponseId);
 
+    // todo remove these
     void setExperiment(Experiment experiment);
     Experiment getExperiment();
-
-
 
 
 }

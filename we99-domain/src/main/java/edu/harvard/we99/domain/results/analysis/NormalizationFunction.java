@@ -14,10 +14,6 @@ public class NormalizationFunction implements Function<List<WellResults>,Void> {
 
     private final Function<List<Double>, List<Double>> function;
 
-    public NormalizationFunction(Function<List<Double>, List<Double>> function) {
-        this.function = function;
-    }
-
     public NormalizationFunction() {
         this.function = new CommonsMathNormalization();
     }

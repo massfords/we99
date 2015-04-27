@@ -3,9 +3,12 @@ package edu.harvard.we99.domain;
 import javax.annotation.Generated;
 
 /**
+ * Labels are simple name/value pairs that can be applied to wells
+ *
  * @author mford
  */
 public class Label extends BaseEntity {
+    // todo - I don't think we need to have the id here. I think the labels are dropped and recreated on every update
     private Long id;
     private String name;
     private String value;

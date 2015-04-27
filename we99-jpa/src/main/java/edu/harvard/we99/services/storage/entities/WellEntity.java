@@ -5,7 +5,6 @@ import edu.harvard.we99.domain.Coordinate;
 import javax.annotation.Generated;
 import javax.persistence.*;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 /**

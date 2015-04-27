@@ -1,0 +1,40 @@
+<div class="add-plate">
+  <div class="modal-header">
+    <h3 class="modal-title">Add Plate</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+        <label>Plate ID / Barcode:
+          <input type="text" placeholder="Enter plate id..." ng-model="barcode"/>
+        </label><br>
+        <label>Plate Type:
+          <select ng-options="plateType as plateType.name for plateType in plateTypes"
+                  ng-change="plateMapsForPlateType()"
+                  ng-model="selectedPlateType"></select>
+        </label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span><br>
+        <!--<label>Plate Map:-->
+          <!--<select ng-options="plateMap.name for plateMap in plateMaps"-->
+                  <!--ng-model="selectedPlateMap"-->
+                  <!--ng-change="getMergeInfo()"></select>-->
+        <!--</label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span>-->
+        <div class="upload-box">
+          <!-- not sure if i should include application/csv as well -->
+          <div ng-file-drop ng-file-select ng-model="csvFiles" class="drop-box"
+               drag-over-class="dragover" ng-multiple="false" allow-dir="false"
+               accept="text/csv">Drop csv files here or click to upload
+          </div>
+          <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
+          <ul>
+            <li ng-repeat="f in csvFiles" style="font-size: smaller;">{{f.name}}</li>
+          </ul>
+        </div>
+    </form>
+  </div>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="submitPlateSetFullMonty()" ng-disabled="!showCreateButton(MergeType.FULL_MONTY)">Create</button>
+    <button type="button" class="btn btn-link" ng-click="cancel()">Cancel</button>
+  </div>
+</div>

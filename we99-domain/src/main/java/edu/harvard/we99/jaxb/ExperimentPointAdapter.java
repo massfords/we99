@@ -20,5 +20,4 @@ public class ExperimentPointAdapter extends XmlAdapter<PlotPoint,ExperimentPoint
         return new ExperimentPoint().setY(pp.getY()).setX(pp.getX());
     }
 
-
 }
