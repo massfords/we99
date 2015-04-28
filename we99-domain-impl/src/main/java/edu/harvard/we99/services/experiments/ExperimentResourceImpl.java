@@ -13,6 +13,7 @@ import edu.harvard.we99.services.io.PlateWithOptionalResults;
 import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
+import edu.harvard.we99.util.JacksonUtil;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,10 +113,22 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
     }
 
     @Override
+    public Response stringMonty(String plateType, InputStream csv) {
+        assert plateType != null;
+        try {
+            return fullMonty(JacksonUtil.fromString(plateType, PlateType.class), csv);
+        } catch (IOException e) {
+            throw new WebApplicationException(Response.serverError().build());
+        }
+    }
+
+    @Override
     public Response fullMonty(PlateType plateType, InputStream csv) {
         // read the csv into a List<PlateResult>
         // assign the Plate / Experiment to the PlateResult
         // persist all to the storage
+
+        assert plateType != null;
 
         String source;
         try {
