@@ -13,22 +13,6 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
   return {
 
 
-    // OK TO Delete?
-    ////
-    //// $resource-style calls
-    ////
-    //
-    //plateType: $resource(RestURLs.plateType,{}, {
-    //  query: {method: "GET",
-    //    isArray: true,
-    //    // Get an array back to exhibit expected query behavior
-    //    transformResponse: valuesToArray
-    //  },
-    //  put: {method: "PUT", isArray: false}
-    //}),
-    ////experiment: $resource(RestURLs.experiment,{},{}),
-    //results: $resource(RestURLs.result,{}, {}),
-
     //
     // $http style calls.
     //
@@ -66,9 +50,16 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     removeExperimentPlate: function(experimentId, plateId) {
       return $http.delete(RestURLs.experiment + '/' + experimentId  + "/plates/" + plateId);
     },
+
     // Plate results
     getPlateResults: function(experimentId,plateId){
       return $http.get(RestURLs.experiment+'/'+experimentId+'/plates/'+plateId+'/results');
+    },
+    getDoseResponseData : function(experimentId){
+      return $http.get(RestURLs.experiment+'/'+experimentId+'/doseresponse/results')
+    },
+    updatePlateResults: function(experimentId, plateId, wellChange){
+      return $http.post(RestURLs.experiment+'/'+experimentId+'/plates/'+plateId+'/results/update', wellChange);
     },
     //email filter
     getEmailFilter: function(){

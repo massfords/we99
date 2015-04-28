@@ -354,7 +354,8 @@ DataVis.prototype.renderScatterPlot = function(params) {
         x: "",
         y: ""
       },
-      lineFunction: null
+      lineFunction: null,
+      linePoints: null
   };
 
 
@@ -505,7 +506,7 @@ DataVis.prototype.renderScatterPlot = function(params) {
     })
     .on('click', function(d) { if(params.onCellClick) {params.onCellClick(d);} } );
 
-    if(params.lineFunction != null){
+    if(params.lineFunction != null || params.linePoints != null){
       this.renderLine({
         hasAxis: false,
         width: params.width,
@@ -514,6 +515,7 @@ DataVis.prototype.renderScatterPlot = function(params) {
         scaleX: params.scaleX,
         scaleY: params.scaleY,
         lineFunction: params.lineFunction,
+        linePoints: params.linePoints,
         color: "blue"
       });
     }
@@ -532,17 +534,28 @@ DataVis.prototype.renderLine = function(params) {
     .range([params.height - 50, 0]);
 
   var points = [];
-  var diff = ( params.scaleX.max - params.scaleX.min ) / 200;
-  var x = params.scaleX.min;
-  var y = params.lineFunction(x);
-  while(x < params.scaleX.max & y < params.scaleY.max){
-    points.push({
-      x: x,
-      y: params.lineFunction(x)
-    });
-    x += diff;
-    y = params.lineFunction(x);
+
+  if(!params.linePoints) {
+
+    var diff = ( params.scaleX.max - params.scaleX.min ) / 200;
+    var x = params.scaleX.min;
+    var y = params.lineFunction(x);
+    while (x < params.scaleX.max & y < params.scaleY.max) {
+      points.push({
+        x: x,
+        y: params.lineFunction(x)
+      });
+      x += diff;
+      y = params.lineFunction(x);
+    }
+
   }
+  else{
+    points = params.linePoints;
+  }
+
+
+  console.log(points);
 
   if(params.hasAxis){
 
@@ -603,8 +616,6 @@ DataVis.prototype.renderLine = function(params) {
 
 DataVis.prototype.convertPlateResultData = function(data){
 
-  console.log(data);
-
   var plateResults = data.map(function(plateResult){
 
     // Create well array.
@@ -663,10 +674,11 @@ DataVis.prototype.convertPlateResultData = function(data){
 
     var ro = function(d){
       return Math.round( d * 100.0) / 100.0;
-    }
+    };
 
     return {
       plateIndex: plateResult.plate.id,
+      experimentIndex: plateResult.plate.experimentId,
       data: dataSet,
       name: plateResult.plate.barcode,
       z: ro(plateResult.metrics[0].zee),
@@ -677,228 +689,56 @@ DataVis.prototype.convertPlateResultData = function(data){
   });
 
 
-  console.log(plateResults);
+  console.log({
+    result: plateResults,
+    data: data
+  });
 
   return plateResults;
 
 };
 
-DataVis.prototype.getDummmyPlateData = function (){
+DataVis.prototype.convertDoseResponseData = function(data){
 
-  var dummyData = {
-      "curveFitPoints": [
-        {
-          "x": -10.0,
-          "y": -2.9667803082152915,
-          "sequenceNumber": 0
-        },
-        {
-          "x": -9.8,
-          "y": -2.7946475022487647,
-          "sequenceNumber": 1
-        },
-        {
-          "x": -9.600000000000001,
-          "y": -2.546932084721604,
-          "sequenceNumber": 2
-        },
-        {
-          "x": -9.400000000000002,
-          "y": -2.191138713075702,
-          "sequenceNumber": 3
-        },
-        {
-          "x": -9.200000000000003,
-          "y": -1.6815378878378766,
-          "sequenceNumber": 4
-        },
-        {
-          "x": -9.000000000000004,
-          "y": -0.9545507691536557,
-          "sequenceNumber": 5
-        },
-        {
-          "x": -8.800000000000004,
-          "y": 0.0766644892373165,
-          "sequenceNumber": 6
-        },
-        {
-          "x": -8.600000000000005,
-          "y": 1.527662540960364,
-          "sequenceNumber": 7
-        },
-        {
-          "x": -8.400000000000006,
-          "y": 3.5463097561312225,
-          "sequenceNumber": 8
-        },
-        {
-          "x": -8.200000000000006,
-          "y": 6.310824560340265,
-          "sequenceNumber": 9
-        },
-        {
-          "x": -8.000000000000007,
-          "y": 10.016298678373417,
-          "sequenceNumber": 10
-        },
-        {
-          "x": -7.800000000000008,
-          "y": 14.842476735496533,
-          "sequenceNumber": 11
-        },
-        {
-          "x": -7.6000000000000085,
-          "y": 20.89863082599834,
-          "sequenceNumber": 12
-        },
-        {
-          "x": -7.400000000000009,
-          "y": 28.152988781234825,
-          "sequenceNumber": 13
-        },
-        {
-          "x": -7.20000000000001,
-          "y": 36.373967919509774,
-          "sequenceNumber": 14
-        },
-        {
-          "x": -7.000000000000011,
-          "y": 45.12503131882727,
-          "sequenceNumber": 15
-        },
-        {
-          "x": -6.800000000000011,
-          "y": 53.84098415416858,
-          "sequenceNumber": 16
-        },
-        {
-          "x": -6.600000000000012,
-          "y": 61.965505775989094,
-          "sequenceNumber": 17
-        },
-        {
-          "x": -6.400000000000013,
-          "y": 69.08423980422725,
-          "sequenceNumber": 18
-        },
-        {
-          "x": -6.2000000000000135,
-          "y": 74.99125851865332,
-          "sequenceNumber": 19
-        },
-        {
-          "x": -6.000000000000014,
-          "y": 79.67538410303582,
-          "sequenceNumber": 20
-        },
-        {
-          "x": -5.800000000000015,
-          "y": 83.25791597380483,
-          "sequenceNumber": 21
-        },
-        {
-          "x": -5.600000000000016,
-          "y": 85.92289736413555,
-          "sequenceNumber": 22
-        },
-        {
-          "x": -5.400000000000016,
-          "y": 87.86466500443292,
-          "sequenceNumber": 23
-        },
-        {
-          "x": -5.200000000000017,
-          "y": 89.25821830795377,
-          "sequenceNumber": 24
-        },
-        {
-          "x": -5.000000000000018,
-          "y": 90.24749981007409,
-          "sequenceNumber": 25
-        },
-        {
-          "x": -4.8000000000000185,
-          "y": 90.94437188085135,
-          "sequenceNumber": 26
-        },
-        {
-          "x": -4.600000000000019,
-          "y": 91.43259063179673,
-          "sequenceNumber": 27
-        },
-        {
-          "x": -4.40000000000002,
-          "y": 91.77332258435578,
-          "sequenceNumber": 28
-        },
-        {
-          "x": -4.200000000000021,
-          "y": 92.01048724895065,
-          "sequenceNumber": 29
+  var compounds = [];
+
+  data.forEach(function(compound){
+    var newCompound = {
+      compound: compound.compound.name,
+      curve: compound.curveFitPoints,
+      wells: compound.experimentPoints.map(function (ep){
+        return {
+          amount: ep.x,
+          value: ep.y,
+          included: true
         }
-      ]
+      })
     };
 
-  var NOISE = 0.1;
-
-  function calPoint(x){
-    return  1/(1+Math.exp(-.07 * x));
-  }
-
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-  var dataSet = [];
-  var index = 0;
-  for (var num = 0; num < 150; num++) {
-    var array = [];
-    for (var i = 0; i < 9; i++) {
-      for (var j = 0; j < 9; j++) {
-
-
-        array.push({
-          wellIndex: index++,
-          row: i,
-          col: j,
-          amount: (Math.random() * 200),
-          included: true,
-          wellType: "NORMAL",
-          compound: possible.charAt(Math.floor(Math.random() * possible.length)),
-          date: new Date() - (Math.random() * 20000000)
-        });
-
-        if(Math.random() < 0.10){
-          array[array.length - 1].value = Math.random();
-        }else{
-          array[array.length - 1].value = Math.abs(calPoint(array[array.length - 1].amount - 100) + (NOISE * Math.random()) - NOISE);
-        }
-
-        if(Math.random() <= 0.025){
-          array[array.length - 1].wellType = "NEG_CONTROL";
-          array[array.length - 1].value = 0.0 + (0.1 * Math.random());
-        }else  if(Math.random() <= 0.05){
-          array[array.length - 1].wellType = "POS_CONTROL";
-          array[array.length - 1].value = 1.0 - (0.1 * Math.random());
-        }
-      }
+    function ro(d){
+      return Math.round(d * 100.0) / 100.0;
     }
-    dataSet[num] = array;
-  };
 
-  return {
-    dataSets: dataSet.map(function (d) {
-      var result = {
-        data: d,
-        name: "A" + String(Math.round(Math.random() * 400)),
-        z: Math.round(Math.random() * 100) / 100,
-        z_prime: Math.round(Math.random() * 100) / 100,
-        pos_avg: Math.round(Math.random() * 100) / 100,
-        neg_avg: Math.round(Math.random() * 100) / 100
-      };
-      result.data.forEach(function(d) {d.plate = result.name;});
-      return result;
-    })
-  };
+    if(compound.fitParameterMap.EC50){
+      newCompound.hasCurve = true;
+      newCompound.EC50 = ro(compound.fitParameterMap.EC50.value);
+      newCompound.MIN = ro(compound.fitParameterMap.Min.value);
+      newCompound.MAX = ro(compound.fitParameterMap.Max.value);
+      newCompound.SLOPE = ro(compound.fitParameterMap.Slope.value);
+    }else{
+      newCompound.hasCurve = false;
+      newCompound.EC50 = null;
+      newCompound.MIN = null;
+      newCompound.MAX = null;
+      newCompound.SLOPE = null;
+    }
+
+    compounds.push(newCompound);
+
+  });
+
+  return compounds;
+
 };
 
 DataVis.prototype.linear_regression = function (){

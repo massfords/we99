@@ -54,68 +54,80 @@ angular.module('we99App')
         $scope.$watch('selectedExperiment', function(newValue, oldValue) {
 
           var experimentId = newValue.id;
-          RestService.getExperimentPlates(experimentId)
+
+
+
+          RestService.getDoseResponseData(experimentId)
             .success(function(response){
-              var plateIds = response.values.filter(function(plate){ return plate.hasResults;}).map(function(plate){return plate.id;});
-              var promises = plateIds.map(function(plateId){ return RestService.getPlateResults(experimentId, plateId); });
-              $q.all(promises).then(function(response){
-                $scope.compounds = transform(v.convertPlateResultData(response.map(function(d){return d.data;})));
 
-                console.log($scope.compounds);
-                $scope.selectedCompound = $scope.compounds[0];
+              $scope.compounds = v.convertDoseResponseData(response.values);
+              $scope.selectedCompound = $scope.compounds[0];
+
+              $scope.selectCompound = function(compound){
+                $scope.selectedCompound = compound;
                 fullDisplayRefresh();
+              }
 
-                $scope.selectCompound = function(compound){
-                  $scope.selectedCompound = compound;
+              fullDisplayRefresh();
 
-                    fullDisplayRefresh();
-                }
+            }).error(function(error){
 
-              });
-            }).error(function(response){
-              $scope.errorText="Could not retrieve plate list for expriement [id=" + experimentId + "]";
-            });;
+            });
 
         });
+
 
       });
 
     function fullDisplayRefresh(){
       d3.select(displayBoxLocation).html("");
 
-      var data = [];
-      $scope.selectedCompound.wells.forEach(function(d){
-        if(d.included){
-          data.push( [d.amount, d.value] );
-        }
-      });
 
       var min = d3.min($scope.selectedCompound.wells.map(function(d) {return d.value;}).concat([0.0]));
       var max = d3.max($scope.selectedCompound.wells.map(function(d) {return d.value;}).concat([1.0]));
 
-      var lineFit = v.linear_regression()
-        .data(data)
-        .line();
+      var hasCurve = $scope.selectedCompound.hasCurve;
 
-      v.renderScatterPlot({
-        location: displayBoxLocation,
-        data: $scope.selectedCompound.wells,
-        xScaleIsDate: false,
-        onCellClick: function(d) {
+      if(hasCurve){
+        v.renderScatterPlot({
+          location: displayBoxLocation,
+          data: $scope.selectedCompound.wells,
+          xScaleIsDate: false,
+          onCellClick: function(d) {
+              $scope.selectedCompound.wells.forEach(function(dataPoint){
+                if(dataPoint.wellIndex == d.wellIndex){
+                  dataPoint.included = !dataPoint.included;
+                }
+              });
+            fullDisplayRefresh();
+          },
+          axisTitle:{
+            x: "Dose",
+            y: "Response"
+          },
+          scaleY: {min: min, max: max},
+          linePoints: $scope.selectedCompound.curve
+        });
+      }else{
+        v.renderScatterPlot({
+          location: displayBoxLocation,
+          data: $scope.selectedCompound.wells,
+          xScaleIsDate: false,
+          onCellClick: function(d) {
             $scope.selectedCompound.wells.forEach(function(dataPoint){
               if(dataPoint.wellIndex == d.wellIndex){
                 dataPoint.included = !dataPoint.included;
               }
             });
-          fullDisplayRefresh();
-        },
-        axisTitle:{
-          x: "Dose",
-          y: "Response"
-        },
-        scaleY: {min: min, max: max},
-        lineFunction: function (x) { return lineFit(x) ; }
-      });
+            fullDisplayRefresh();
+          },
+          axisTitle:{
+            x: "Dose",
+            y: "Response"
+          },
+          scaleY: {min: min, max: max}
+        });
+      }
     }
 
   }]);
