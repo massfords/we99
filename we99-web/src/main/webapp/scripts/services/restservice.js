@@ -124,12 +124,17 @@ app.factory('PlateMergeRestService', ['$http', '$q', '$upload', 'RestURLs', func
         console.error('No csv file attached');
         return null;
       }
+      var pt = angular.toJson(plateType);
+      var pto = angular.fromJson(pt);
       var file = csvFiles[0],
         upload = $upload.upload({
           url: RestURLs.experiment + "/" + experimentId + "/fullMonty",
           method: "POST",
           fields: {
-            plateType: plateType
+            plateType: pto
+          },
+          formDataAppender: function(fd,k,v) {
+            fd.append(k, new Blob([pt], {type: "application/json"}));
           },
           file: file
         }).progress(function (event) {
