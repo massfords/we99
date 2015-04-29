@@ -78,4 +78,22 @@ angular.module('we99App')
         });
       };
 
+      $scope.openBulkResultsModal=function(){
+        var modalInstance = $modal.open({
+          backdrop: true,
+          size: 'lg',
+          templateUrl: 'views/plate-mgmt/importresults.html',
+          controller: 'ImportResultsCtrl',
+          resolve: {
+            experiment: function () {
+              return SelectedExperimentSvc.getSelected();
+            }
+          }
+        });
+        modalInstance.result.then(function (returnVal) {
+          $scope.refreshPlates(); // Refreshes plate  when bulk results modal closed
+        });
+
+      };
+
     }]);

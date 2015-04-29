@@ -32,7 +32,7 @@ app.constant('RestURLs', {
     return restBase + 'experiment/' + experimentId + '/plates/' + plateId + '/results';
   },
   resultsUpload: function (experimentId) {
-    return restBase + 'experiment/' + experimentId + '/plates';
+    return restBase + 'experiment/' + experimentId + '/plates/results';
   }
 });
 

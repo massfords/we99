@@ -7,7 +7,6 @@
         <th st-sort="description">Description</th>
         <th st-sort="status">Status</th>
         <th st-sort="protocol">Protocol</th>
-        <th>Files</th>
         <th>Delete</th>
       </tr>
      <tr>
@@ -28,7 +27,6 @@
            ng-if="row.status==='UNPUBLISHED'">Unpublished</a>
       </td>
       <td>{{row.protocol.name}}</td>
-      <td><button type="button" ng-click="uploadFile(row)" class="btn btn-link">Upload CSV</button></td>
       <td>
 			  <i ng-click="removeItem(row)" class="glyphicon glyphicon-remove-circle"></i>
       </td>
@@ -38,7 +36,7 @@
 
   <!-- <button class="btn btn-primary" ng-click="newExperiment()">Add New</button> -->
   <div id="btnPanel"><a class="btn btn-primary" ng-href="#/experiment/addedit/new">Add New</a>
-      <button id="editBtn" class="btn btn-primary" ng-click="editRow()" data-ng-disabled="!currentExperiment">Edit</button>
+      <button id="editBtn" class="btn btn-primary" ng-click="editRow()" data-ng-disabled="!currentExperiment">Reassign Users</button>
   </div>
 
   <div class="row">

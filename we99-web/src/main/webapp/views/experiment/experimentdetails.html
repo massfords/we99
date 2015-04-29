@@ -10,18 +10,27 @@
   <hr>
 
   <section>
-    <div class="row add-buttons">
-        <button title="Create plates from details provided" class="btn btn-primary" ng-click="openAddPlateModal()">
+    <label for="bulkActionDiv">Bulk Actions:</label>
+    <div id="bulkActionDiv" class="row add-buttons" style="padding-bottom: 10px;">
+      <button title="Create plates using a compound table (csv)" class="btn btn-primary" ng-click="openAddWCompoundCsvModal()">
+        <i class="glyphicon glyphicon-plus"></i>
+        Bulk Add Plate from Compound Csv
+      </button>
+      <button title="Create plates with results from a csv containing the full monty." class="btn btn-primary" ng-click="openAddFullMontyCsvModal()">
+        <i class="glyphicon glyphicon-plus"></i>
+        Bulk Add Plates from CSV With Compounds and Results
+      </button>
+      <button title="Upload results for entire plate set" class="btn btn-primary" ng-click="openBulkResultsModal()">
+        <i class="glyphicon glyphicon-plus"></i>
+        Bulk Results Upload
+      </button>
+    </div>
+
+    <label for="singePlateDiv">Singe Plate Action:</label>
+    <div id="singePlateDiv" class="row add-buttons" >
+        <button title="Create plates from details provided" class="btn btn-success" ng-click="openAddPlateModal()">
           <i class="glyphicon glyphicon-plus"></i>
           Add Plate
-        </button>
-        <button title="Create plates using a compound table (csv)" class="btn btn-link" ng-click="openAddWCompoundCsvModal()">
-          <i class="glyphicon glyphicon-plus"></i>
-          Bulk Add Plate from Compound Csv
-        </button>
-        <button title="Create plates with results from a csv containing the full monty." class="btn btn-link" ng-click="openAddFullMontyCsvModal()">
-          <i class="glyphicon glyphicon-plus"></i>
-          Bulk Add Plates from CSV With Compounds and Results
         </button>
     </div>
     <!-- plates -->
