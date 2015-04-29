@@ -438,7 +438,7 @@ DataVis.prototype.renderScatterPlot = function(params) {
     .text(params.axisTitle.y);
 
 
-  var scatterPlot = svg.append("g");
+  var scatterPlot = svg.append("g").attr("id", "scatterPlotBody");
 
   scatterPlot.selectAll(".dot")
     .data(params.data)
@@ -468,38 +468,6 @@ DataVis.prototype.renderScatterPlot = function(params) {
     .attr("stroke", function(d) {
       if(d.included){
         return "black";
-        var xs = d3.scale.linear()
-          .domain([params.scaleX.min, params.scaleX.max])
-          .range([50, params.width]);
-
-        var ys = d3.scale.linear()
-          .domain([params.scaleY.min, params.scaleY.max])
-          .range([params.height - 50, 0]);
-
-        var points = [];
-        var diff = ( params.scaleX.max - params.scaleX.min ) / 200;
-        var x = params.scaleX.min;
-        var y = params.lineFunction(x);
-        while(x < params.scaleX.max & y < params.scaleY.max){
-          points.push({
-            x: x,
-            y: params.lineFunction(x)
-          });
-          x += diff;
-          y = params.lineFunction(x);
-        }
-
-
-        var lineFunction = d3.svg.line()
-          .x(function(d) { return  xs(d.x); })
-          .y(function(d) { return ys(d.y); })
-          .interpolate("basis");
-
-        svg.append("path").attr("d", lineFunction(points))
-          .attr("stroke", "blue")
-          .attr("stroke-width", 2)
-          .attr("fill", "none");
-
       }else{
         return "red";
       }
@@ -511,7 +479,7 @@ DataVis.prototype.renderScatterPlot = function(params) {
         hasAxis: false,
         width: params.width,
         height: params.height,
-        location: params.location,
+        location: "#scatterPlotBody",
         scaleX: params.scaleX,
         scaleY: params.scaleY,
         lineFunction: params.lineFunction,
@@ -553,9 +521,6 @@ DataVis.prototype.renderLine = function(params) {
   else{
     points = params.linePoints;
   }
-
-
-  console.log(points);
 
   if(params.hasAxis){
 
@@ -607,7 +572,8 @@ DataVis.prototype.renderLine = function(params) {
     .y(function(d) { return ys(d.y); })
     .interpolate("basis");
 
-  svg.append("path").attr("d", line(points))
+  svg.append("path")
+    .attr("d", line(points))
     .attr("stroke", params.color)
     .attr("stroke-width", 2)
     .attr("fill", "none");
@@ -700,17 +666,36 @@ DataVis.prototype.convertPlateResultData = function(data){
 
 DataVis.prototype.convertDoseResponseData = function(data){
 
+  console.log(data);
+
   var compounds = [];
 
   data.forEach(function(compound){
+
+
+
+    function toBool(string){
+      if(string === "INCLUDED"){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     var newCompound = {
       compound: compound.compound.name,
-      curve: compound.curveFitPoints,
+      curve: compound.curveFitPoints.map(function(cp){
+        return {
+          x: cp.x,
+          y: cp.y
+        }
+      }),
       wells: compound.experimentPoints.map(function (ep){
         return {
-          amount: ep.x,
+          amount: ep.logx,
           value: ep.y,
-          included: true
+          included: toBool(ep.resultStatus),
+          wellIndex: ep.doseId
         }
       })
     };
@@ -736,6 +721,8 @@ DataVis.prototype.convertDoseResponseData = function(data){
     compounds.push(newCompound);
 
   });
+
+  console.log(compounds);
 
   return compounds;
 

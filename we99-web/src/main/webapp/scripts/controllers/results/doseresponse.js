@@ -83,8 +83,12 @@ angular.module('we99App')
       d3.select(displayBoxLocation).html("");
 
 
-      var min = d3.min($scope.selectedCompound.wells.map(function(d) {return d.value;}).concat([0.0]));
-      var max = d3.max($scope.selectedCompound.wells.map(function(d) {return d.value;}).concat([1.0]));
+      console.log($scope.selectedCompound.curve);
+
+      var min = d3.min(
+        $scope.selectedCompound.wells.map(function(d) {return d.value;})
+      );
+      var max = d3.max($scope.selectedCompound.wells.map(function(d) {return d.value;}));
 
       var hasCurve = $scope.selectedCompound.hasCurve;
 
