@@ -9,6 +9,7 @@ import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.ResultStatus;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -21,6 +22,7 @@ public interface DoseResponseResultStorage extends CRUDStorage<DoseResponseResul
     Set<Long> getPlateIds(Long doseResponseId);
     Dose getDose(Long doseResponseId, Long doseId);
     DoseResponseResult getByCompoundName(String compoundName);
+    Long getKOPointDrAndPlateId(Long experimentId, Long doseId);
     void replaceExperimentPoints(Long doseResponseResultId,List<ExperimentPoint>newPoints);
     ExperimentPoint addExperimentPoint(Long doseResponseId, ExperimentPoint point);
     ExperimentPoint updateExperimentPoint(Long doseResponseId, ExperimentPoint type);

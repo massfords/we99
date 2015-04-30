@@ -7,14 +7,10 @@ import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.domain.results.EPointStatusChange;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -65,11 +61,24 @@ public interface DoseResponseResource {
                                           @QueryParam("q") @DefaultValue("") String typeAhead);
 
 
+    /**
+     * Changes the status of an Experiment Point
+     * @param ePointstatusChange
+     * @return
+     */
+    @Path("/kopoint")
+    @POST
+    @ApiOperation("Status change on a well within the results.")
+    @PreAuthorize("hasRole('PERM_MODIFY_RESULTS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
+    @Consumes(MediaType.APPLICATION_JSON)
+    DoseResponseResult KoPointAndReCalc(EPointStatusChange ePointstatusChange);
+
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     @Path("/{doseResponseId}")
     @ApiOperation("Gets the dose response by id")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     DoseResponseResultResource getDoseResponseResults(@PathParam("doseResponseId")Long doseResponseId);
+
 
     // todo remove these
     void setExperiment(Experiment experiment);

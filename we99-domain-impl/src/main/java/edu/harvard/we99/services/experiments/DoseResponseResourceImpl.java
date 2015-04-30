@@ -8,10 +8,13 @@ import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.domain.results.EPointStatusChange;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 
 import javax.annotation.Generated;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,27 +95,7 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
 
     @Override
     public DoseResponseResults generateAllResults(Integer page, Integer pageSize, String typeAhead) {
-        /*
-            There's a lot going on here:
-            - list all of the results
-            - for each result:
-             -- create a DoseResponseResultResource that...
-             -- get the same result which had at the start of the forEach
-             -- arrange its ExperimentPoints into a Map<plateId,List<points>>
-             -- for each plateId, get its PlateResults (sort of, see comment in DoseResponseResultImpl)
-             -- lost track of the rest in DoseResponseResultImpl line 138
 
-             A couple of concerns...
-             - there's a lot of being fetched from the storage layer and then
-             written back and this all happens in different transactions.
-             - another approach would be to fetch all of the data you need into
-             this tier, perform calculations on it, and then write it back.
-             - this way, it would all happen in a single transaction
-             - another option would be to push this all to the storage layer and
-               work with the JPA entities directly. My hope was to implement all
-               of the functions using the domain objects but if that proves too
-               costly then perhaps the entities should be use.
-         */
         doseResponseResultStorage.createAll(experiment.getId());
 
         DoseResponseResults drResults = doseResponseResultStorage.getAll(experiment.getId());
@@ -120,6 +103,26 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
                                                     resultResource.addResponseValues();  } );
         DoseResponseResults doseResponseResults = doseResponseResultStorage.listAll(experiment.getId(), page, pageSize, typeAhead);
         return doseResponseResults;
+    }
+
+    @Override
+    public DoseResponseResult KoPointAndReCalc(EPointStatusChange ePointstatusChange){
+
+        DoseResponseResult result = null;
+        try{
+            Long doseId = ePointstatusChange.getDoseId();
+            Long doseResponseId = doseResponseResultStorage.getKOPointDrAndPlateId(experiment.getId(), doseId);
+
+            DoseResponseResultResource drrr = getDoseResponseResults(doseResponseId);
+
+            result = drrr.updateStatus(ePointstatusChange);
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.status(404).build());
+        }
+
+        return result;
+
+
     }
 
     @Override

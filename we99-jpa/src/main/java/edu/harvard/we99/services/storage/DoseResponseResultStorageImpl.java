@@ -99,6 +99,32 @@ public class DoseResponseResultStorageImpl implements DoseResponseResultStorage 
 
     @Override
     @Transactional
+    public Long getKOPointDrAndPlateId(Long experimentId, Long doseId) throws EntityNotFoundException{
+
+        TypedQuery<Object[]> query2 = em.createQuery("select distinct drre.Id, do.plateId from DoseResponseResultEntity AS drre JOIN drre.doses as do where drre.experiment.id=:id and do.id=:doid",Object[].class);
+        query2.setParameter("id", experimentId);
+        query2.setParameter("doid",doseId);
+        List<Object[]> doseResponse = query2.getResultList();
+
+
+        Long targetDoseResponse = null;
+        Long targetPlateId = null;
+        if( doseResponse.size() > 0){
+
+            Object[] DrIdandPlateId = doseResponse.get(0);
+            if( DrIdandPlateId.length == 2){
+                targetDoseResponse = (Long) DrIdandPlateId[0];
+                targetPlateId = (Long) DrIdandPlateId[1];
+
+            }
+        }
+
+        return targetDoseResponse;
+
+    }
+
+    @Override
+    @Transactional
     public Set<Long> getPlateIds(Long doseResponseId) throws EntityNotFoundException{
         TypedQuery<DoseResponseResultEntity> query = em.createQuery("select dr from DoseResponseResultEntity dr where dr.id=:id",DoseResponseResultEntity.class);
         query.setParameter("id", doseResponseId);

@@ -37,7 +37,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * @author alan orcharton
  */
-public class JpaDoseResponseIPT extends JpaSpringFixture {
+public class JpaDoseResponseIT extends JpaSpringFixture {
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Inject
@@ -135,7 +135,8 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
         Dose d = aResult.getDoses().iterator().next();
         EPointStatusChange eps = new EPointStatusChange()
                 .setDoseId(d.getId()).setPlateId(plate.getId()).setStatus(ResultStatus.EXCLUDED);
-        DoseResponseResult resultAfter = drrr.updateStatus(eps);
+        //DoseResponseResult resultAfter = drrr.updateStatus(eps);
+        DoseResponseResult resultAfter = drr.KoPointAndReCalc(eps);
 
         //assert first point is excluded
         assertJsonEquals(load("/DoseResponsePlateIT/single-response-one-excluded.json"),
@@ -252,6 +253,47 @@ public class JpaDoseResponseIPT extends JpaSpringFixture {
 
 
     }
+
+
+    @Test
+    public void testGettingDoseandDoseResponseForKOPoints() throws Exception {
+
+
+
+       /* Map<String,Long>  koPointIdMap = new HashMap<>();
+        Long experimentId = 6L;
+        Long doseId = 1457L;
+        ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
+        DoseEntity de = em.find(DoseEntity.class, doseId);
+
+        doseResponseResultStorage.createAll(experimentId);
+
+        TypedQuery<Object[]> query2 = em.createQuery("select distinct drre.Id, do.plateId from DoseResponseResultEntity AS drre JOIN drre.doses as do where drre.experiment.id=:id and do.id=:doid",Object[].class);
+        query2.setParameter("id", experimentId);
+        query2.setParameter("doid",doseId);
+        List<Object[]> doseResponse = query2.getResultList();
+
+
+        Long targetDoseResponse;
+        Long targetPlateId;
+        if( doseResponse.size() > 0){
+
+           Object[] DrIdandPlateId = doseResponse.get(0);
+            if( DrIdandPlateId.length == 2){
+                targetDoseResponse = (Long) DrIdandPlateId[0];
+                targetPlateId = (Long) DrIdandPlateId[1];
+                koPointIdMap.put("drresultid", targetDoseResponse);
+                koPointIdMap.put("plateid",targetPlateId);
+            }
+        }
+      */
+
+
+
+
+
+    }
+
     @Test
     public void testGettingAllCompoundsByExperiment() throws Exception{
 
