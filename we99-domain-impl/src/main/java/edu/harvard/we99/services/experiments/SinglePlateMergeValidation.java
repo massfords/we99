@@ -5,11 +5,12 @@ import edu.harvard.we99.domain.WellType;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.util.function.Function;
 
 /**
  * @author markford
  */
-class SinglePlateMergeValidation extends CompoundlessPlateValidation {
+class SinglePlateMergeValidation implements Function<WellLabelMapping, Void> {
 
     @Override
     public Void apply(WellLabelMapping wlm) {
