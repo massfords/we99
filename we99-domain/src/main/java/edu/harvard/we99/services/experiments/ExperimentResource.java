@@ -131,6 +131,7 @@ public interface ExperimentResource {
                     required = true, dataType = "edu.harvard.we99.domain.PlateType",
                     paramType = "form"),
             @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
+    @Deprecated // todo - remove this interface after verifying that UI isn't calling it
     Response stringMonty(@Multipart("plateType") @ApiParam("DO NOT SET THROUGH SWAGGER") String plateType,
                        @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER")  InputStream csv);
 

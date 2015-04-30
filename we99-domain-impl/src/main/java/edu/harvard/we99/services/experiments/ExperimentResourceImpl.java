@@ -69,12 +69,17 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
 
     @Override
     public Experiment publish() {
-        Experiment experiment = get();
-        if (experiment.getStatus() != ExperimentStatus.UNPUBLISHED) {
-            throw new WebApplicationException(Response.status(409).build());
+        try {
+            Experiment experiment = get();
+            if (experiment.getStatus() != ExperimentStatus.UNPUBLISHED) {
+                throw new WebApplicationException(Response.status(409).build());
+            }
+            ExperimentStorage es = (ExperimentStorage) this.storage;
+            return es.publish(experiment);
+        } catch(Exception e) {
+            log.error("error publising experiment {}", id);
+            throw new WebApplicationException(Response.serverError().build());
         }
-        ExperimentStorage es = (ExperimentStorage) this.storage;
-        return es.publish(experiment);
     }
 
     @Override
@@ -109,7 +114,13 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
 
     @Override
     public PlateResults listResults(Integer page, Integer pageSize, String typeAhead) {
-        return resultStorage.listAllByExperiment(id, page, pageSize, typeAhead);
+        try {
+            return resultStorage.listAllByExperiment(id, page, pageSize, typeAhead);
+        } catch(Exception e) {
+            log.error("error listing results. Page {}, pageSize {}, query {}",
+                    page, pageSize, typeAhead, e);
+            throw new WebApplicationException(Response.serverError().build());
+        }
     }
 
     @Override
@@ -117,7 +128,7 @@ public abstract class ExperimentResourceImpl extends BaseRESTServiceImpl<Experim
         assert plateType != null;
         try {
             return fullMonty(JacksonUtil.fromString(plateType, PlateType.class), csv);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new WebApplicationException(Response.serverError().build());
         }
     }

@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 public class PlateTypeServiceImpl extends BaseRESTServiceImpl<PlateType> implements PlateTypeService {
 
     private static final Logger log = LoggerFactory.getLogger(PlateTypeServiceImpl.class);
+
     public PlateTypeServiceImpl(PlateTypeStorage storage) {
         super(storage);
     }
@@ -28,7 +29,7 @@ public class PlateTypeServiceImpl extends BaseRESTServiceImpl<PlateType> impleme
             deleteImpl(id);
             return Response.ok().build();
         } catch (PersistenceException e) {
-            log.debug("PlateType could not be deleted");
+            log.debug("PlateType {} could not be deleted", id, e);
             return Response.status(409).build();
         }
     }
@@ -39,8 +40,9 @@ public class PlateTypeServiceImpl extends BaseRESTServiceImpl<PlateType> impleme
             PlateTypeStorage ps = (PlateTypeStorage) storage;
             return ps.listAll(page, pageSize, typeAhead);
         } catch(Exception e) {
-            log.error("error listing plate types", e);
-            throw new WebApplicationException(Response.status(500).build());
+            log.error("error listing plate types. Page {}, pageSize {}, query {}",
+                    page, pageSize, typeAhead, e);
+            throw new WebApplicationException(Response.serverError().build());
         }
     }
 }
