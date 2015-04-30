@@ -2,11 +2,9 @@ package edu.harvard.we99.services.experiments;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.EPointStatusChange;
 import org.springframework.security.access.prepost.PreAuthorize;
-
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -43,13 +41,4 @@ public interface DoseResponseResultResource  {
     @PreAuthorize("hasRole('PERM_MODIFY_RESULTS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     @Consumes(MediaType.APPLICATION_JSON)
     DoseResponseResult updateStatus(EPointStatusChange ePointstatusChange);
-
-
-
-    // todo remove these
-
-    DoseResponseResult addResponseValues();
-    void setExperiment(Experiment experiment);
-    Experiment getExperiment();
-    void setDoseResponseId(Long doseResponseId);
 }

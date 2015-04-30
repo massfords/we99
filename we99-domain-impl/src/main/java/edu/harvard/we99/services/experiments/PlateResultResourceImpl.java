@@ -9,6 +9,7 @@ import edu.harvard.we99.domain.results.StatusChange;
 import edu.harvard.we99.domain.results.WellResults;
 import edu.harvard.we99.domain.results.analysis.NormalizationFunction;
 import edu.harvard.we99.domain.results.analysis.PlateMetricsFunction;
+import edu.harvard.we99.services.experiments.internal.PlateResultResourceInternal;
 import edu.harvard.we99.services.io.MatrixParser;
 import edu.harvard.we99.services.io.PlateResultCSVReader;
 import edu.harvard.we99.services.io.PlateResultsReader;
@@ -34,7 +35,7 @@ import java.util.Map;
 /**
  * @author mford
  */
-public class PlateResultResourceImpl implements PlateResultResource {
+public class PlateResultResourceImpl implements PlateResultResourceInternal {
 
     private static final Logger log = LoggerFactory.getLogger(PlatesResourceImpl.class);
 

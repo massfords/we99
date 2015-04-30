@@ -1,6 +1,7 @@
 package edu.harvard.we99.services.experiments;
 
 import edu.harvard.we99.domain.lists.Users;
+import edu.harvard.we99.services.experiments.internal.MemberResourceInternal;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * @author mford
  */
-public class MemberResourceImpl implements MemberResource {
+public class MemberResourceImpl implements MemberResourceInternal {
 
     private static final Logger log = LoggerFactory.getLogger(MemberResourceImpl.class);
 

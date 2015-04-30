@@ -1,8 +1,23 @@
 package edu.harvard.we99.services.experiments;
 
-import edu.harvard.we99.domain.*;
-import edu.harvard.we99.domain.results.*;
-import edu.harvard.we99.domain.results.analysis.*;
+import edu.harvard.we99.domain.Coordinate;
+import edu.harvard.we99.domain.CurveFitPoint;
+import edu.harvard.we99.domain.Dose;
+import edu.harvard.we99.domain.Experiment;
+import edu.harvard.we99.domain.ExperimentPoint;
+import edu.harvard.we99.domain.FitEquation;
+import edu.harvard.we99.domain.FitParameter;
+import edu.harvard.we99.domain.Plate;
+import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.domain.results.EPointStatusChange;
+import edu.harvard.we99.domain.results.PlateResult;
+import edu.harvard.we99.domain.results.WellResults;
+import edu.harvard.we99.domain.results.analysis.CurveFit;
+import edu.harvard.we99.domain.results.analysis.CurveFitParametersFunction;
+import edu.harvard.we99.domain.results.analysis.CurveFitPointsFunction;
+import edu.harvard.we99.domain.results.analysis.ExperimentPointsFunction;
+import edu.harvard.we99.domain.results.analysis.PlateNormalizationForDoseResponseFunction;
+import edu.harvard.we99.services.experiments.internal.DoseResponseResultResourceInternal;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
@@ -12,7 +27,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,7 +34,7 @@ import java.util.Set;
 /**
  * @author alan orcharton
  */
-public abstract class DoseResponseResultImpl implements DoseResponseResultResource {
+public abstract class DoseResponseResultImpl implements DoseResponseResultResourceInternal {
 
     private Long doseResponseResultId;
     private final PlateStorage plateStorage;

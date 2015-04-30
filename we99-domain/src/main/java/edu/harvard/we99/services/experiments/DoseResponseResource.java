@@ -3,7 +3,6 @@ package edu.harvard.we99.services.experiments;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import edu.harvard.we99.domain.Compound;
-import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.results.DoseResponseResult;
@@ -70,10 +69,4 @@ public interface DoseResponseResource {
     @ApiOperation("Gets the dose response by id")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     DoseResponseResultResource getDoseResponseResults(@PathParam("doseResponseId")Long doseResponseId);
-
-    // todo remove these
-    void setExperiment(Experiment experiment);
-    Experiment getExperiment();
-
-
 }

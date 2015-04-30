@@ -2,7 +2,6 @@ package edu.harvard.we99.services.experiments;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -56,8 +55,4 @@ public interface PlateResource {
     @ApiOperation("Models the results for a single plate")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     PlateResultResource getPlateResult();
-
-    void setPlateId(Long plateId);
-    void setExperiment(Experiment experiment);
-    Experiment getExperiment();
 }

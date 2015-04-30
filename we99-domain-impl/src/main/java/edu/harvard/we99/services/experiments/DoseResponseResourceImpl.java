@@ -8,6 +8,8 @@ import edu.harvard.we99.domain.Well;
 import edu.harvard.we99.domain.lists.DoseResponseResults;
 import edu.harvard.we99.domain.lists.Plates;
 import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.services.experiments.internal.DoseResponseResourceInternal;
+import edu.harvard.we99.services.experiments.internal.DoseResponseResultResourceInternal;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 
@@ -21,7 +23,7 @@ import java.util.Set;
 /**
  * @author alan orcharton
  */
-public abstract class DoseResponseResourceImpl implements DoseResponseResource {
+public abstract class DoseResponseResourceImpl implements DoseResponseResourceInternal {
 
     private final PlateStorage plateStorage;
     private final DoseResponseResultStorage doseResponseResultStorage;
@@ -29,30 +31,30 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
 
 
     public DoseResponseResourceImpl(PlateStorage plateStorage,
-                                    DoseResponseResultStorage doseResponseResultStorage){
+                                    DoseResponseResultStorage doseResponseResultStorage) {
 
         this.plateStorage = plateStorage;
         this.doseResponseResultStorage = doseResponseResultStorage;
     }
 
-    protected abstract DoseResponseResultResource createDoseResponseResultResource();
+    protected abstract DoseResponseResultResourceInternal createDoseResponseResultResource();
 
 
     public DoseResponseResult create() {
         Plates plates = plateStorage.getAll(experiment.getId());
         List<Plate> plateList = plates.getValues();
-        Map<Long,Compound> allCompounds = getCompoundsFromPlates(plateList);
-        List<Compound> compounds =  new ArrayList<>(allCompounds.values());
-        DoseResponseResult drr = createForCompound(compounds.get(0),plateList);
+        Map<Long, Compound> allCompounds = getCompoundsFromPlates(plateList);
+        List<Compound> compounds = new ArrayList<>(allCompounds.values());
+        DoseResponseResult drr = createForCompound(compounds.get(0), plateList);
         return drr;
     }
 
-    public Map<Long,Compound> getCompoundsFromPlates(List<Plate> plateList){
+    public Map<Long, Compound> getCompoundsFromPlates(List<Plate> plateList) {
 
         Map<Long, Compound> compoundList = new HashMap<>();
-        for(Plate p : plateList){
+        for (Plate p : plateList) {
             Plate aPlate = plateStorage.get(p.getId());
-            for(Well w : aPlate.getWells().values()){
+            for (Well w : aPlate.getWells().values()) {
                 Set<Dose> doses = w.getContents();
                 doses.stream()
                         .filter(d -> d.getCompound() != null)
@@ -116,15 +118,18 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResource {
         doseResponseResultStorage.createAll(experiment.getId());
 
         DoseResponseResults drResults = doseResponseResultStorage.getAll(experiment.getId());
-        drResults.getValues().forEach(result -> { DoseResponseResultResource resultResource = getDoseResponseResults(result.getId());
-                                                    resultResource.addResponseValues();  } );
+        drResults.getValues()
+                .forEach(result -> {
+                    DoseResponseResultResourceInternal resultResource = getDoseResponseResults(result.getId());
+                    resultResource.addResponseValues();
+                });
         DoseResponseResults doseResponseResults = doseResponseResultStorage.listAll(experiment.getId(), page, pageSize, typeAhead);
         return doseResponseResults;
     }
 
     @Override
-    public DoseResponseResultResource getDoseResponseResults(Long doseResponseId) {
-        DoseResponseResultResource drr = createDoseResponseResultResource();
+    public DoseResponseResultResourceInternal getDoseResponseResults(Long doseResponseId) {
+        DoseResponseResultResourceInternal drr = createDoseResponseResultResource();
         drr.setExperiment(experiment);
         drr.setDoseResponseId(doseResponseId);
         return drr;

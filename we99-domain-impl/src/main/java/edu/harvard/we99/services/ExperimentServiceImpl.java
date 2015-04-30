@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.lists.Experiments;
 import edu.harvard.we99.security.UserContextProvider;
 import edu.harvard.we99.services.experiments.ExperimentResource;
+import edu.harvard.we99.services.experiments.internal.ExperimentResourceInternal;
 import edu.harvard.we99.services.storage.ExperimentStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +54,7 @@ public abstract class ExperimentServiceImpl implements ExperimentService {
     public ExperimentResource getExperiment(Long id) {
         try {
             ucp.assertCallerIsMember(id);
-            ExperimentResource er = createExperimentResource();
+            ExperimentResourceInternal er = createExperimentResource();
             er.setId(id);
             // prime the pump so the experiment is loaded and available for our security annotations
             er.get();
@@ -66,5 +67,5 @@ public abstract class ExperimentServiceImpl implements ExperimentService {
         }
     }
 
-    protected abstract ExperimentResource createExperimentResource();
+    protected abstract ExperimentResourceInternal createExperimentResource();
 }

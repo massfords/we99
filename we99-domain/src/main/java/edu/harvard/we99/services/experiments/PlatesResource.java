@@ -5,7 +5,6 @@ import com.wordnik.swagger.annotations.ApiImplicitParam;
 import com.wordnik.swagger.annotations.ApiImplicitParams;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
-import edu.harvard.we99.domain.Experiment;
 import edu.harvard.we99.domain.Plate;
 import edu.harvard.we99.domain.PlateMapMergeInfo;
 import edu.harvard.we99.domain.lists.Plates;
@@ -140,7 +139,4 @@ public interface PlatesResource {
                     dataType = "file", paramType = "form")})
     Response bulkResults(@Multipart(value = "format", required = false) @DefaultValue("matrix") String format,
             @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
-
-    void setExperiment(Experiment experiment);
-    Experiment getExperiment();
 }
