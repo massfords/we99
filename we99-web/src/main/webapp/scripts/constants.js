@@ -19,6 +19,7 @@ app.constant('RestURLs', {
   plateMapById: restBase + 'plateMap/:id',
   mergeInfoTemplate: restBase + 'plateMap/:id/merge',
   mergeInfoSubmit: restBase + 'experiment/:id/plates/merge',
+  mergeInfoSubmitWithCompound: restBase + 'experiment/:id/plates/bulkmerge',
   plateType: restBase + 'plateType/:id',
   compound: restBase + 'compound/:id',
   compoundUpload: restBase + 'compound/',
@@ -32,7 +33,7 @@ app.constant('RestURLs', {
     return restBase + 'experiment/' + experimentId + '/plates/' + plateId + '/results';
   },
   resultsUpload: function (experimentId) {
-    return restBase + 'experiment/' + experimentId + '/plates';
+    return restBase + 'experiment/' + experimentId + '/plates/results';
   }
 });
 

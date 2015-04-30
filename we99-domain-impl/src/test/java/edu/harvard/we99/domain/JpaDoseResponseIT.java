@@ -1,7 +1,10 @@
 package edu.harvard.we99.domain;
 
-import edu.harvard.we99.domain.results.*;
-import edu.harvard.we99.domain.FitParameter;
+import edu.harvard.we99.domain.results.DoseResponseResult;
+import edu.harvard.we99.domain.results.EPointStatusChange;
+import edu.harvard.we99.domain.results.PlateResult;
+import edu.harvard.we99.domain.results.ResultStatus;
+import edu.harvard.we99.domain.results.WellResults;
 import edu.harvard.we99.domain.results.analysis.CurveFitParametersFunction;
 import edu.harvard.we99.domain.results.analysis.CurveFitPointsFunction;
 import edu.harvard.we99.domain.results.analysis.ExperimentPointsFunction;
@@ -16,7 +19,10 @@ import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.services.storage.DoseResponseResultStorage;
 import edu.harvard.we99.services.storage.PlateStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
-import edu.harvard.we99.services.storage.entities.*;
+import edu.harvard.we99.services.storage.entities.DoseEntity;
+import edu.harvard.we99.services.storage.entities.DoseResponseResultEntity;
+import edu.harvard.we99.services.storage.entities.ExperimentEntity;
+import edu.harvard.we99.services.storage.entities.WellEntity;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
 import org.junit.Rule;
@@ -24,15 +30,23 @@ import org.junit.Test;
 
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
-import static edu.harvard.we99.test.BaseFixture.*;
+import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
+import static edu.harvard.we99.test.BaseFixture.load;
+import static edu.harvard.we99.test.BaseFixture.name;
+import static edu.harvard.we99.test.BaseFixture.stream;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * @author alan orcharton

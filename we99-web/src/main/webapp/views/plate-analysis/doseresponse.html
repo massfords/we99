@@ -4,16 +4,24 @@
   <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
 </div>
 
-<div style="height: 600px; width: 150px; position: relative; float: left; border: 1px solid grey; margin-right: 15px; overflow-y: scroll">
+<div style="font-size: .8em; height: 600px; width: 300px; position: relative; float: left; border: 1px solid grey; margin-right: 15px; overflow-y: scroll">
   <table class="table table-condensed">
     <thead>
-      <th>Compounds In Assay</th>
+      <th>Compound</th>
+      <th>EC50</th>
+      <th>MIN</th>
+      <th>MAX</th>
+      <th>SLOPE</th>
     </thead>
     <tbody>
       <tr ng-repeat="compound in compounds"
           ng-class="{active:  (compound.compound) == selectedCompound.compound}"
           ng-click="selectCompound(compound)">
         <td>{{ compound.compound }}</td>
+        <td>{{ compound.EC50 }}</td>
+        <td>{{ compound.MIN }}</td>
+        <td>{{ compound.MAX }}</td>
+        <td>{{ compound.SLOPE }}</td>
       </tr>
     </tbody>
   </table>

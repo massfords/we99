@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h3 class="modal-title">Upload Bulk Results</h3>
+</div>
+<div class="modal-body">
+  <strong>{{experiment.name}}</strong>
+
+  <form role="form" name="uploadResultsForm">
+    <div class="form-group">
+      <div ng-file-drop ng-file-select ng-model="files" class="drop-box"
+           drag-over-class="dragover" ng-multiple="true" allow-dir="true"
+           accept="text/csv">Drop results csv files here or click to upload
+      </div>
+      <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
+      <ul>
+        <li ng-repeat="f in files" style="font-size:.75em">{{f.name}}</li>
+      </ul>
+    </div>
+
+  </form>
+  <div>
+    <!-- display success or failure message after parse csv REST call -->
+    <div ng-show="modalResponseMsg">
+      <alert type="{{modalResponseMsg.type}}" close="closeAlert()">{{modalResponseMsg.text}}</alert>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="dismiss()">Close</button>
+  </div>
+</div>

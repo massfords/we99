@@ -1,9 +1,10 @@
 
 <div style="margin-left: 100px" id="controls">
-  Select Assay:
+  <b>Select Assay:</b>
   <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
-  Coloring:
+  <b>Coloring:</b>
   <select ng-model="coloring.colorOption" ng-options="opt as opt.colorName for opt in coloring.colorOptions"></select>
+
 </div>
 <div id="display-container">
 

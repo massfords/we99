@@ -92,24 +92,6 @@ angular.module('we99App')
       }
     }, true);
 
-    $scope.uploadFile=function(row){
-        var modalInstance = $modal.open({
-          backdrop: true,
-          size: 'lg',
-          templateUrl: 'views/plate-analysis/importresults.html',
-          controller: 'ImportResultsCtrl',
-          resolve: {
-            experiment: function () {
-              return row;
-            }
-          }
-        });
-        modalInstance.result.then(function (returnVal) {
-          $scope.refreshPlates(); // Refreshes plate  when add result screen closed
-        });
-
-    };
-
     $scope.dismiss=function(type){
     	if(type==='info'){
     		$scope.infoText=null;

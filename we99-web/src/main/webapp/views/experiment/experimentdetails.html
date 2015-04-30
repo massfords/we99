@@ -10,20 +10,35 @@
   <hr>
 
   <section>
-    <div class="row add-buttons">
+    <div class="row">
         <button title="Create plates from details provided" class="btn btn-primary" ng-click="openAddPlateModal()">
           <i class="glyphicon glyphicon-plus"></i>
           Add Plate
         </button>
-        <button title="Create plates using a compound table (csv)" class="btn btn-link" ng-click="openAddWCompoundCsvModal()">
-          <i class="glyphicon glyphicon-plus"></i>
-          Bulk Add Plate from Compound Csv
-        </button>
-        <button title="Create plates with results from a csv containing the full monty." class="btn btn-link" ng-click="openAddFullMontyCsvModal()">
-          <i class="glyphicon glyphicon-plus"></i>
-          Bulk Add Plates from CSV With Compounds and Results
-        </button>
+        <div class="btn-group" dropdown is-open="bulkBtn.isopen">
+          <button type="button" class="btn btn-warning dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+            <i class="glyphicon glyphicon-plus"></i> Bulk Add <i class="glyphicon glyphicon-chevron-down"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a title="Create plates using a compound table (csv)" ng-click="openAddWCompoundCsvModal()">
+                Bulk Add Plate from Compound Csv
+              </a>
+            </li>
+            <li>
+              <a title="Upload results for entire plate set" ng-click="openBulkResultsModal()">
+                Bulk Results Upload
+              </a>
+            </li>
+            <li>
+              <a title="Create plates with results from a csv containing the full monty." ng-click="openAddFullMontyCsvModal()">
+                Bulk Add Plates from CSV With Compounds and Results
+              </a>
+            </li>
+          </ul>
+        </div>
     </div>
+
     <!-- plates -->
     <div class="table-fixed-height">
       <table st-table="displayPlates" st-safe-src="plates" class="table table-striped">

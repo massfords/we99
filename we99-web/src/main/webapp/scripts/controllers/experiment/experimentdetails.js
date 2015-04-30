@@ -58,7 +58,7 @@ angular.module('we99App')
 
       $scope.openAddWCompoundCsvModal = function(){
         var modalInstance = $modal.open({
-          templateUrl: 'views/plate-mgmt/addplate-w-compounds.html',
+          templateUrl: 'views/plate-mgmt/addplate-w-compoundfile.html',
           controller: 'AddPlateCtrl',
           size: 'lg'
         });
@@ -76,6 +76,24 @@ angular.module('we99App')
         modalInstance.result.then(function(){
           $scope.refreshPlates();
         });
+      };
+
+      $scope.openBulkResultsModal=function(){
+        var modalInstance = $modal.open({
+          backdrop: true,
+          size: 'lg',
+          templateUrl: 'views/plate-mgmt/importresults.html',
+          controller: 'ImportResultsCtrl',
+          resolve: {
+            experiment: function () {
+              return SelectedExperimentSvc.getSelected();
+            }
+          }
+        });
+        modalInstance.result.then(function (returnVal) {
+          $scope.refreshPlates(); // Refreshes plate  when bulk results modal closed
+        });
+
       };
 
     }]);

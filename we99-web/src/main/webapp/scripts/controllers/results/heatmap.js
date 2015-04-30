@@ -49,11 +49,9 @@ angular.module('we99App')
               $scope.selectedIndex = counter;
             }
           });
-          console.log($scope.selectedIndex);
           renderListView($scope.data);
           renderSingleView();
-          console.log(plateId);
-        }
+        };
 
         $scope.$watch('selectedExperiment', function(newValue, oldValue){
 
@@ -64,7 +62,7 @@ angular.module('we99App')
               var plateIds = response.values.filter(function(plate){ return plate.hasResults;}).map(function(plate){return plate.id;});
               var promises = plateIds.map(function(plateId){ return RestService.getPlateResults(experimentId, plateId); });
               $q.all(promises).then(function(response){
-                console.log(response);
+
                 $scope.data = v.convertPlateResultData(response.map(function(d){return d.data;}));
 
                 // Stores the index of the presently selected value in the display box
@@ -77,6 +75,7 @@ angular.module('we99App')
                 // Pagination
                 $scope.pagination = getDefaultPaginationInfo($scope.data);
                 fullDisplayRefresh();
+
 
               });
             }).error(function(response){
@@ -132,6 +131,14 @@ angular.module('we99App')
      */
     function renderSingleView(){
 
+      function toText(bool){
+        if(bool){
+          return "INCLUDED";
+        }else{
+          return "EXCLUDED";
+        }
+      }
+
       // Wipe out contents.
       d3.select(displayBoxLocation).html("");
 
@@ -148,6 +155,22 @@ angular.module('we99App')
           $scope.data[$scope.selectedIndex - 1].data.forEach(function(dinner){
             if(dinner.wellIndex === d.wellIndex){
               dinner.included = !dinner.included;
+
+              RestService.updatePlateResults(
+                  $scope.data[$scope.selectedIndex - 1].experimentIndex,
+                  $scope.data[$scope.selectedIndex - 1].plateIndex, {
+                    status: toText(dinner.included),
+                    coordinate:{
+                      col: dinner.col,
+                      row: dinner.row
+                    }
+                  }
+                ).success(function(response){
+                  $scope.data[$scope.selectedIndex - 1] =  v.convertPlateResultData([response])[0];
+                  console.log($scope.data);
+                  fullDisplayRefresh();
+                });
+
             }
           });
           renderListView($scope.data);

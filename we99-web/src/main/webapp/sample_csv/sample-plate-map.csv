@@ -1,3 +1,4 @@
+# = Sample Plate Map =
 #row, col, well-type, label, value
 0, 0, COMP, compound, A
 0, 1, COMP, compound, A

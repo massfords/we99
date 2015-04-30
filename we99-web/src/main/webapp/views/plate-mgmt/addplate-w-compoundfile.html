@@ -19,6 +19,20 @@
                   ng-change="getMergeInfo()"></select>
         </label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span>
       </div>
+      <div class="upload-box" style="margin-top:20px;">
+        <label>Add a List of compounds (csv):</label><br>
+        <span class="view-sample">
+          [<a href="sample_csv/sample-compound-list.csv" download>Sample csv</a>]
+        </span>
+        <div ng-file-drop ng-file-select ng-model="csvFiles" class="drop-box"
+             drag-over-class="dragover" ng-multiple="false" allow-dir="false"
+             accept="text/csv">Drop csv files here or click to upload
+        </div>
+        <div ng-no-file-drop>File Drag/Drop is not supported for this browser</div>
+        <ul>
+          <li ng-repeat="f in csvFiles" style="font-size: smaller;">{{f.name}}</li>
+        </ul>
+      </div>
     </form>
     <!--<div class="mapping-table" ng-if="selectedPlateMap">-->
     <div class="mapping-table">
@@ -59,7 +73,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="submitPlateSet()" ng-disabled="!showCreateButton(MergeType.ADD_W_CMPD)">Create</button>
-    <button type="button" class="btn btn-link" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="submitPlateSetWithCompoundList()" ng-disabled="!showCreateButton(MergeType.ADD_W_CMPD)">Create</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
   </div>
 </div>

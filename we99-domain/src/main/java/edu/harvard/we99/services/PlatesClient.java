@@ -48,7 +48,7 @@ public class PlatesClient {
 
     public Plates bulkMerge(Experiment experiment, PlateMapMergeInfo mergeInfo, InputStream compounds) throws Exception {
 
-        Response response = postJsonWithStream(experiment, compounds, "/experiment/%d/plates/merge", "merge", toJsonString(mergeInfo));
+        Response response = postJsonWithStream(experiment, compounds, "/experiment/%d/plates/bulkmerge", "merge", toJsonString(mergeInfo));
         InputStream is = (InputStream) response.getEntity();
         return fromString(IOUtils.toString(is), Plates.class);
     }
@@ -79,6 +79,10 @@ public class PlatesClient {
         postJsonWithStream(experiment, csv, "/experiment/%d/fullMonty", "plateType", toJsonString(plateType));
     }
 
+    public void stringMonty(Experiment experiment, PlateType plateType, InputStream csv) throws Exception {
+        post(experiment, csv, "/experiment/%d/stringMonty", "plateType", toJsonString(plateType), MediaType.TEXT_PLAIN);
+    }
+
     private WebClient getWebClient(String path) {
         WebClient client = WebClient.create(base.toExternalForm() + path,
                 username, password, null);
@@ -87,12 +91,17 @@ public class PlatesClient {
     }
 
     private Response postJsonWithStream(Experiment experiment, InputStream compounds, String restURI, String jsonAttachmentId, String jsonString) throws Exception {
+
+        return post(experiment, compounds, restURI, jsonAttachmentId, jsonString, MediaType.APPLICATION_JSON);
+    }
+
+    private Response post(Experiment experiment, InputStream compounds, String restURI, String jsonAttachmentId, String jsonString, String contentType) throws Exception {
         String path = String.format(restURI, experiment.getId());
         WebClient client = getWebClient(path);
 
         MultivaluedMap<String,String> headers = new MultivaluedHashMap<>();
         headers.put("Content-ID", Collections.singletonList(jsonAttachmentId));
-        headers.put("Content-Type", Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.put("Content-Type", Collections.singletonList(contentType));
 
         Response response = client.post(new MultipartBody(Arrays.asList(
                 new Attachment(headers,
@@ -100,7 +109,7 @@ public class PlatesClient {
                                 new InputStreamDataSource(
                                         new ByteArrayInputStream(
                                                 jsonString.getBytes("UTF-8")),
-                                        MediaType.APPLICATION_JSON))),
+                                        contentType))),
                 new Attachment("file", compounds,
                         new ContentDisposition("attachment;filename=data.csv"))
         )));

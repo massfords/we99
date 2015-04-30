@@ -17,8 +17,9 @@
                   <!--ng-model="selectedPlateMap"-->
                   <!--ng-change="getMergeInfo()"></select>-->
         <!--</label> <span class="add-edit">[<a href="#">Add/Edit</a>]</span>-->
+        <label>Add CSV of Plates and Results:</label>
+        <span class="view-sample">[<a href="#">Sample CSV</a>]</span>
         <div class="upload-box">
-          <!-- not sure if i should include application/csv as well -->
           <div ng-file-drop ng-file-select ng-model="csvFiles" class="drop-box"
                drag-over-class="dragover" ng-multiple="false" allow-dir="false"
                accept="text/csv">Drop csv files here or click to upload
@@ -35,6 +36,6 @@
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary" ng-click="submitPlateSetFullMonty()" ng-disabled="!showCreateButton(MergeType.FULL_MONTY)">Create</button>
-    <button type="button" class="btn btn-link" ng-click="cancel()">Cancel</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
   </div>
 </div>

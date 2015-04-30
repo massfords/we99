@@ -13,22 +13,6 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
   return {
 
 
-    // OK TO Delete?
-    ////
-    //// $resource-style calls
-    ////
-    //
-    //plateType: $resource(RestURLs.plateType,{}, {
-    //  query: {method: "GET",
-    //    isArray: true,
-    //    // Get an array back to exhibit expected query behavior
-    //    transformResponse: valuesToArray
-    //  },
-    //  put: {method: "PUT", isArray: false}
-    //}),
-    ////experiment: $resource(RestURLs.experiment,{},{}),
-    //results: $resource(RestURLs.result,{}, {}),
-
     //
     // $http style calls.
     //
@@ -66,9 +50,19 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     removeExperimentPlate: function(experimentId, plateId) {
       return $http.delete(RestURLs.experiment + '/' + experimentId  + "/plates/" + plateId);
     },
+
     // Plate results
     getPlateResults: function(experimentId,plateId){
       return $http.get(RestURLs.experiment+'/'+experimentId+'/plates/'+plateId+'/results');
+    },
+    getDoseResponseData : function(experimentId){
+      return $http.get(RestURLs.experiment+'/'+experimentId+'/doseresponse/results')
+    },
+    updatePlateResults: function(experimentId, plateId, wellChange){
+      return $http.post(RestURLs.experiment+'/'+experimentId+'/plates/'+plateId+'/results/update', wellChange);
+    },
+    updateDoseResponseResult: function(plateId, doseResponseId, wellChange ){
+      return $http.post(RestURLs.experiment+'/'+plateId+'/doseresponse/'+doseResponseId+'/update', wellChange);
     },
     //email filter
     getEmailFilter: function(){
@@ -116,42 +110,68 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
 }]);
 
 
-app.factory('PlateMergeRestService', ['$http', '$q', '$upload', 'RestURLs', function($http,$q,$upload,RestURLs){
+app.factory('PlateMergeRestService', ['$http', '$q', '$log', '$upload', 'RestURLs', function($http,$q,$log,$upload,RestURLs){
   return {
     // For Label Table Gets a partially completed platemap merge info object
     getMergeInfoTemplate: function (plateMapId, plateType) {
       return $http.post(replaceId(RestURLs.mergeInfoTemplate, plateMapId), plateType);
     },
-    // Submit to make plate from user parameters
-    submitMergeInfo: function (experimentId, mergeInfoObject) {
-      //if (!mergeInfoObject.plateName) {mergeInfoObject.plateName = 'Plate-TS' + Date.now();}
-      return $http.put(replaceId(RestURLs.mergeInfoSubmit, experimentId), mergeInfoObject);
+    /** Submit to make plate from user parameters and possibly a compound list csv.
+     *
+     * @param experimentId
+     * @param mergeInfoObject label table and some other info
+     * @param compoundCsv (optional) the file Obj of the compound List csv
+     * @returns {*} a promise object of the connection
+     */
+    submitMergeInfo: function (experimentId, mergeInfoObject, compoundCsv) {
+      if (compoundCsv){
+        var upload = $upload.upload({
+          url: replaceId(RestURLs.mergeInfoSubmitWithCompound, experimentId),
+          method: 'POST',
+          file: compoundCsv,
+          fields:{merge: mergeInfoObject},
+          sendObjectsAsJsonBlob: true
+        }).progress(angular.noop)
+          .success(function(data){
+            $log.info('New plate created');
+          }).error(function(err){
+            $log.error('Error creating plate:' + JSON.stringify(err));
+          });
+        return upload;
+      } else {
+        return $http.put(replaceId(RestURLs.mergeInfoSubmit, experimentId), mergeInfoObject);
+      }
     },
     // Make plates from Full Monty Csv.
     submitPlatesWithResults: function (experimentId, plateType, csvFiles) {
       if (!csvFiles || csvFiles.length !== 1) {
-        console.error('No csv file attached');
+        $log.error('No csv file attached');
         return null;
       }
+      var pt = angular.toJson(plateType);
+      var pto = angular.fromJson(pt);
       var file = csvFiles[0],
         upload = $upload.upload({
           url: RestURLs.experiment + "/" + experimentId + "/fullMonty",
           method: "POST",
           fields: {
-            plateType: plateType
+            plateType: pto
+          },
+          formDataAppender: function(fd,k,v) {
+            fd.append(k, new Blob([pt], {type: "application/json"}));
           },
           file: file
         }).progress(function (event) {
           var progressPercentage = parseInt(100.0 * event.loaded / event.total);
-          console.log('progress: ' + progressPercentage + '% ' +
+          $log.info('progress: ' + progressPercentage + '% ' +
           event.config.file.name);
         }).success(function (data, status, headers, config) {
           var result = JSON.stringify(data);
-          console.log('file ' + config.file.name + 'uploaded. Response: ' +
+          $log.info('file ' + config.file.name + 'uploaded. Response: ' +
           result);
         }).error(function (data, status, headers, config) {
           var result = JSON.stringify(data);
-          console.log('error in file ' + config.file.name + 'uploaded. Response: ' +
+          $log.error('error in file ' + config.file.name + 'uploaded. Response: ' +
           result);
         });
       return $q.when(upload);
