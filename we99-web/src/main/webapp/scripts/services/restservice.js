@@ -61,8 +61,8 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     updatePlateResults: function(experimentId, plateId, wellChange){
       return $http.post(RestURLs.experiment+'/'+experimentId+'/plates/'+plateId+'/results/update', wellChange);
     },
-    updateDoseResponseResult: function(plateId, doseResponseId, wellChange ){
-      return $http.post(RestURLs.experiment+'/'+plateId+'/doseresponse/'+doseResponseId+'/update', wellChange);
+    updateDoseResponseResult: function(experimentId,  wellChange ){
+      return $http.post(RestURLs.experiment+'/'+ experimentId +'/doseresponse/kopoint', wellChange);
     },
     //email filter
     getEmailFilter: function(){

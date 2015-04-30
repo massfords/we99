@@ -92,19 +92,47 @@ angular.module('we99App')
 
       var hasCurve = $scope.selectedCompound.hasCurve;
 
+      var onClick = function(d) {
+        console.log(d);
+
+        $scope.selectedCompound.wells.forEach(function(dataPoint){
+          if(dataPoint.wellIndex == d.wellIndex){
+            dataPoint.included = !dataPoint.included;
+          }
+        });
+
+        function toString(d){
+          if(d){
+            return "INCLUDED";
+          }else{
+            return "EXCLUDED";
+          }
+        }
+
+        RestService.updateDoseResponseResult($scope.selectedExperiment.id, {
+          doseId: d.wellIndex,
+          plateId: d.plateId,
+          status: toString(d.included)
+        }).success(function(d){
+          var data = v.convertDoseResponseData([d])[0];
+          for(var i = 0; i<$scope.compounds.length; i++){
+            if($scope.compounds[i].compound === data.compound){
+              $scope.compounds[i = data];
+            }
+          }
+          $scope.selectedCompound = data;
+          fullDisplayRefresh();
+          console.log(data);
+        });
+
+      };
+
       if(hasCurve){
         v.renderScatterPlot({
           location: displayBoxLocation,
           data: $scope.selectedCompound.wells,
           xScaleIsDate: false,
-          onCellClick: function(d) {
-              $scope.selectedCompound.wells.forEach(function(dataPoint){
-                if(dataPoint.wellIndex == d.wellIndex){
-                  dataPoint.included = !dataPoint.included;
-                }
-              });
-            fullDisplayRefresh();
-          },
+          onCellClick: onClick,
           axisTitle:{
             x: "Dose",
             y: "Response"
@@ -117,14 +145,7 @@ angular.module('we99App')
           location: displayBoxLocation,
           data: $scope.selectedCompound.wells,
           xScaleIsDate: false,
-          onCellClick: function(d) {
-            $scope.selectedCompound.wells.forEach(function(dataPoint){
-              if(dataPoint.wellIndex == d.wellIndex){
-                dataPoint.included = !dataPoint.included;
-              }
-            });
-            fullDisplayRefresh();
-          },
+          onCellClick: onClick,
           axisTitle:{
             x: "Dose",
             y: "Response"
