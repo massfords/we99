@@ -9,7 +9,6 @@ import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.ResultStatus;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 

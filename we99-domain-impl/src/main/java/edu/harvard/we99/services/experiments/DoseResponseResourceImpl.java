@@ -113,7 +113,7 @@ public abstract class DoseResponseResourceImpl implements DoseResponseResourceIn
     @Override
     public DoseResponseResult KoPointAndReCalc(EPointStatusChange ePointstatusChange){
 
-        DoseResponseResult result = null;
+        DoseResponseResult result;
         try{
             Long doseId = ePointstatusChange.getDoseId();
             Long doseResponseId = doseResponseResultStorage.getKOPointDrAndPlateId(experiment.getId(), doseId);
