@@ -1,5 +1,11 @@
 <div class="select-experiment">
-  <h2>Available Assays</h2>
+  <div class="row" ng-joy-ride="startJoyRide" config="tourConfig" on-finish="onFinish()" on-skip="onFinish()">
+    <h2 class="col-md-11">Available Assays</h2>
+    <button class="btn btn-link btn-lg" ng-click="startTour()"><span class="glyphicon glyphicon-question-sign"></span>
+    </button>
+
+  </div>
+
   <table id="expTable" st-table="displayExperiments" st-safe-src="experiments" class="table table-striped">
     <thead>
       <tr>
@@ -45,6 +51,4 @@
 	  </div>
   </div>
   <div class="row"></div>
-  <div style="padding-top:10px;" ng-joy-ride="startJoyRide" config="config" on-finish="onFinish()"  on-skip="onFinish()">
-    <button class="btn btn-default"  ng-click="startTour()">Start Tour</button></div>
   </div>

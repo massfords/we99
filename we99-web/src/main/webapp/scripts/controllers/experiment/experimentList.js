@@ -107,7 +107,7 @@ angular.module('we99App')
       $scope.startJoyRide=true;
     };
 
-    $scope.config = [
+    $scope.tourConfig = [
       {
         type: "title",
         heading: "Welcome to the West-East 99 tour",

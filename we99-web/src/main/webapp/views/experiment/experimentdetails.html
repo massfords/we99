@@ -1,8 +1,12 @@
 <div class="experiment-details">
-  <h2>Details for Experiment ID: {{experiment.id}}</h2>
+  <div class="row" ng-joy-ride="startJoyRide" config="tourConfig" on-finish="onFinish()" on-skip="onFinish()">
+    <h2 class="col-md-11">Details for Experiment ID: {{experiment.id}}</h2>
+    <button class="btn btn-link btn-lg" ng-click="startTour()"><span class="glyphicon glyphicon-question-sign"></span>
+    </button>
+    </div>
   <h3>{{experiment.name}}</h3>
 
-  <div class="primary-details">
+  <div id="primary-details" class="primary-details">
     <we-pair name="Description" value="{{experiment.description}}"></we-pair>
     <we-pair name="Status" value="{{experiment.status}}"></we-pair>
     <we-pair name="Created" value="{{experiment.created | date}}"></we-pair>
@@ -11,12 +15,12 @@
 
   <section>
     <div class="row">
-        <button title="Create plates from details provided" class="btn btn-primary" ng-click="openAddPlateModal()">
-          <i class="glyphicon glyphicon-plus"></i>
+        <button id="addPlateBtn" tooltip="Create plates from details provided" class="btn btn-primary" ng-click="openAddPlateModal()">
+          <span class="glyphicon glyphicon-plus"></span>
           Add Plate
         </button>
         <div class="btn-group" dropdown is-open="bulkBtn.isopen">
-          <button type="button" class="btn btn-warning dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          <button id="bulkPlateBtn" type="button" class="btn btn-warning dropdown-toggle" dropdown-toggle ng-disabled="disabled">
             <i class="glyphicon glyphicon-plus"></i> Bulk Add <i class="glyphicon glyphicon-chevron-down"></i>
           </button>
           <ul class="dropdown-menu" role="menu">
@@ -41,7 +45,7 @@
 
     <!-- plates -->
     <div class="table-fixed-height">
-      <table st-table="displayPlates" st-safe-src="plates" class="table table-striped">
+      <table id="plateTable" st-table="displayPlates" st-safe-src="plates" class="table table-striped">
         <thead>
         <tr>
           <th st-sort="id">ID</th>

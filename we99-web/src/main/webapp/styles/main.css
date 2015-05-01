@@ -148,6 +148,10 @@ table.table.table-striped .st-selected td {
   font-size: 110%;
 }
 
+span.glyphicon-question-sign {
+  font-size: 200%;
+}
+
 
 /* General Directive Formatting */
 we-pair .name{
