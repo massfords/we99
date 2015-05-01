@@ -8,7 +8,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('AdminSettingsCtrl', function ($scope,RestService) {
+  .controller('AdminSettingsCtrl', function ($scope,RestService,TourConstants) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -65,4 +65,12 @@ angular.module('we99App')
     	$scope.errorText=msg;
     	console.log(msg);
     }
+
+    //=== Tour Settings ===
+
+    $scope.startTour=function(){
+      $scope.startJoyRide=true;
+    };
+
+    $scope.tourConfig=TourConstants.emailConfigTour;
   });

@@ -8,7 +8,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('CompoundsCtrl', function ($scope, $log,$upload,RestURLs,RestService,$modal) {
+  .controller('CompoundsCtrl', function ($scope, $log,$upload,RestURLs,RestService,$modal,TourConstants) {
 
 
     //max compounds to display
@@ -47,6 +47,14 @@ angular.module('we99App')
     };
 
     refreshCompounds();
+
+    //=== Tour Settings ===
+
+    $scope.startTour=function(){
+      $scope.startJoyRide=true;
+    };
+
+    $scope.tourConfig=TourConstants.compoundTour;
 
   });
 

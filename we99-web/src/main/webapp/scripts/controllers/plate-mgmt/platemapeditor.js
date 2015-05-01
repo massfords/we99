@@ -8,7 +8,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('PlateMapEditorCtrl', function ($scope, $modal,$log, PlateMapModel) {
+  .controller('PlateMapEditorCtrl', function ($scope, $modal,$log, PlateMapModel,TourConstants) {
     $scope.displayPlateMaps = [];
     $scope.plateMaps = [];
 
@@ -67,6 +67,15 @@ angular.module('we99App')
 
     /* RUN ON LOAD */
     refreshPlateMapsList();
+
+    //=== Tour Settings ===
+
+    $scope.startTour=function(){
+      $scope.startJoyRide=true;
+    };
+
+    $scope.tourConfig=TourConstants.plateMapTour;
+
   })
   .controller('AddPlateMapCtrl', function($scope,RestURLs,$modalInstance,$log,$upload){
       $scope.name = null;

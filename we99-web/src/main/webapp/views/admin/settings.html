@@ -1,35 +1,46 @@
-<h2>Administration Server Settings</h2>
+<div class="row" ng-joy-ride="startJoyRide" config="tourConfig" on-finish="onFinish()" on-skip="onFinish()">
+  <h2 class="col-md-11">Administration Server Settings</h2>
+  <button class="btn btn-link btn-lg" ng-click="startTour()"><span class="glyphicon glyphicon-question-sign"></span>
+  </button>
+</div>
 <div class="alert alert-success" style="width:50%;" role="alert" ng-show="infoText">{{infoText}}</div>
 <div class="alert alert-danger" style="width:50%;" role="alert" ng-show="errorText">{{errorText}}</div>
- <form role="form" name="emailFilterForm">
-  
-  <fieldset><legend>New User Email Pattern</legend>
-  
-  <div class="form-group">
-    <label for="emailPattern">Email Pattern:</label>
-    <input type="text" class="form-control" id="emailPattern" placeholder="*@example.com" ng-model="emailFilter.expression" required>
-  </div>
-  <button type="submit" class="btn btn-primary" ng-click="saveEmailFilter()">Apply</button>
+<form role="form" name="emailFilterForm">
+
+  <fieldset>
+    <legend>New User Email Pattern</legend>
+
+    <div id="emailPatternDiv" class="form-group">
+      <label for="emailPattern">Email Pattern:</label>
+      <input type="text" class="form-control" id="emailPattern" placeholder="*@example.com"
+             ng-model="emailFilter.expression" required>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="saveEmailFilter()">Apply</button>
   </fieldset>
-  </form>
-  <form role="form" name="settingsForm" style="padding-top:10px;">
-  <fieldset><legend>Email Configuration</legend>
-  <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="text" class="form-control" id="username" placeholder="we99.2015@gmail.com" ng-model="configSettings.username" required>
-  </div>
-  <div class="form-group">
-    <label for="port">Port:</label>
-    <input type="number" class="form-control" id="port" placeholder="587" ng-model="configSettings.port" required>
-  </div>
-  <div class="form-group">
-    <label for="pwd">Password:</label>
-    <input type="password" class="form-control" id="pwd" ng-model="configSettings.password" required>
-  </div>
-  <div class="form-group">
-    <label for="outgoingEmail">Outgoing Return Email:</label>
-    <input type="email" class="form-control" id="outgoingEmail" placeholder="we99.2015@gmail.com" ng-model="configSettings.from" required>
-  </div>
-  <button type="submit" class="btn btn-primary" ng-click="saveServerSettings()">Apply</button>
 </form>
-</fieldset>
+
+<form role="form" name="settingsForm" style="padding-top: 15px;">
+  <fieldset id="emailServerDiv">
+    <legend>Email Configuration</legend>
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" class="form-control" id="username" placeholder="we99.2015@gmail.com"
+             ng-model="configSettings.username" required>
+    </div>
+    <div class="form-group">
+      <label for="port">Port:</label>
+      <input type="number" class="form-control" id="port" placeholder="587" ng-model="configSettings.port" required>
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" ng-model="configSettings.password" required>
+    </div>
+    <div class="form-group">
+      <label for="outgoingEmail">Outgoing Return Email:</label>
+      <input type="email" class="form-control" id="outgoingEmail" placeholder="we99.2015@gmail.com"
+             ng-model="configSettings.from" required>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="saveServerSettings()">Apply</button>
+  </fieldset>
+</form>
+

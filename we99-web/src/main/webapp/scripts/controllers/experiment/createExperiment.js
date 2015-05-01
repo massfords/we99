@@ -8,7 +8,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ExperimentCreateCtrl', function ($scope,$routeParams, $location, $modal, RestService) {
+  .controller('ExperimentCreateCtrl', function ($scope,$routeParams, $location, $modal, RestService, TourConstants) {
 
     // if given id, this is an edit of an existing experiment
     if ($routeParams.addeditId==='new') {
@@ -209,6 +209,12 @@ angular.module('we99App')
           console.log('Modal dismissed at: ' + new Date());
         });
       };
+
+    $scope.startTour=function(){
+      $scope.startJoyRide=true;
+    };
+
+    $scope.tourConfig=TourConstants.experimentCreateTour;
 
   });
 

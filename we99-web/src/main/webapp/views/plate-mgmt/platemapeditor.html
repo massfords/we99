@@ -1,9 +1,14 @@
 <div class="list-platemaps">
-  <h2>List of Plate Maps</h2>
 
-  <div class="table-fixed-height">
+  <div class="row" ng-joy-ride="startJoyRide" config="tourConfig" on-finish="onFinish()" on-skip="onFinish()">
+    <h2 class="col-md-11">List of Plate Maps</h2>
+    <button class="btn btn-link btn-lg" ng-click="startTour()"><span class="glyphicon glyphicon-question-sign"></span>
+    </button>
+  </div>
+
+  <div id="plateMapTable" class="table-fixed-height">
     <table st-table="displayPlateMap" st-safe-src="plateMaps" class="table table-striped">
-      <thead>
+      <thead id="tableheader">
       <tr>
         <th st-sort="name">Name</th>
         <th st-sort="description">Description</th>
@@ -11,7 +16,7 @@
         <th>Action</th>
       </tr>
       <tr>
-        <th colspan="5"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
+        <th colspan="5"><input id="searchbar" st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
       </tr>
       </thead>
       <tbody>
@@ -31,8 +36,10 @@
     <alert type="success" close="closeAlert()">{{modalSuccessMsg}}</alert>
   </div>
   <!-- Add Button -->
-  <button type="button" class="btn btn-small btn-success"
+  <div id="addBtn1">
+  <button id="addBtn" type="button" class="btn btn-small btn-success" style="position:relative;"
           ng-click="showAddPlateMap()">
     <i class="glyphicon glyphicon-plus"></i>Add
   </button>
+  </div>
 </div>

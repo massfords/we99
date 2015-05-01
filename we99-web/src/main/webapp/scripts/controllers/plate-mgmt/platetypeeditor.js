@@ -8,8 +8,8 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-    .controller('PlateTypeEditorCtrl', ['$scope','$modal', 'PlateTypeModel',
-        function ($scope,$modal, PlateTypeModel) {
+    .controller('PlateTypeEditorCtrl', ['$scope','$modal', 'PlateTypeModel', 'TourConstants',
+        function ($scope,$modal, PlateTypeModel,TourConstants) {
           var kNewPlateTypeOptions = [
             // Add remove static option 'templates' here
             {name: '6-Well',    rows: 2, cols:3},
@@ -69,4 +69,12 @@ angular.module('we99App')
 
           /* RUN ON LOAD */
           refreshPlateTypesList();
+
+          //=== Tour Settings ===
+
+          $scope.startTour=function(){
+            $scope.startJoyRide=true;
+          };
+
+          $scope.tourConfig=TourConstants.plateTypeTour;
       }]);

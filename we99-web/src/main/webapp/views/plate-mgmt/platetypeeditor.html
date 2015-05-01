@@ -1,8 +1,12 @@
 <div class="select-template">
-  <h2>List of Plate Types</h2>
+  <div class="row" ng-joy-ride="startJoyRide" config="tourConfig" on-finish="onFinish()" on-skip="onFinish()">
+    <h2 class="col-md-11">List of Plate Types</h2>
+    <button class="btn btn-link btn-lg" ng-click="startTour()"><span class="glyphicon glyphicon-question-sign"></span>
+    </button>
+  </div>
 
   <div class="table-fixed-height">
-    <table st-table="displayPlateTypes" st-safe-src="plateTypes" class="table table-striped">
+    <table id="plateTypeTable" st-table="displayPlateTypes" st-safe-src="plateTypes" class="table table-striped">
       <thead>
         <tr>
           <th st-sort="name">Name</th>
@@ -13,7 +17,7 @@
           <th>Action</th>
         </tr>
        <tr>
-        <th colspan="5"><input st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
+        <th colspan="5"><input id="searchbar" st-search="" class="form-control" placeholder="Search ..." type="text"/></th>
       </tr>
       </thead>
       <tbody>
@@ -31,7 +35,7 @@
     </table>
   </div>
   <!-- Add Button -->
-  <div class="btn-group" dropdown is-open="showAddTypeOptions">
+  <div id="addBtn" class="btn-group" dropdown is-open="showAddTypeOptions">
     <button type="button" class="btn btn-small btn-success dropdown-toggle"
             dropdown-toggle="true">
       <i class="glyphicon glyphicon-plus">
