@@ -5,31 +5,36 @@
 
 </div>
 
-<div style="border: 1px solid grey; width: 200px; position: relative; float: left; height: 600px; overflow-y: scroll">
 
-  <b>Selected Compounds:</b>
+<div style="font-size: .8em; height: 600px; width: 300px; position: relative; float: left; border: 1px solid grey; margin-right: 15px; overflow-y: scroll">
   <table class="table table-condensed">
     <thead>
       <th>Compound</th>
+      <th>EC50</th>
+      <th>MIN</th>
+      <th>MAX</th>
+      <th>SLOPE</th>
       <th>Color</th>
     </thead>
     <tbody>
-      <tr ng-repeat="comp in compounds">
-        <td>
-          <label>
-            <input type="checkbox" checklist-model="selectedCompounds"
-                   checklist-change="toggleCompound(comp)" checklist-value="comp"> {{comp.compound}}
-          </label>
-        </td>
-        <td>
-          <svg style="position: relative; width:20px; height:20px;">
-            <rect class="coloration" id="{{comp.compound}}" fill="white" width="20" height="20"/>
-          </svg>
-        </td>
-      </tr>
+    <tr ng-repeat="compound in compounds"
+        ng-class="{active:  (compound.compound) == selectedCompound.compound}"
+        ng-click="toggleCompound(compound)">
+      <td>{{ compound.compound }}</td>
+      <td>{{ compound.EC50 }}</td>
+      <td>{{ compound.MIN }}</td>
+      <td>{{ compound.MAX }}</td>
+      <td>{{ compound.SLOPE }}</td>
+      <td>
+        <svg style="position: relative; width:20px; height:20px;">
+          <rect class="coloration" id="{{compound.compound}}" fill="white" width="20" height="20"/>
+        </svg>
+      </td>
+    </tr>
     </tbody>
-    </table>
+  </table>
 </div>
+
 <div style="width: 600px; height: 600px; position: relative; float: left;" id="display-container">
   <svg style="width: 600px; height: 600px" id="scatter-plot"></svg>
 </div>

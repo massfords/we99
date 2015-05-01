@@ -55,8 +55,6 @@ angular.module('we99App')
 
           var experimentId = newValue.id;
 
-
-
           RestService.getDoseResponseData(experimentId)
             .success(function(response){
 
@@ -95,9 +93,11 @@ angular.module('we99App')
       var onClick = function(d) {
         console.log(d);
 
+        var toggle = null;
         $scope.selectedCompound.wells.forEach(function(dataPoint){
           if(dataPoint.wellIndex == d.wellIndex){
             dataPoint.included = !dataPoint.included;
+            toggle = dataPoint.included;
           }
         });
 
@@ -112,7 +112,7 @@ angular.module('we99App')
         RestService.updateDoseResponseResult($scope.selectedExperiment.id, {
           doseId: d.wellIndex,
           plateId: d.plateId,
-          status: toString(d.included)
+          status: toString(toggle)
         }).success(function(d){
           var data = v.convertDoseResponseData([d])[0];
           for(var i = 0; i<$scope.compounds.length; i++){

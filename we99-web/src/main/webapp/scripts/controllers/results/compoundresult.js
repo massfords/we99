@@ -53,37 +53,47 @@ angular.module('we99App')
         $scope.$watch('selectedExperiment', function(newValue, oldValue) {
 
           var experimentId = newValue.id;
-          RestService.getExperimentPlates(experimentId)
+
+          RestService.getDoseResponseData(experimentId)
             .success(function(response){
-              var plateIds = response.values.filter(function(plate){ return plate.hasResults;}).map(function(plate){return plate.id;});
-              var promises = plateIds.map(function(plateId){ return RestService.getPlateResults(experimentId, plateId); });
-              $q.all(promises).then(function(response){
-                $scope.compounds = transform(v.convertPlateResultData(response.map(function(d){return d.data;})));
 
-                console.log($scope.compounds);
-                $scope.selectedCompounds = [$scope.compounds[0]];
-                fullDisplayRefresh();
+              $scope.compounds = v.convertDoseResponseData(response.values);
+              $scope.selectedCompounds = [$scope.compounds[0]];
 
-                $scope.toggleCompound = function(compound){
-                  console.log(compound);
-                  var index = -1;
-                  $scope.selectedCompounds.forEach(function(d,i){
-                    if(compound.compound === d.compound){
-                      index = i;
-                    }
-                  })
-                  if(index > -1){
-                    $scope.selectedCompounds.slice(index, 1);
-                  }else{
-                    $scope.selectedCompounds.push(compound);
+              $scope.toggleCompound = function(compound){
+
+                var index = -1;
+
+                $scope.selectedCompounds.forEach(function(d,i){
+                  if(compound.$$hashKey === d.$$hashKey){
+                    index = i;
                   }
-                  fullDisplayRefresh();
+                });
+
+                if(index > -1){
+                  console.log($scope.selectedCompounds);
+                  $scope.selectedCompounds.splice(index, 1);
+                  console.log($scope.selectedCompounds);
+                }else{
+                  $scope.selectedCompounds.push(compound);
                 }
 
-              });
-            }).error(function(response){
-              $scope.errorText="Could not retrieve plate list for expriement [id=" + experimentId + "]";
-            });;
+                console.log($scope.selectedCompounds);
+
+
+                d3.select("#" + compound.compound)
+                  .attr("fill", "white");
+
+                fullDisplayRefresh();
+
+              };
+
+              fullDisplayRefresh();
+
+            }).error(function(error){
+
+            });
+
 
         });
 
@@ -96,7 +106,6 @@ angular.module('we99App')
 
       var colors = d3.scale.category20();
 
-      console.log($scope.selectedCompounds);
       $scope.selectedCompounds.forEach(function(compound, i){
 
         var color = colors(i);
@@ -117,9 +126,7 @@ angular.module('we99App')
           max: d3.max(data.map(function (d) { return d[0]; }))
         };
 
-        var lineFit = v.linear_regression()
-          .data(data)
-          .line();
+
 
         if(i === 0) {
           v.renderLine({
@@ -129,9 +136,7 @@ angular.module('we99App')
             location: displayBoxLocation,
             scaleY: scaleY,
             scaleX: scaleX,
-            lineFunction: function (x) {
-              return lineFit(x);
-            },
+            linePoints: compound.curve,
             axisTitle: {
               x: "Dose",
               y: "Response"
@@ -146,9 +151,7 @@ angular.module('we99App')
             location: displayBoxLocation,
             scaleY: scaleY,
             scaleX: scaleX,
-            lineFunction: function (x) {
-              return lineFit(x);
-            },
+            linePoints: compound.curve,
             axisTitle: {
               x: "Dose",
               y: "Response"
