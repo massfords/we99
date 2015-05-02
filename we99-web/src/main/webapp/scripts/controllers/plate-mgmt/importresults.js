@@ -18,7 +18,7 @@ angular.module('we99App')
 
     //autoupload watch
   $scope.$watch('files', function () {
-    $scope.upload($scope.files);
+    $scope.upload();
   });
 
 
@@ -28,6 +28,7 @@ angular.module('we99App')
       //  $scope.errorText="You must select a plate before uploading results";
       //  return;
       //}
+      console.log('in upload()');
 
       if ($scope.files && $scope.files.length) {
         for (var i = 0; i < $scope.files.length; i++) {
