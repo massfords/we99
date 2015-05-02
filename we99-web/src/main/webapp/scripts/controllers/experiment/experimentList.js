@@ -102,14 +102,12 @@ angular.module('we99App')
     		$scope.errorText=null;
     };
 
-    // Tour Settings:
+      //=== Tour Settings
 
-        $scope.startTour = function () {
-          console.log(TourConstants);
-          console.log(TourConstants.experimentTour);
+      $scope.startTour = function () {
+        $scope.tourConfig = TourConstants.cleanTourConfig(TourConstants.experimentListTour);
+        if ($scope.tourConfig.length >= 1)
           $scope.startJoyRide = true;
-        };
+      };
 
-    $scope.tourConfig = TourConstants.experimentTour;
-
-  }]);
+}]);

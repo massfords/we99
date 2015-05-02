@@ -29,7 +29,7 @@
       <td>{{row.description}}</td>
       <td>
         <span ng-if="row.status==='PUBLISHED'">Published</span>
-        <a ng-click="publish(row)"
+        <a class="publishLink" ng-click="publish(row)"
            ng-if="row.status==='UNPUBLISHED'">Unpublished</a>
       </td>
       <td>{{row.protocol.name}}</td>

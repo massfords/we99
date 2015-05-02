@@ -1,4 +1,8 @@
-
+<div class="row" ng-joy-ride="startJoyRide" config="tourConfig" on-finish="onFinish()" on-skip="onFinish()">
+  <h2 class="col-md-11">Heatmap</h2>
+  <button class="btn btn-link btn-lg" ng-click="startTour()"><span class="glyphicon glyphicon-question-sign"></span>
+  </button>
+</div>
 <div style="margin-left: 100px" id="controls">
   <b>Select Assay:</b>
   <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
@@ -118,3 +122,4 @@
 </div>
 
 <div id="list-box"></div>
+</div>

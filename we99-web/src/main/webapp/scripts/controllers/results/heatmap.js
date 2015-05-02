@@ -10,7 +10,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('HeatmapCtrl', ["$q", "$scope", "RestService", function ($q, $scope, RestService) {
+  .controller('HeatmapCtrl', ["$q", "$scope", "RestService","TourConstants", function ($q, $scope, RestService,TourConstants) {
 
     var v = new DataVis();
 
@@ -292,7 +292,14 @@ angular.module('we99App')
       };
     }
 
+    //=== Tour Settings ===
+
+    $scope.startTour=function(){
+      $scope.tourConfig=TourConstants.cleanTourConfig(TourConstants.heatmapTour);
+      if($scope.tourConfig.length>=1)
+        $scope.startJoyRide=true;
+    };
+
+
   }]
-
-
 );

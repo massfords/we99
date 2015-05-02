@@ -1,4 +1,8 @@
-
+<div class="row" ng-joy-ride="startJoyRide" config="tourConfig" on-finish="onFinish()" on-skip="onFinish()">
+  <h2 class="col-md-11">Omnimap</h2>
+  <button class="btn btn-link btn-lg" ng-click="startTour()"><span class="glyphicon glyphicon-question-sign"></span>
+  </button>
+</div>
 <div id="controls">
   Select Assay:
   <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>

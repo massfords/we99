@@ -10,7 +10,8 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('CompoundResultsCntrl', ["$q", "$scope", "RestService", function ($q , $scope, RestService) {
+  .controller('CompoundResultsCntrl', ["$q", "$scope", "RestService", "TourConstants",
+    function ($q , $scope, RestService,TourConstants) {
 
     var v = new DataVis();
     var displayBoxLocation = "#scatter-plot";
@@ -166,5 +167,14 @@ angular.module('we99App')
       });
 
     }
+
+    //=== Tour Settings ===
+
+    $scope.startTour=function(){
+      $scope.tourConfig=TourConstants.cleanTourConfig(TourConstants.compoundResultsTour);
+      if($scope.tourConfig.length>=1)
+        $scope.startJoyRide=true;
+    };
+
 
   }]);

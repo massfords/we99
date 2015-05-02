@@ -8,8 +8,8 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('ExperimentDetailsCtrl', ['$scope', '$routeParams', '$modal', 'SelectedExperimentSvc',
-    function ($scope, $routeParams, $modal, SelectedExperimentSvc) {
+  .controller('ExperimentDetailsCtrl', ['$scope', '$routeParams', '$modal', 'SelectedExperimentSvc','TourConstants',
+    function ($scope, $routeParams, $modal, SelectedExperimentSvc,TourConstants) {
       $scope.experiment = null;
       $scope.plates = null;
       $scope.show = {
@@ -99,55 +99,10 @@ angular.module('we99App')
       //=== Tour Settings ===
 
       $scope.startTour=function(){
-        $scope.startJoyRide=true;
+        $scope.tourConfig=TourConstants.cleanTourConfig(TourConstants.experimentDetailsTour);
+        if($scope.tourConfig.length>=1)
+          $scope.startJoyRide=true;
       };
 
-      $scope.tourConfig=[
-        {
-          type: "element",
-          selector: "#primary-details",
-          heading: "Experiment Details",
-          text: "This is the Experiment Details page. Details for the specific experiment are listed here.",
-          placement: "top",
-          scroll: true
-        }
-        ,
-        {
-          type: "element",
-          selector: "#plateTable",
-          heading: "Experiment Details",
-          text: "The table shows the list of plates associated with this experiment",
-          placement: "top",
-          scroll: true
-        }
-        ,
-        {
-          type: "element",
-          selector: "#addPlateBtn",
-          heading: "Experiment Details",
-          text: "Use to button to add a single new plate with a list of compounds and dosage concentrations.",
-          placement: "top",
-          scroll: true
-        }
-        ,{
-          type: "element",
-          selector: "#bulkPlateBtn",
-          heading: "Experiment Details",
-          text: "Use this button to create a bulk set of plates or upload a bulk set of results.",
-          placement: "top",
-          scroll: true,
-          attachToBody:true
-        }
-
-        ,{
-          type: "element",
-          selector: ".glyphicon-remove-circle:first",
-          heading: "Experiment Details",
-          text: "Click the delete button to remove a plate from the experiment.",
-          placement: "top",
-          scroll: true
-        }
-
-      ];
 
     }]);

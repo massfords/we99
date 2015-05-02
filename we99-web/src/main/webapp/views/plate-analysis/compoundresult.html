@@ -1,13 +1,19 @@
 
+<div class="row" ng-joy-ride="startJoyRide" config="tourConfig" on-finish="onFinish()" on-skip="onFinish()">
+  <h2 class="col-md-11">Compound Results</h2>
+  <button class="btn btn-link btn-lg" ng-click="startTour()"><span class="glyphicon glyphicon-question-sign"></span>
+  </button>
+</div>
+
 <div style="margin: 15px" id="controls">
   Select Assay:
   <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
 
 </div>
 
-
+<div>
 <div style="font-size: .8em; height: 600px; width: 300px; position: relative; float: left; border: 1px solid grey; margin-right: 15px; overflow-y: scroll">
-  <table class="table table-condensed">
+  <table id="compoundTable" class="table table-condensed">
     <thead>
       <th>Compound</th>
       <th>EC50</th>
@@ -34,7 +40,7 @@
     </tbody>
   </table>
 </div>
-
+</div>
 <div style="width: 600px; height: 600px; position: relative; float: left;" id="display-container">
   <svg style="width: 600px; height: 600px" id="scatter-plot"></svg>
 </div>

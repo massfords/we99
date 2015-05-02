@@ -10,7 +10,7 @@
  * Controller of the we99App
  */
 angular.module('we99App')
-  .controller('OmniMapCtrl', ["$q", "$scope", "RestService", function ($q, $scope, RestService) {
+  .controller('OmniMapCtrl', ["$q", "$scope", "RestService","TourConstants", function ($q, $scope, RestService,TourConstants) {
 
     var v = new DataVis();
 
@@ -323,7 +323,15 @@ angular.module('we99App')
       return newData;
     }
 
+
+    //=== Tour Settings ===
+
+    $scope.startTour=function(){
+      $scope.tourConfig=TourConstants.cleanTourConfig(TourConstants.omnimapTour);
+      if($scope.tourConfig.length>=1)
+        $scope.startJoyRide=true;
+    };
+
+
   }]
-
-
 );
