@@ -79,7 +79,7 @@ module.exports = function (grunt) {
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                connect.static('bower_components')
               ),
               connect().use(
                 '/webapp/styles',
@@ -99,7 +99,7 @@ module.exports = function (grunt) {
               connect.static('test'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                connect.static('bower_components')
               ),
               connect.static(appConfig.app)
             ];
@@ -141,7 +141,6 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '../../target/test-report/front-end',
             '<%= yeoman.dist %>/{,*/}*',
             '!<%= yeoman.dist %>/.git{,*/}*'
           ]
@@ -225,7 +224,9 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: ['<%= yeoman.app %>/index.html'],
+      //['<%= yeoman.dist %>/{,*/}*.html' {,*/}*
+      //,'<%= yeoman.app %>/login/{,*/}*.html'
       options: {
         dest: '<%= yeoman.dist %>',
         flow: {
@@ -304,6 +305,7 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
+          removeComments: true,
           collapseWhitespace: true,
           conservativeCollapse: true,
           collapseBooleanAttributes: true,
@@ -352,7 +354,12 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
+            'login/{,*/}*.*',
+            'swagger/{,*/}*.*',
+            'sample_csv/{,*/}*.*',
+            'WEB-INF/{,*/}*.xml',
             'images/{,*/}*.{webp}',
+            //'images/{,*/}*.*',
             'styles/fonts/{,*/}*.*'
           ]
         }, {
@@ -362,7 +369,7 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }, {
           expand: true,
-          cwd: 'bower_components/bootstrap/dist',
+          cwd: '<%= yeoman.app %>/bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         }]
@@ -449,7 +456,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
+    //'cdnify',
     'cssmin',
     'uglify',
     'filerev',

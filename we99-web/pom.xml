@@ -169,9 +169,25 @@
 									</arguments>
 								</configuration>
                             </execution>
-							
+							<execution>
+								<!-- Use grunt to prepare frontend for distribution (minifies it) -->
+								<!-- Prepared frontend files will be stored in src/main/dist -->
+								<id>grunt distribution build</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>grunt</executable>
+									<workingDirectory>./src/main</workingDirectory>
+									<arguments>
+										<argument>build</argument>
+										<argument>--no-color</argument>
+										<!--<argument>&#45;&#45;verbose</argument>-->
+									</arguments>
+								</configuration>
+							</execution>
                         </executions>
-                        
                     </plugin>
 				</plugins>
 			</build>
