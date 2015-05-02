@@ -14,54 +14,24 @@ angular.module('we99App')
     function ($q, $scope, RestService,TourConstants) {
 
     var v = new DataVis();
-    var displayBoxLocation = "#scatter-plot";
-
-    function transform(data){
-      var result = [];
-      data.forEach(function(plate){
-        plate.data.forEach(function(well) {
-          if (well.wellType !== 'NEG_CONTROL' & well.wellType !== "POS_CONTROL") {
-
-            var found = false;
-
-            result.forEach(function (r) {
-              if (r.compound === well.compound) {
-                found = true;
-                r.wells.push(well);
-              }
-            });
-
-            if(!found){
-              result.push(
-                {compound: well.compound, wells: []}
-              );
-            }
-
-          }
-        });
-      });
-      return result;
-    }
 
     // Retrieve list of experiments
     RestService.getExperiments()
       .success(function (response) {
 
-        // Experiment Drop Down
+        // Experiment drop down.
         $scope.experiments = response.values;
-        console.log(response.values);
         $scope.selectedExperiment = $scope.experiments[0];
 
-        $scope.$watch('selectedExperiment', function(newValue, oldValue) {
+        $scope.$watch('selectedExperiment', function(newValue) {
 
           var experimentId = newValue.id;
-
           RestService.getDoseResponseData(experimentId)
             .success(function(response){
 
+              // Compound setup.
               $scope.compounds = v.convertDoseResponseData(response.values);
               $scope.selectedCompound = $scope.compounds[0];
-
               $scope.selectCompound = function(compound){
                 $scope.selectedCompound = compound;
                 fullDisplayRefresh();
@@ -69,31 +39,31 @@ angular.module('we99App')
 
               fullDisplayRefresh();
 
-            }).error(function(error){
-
+            }).error(function(){
+              $scope.errorText='Failed to load dose response data.';
             });
 
         });
 
 
+      }).error(function(){
+        $scope.errorText='Failed to load experiment data.';
       });
 
+    /**
+     * Handles all of the rendering logic for handling a complete redraw of the screen.
+     */
     function fullDisplayRefresh(){
+
+      var displayBoxLocation = "#scatter-plot";
+
+      // Wipe out any current content
       d3.select(displayBoxLocation).html("");
 
-
-      console.log($scope.selectedCompound.curve);
-
-      var min = d3.min(
-        $scope.selectedCompound.wells.map(function(d) {return d.value;})
-      );
-      var max = d3.max($scope.selectedCompound.wells.map(function(d) {return d.value;}));
-
-      var hasCurve = $scope.selectedCompound.hasCurve;
-
+      // On click callback function for a scatter plot point.
       var onClick = function(d) {
-        console.log(d);
 
+        // Toggle well point.
         var toggle = null;
         $scope.selectedCompound.wells.forEach(function(dataPoint){
           if(dataPoint.wellIndex == d.wellIndex){
@@ -102,58 +72,55 @@ angular.module('we99App')
           }
         });
 
-        function toString(d){
-          if(d){
-            return "INCLUDED";
-          }else{
-            return "EXCLUDED";
-          }
+        // Helper function for converting toggle (true/false) to a string.
+        function _toString(d){
+          if(d){ return "INCLUDED"; }
+          else{ return "EXCLUDED"; }
         }
 
+        // Register update with the server.
         RestService.updateDoseResponseResult($scope.selectedExperiment.id, {
-          doseId: d.wellIndex,
-          plateId: d.plateId,
-          status: toString(toggle)
-        }).success(function(d){
-          var data = v.convertDoseResponseData([d])[0];
-          for(var i = 0; i<$scope.compounds.length; i++){
-            if($scope.compounds[i].compound === data.compound){
-              $scope.compounds[i = data];
+            doseId: d.wellIndex,
+            plateId: d.plateId,
+            status: _toString(toggle)
+          }).success(function(d){
+            var data = v.convertDoseResponseData([d])[0];
+            for(var i = 0; i<$scope.compounds.length; i++){
+              if($scope.compounds[i].compound === data.compound){
+                $scope.compounds[i = data];
+              }
             }
-          }
-          $scope.selectedCompound = data;
-          fullDisplayRefresh();
-          console.log(data);
-        });
+            $scope.selectedCompound = data;
+            fullDisplayRefresh();
+          }).error(function(){
+            $scope.errorText='Failed to load dose response data.';
+          });
 
       };
 
-      if(hasCurve){
-        v.renderScatterPlot({
-          location: displayBoxLocation,
-          data: $scope.selectedCompound.wells,
-          xScaleIsDate: false,
-          onCellClick: onClick,
-          axisTitle:{
-            x: "Dose",
-            y: "Response"
-          },
-          scaleY: {min: min, max: max},
-          linePoints: $scope.selectedCompound.curve
-        });
-      }else{
-        v.renderScatterPlot({
-          location: displayBoxLocation,
-          data: $scope.selectedCompound.wells,
-          xScaleIsDate: false,
-          onCellClick: onClick,
-          axisTitle:{
-            x: "Dose",
-            y: "Response"
-          },
-          scaleY: {min: min, max: max}
-        });
+      // Normal set of parameters.
+      var scatterPlotParameters = {
+        location: displayBoxLocation,
+        data: $scope.selectedCompound.wells,
+        xScaleIsDate: false,
+        onCellClick: onClick,
+        axisTitle: {
+          x: "Dose",
+          y: "Response"
+        },
+        scaleY: {
+          min: d3.min($scope.selectedCompound.wells.map(function(d) {return d.value;})),
+          max: d3.max($scope.selectedCompound.wells.map(function(d) {return d.value;}))
+        }
+      };
+
+      // If the parameter has a curve then use the curve as well.
+      if($scope.selectedCompound.hasCurve) {
+        scatterPlotParameters.linePoints = $scope.selectedCompound.curve;
       }
+
+      v.renderScatterPlot(scatterPlotParameters);
+
     }
       //=== Tour Settings ===
 

@@ -14,34 +14,9 @@ angular.module('we99App')
     function ($q , $scope, RestService,TourConstants) {
 
     var v = new DataVis();
-    var displayBoxLocation = "#scatter-plot";
 
-    function transform(data){
-      var result = [];
-      data.forEach(function(plate){
-        plate.data.forEach(function(well) {
-          if (well.wellType !== 'NEG_CONTROL' & well.wellType !== "POS_CONTROL" & well.included) {
-
-            var found = false;
-
-            result.forEach(function (r) {
-              if (r.compound === well.compound) {
-                found = true;
-                r.wells.push(well);
-              }
-            });
-
-            if(!found){
-              result.push(
-                {compound: well.compound, wells: []}
-              );
-            }
-
-          }
-        });
-      });
-      return result;
-    }
+    // Color scale.
+    var colors = d3.scale.category20();
 
     // Retrieve list of experiments
     RestService.getExperiments()
@@ -102,14 +77,13 @@ angular.module('we99App')
 
     function fullDisplayRefresh(){
 
+      var displayBoxLocation = "#scatter-plot";
+
       d3.select(".coloration").attr("fill","white");
       d3.select(displayBoxLocation).html("");
 
-      var colors = d3.scale.category20();
-
       $scope.selectedCompounds.forEach(function(compound, i){
 
-        var color = colors(i);
         var data = [];
         compound.wells.forEach(function(d){
           if(d.included){
@@ -117,49 +91,27 @@ angular.module('we99App')
           }
         });
 
-        var scaleY = {
-          min: d3.min(data.map(function (d) { return d[1]; })),
-          max: d3.max(data.map(function (d) { return d[1]; }))
-        };
+        v.renderLine({
+          hasAxis: (i === 0),
+          width: 600,
+          height: 600,
+          location: displayBoxLocation,
+          scaleY: {
+            min: d3.min(data.map(function (d) { return d[1]; })),
+            max: d3.max(data.map(function (d) { return d[1]; }))
+          },
+          scaleX: {
+            min: d3.min(data.map(function (d) { return d[0]; })),
+            max: d3.max(data.map(function (d) { return d[0]; }))
+          },
+          linePoints: compound.curve,
+          axisTitle: {
+            x: "Dose",
+            y: "Response"
+          },
+          color: colors(i)
+        });
 
-        var scaleX = {
-          min: d3.min(data.map(function (d) { return d[0]; })),
-          max: d3.max(data.map(function (d) { return d[0]; }))
-        };
-
-
-
-        if(i === 0) {
-          v.renderLine({
-            hasAxis: true,
-            width: 600,
-            height: 600,
-            location: displayBoxLocation,
-            scaleY: scaleY,
-            scaleX: scaleX,
-            linePoints: compound.curve,
-            axisTitle: {
-              x: "Dose",
-              y: "Response"
-            },
-            color: color
-          });
-        }else{
-          v.renderLine({
-            hasAxis: false,
-            width: 600,
-            height: 600,
-            location: displayBoxLocation,
-            scaleY: scaleY,
-            scaleX: scaleX,
-            linePoints: compound.curve,
-            axisTitle: {
-              x: "Dose",
-              y: "Response"
-            },
-            color: color
-          });
-        }
 
         d3.select("#" + compound.compound)
           .attr("fill", color);

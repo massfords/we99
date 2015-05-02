@@ -672,6 +672,13 @@ DataVis.prototype.convertPlateResultData = function(data){
 
 };
 
+/**
+ * Transforms supplied data into the form required for the controller to
+ * handle the interface.
+ *
+ * @param data
+ * @returns {Array}
+ */
 DataVis.prototype.convertDoseResponseData = function(data){
 
   var compounds = [];
