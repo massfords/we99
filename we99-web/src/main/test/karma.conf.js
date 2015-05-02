@@ -64,8 +64,25 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-jasmine'
+      'karma-jasmine',
+	  'karma-htmlfile-reporter',
+	  'karma-coverage'
     ],
+	
+	reporters: ['progress', 'html','coverage'],
+	
+	preprocessors: {
+	'webapp/scripts/**/*.js': 'coverage'
+	},
+ 
+    htmlReporter: {
+      outputFile: '../../target/test-report/front-end/units.html'
+    },
+	
+	coverageReporter: {
+		type : 'html',
+		dir : '../../target/test-report/front-end/'
+	},
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
