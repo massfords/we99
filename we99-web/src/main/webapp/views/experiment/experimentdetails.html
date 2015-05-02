@@ -14,12 +14,12 @@
   <hr>
 
   <section>
-    <div class="row">
-        <button id="addPlateBtn" tooltip="Create plates from details provided" class="btn btn-primary" ng-click="openAddPlateModal()">
+    <div class="row" ng-hide="experiment.status==='PUBLISHED'">
+        <button id="addPlateBtn" tooltip="Create plates from details provided" class="btn btn-primary" ng-click="openAddPlateModal()" style="position:relative;padding-right: 5px;">
           <span class="glyphicon glyphicon-plus"></span>
           Add Plate
         </button>
-        <div class="btn-group" dropdown is-open="bulkBtn.isopen">
+        <div class="btn-group" dropdown is-open="bulkBtn.isopen" style="padding-left: 5px;">
           <button id="bulkPlateBtn" type="button" class="btn btn-warning dropdown-toggle" dropdown-toggle ng-disabled="disabled">
             <i class="glyphicon glyphicon-plus"></i> Bulk Add <i class="glyphicon glyphicon-chevron-down"></i>
           </button>
