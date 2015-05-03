@@ -187,6 +187,12 @@ describe('Controller: PlateMapEditorCtrl', function () {
 
   });
 
+  it('should start tour', function () {
+    scope.startTour();
+
+    expect(scope.startJoyRide).toBe(true);
+  });
+
 
 
 });
