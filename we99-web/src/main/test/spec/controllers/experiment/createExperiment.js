@@ -5,8 +5,8 @@ describe('Controller: ExperimentCreateCtrl', function () {
   // load the controller's module
   beforeEach(module('we99App'));
 
-  var ExperimentCreateCtrlNew,ExperimentCreateCtrlEdit,
-    scope, scopeEdit, httpBackend,location, modal, routeParams,
+  var ExperimentCreateCtrlNew,ExperimentCreateCtrlEdit,AddProtocolCtrl,
+    scope, scopeEdit,scopeModal, httpBackend,location, fakeModal, routeParams,
     expResp,protocolResp,currUserResp,allUsersResp;
 
   // Initialize the controller and a mock scope
@@ -20,7 +20,29 @@ describe('Controller: ExperimentCreateCtrl', function () {
       path: function(loc){this.saved=loc;}
     };
 
-    modal={};
+    fakeModal = {
+      result: {
+        then: function(confirmCallback, cancelCallback) {
+          //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
+          this.confirmCallBack = confirmCallback;
+          this.cancelCallback = cancelCallback;
+        }
+      },
+      close: function( item ) {
+
+        this.success=true;
+        //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
+        this.result.confirmCallBack( item );
+      },
+      dismiss: function( type ) {
+        this.canceled=true;
+        //The user clicked cancel on the modal dialog, call the stored cancel callback
+        if(this.result.cancelCallback)
+          this.result.cancelCallback( type );
+      },
+      canceled: false,
+      success: false
+    };
     routeParams={addeditId: 1};
 
     //response mocks
@@ -100,11 +122,15 @@ describe('Controller: ExperimentCreateCtrl', function () {
     httpBackend.whenGET("services/rest/experiment/1/members").respond({values: [currUserResp]});
 
 
-
     ExperimentCreateCtrlNew = $controller('ExperimentCreateCtrl', {
       $scope: scope,
       $location: location,
-      $modal: modal,
+      $modal: {
+        open: function (config) {
+          this.config = config;
+          return fakeModal;
+        }
+      },
       $routeParams: {addeditId: "new"}
 
     });
@@ -112,9 +138,20 @@ describe('Controller: ExperimentCreateCtrl', function () {
     ExperimentCreateCtrlEdit = $controller('ExperimentCreateCtrl', {
       $scope: scopeEdit,
       $location: location,
-      $modal: modal,
+      $modal: {
+        open: function (config) {
+          this.config = config;
+          return fakeModal;
+        }
+      },
       $routeParams: routeParams
 
+    });
+
+    AddProtocolCtrl = $controller('AddProtocolCtrl', {
+      $scope: scope,
+      $modalInstance: fakeModal,
+      protocols: protocolResp.values
     });
 
   }));
@@ -238,5 +275,46 @@ describe('Controller: ExperimentCreateCtrl', function () {
 
 
   });
+
+  it('should start tour', function () {
+    httpBackend.flush();
+    scope.startTour();
+
+    expect(scope.startJoyRide).toBe(true);
+  });
+
+  it('should add protocol', function(){
+    httpBackend.flush();
+
+    var someExp={
+      "name": "experiment omega",
+      "description": "Experiment using the Omega protocol",
+      "labels": [],
+      "status": "UNPUBLISHED",
+      "created": "2015-04-06T23:08:44.134-04:00",
+      "protocol": protocolResp.values[1]
+    };
+
+    var startCount=scope.protocolValues.length;
+
+    scope.newExp=someExp;
+    scope.newProtocol();
+
+    scope.protocol=scope.protocols[0];
+    scope.ok();
+    expect(scope.errorText).not.toBeNull();
+    expect(fakeModal.success).toBe(false);
+
+    scope.protocol={name:'bob protocol'};
+    scope.ok();
+    httpBackend.whenPUT("services/rest/protocol").respond("ok");
+    httpBackend.flush();
+    expect(fakeModal.success).toBe(true);
+
+    expect(scope.protocolValues.length).toBe(startCount+1);
+
+
+  });
+
 
 });

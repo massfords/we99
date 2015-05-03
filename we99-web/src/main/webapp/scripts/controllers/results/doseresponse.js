@@ -97,6 +97,8 @@ angular.module('we99App')
           });
 
       };
+      //for testing purposes, make the click function accessible to angular scope
+      $scope.doClick=onClick;
 
       // Normal set of parameters.
       var scatterPlotParameters = {
