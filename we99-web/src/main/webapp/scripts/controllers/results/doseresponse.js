@@ -31,11 +31,11 @@ angular.module('we99App')
 
               // Compound setup.
               $scope.compounds = v.convertDoseResponseData(response.values);
-              $scope.selectedCompound = $scope.compounds[0];
+              $scope.selectedCompound = $scope.compounds.filter(function(d){return d.hasCurve;})[0];
               $scope.selectCompound = function(compound){
                 $scope.selectedCompound = compound;
                 fullDisplayRefresh();
-              }
+              };
 
               fullDisplayRefresh();
 
