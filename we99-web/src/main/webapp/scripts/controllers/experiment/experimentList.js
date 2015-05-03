@@ -32,7 +32,6 @@ angular.module('we99App')
     $scope.editRow=function(){
       if ($scope.currentExperiment) {
         $location.path('/experiment/addedit/' + $scope.currentExperiment.id);
-        $scope.startTour();
       }
     };
 
