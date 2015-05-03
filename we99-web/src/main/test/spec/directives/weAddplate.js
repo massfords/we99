@@ -22,7 +22,7 @@ describe('Directive: weAddplate', function () {
     //  expect(element.text()).toBe('wire test');
     //}));
 
-    //it('should instantiate with an experiment', function(){
+    //it('should instantiate with an assay', function(){
     //  expect(scope.experiment).toBeDefined();
     //});
 

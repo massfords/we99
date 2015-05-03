@@ -16,10 +16,14 @@ describe('Controller: CompoundsCtrl', function () {
       // return fake promises for progress, success, error
       return {
         progress: function (f) {
+          var evt={loaded: 1, total:1,config:{file:{name:'myfile'}}};
+          f(evt);
           return {
             success: function (f) {
+              f('good');
               return {
                 error: function (f) {
+                  f('error case');
                 }
               }
             }
@@ -31,17 +35,18 @@ describe('Controller: CompoundsCtrl', function () {
 
   fakeModal = {
     result: {
-      then: function(confirmCallback, cancelCallback) {
+      then: function(confirmCallback) {
         //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
         this.confirmCallBack = confirmCallback;
-        this.cancelCallback = cancelCallback;
+        this.cancelCallback = confirmCallback;
       }
     },
     close: function( item ) {
 
       this.success=true;
       //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
-      this.result.confirmCallBack( item );
+      if(this.result.confirmCallBack)
+        this.result.confirmCallBack( item );
     },
     dismiss: function( type ) {
       this.canceled=true;
@@ -144,14 +149,15 @@ describe('Controller: CompoundsCtrl', function () {
 
 
       CompoundsCtrl = $controller('CompoundsCtrl', {
-            $scope: scope
-          //$modal: {open: function(){return fakeModal;}}
+            $scope: scope,
+            $modal: {open: function(){return fakeModal;}}
         });
 
       ImportCompoundsCtrl = $controller('ImportCompoundsCtrl', {
         $scope: importScope,
         $modalInstance: fakeModal,
-        $upload: fakeUpload
+        $upload: fakeUpload,
+        $log: {log: function(){}}
       });
     }));
 
@@ -184,6 +190,32 @@ describe('Controller: CompoundsCtrl', function () {
     expect(fakeModal.canceled).toBe(true);
 
   });
+
+  it('should start tour', function () {
+    httpBackend.flush();
+    scope.startTour();
+
+    expect(scope.startJoyRide).toBe(true);
+  });
+
+  it('should open modal', function () {
+    httpBackend.flush();
+    scope.startTour();
+
+    expect(scope.startJoyRide).toBe(true);
+  })
+
+  it('should open modal', function () {
+    httpBackend.flush();
+    scope.importCompounds();
+    fakeModal.close('good');
+
+
+    httpBackend.whenGET("services/rest/compound/?page=0&pageSize=10&q=").respond(compoundResp);
+    httpBackend.flush();
+
+  });
+
 
 
 

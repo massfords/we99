@@ -35,7 +35,7 @@ angular.module('we99App')
                 getPlates: function(){
                   var deferred = $q.defer();
                   if (!selected) {
-                    throw Error('No Experiment has been selected.');
+                    throw Error('No assay has been selected.');
                   }
                   RestService.getExperimentPlates(selected.id).then(function(resp){
                     var plates = resp.data.values;

@@ -75,7 +75,7 @@ app.constant('TourConstants', {
 
   ],
 
-  //===== Experiment Tour settings
+  //===== Assay Tour settings
   experimentListTour: [
     {
       type: "title",
@@ -111,7 +111,7 @@ app.constant('TourConstants', {
       type: 'element',
       selector: ".publishLink:last",
       heading: "Manage Assays",
-      text: "You can click this link to publish an assay experiment and lock down its results.",
+      text: "You can click this link to publish an assay and lock down its results.",
       placement: "top",
       scroll: true,
       attachToBody: true
@@ -125,19 +125,19 @@ app.constant('TourConstants', {
       scroll: true
     }
   ],
-  //====== Experiment Create/Edit Tour
+  //====== Assay Create/Edit Tour
   experimentCreateTour:[{
     type: "element",
     selector: "#newExpForm",
     heading: "Manage Assays",
-    text: "Use this form to enter information about a new assay experiment",
+    text: "Use this form to enter information about a new assay",
     placement: "top",
     scroll: true
   },{
     type: "element",
     selector: "#btnPanel",
     heading: "Manage Assays",
-    text: "You can assign and remove users to this experiment assay with these buttons",
+    text: "You can assign and remove users to this experimental assay with these buttons",
     placement: "top",
     scroll: true
   },
@@ -151,13 +151,13 @@ app.constant('TourConstants', {
     }
   ],
 
-  //===== Experiment Details Tour
+  //===== Assay Details Tour
   experimentDetailsTour:[
     {
     type: "element",
     selector: "#primary-details",
-    heading: "Experiment Details",
-    text: "This is the Experiment Details page. Details for the specific experiment are listed here.",
+    heading: "Assay Details",
+    text: "This is the Assay Details page. Details for the specific assay are listed here.",
     placement: "top",
     scroll: true
   }
@@ -165,8 +165,8 @@ app.constant('TourConstants', {
     {
       type: "element",
       selector: "#plateTable",
-      heading: "Experiment Details",
-      text: "The table shows the list of plates associated with this experiment",
+      heading: "Assay Details",
+      text: "The table shows the list of plates associated with this assay",
       placement: "top",
       scroll: true
     }
@@ -174,7 +174,7 @@ app.constant('TourConstants', {
     {
       type: "element",
       selector: "#addPlateBtn",
-      heading: "Experiment Details",
+      heading: "Assay Details",
       text: "Use to button to add a single new plate with a list of compounds and dosage concentrations.",
       placement: "top",
       scroll: true
@@ -182,7 +182,7 @@ app.constant('TourConstants', {
     ,{
       type: "element",
       selector: "#bulkPlateBtn",
-      heading: "Experiment Details",
+      heading: "Assay Details",
       text: "Use this button to create a bulk set of plates or upload a bulk set of results using csv files.",
       placement: "top",
       scroll: true,
@@ -192,8 +192,8 @@ app.constant('TourConstants', {
     ,{
       type: "element",
       selector: ".glyphicon-remove-circle:first",
-      heading: "Experiment Details",
-      text: "Click the delete button to remove a plate from the experiment.",
+      heading: "Assay Details",
+      text: "Click the delete button to remove a plate from the assay.",
       placement: "top",
       scroll: true
     }
@@ -299,14 +299,14 @@ app.constant('TourConstants', {
       type: "title",
       heading: "Heatmaps",
       text: "This is the Heatmap page. Here you can view the heatmap for each plate associated with the"
-            +" selected experiment",
+            +" selected assay",
       placement: "bottom",
       scroll: true
     },{
       type: "element",
       selector: "#controls",
       heading: "Heatmaps",
-      text: "Select an experiment from the drop down here. You can also select the coloring scheme used"
+      text: "Select an assay from the drop down here. You can also select the coloring scheme used"
             +" to generate the heatmap",
       placement: "bottom",
       scroll: true
@@ -390,14 +390,14 @@ app.constant('TourConstants', {
     type: "title",
     heading: "Well Quality Control",
     text: "This is the Well Quality Control page. Here you can view the positive and negative well controls for"
-    +" the entire experiment. You can also knockout well control points by clicking on them to mark them as outliers.",
+    +" the entire assay. You can also knockout well control points by clicking on them to mark them as outliers.",
     placement: "bottom",
     scroll: true
   },{
     type: "element",
     selector: "#controls",
     heading: "Well Quality Control",
-    text: "Select an experiment from the drop down here. This will populate the scatterplot graph"
+    text: "Select an assay from the drop down here. This will populate the scatterplot graph"
           +" with the well control values.",
     placement: "bottom",
     scroll: true
@@ -425,7 +425,7 @@ app.constant('TourConstants', {
       type: "element",
       selector: "#controls",
       heading: "Dose Response",
-      text: "Select an experiment from the drop down here. This will populate the table with compounds.",
+      text: "Select an assay from the drop down here. This will populate the table with compounds.",
       placement: "bottom",
       scroll: true
     },{
@@ -459,7 +459,7 @@ app.constant('TourConstants', {
     type: "element",
     selector: "#controls",
     heading: "Compound Results and Comparison",
-    text: "Select an experiment from the drop down here. This will populate the table with compounds.",
+    text: "Select an assay from the drop down here. This will populate the table with compounds.",
     placement: "bottom",
     scroll: true
   },{

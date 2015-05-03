@@ -5,8 +5,8 @@ describe('Controller: ExperimentCreateCtrl', function () {
   // load the controller's module
   beforeEach(module('we99App'));
 
-  var ExperimentCreateCtrlNew,ExperimentCreateCtrlEdit,
-    scope, scopeEdit, httpBackend,location, modal, routeParams,
+  var ExperimentCreateCtrlNew,ExperimentCreateCtrlEdit,AddProtocolCtrl,
+    scope, scopeEdit,scopeModal, httpBackend,location, fakeModal, routeParams,
     expResp,protocolResp,currUserResp,allUsersResp;
 
   // Initialize the controller and a mock scope
@@ -20,7 +20,29 @@ describe('Controller: ExperimentCreateCtrl', function () {
       path: function(loc){this.saved=loc;}
     };
 
-    modal={};
+    fakeModal = {
+      result: {
+        then: function(confirmCallback, cancelCallback) {
+          //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
+          this.confirmCallBack = confirmCallback;
+          this.cancelCallback = cancelCallback;
+        }
+      },
+      close: function( item ) {
+
+        this.success=true;
+        //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
+        this.result.confirmCallBack( item );
+      },
+      dismiss: function( type ) {
+        this.canceled=true;
+        //The user clicked cancel on the modal dialog, call the stored cancel callback
+        if(this.result.cancelCallback)
+          this.result.cancelCallback( type );
+      },
+      canceled: false,
+      success: false
+    };
     routeParams={addeditId: 1};
 
     //response mocks
@@ -100,11 +122,15 @@ describe('Controller: ExperimentCreateCtrl', function () {
     httpBackend.whenGET("services/rest/experiment/1/members").respond({values: [currUserResp]});
 
 
-
     ExperimentCreateCtrlNew = $controller('ExperimentCreateCtrl', {
       $scope: scope,
       $location: location,
-      $modal: modal,
+      $modal: {
+        open: function (config) {
+          this.config = config;
+          return fakeModal;
+        }
+      },
       $routeParams: {addeditId: "new"}
 
     });
@@ -112,9 +138,20 @@ describe('Controller: ExperimentCreateCtrl', function () {
     ExperimentCreateCtrlEdit = $controller('ExperimentCreateCtrl', {
       $scope: scopeEdit,
       $location: location,
-      $modal: modal,
+      $modal: {
+        open: function (config) {
+          this.config = config;
+          return fakeModal;
+        }
+      },
       $routeParams: routeParams
 
+    });
+
+    AddProtocolCtrl = $controller('AddProtocolCtrl', {
+      $scope: scope,
+      $modalInstance: fakeModal,
+      protocols: protocolResp.values
     });
 
   }));
@@ -122,7 +159,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
   it('should load in edit mode if supplied experiment id', function () {
 
     expect(scopeEdit.editMode).toBe(true);
-    expect(scopeEdit.pageTitle).toBe('Modify Experiment');
+    expect(scopeEdit.pageTitle).toBe('Modify Assay');
 
     httpBackend.flush();
 
@@ -130,7 +167,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scopeEdit.protocolValues.length).toBe(protocolResp.totalCount);
     expect(scopeEdit.assignedUsers[0]).toEqual(currUserResp);
 
-    //check that experiment loaded
+    //check that assay loaded
     expect(scopeEdit.newExp).toEqual(expResp);
 
   });
@@ -145,11 +182,11 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.protocolValues.length).toBe(protocolResp.totalCount);
     expect(scope.assignedUsers[0]).toEqual(currUserResp);
 
-    //check that experiment is fresh with no data
+    //check that assay is fresh with no data
     expect(scope.newExp).toEqual({});
   });
 
-  it('try to assign new user to experiment, no selection', function(){
+  it('try to assign new user to assay, no selection', function(){
     httpBackend.flush();
 
     var originalAvailCount=scope.availUsers.length;
@@ -159,7 +196,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.assignedUsers.length).toBe(orginalAssignedCount);
   });
 
-  it('try to assign new user to experiment, single selection', function(){
+  it('try to assign new user to assay, single selection', function(){
     httpBackend.flush();
 
     var originalAvailCount=scope.availUsers.length;
@@ -174,7 +211,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.assignedUsers[scope.assignedUsers.length-1].id).toBe(movedObjId);
   });
 
-  it('try to remove a user from experiment, no selection', function(){
+  it('try to remove a user from assay, no selection', function(){
     httpBackend.flush();
 
     var originalAvailCount=scope.availUsers.length;
@@ -186,7 +223,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.assignedUsers.length).toBe(originalAssignedCount);
   });
 
-  it('try to remove current user from experiment', function(){
+  it('try to remove current user from assay', function(){
     httpBackend.flush();
 
     var originalAvailCount=scope.availUsers.length;
@@ -200,7 +237,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.errorText).toContain('You cannot remove yourself');
   });
 
-  it('try to remove assigned user from experiment', function(){
+  it('try to remove assigned user from assay', function(){
     httpBackend.flush();
 
     var testUser= {id:100,isSelected:true};
@@ -215,7 +252,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
     expect(scope.availUsers[scope.availUsers.length-1]).toBe(testUser);
   });
 
-  it('try to save experiment', function(){
+  it('try to save assay', function(){
     httpBackend.flush();
 
     var testId=100;
@@ -238,5 +275,46 @@ describe('Controller: ExperimentCreateCtrl', function () {
 
 
   });
+
+  it('should start tour', function () {
+    httpBackend.flush();
+    scope.startTour();
+
+    expect(scope.startJoyRide).toBe(true);
+  });
+
+  it('should add protocol', function(){
+    httpBackend.flush();
+
+    var someExp={
+      "name": "experiment omega",
+      "description": "Experiment using the Omega protocol",
+      "labels": [],
+      "status": "UNPUBLISHED",
+      "created": "2015-04-06T23:08:44.134-04:00",
+      "protocol": protocolResp.values[1]
+    };
+
+    var startCount=scope.protocolValues.length;
+
+    scope.newExp=someExp;
+    scope.newProtocol();
+
+    scope.protocol=scope.protocols[0];
+    scope.ok();
+    expect(scope.errorText).not.toBeNull();
+    expect(fakeModal.success).toBe(false);
+
+    scope.protocol={name:'bob protocol'};
+    scope.ok();
+    httpBackend.whenPUT("services/rest/protocol").respond("ok");
+    httpBackend.flush();
+    expect(fakeModal.success).toBe(true);
+
+    expect(scope.protocolValues.length).toBe(startCount+1);
+
+
+  });
+
 
 });

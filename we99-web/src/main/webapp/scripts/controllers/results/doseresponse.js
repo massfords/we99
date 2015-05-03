@@ -15,11 +15,11 @@ angular.module('we99App')
 
     var v = new DataVis();
 
-    // Retrieve list of experiments
+    // Retrieve list of assays
     RestService.getExperiments()
       .success(function (response) {
 
-        // Experiment drop down.
+        // Assay drop down.
         $scope.experiments = response.values;
         $scope.selectedExperiment = $scope.experiments[0];
 
@@ -47,7 +47,7 @@ angular.module('we99App')
 
 
       }).error(function(){
-        $scope.errorText='Failed to load experiment data.';
+        $scope.errorText='Failed to load assay data.';
       });
 
     /**
@@ -97,6 +97,8 @@ angular.module('we99App')
           });
 
       };
+      //for testing purposes, make the click function accessible to angular scope
+      $scope.doClick=onClick;
 
       // Normal set of parameters.
       var scatterPlotParameters = {
