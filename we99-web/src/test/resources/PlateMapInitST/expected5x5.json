@@ -1,5 +1,5 @@
 {
-  "name": "24x16",
+  "name": "16x24",
   "wells": [
     {
       "coordinate": {
@@ -102,8 +102,8 @@
     },
     {
       "coordinate": {
-        "row": 0,
-        "col": 4
+        "row": 15,
+        "col": 23
       },
       "labels": [],
       "type": "EMPTY"
@@ -136,7 +136,7 @@
     }
   ],
   "dim": {
-    "rows": 5,
-    "cols": 5
+    "rows": 16,
+    "cols": 24
   }
 }
