@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 /**
  * @author mford
@@ -23,7 +24,7 @@ public class PlateResultServiceListingST {
     private static PlateResultsFixture resultsFixture;
 
     @Rule
-    public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
+    public TestRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     @BeforeClass
     public static void init() throws Exception {

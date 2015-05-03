@@ -4,7 +4,7 @@
   "pageSize": 100,
   "values": [
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -19,7 +19,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -34,7 +34,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -49,7 +49,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -64,7 +64,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -79,7 +79,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -94,7 +94,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -109,7 +109,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -124,7 +124,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -139,7 +139,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -154,7 +154,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],
@@ -169,7 +169,7 @@
       "hasResults": true
     },
     {
-      "name": "uuid",
+      "name": "plate uuid",
       "labels": [],
       "wellCount": 384,
       "wells": [],

@@ -3,7 +3,7 @@
   "pageSize": 5,
   "values": [
     {
-      "name": "My Plate iso8601 0",
+      "name": "my plate nameuuid 0",
       "labels": [],
       "wellCount": 10,
       "wells": [
@@ -173,7 +173,7 @@
       "hasResults": false
     },
     {
-      "name": "My Plate iso8601 1",
+      "name": "my plate nameuuid 1",
       "labels": [],
       "wellCount": 10,
       "wells": [
@@ -343,7 +343,7 @@
       "hasResults": false
     },
     {
-      "name": "My Plate iso8601 2",
+      "name": "my plate nameuuid 2",
       "labels": [],
       "wellCount": 10,
       "wells": [
@@ -513,7 +513,7 @@
       "hasResults": false
     },
     {
-      "name": "My Plate iso8601 3",
+      "name": "my plate nameuuid 3",
       "labels": [],
       "wellCount": 10,
       "wells": [
@@ -683,7 +683,7 @@
       "hasResults": false
     },
     {
-      "name": "My Plate iso8601 4",
+      "name": "my plate nameuuid 4",
       "labels": [],
       "wellCount": 10,
       "wells": [

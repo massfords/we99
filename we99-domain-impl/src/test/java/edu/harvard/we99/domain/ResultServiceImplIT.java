@@ -1,18 +1,22 @@
 package edu.harvard.we99.domain;
 
 import edu.harvard.we99.domain.lists.DoseResponseResults;
-import edu.harvard.we99.domain.results.DoseResponseResult;
 import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.domain.results.ResultStatus;
 import edu.harvard.we99.domain.results.StatusChange;
 import edu.harvard.we99.services.ExperimentService;
 import edu.harvard.we99.services.PlateTypeService;
-import edu.harvard.we99.services.experiments.*;
+import edu.harvard.we99.services.experiments.DoseResponseResource;
+import edu.harvard.we99.services.experiments.DoseResponseResultResource;
+import edu.harvard.we99.services.experiments.PlateResource;
+import edu.harvard.we99.services.experiments.PlateResultResource;
+import edu.harvard.we99.services.experiments.PlatesResource;
 import edu.harvard.we99.services.storage.CompoundStorage;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -44,7 +48,7 @@ public class ResultServiceImplIT extends JpaSpringFixture {
     private PlateTypeService plateTypeService;
 
     @Rule
-    public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
+    public TestRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     @Rule
     public AuthenticatedUserRule authenticatedUserRule =

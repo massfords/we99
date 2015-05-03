@@ -6,6 +6,7 @@ import edu.harvard.we99.test.EastCoastTimezoneRule;
 import org.joda.time.DateTime;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import java.util.Collections;
 
@@ -21,7 +22,7 @@ import static org.junit.Assert.assertNull;
 public class ExperimentsMapperTest {
 
     @Rule
-    public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
+    public TestRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     Protocol protocol = new Protocol().withId(200L).withName("proto1");
     ProtocolEntity protocolEntity = new ProtocolEntity().setId(200L).setName("proto1");

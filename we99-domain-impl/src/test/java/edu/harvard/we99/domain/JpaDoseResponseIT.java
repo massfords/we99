@@ -27,6 +27,7 @@ import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.Scrubbers;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
@@ -73,7 +74,7 @@ public class JpaDoseResponseIT extends JpaSpringFixture {
     private ResultStorage resultStorage;
 
     @Rule
-    public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
+    public TestRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     @Rule
     public AuthenticatedUserRule authenticatedUserRule =

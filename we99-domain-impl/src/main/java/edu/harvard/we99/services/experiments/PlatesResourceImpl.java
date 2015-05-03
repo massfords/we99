@@ -25,7 +25,6 @@ import edu.harvard.we99.services.storage.PlateTypeStorage;
 import edu.harvard.we99.services.storage.ResultStorage;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,9 +37,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -94,9 +91,8 @@ public abstract class PlatesResourceImpl implements PlatesResourceInternal {
         try {
             PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
 
-            if (mergeInfo.getPlateName() == null) {
-                String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-                mergeInfo.setPlateName("My Plate " + timeStamp);
+            if (StringUtils.isBlank(mergeInfo.getPlateName())) {
+                mergeInfo.setPlateName("plate " + UUID.randomUUID().toString());
             }
 
             Plate plate = new Plate()
@@ -139,8 +135,8 @@ public abstract class PlatesResourceImpl implements PlatesResourceInternal {
 
             PlateMap plateMap = plateMapStorage.get(mergeInfo.getPlateMapId());
 
-            String namePattern = (mergeInfo.getPlateName() != null && mergeInfo.getPlateName().length() > 0) ?
-                    mergeInfo.getPlateName() : "My Plate " + DateTime.now();
+            String namePattern = StringUtils.isNotBlank(mergeInfo.getPlateName()) ?
+                    mergeInfo.getPlateName() : "plate " + UUID.randomUUID().toString();
             namePattern += " ";
 
             // walk the compoundSet and create one plate for each of the given compounds
