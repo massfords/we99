@@ -159,7 +159,7 @@ describe('Controller: ExperimentCreateCtrl', function () {
   it('should load in edit mode if supplied experiment id', function () {
 
     expect(scopeEdit.editMode).toBe(true);
-    expect(scopeEdit.pageTitle).toBe('Modify Experiment');
+    expect(scopeEdit.pageTitle).toBe('Modify Assay');
 
     httpBackend.flush();
 
