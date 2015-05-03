@@ -92,7 +92,7 @@ angular.module('we99App')
         });
 
         v.renderLine({
-          hasAxis: (i === 0),
+          hasAxis: (i === 0), // only generate the axis on the first iteration.
           width: 600,
           height: 600,
           location: displayBoxLocation,
@@ -114,7 +114,7 @@ angular.module('we99App')
 
 
         d3.select("#" + compound.compound)
-          .attr("fill", color);
+          .attr("fill", colors(i));
 
       });
 
