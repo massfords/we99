@@ -66,6 +66,8 @@ angular.module('we99App')
     	console.log(msg);
     }
 
+    this.setError=setError;
+
     //=== Tour Settings ===
 
     $scope.startTour=function(){

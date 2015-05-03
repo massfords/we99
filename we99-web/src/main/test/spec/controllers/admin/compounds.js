@@ -5,9 +5,54 @@ describe('Controller: CompoundsCtrl', function () {
     // load the controller's module
     beforeEach(module('we99App'));
 
-    var CompoundsCtrl,
-        scope,
-        httpBackend,compoundResp,filteredCompoundResp;
+    var CompoundsCtrl,ImportCompoundsCtrl,
+        scope, importScope,
+        httpBackend,compoundResp,filteredCompoundResp,
+        fakeUpload, fakeModal;
+
+  fakeUpload = {
+    upload: function (config) {
+      this.savedConfig = config;
+      // return fake promises for progress, success, error
+      return {
+        progress: function (f) {
+          return {
+            success: function (f) {
+              return {
+                error: function (f) {
+                }
+              }
+            }
+          }
+        }
+      };
+    }
+  };
+
+  fakeModal = {
+    result: {
+      then: function(confirmCallback, cancelCallback) {
+        //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
+        this.confirmCallBack = confirmCallback;
+        this.cancelCallback = cancelCallback;
+      }
+    },
+    close: function( item ) {
+
+      this.success=true;
+      //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
+      this.result.confirmCallBack( item );
+    },
+    dismiss: function( type ) {
+      this.canceled=true;
+      //The user clicked cancel on the modal dialog, call the stored cancel callback
+      if(this.result.cancelCallback)
+        this.result.cancelCallback( type );
+    },
+    canceled: false,
+    success: false
+  };
+
 
     compoundResp =  {
       "totalCount": 297,
@@ -89,6 +134,7 @@ describe('Controller: CompoundsCtrl', function () {
     // Initialize the controller and a mock scope
     beforeEach(inject(function ($controller, $rootScope,$httpBackend) {
         scope = $rootScope.$new();
+        importScope = $rootScope.$new();
 
         // Setup unit test Rest Calls
         httpBackend = $httpBackend;
@@ -99,7 +145,14 @@ describe('Controller: CompoundsCtrl', function () {
 
       CompoundsCtrl = $controller('CompoundsCtrl', {
             $scope: scope
+          //$modal: {open: function(){return fakeModal;}}
         });
+
+      ImportCompoundsCtrl = $controller('ImportCompoundsCtrl', {
+        $scope: importScope,
+        $modalInstance: fakeModal,
+        $upload: fakeUpload
+      });
     }));
 
 
@@ -115,6 +168,24 @@ describe('Controller: CompoundsCtrl', function () {
     httpBackend.flush();
     expect(scope.compoundList.length).toBe(filteredCompoundResp.values.length);
   });
+
+  it('should call upload service when files are added', function () {
+    importScope.files=['newfile'];
+    importScope.upload(importScope.files);
+
+    expect(fakeUpload.savedConfig).toBeDefined();
+    expect(fakeUpload.savedConfig).not.toBeNull();
+
+    expect(fakeUpload.savedConfig.method).toBe("POST");
+    expect(fakeUpload.savedConfig.file).toBe("newfile");
+    expect(fakeUpload.savedConfig.url).toContain("services/rest");
+
+    importScope.dismiss();
+    expect(fakeModal.canceled).toBe(true);
+
+  });
+
+
 
 
 

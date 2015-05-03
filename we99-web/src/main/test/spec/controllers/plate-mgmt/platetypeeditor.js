@@ -148,6 +148,7 @@ describe('Controller: PlateTypeEditorCtrl', function () {
   beforeEach(inject(function($httpBackend) {
     httpBackend = $httpBackend;
     httpBackend.expectGET("services/rest/plateType").respond(JSON.stringify(queryPlateTypesResponse));
+
   }));
 
   // Initialize the controller and a mock scope
@@ -166,4 +167,34 @@ describe('Controller: PlateTypeEditorCtrl', function () {
     httpBackend.flush();
     expect(scope.plateTypes) == queryPlateTypesResponse;
   });
+
+  it('should show wizard modal', function () {
+    httpBackend.flush();
+    scope.showAddPlateTypeWizard();
+
+    httpBackend.expectGET("views/plate-mgmt/add-plate-type.html").respond("<div><div>");
+    httpBackend.flush();
+
+    httpBackend.verifyNoOutstandingExpectation();
+  });
+
+  it('should delete plate type', function () {
+    httpBackend.flush();
+
+    scope.removePlateType(scope.plateTypes[0]);
+    httpBackend.expectDELETE("services/rest/plateType/1").respond('Deleted plate type entity.');
+    httpBackend.expectGET("services/rest/plateType").respond(JSON.stringify(queryPlateTypesResponse));
+    httpBackend.flush();
+
+    httpBackend.verifyNoOutstandingExpectation();
+  });
+
+  it('should start tour', function () {
+    httpBackend.flush();
+    scope.startTour();
+
+    expect(scope.startJoyRide).toBe(true);
+  });
+
+
 });

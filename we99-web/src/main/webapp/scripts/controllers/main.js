@@ -9,9 +9,6 @@
  */
 angular.module('we99App')
   .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
+    // To contain main page logic, if needed
   });
