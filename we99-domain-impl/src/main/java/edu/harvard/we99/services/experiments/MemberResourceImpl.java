@@ -38,7 +38,7 @@ public class MemberResourceImpl implements MemberResourceInternal {
     @Override
     public Response setMembers(List<Long> userIds) {
         try {
-            storage.addMembers(id, userIds);
+            storage.setMembers(id, userIds);
             return Response.ok().build();
         } catch(Exception e) {
             log.error("error updating memebers for experiment {} userId {}", id, userIds, e);

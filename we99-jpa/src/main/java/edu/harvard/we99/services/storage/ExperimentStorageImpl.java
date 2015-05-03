@@ -110,8 +110,7 @@ public class ExperimentStorageImpl implements ExperimentStorage {
     @Override
     @Transactional(readOnly = true)
     public Users listMembers(Long experimentId) {
-        ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
-        Collection<UserEntity> values = ee.getMembers().values();
+        Collection<UserEntity> values = getMembers(experimentId);
         List<User> userList = new ArrayList<>(values.size());
         values.forEach(u -> userList.add(Mappers.USERS.map(u)));
         return new Users(userList.size(), userList.size(), userList.size(), userList);
@@ -119,7 +118,14 @@ public class ExperimentStorageImpl implements ExperimentStorage {
 
     @Override
     @Transactional
-    public void addMembers(Long experimentId, List<Long> userIds) {
+    public void setMembers(Long experimentId, List<Long> userIds) {
+        // clear the current members
+        getMembers(experimentId)
+                .stream()
+                // copy it to a new list to avoid concurrent modification exception
+                .collect(Collectors.toList())
+                .forEach(ue -> removeMember(experimentId, ue.getId()));
+        // set the new members
         userIds.stream().forEach(userId -> addMember(experimentId, userId));
     }
 
@@ -170,5 +176,11 @@ public class ExperimentStorageImpl implements ExperimentStorage {
             }
         }
     }
+
+    private Collection<UserEntity> getMembers(Long experimentId) {
+        ExperimentEntity ee = em.find(ExperimentEntity.class, experimentId);
+        return ee.getMembers().values();
+    }
+
 
 }

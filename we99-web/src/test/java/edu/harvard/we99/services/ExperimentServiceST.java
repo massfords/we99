@@ -109,8 +109,6 @@ public class ExperimentServiceST {
         assertEquals(1, list.size());
     }
 
-
-
     @Test
     public void addMember() throws Exception {
         MemberResource mr = es.getExperiment(xp.getId()).getMembers();
