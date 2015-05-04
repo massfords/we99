@@ -63,7 +63,8 @@ describe('Controller: ImportResultsCtrl', function () {
       $upload: fakeUpload,
       $log: $log,
       $modalInstance: fakeModal,
-      experiment: {}
+      experiment: {id:1},
+      plate: {id:1}
     });
   }));
 
