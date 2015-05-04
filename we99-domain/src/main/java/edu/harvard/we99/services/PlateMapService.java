@@ -102,9 +102,9 @@ public interface PlateMapService {
     @ApiOperation("Processes the uploaded CSV and returns a PlateMap")
     @PreAuthorize("hasRole('PERM_MODIFY_PLATEMAPS')")
     @ApiImplicitParams({
-            @ApiImplicitParam(name="name", value = "name of the new plate map", required = true, dataType = "String", paramType = "form"),
             @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
     ImportedPlateMap create(@Multipart(value = "name", required = false) String name,
+                            @Multipart(value = "desc", required = false) String desc,
                                @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER") InputStream csv);
 
 

@@ -49,13 +49,13 @@ public class PlateMapServiceImpl extends BaseRESTServiceImpl<PlateMap> implement
     }
 
     @Override
-    public ImportedPlateMap create(String name, InputStream is) {
+    public ImportedPlateMap create(String name, String desc, InputStream is) {
         PlateMapCSVReader reader = new PlateMapCSVReader();
         try (Reader r = new BufferedReader(new InputStreamReader(is))) {
             if (name == null) {
                 name = UUID.randomUUID().toString();
             }
-            PlateMap plateMap = reader.read(r).setName(name);
+            PlateMap plateMap = reader.read(r).setName(name).setDescription(desc);
             PlateMap created = plateMapStorage().create(plateMap);
             PlateTypes list = pts.findGreaterThanOrEqualTo(calcDim(plateMap), 0, 100);
             return new ImportedPlateMap(created, list.getValues());

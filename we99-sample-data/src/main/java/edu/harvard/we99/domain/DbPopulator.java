@@ -89,7 +89,7 @@ public class DbPopulator {
             loadDoseResponseExperiment(sf, em);
 
             // add plates
-            pms.create("16x24", getClass().getResourceAsStream("/sample-data/platemap16x24.csv"));
+            pms.create("16x24", null, getClass().getResourceAsStream("/sample-data/platemap16x24.csv"));
         } finally {
             em.close();
         }
