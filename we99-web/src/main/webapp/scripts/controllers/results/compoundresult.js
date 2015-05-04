@@ -17,13 +17,11 @@ angular.module('we99App')
 
     // Color scale.
     var colors = d3.scale.category20();
-
-
+      
     // Retrieve list of assays
     RestService.getExperiments()
       .success(function (response) {
 
-        $scope.isLoading = true;
 
         // Assay Drop Down
         $scope.experiments = response.values;
@@ -32,14 +30,18 @@ angular.module('we99App')
         // Watch the selected assay for change.
         $scope.$watch('selectedExperiment', function(experiment) {
 
-          $scope.isLoading = true;
-
-          // Update the data based on the selected assay.
+          // Update the data based on the selected assay.]
           RestService.getDoseResponseData(experiment.id)
             .success(function(response){
 
               $scope.compounds = v.convertDoseResponseData(response.values);
               $scope.selectedCompounds = [$scope.compounds.filter(function(d){return d.hasCurve;})[0]];
+
+              $scope.renderModes = ["TILED", "SINGLE"];
+              $scope.renderMode = "SINGLE";
+              $scope.$watch('renderMode', function() {
+                fullDisplayRefresh();
+              });
 
               /**
                * Toggle compound function.
@@ -69,11 +71,12 @@ angular.module('we99App')
                     .attr("fill", "white");
 
                   fullDisplayRefresh();
+
+
                 }
 
               };
 
-              fullDisplayRefresh();
 
             }).error(function(){
               $scope.errorText='Failed to load dose response data.';
@@ -88,39 +91,89 @@ angular.module('we99App')
 
     function fullDisplayRefresh(){
 
-      var displayBoxLocation = "#scatter-plot";
-
-      // Display reset.
+      // Display Reset
       d3.select(".coloration").attr("fill","white");
-      d3.select(displayBoxLocation).html("");
+      d3.select("#display-container").html("");
+
+      // Setup for single and tiled mode.
+      var displayBoxLocation = null;
+      switch($scope.renderMode){
+        case "SINGLE":
+          d3.select("#display-container")
+            .html('<svg style="width: 600px; height: 600px" id="scatter-plot"></svg>');
+          displayBoxLocation="#scatter-plot";
+          break;
+        case "TILED":
+          displayBoxLocation="#display-container";
+          break;
+      }
+
+      var counter = 0;
 
       // Draw each selected compound.
+      console.log($scope.selectedCompounds);
       $scope.selectedCompounds.forEach(function(compound, i){
 
-        var data = compound.wells
-                    .filter(function(d){return d.included;})
-                    .map(function(d){ return [d.amount, d.value] });
+        var data = compound.curve
+                    .map(function(d){ return [d.x, d.y] });
 
-        v.renderLine({
-          hasAxis: (i === 0), // only generate the axis on the first iteration.
-          width: 600,
-          height: 600,
-          location: displayBoxLocation,
-          scaleY: {
-            min: d3.min(data.map(function (d) { return d[1]; })),
-            max: d3.max(data.map(function (d) { return d[1]; }))
-          },
-          scaleX: {
-            min: d3.min(data.map(function (d) { return d[0]; })),
-            max: d3.max(data.map(function (d) { return d[0]; }))
-          },
-          linePoints: compound.curve,
-          axisTitle: {
-            x: "Dose",
-            y: "Response"
-          },
-          color: colors(i)
-        });
+        switch($scope.renderMode){
+          case "TILED":
+
+            var tileLoc = "tile-" + counter;
+
+            d3.select(displayBoxLocation)
+              .append("svg")
+              .attr("width", 200)
+              .attr("height", 200)
+              .attr("id", tileLoc);
+
+            v.renderLine({
+              hasAxis: true, // only generate the axis on the first iteration.
+              width: 200,
+              height: 200,
+              location: "#" + tileLoc,
+              scaleY: {
+                min: d3.min(data.map(function (d) { return d[1]; })),
+                max: d3.max(data.map(function (d) { return d[1]; }))
+              },
+              scaleX: {
+                min: d3.min(data.map(function (d) { return d[0]; })),
+                max: d3.max(data.map(function (d) { return d[0]; }))
+              },
+              linePoints: compound.curve,
+              axisTitle: {
+                x: "Dose",
+                y: "Response"
+              },
+              color: colors(i)
+            });
+            counter++;
+            break;
+          case "SINGLE":
+                v.renderLine({
+                  hasAxis: (i === 0), // only generate the axis on the first iteration.
+                  width: 600,
+                  height: 600,
+                  location: displayBoxLocation,
+                  scaleY: {
+                    min: d3.min(data.map(function (d) { return d[1]; })),
+                    max: d3.max(data.map(function (d) { return d[1]; }))
+                  },
+                  scaleX: {
+                    min: d3.min(data.map(function (d) { return d[0]; })),
+                    max: d3.max(data.map(function (d) { return d[0]; }))
+                  },
+                  linePoints: compound.curve,
+                  axisTitle: {
+                    x: "Dose",
+                    y: "Response"
+                  },
+                  color: colors(i)
+                });
+                break;
+        }
+
 
 
         d3.select("#" + compound.compound)

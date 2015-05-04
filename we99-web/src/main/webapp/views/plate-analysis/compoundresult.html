@@ -8,6 +8,8 @@
 <div style="margin: 15px" id="controls">
   Select Assay:
   <select ng-model="selectedExperiment" ng-options="opt as opt.name for opt in experiments"></select>
+  Visualization Mode:
+  <select ng-model="renderMode" ng-options="opt as opt for opt in renderModes"></select>
 
 </div>
 

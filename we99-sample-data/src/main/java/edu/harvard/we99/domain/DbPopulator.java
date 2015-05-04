@@ -220,7 +220,7 @@ public class DbPopulator {
             userEntities.forEach(em::merge);
 
             // add some plates to the experiment
-            for(int i=0; i<3; i++) {
+            for(int i=0; i<25; i++) {
 
                 PlateEntity pe = new PlateEntity()
                         .setName("plate " + i + " for exp " + ee.getId())
@@ -257,7 +257,7 @@ public class DbPopulator {
                     for(int col=0; col<pte.getDim().getCols(); col++) {
 
                         WellEntity we = new WellEntity(row, col);
-                        we.setLabel("loc", "well" + row + "," + col);
+                        we.setLabel("loc", "well" + row + "x" + col);
 
                         // Add control wells if you're in the first or last column.
                         // Positive are on the top of the plate, and negative are on
@@ -298,6 +298,20 @@ public class DbPopulator {
                                 .setValue(value)
                                 .setLabel("")
                         );
+
+                        /* Low rent csv file generator
+                        System.out.println(
+                            row + "," +
+                            col + "," +
+                            we.getType().toString() + "," +
+                            we.getLabels().iterator().next().getName() + "," +
+                            we.getLabels().iterator().next().getValue() + "," +
+                            we.getContents().iterator().next().getCompound().getName() + ","
+                            + we.getContents().iterator().next().getAmount().getNumber().toString() + ","
+                            + we.getContents().iterator().next().getAmount().getUnits().toString() + ","
+                            + wre.getSamples().iterator().next().getValue()
+                         );
+                         */
                         pre.add(wre);
                         em.persist(wre);
 
