@@ -4,6 +4,7 @@ import edu.harvard.we99.domain.results.PlateResult;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -39,7 +40,7 @@ public class PlateResultCSVReaderTest {
     }
 
     @Rule
-    public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
+    public TestRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     private final String input;
     private final String expected;

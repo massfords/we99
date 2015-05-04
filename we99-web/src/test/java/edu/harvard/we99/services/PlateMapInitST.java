@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
  * @author SaZ
  */
 public class PlateMapInitST {
+    public static final String PMAP_NAME = "16x24";
     @Rule
     public LogTestRule logTestRule = new LogTestRule();
     private static PlateMapService plateMapService;
@@ -68,13 +69,13 @@ public class PlateMapInitST {
 
     @Test
     public void plate5x5WasCreated() throws Exception {
-        Optional result = findPlate("24x16", 5, 5);
+        Optional result = findPlate(PMAP_NAME, 16, 24);
         assertTrue(result.isPresent());
     }
 
     @Test
     public void plate5x5HasLabelValues() throws Exception {
-        PlateMap plateMap = (PlateMap)findPlate("24x16", 5, 5).get();
+        PlateMap plateMap = (PlateMap)findPlate(PMAP_NAME, 16, 24).get();
         Set<String> labels = new HashSet<>();
         for (WellMap well : plateMap.getWells().values()) {
             labels.addAll(
@@ -91,7 +92,7 @@ public class PlateMapInitST {
 
     @Test
     public void plate5x5CreatesTheProperJson() throws Exception {
-        PlateMap plateMap = (PlateMap)findPlate("24x16", 5, 5).get();
+        PlateMap plateMap = (PlateMap)findPlate(PMAP_NAME, 16, 24).get();
         String actual = toJsonString(plateMap);
         assertJsonEquals(load("/PlateMapInitST/expected5x5.json"), actual, jsonScrubber);
     }

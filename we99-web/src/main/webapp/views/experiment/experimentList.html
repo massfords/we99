@@ -1,9 +1,12 @@
 <div class="select-experiment">
+  <div class="alert-msgs" ng-if="alerts.length > 0">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  </div>
+
   <div class="row" ng-joy-ride="startJoyRide" config="tourConfig" on-finish="onFinish()" on-skip="onFinish()">
     <h2 class="col-md-11">Available Assays</h2>
     <button class="btn btn-link btn-lg" ng-click="startTour()"><span class="glyphicon glyphicon-question-sign"></span>
     </button>
-
   </div>
 
   <table id="expTable" st-table="displayExperiments" st-safe-src="experiments" class="table table-striped">
@@ -21,7 +24,7 @@
     </thead>
     <tbody>
     <tr st-select-row="row" ng-repeat="row in displayExperiments">
-      <td><a style="color:black;" ng-href="#/experiment/{{row.id}}">
+      <td><a ng-href="#/experiment/{{row.id}}">
         <i class="glyphicon glyphicon-zoom-in">
           <span class="icon-label">{{row.name}}</span>
         </i>
@@ -42,7 +45,7 @@
 
   <!-- <button class="btn btn-primary" ng-click="newExperiment()">Add New</button> -->
   <div id="btnPanel"><a class="btn btn-primary" ng-href="#/experiment/addedit/new">Add New</a>
-      <button id="editBtn" class="btn btn-primary" ng-click="editRow()" data-ng-disabled="!currentExperiment">Experiment Settings</button>
+      <button id="editBtn" class="btn btn-primary" ng-click="editRow()" data-ng-disabled="!currentExperiment">Assay Settings</button>
   </div>
 
   <div class="row">

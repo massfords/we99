@@ -79,10 +79,6 @@ public class PlatesClient {
         postJsonWithStream(experiment, csv, "/experiment/%d/fullMonty", "plateType", toJsonString(plateType));
     }
 
-    public void stringMonty(Experiment experiment, PlateType plateType, InputStream csv) throws Exception {
-        post(experiment, csv, "/experiment/%d/stringMonty", "plateType", toJsonString(plateType), MediaType.TEXT_PLAIN);
-    }
-
     private WebClient getWebClient(String path) {
         WebClient client = WebClient.create(base.toExternalForm() + path,
                 username, password, null);

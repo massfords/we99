@@ -17,7 +17,7 @@ app.factory('RestService', ['$resource','$http','RestURLs', function ($resource,
     // $http style calls.
     //
 
-    //experiments
+    //assays
     getExperiments:  function(){
       return $http.get(RestURLs.experiment);
     },

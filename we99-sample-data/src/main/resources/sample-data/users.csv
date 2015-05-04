@@ -1,3 +1,15 @@
 # email, firstname, lastname, role, password
-we99.2015@gmail.com, Test, User, Admin, pass
+we99.2015@gmail.com, Admin, User, Admin, pass
 we99.2015@example, Guest, User, Guest, pass
+#
+# names generated from  http://api.uinames.com/?country=United+States&amount=10
+Diane.Berry@example.com, Diane, Berry, Admin, pass
+Arthur.Ramirez@example.com, Arthur, Ramirez, Admin, pass
+Phillip.Sandoval@example.com,Phillip,Sandoval, Admin, pass
+Tiffany.Gilbert@example.com,Tiffany,Gilbert, Admin, pass
+Craig.Wright@example.com,Craig,Wright, Admin, pass
+Donna.Wallace@example.com,Donna,Wallace, Admin, pass
+Brian.Fuller@example.com,Brian,Fuller, Admin, pass
+Emma.Ryan@example.com,Emma,Ryan, Admin, pass
+Victoria.Castillo@example.com,Victoria,Castillo, Admin, pass
+Stephen.Medina@example.com,Stephen,Medina, Admin, pass

@@ -85,12 +85,11 @@ public class DbPopulator {
 
             loadCompounds(cs);
 
-
             loadExperiments(sf, em);
             loadDoseResponseExperiment(sf, em);
 
             // add plates
-            pms.create("24x16", getClass().getResourceAsStream("/sample-data/platemap24x16.csv"));
+            pms.create("16x24", getClass().getResourceAsStream("/sample-data/platemap16x24.csv"));
         } finally {
             em.close();
         }
@@ -119,8 +118,8 @@ public class DbPopulator {
 
 
         ExperimentMapping emap = new ExperimentMapping();
-        emap.setName("experiment dose");
-        emap.setDesc("Experiment for Dose Response");
+        emap.setName("assay dose");
+        emap.setDesc("Assay for Dose Response");
         emap.setProtocol("Alpha");
         emap.setStatus(ExperimentStatus.UNPUBLISHED);
 
@@ -239,7 +238,7 @@ public class DbPopulator {
                 em.persist(pe);
 
                 // Used for the well result assignment date.
-                CompoundEntity currentCompound = null;
+                CompoundEntity currentCompound;
                 Set <String> compounds = new HashSet<>();
 
                 DateTime analysisDate = new DateTime().minusMinutes(rand.nextInt(10000));
@@ -249,7 +248,7 @@ public class DbPopulator {
 
                     // Make a new compound at the start of a row.
                     String compoundName = "C" + rand.nextInt(2000) + "-" + rand.nextInt(2000);
-                    while(compounds.contains(compoundName)){
+                    while(!compounds.add(compoundName)){
                         compoundName = "C" + rand.nextInt(2000) + "-" + rand.nextInt(2000);
                     }
                     currentCompound = new CompoundEntity().setName(compoundName);

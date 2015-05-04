@@ -10,7 +10,7 @@
 angular.module('we99App')
   .controller('ExperimentCreateCtrl', function ($scope,$routeParams, $location, $modal, RestService, TourConstants) {
 
-    // if given id, this is an edit of an existing experiment
+    // if given id, this is an edit of an existing assay
     if ($routeParams.addeditId==='new') {
       $scope.editMode = false;
       $scope.pageTitle = 'Create New Assay';
@@ -19,7 +19,7 @@ angular.module('we99App')
       refreshUsersList();
     } else {
       $scope.editMode = true;
-      $scope.pageTitle = 'Modify Experiment';
+      $scope.pageTitle = 'Modify Assay';
       RestService.getExperimentById($routeParams.addeditId)
         .success(function (resp) {
           $scope.newExp = resp;
@@ -60,7 +60,7 @@ angular.module('we99App')
               });
           })
           .error(function(response){
-            $scope.errorText='Failed to load current experiment users';
+            $scope.errorText='Failed to load current assay users';
           });
           // get current user too
           RestService.getCurrentUser()
@@ -129,16 +129,16 @@ angular.module('we99App')
           $location.path('/experiment')
         })
         .error(function (resp) {
-          $scope.errorText = 'Error: could not assign members to new experiment';
+          $scope.errorText = 'Error: could not assign members to new assay';
         });
     }
 
     $scope.saveExp=function(){
     	if($scope.assignedUsers.length<=0){
-    		$scope.errorText="Experiments must have at least one assigned user";
+    		$scope.errorText="Assays must have at least one assigned user";
     		return;
     	} else if ($scope.newExp.status === "PUBLISHED") {
-        $scope.errorText="Published experiments cannot be modified";
+        $scope.errorText="Published assays cannot be modified";
         return;
       }
       var memberIds=[];
@@ -155,7 +155,7 @@ angular.module('we99App')
           }
     		})
     		.error(function(resp){
-    			$scope.errorText='Error: could not save experiment';
+    			$scope.errorText='Error: could not save assay';
     		});
     };
 
@@ -174,7 +174,7 @@ angular.module('we99App')
     		if($scope.assignedUsers[i].isSelected){
     			//console.log('got one! '+i);
     			if($scope.assignedUsers[i].id===$scope.currentUser.id){
-    				$scope.errorText='You cannot remove yourself from an experiment.';
+    				$scope.errorText='You cannot remove yourself from an assay.';
     				break;
     			}
     			else{

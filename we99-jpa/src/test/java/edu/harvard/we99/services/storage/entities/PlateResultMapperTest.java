@@ -9,6 +9,7 @@ import edu.harvard.we99.test.EastCoastTimezoneRule;
 import org.joda.time.DateTime;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import static edu.harvard.we99.util.JacksonUtil.toJsonString;
 public class PlateResultMapperTest {
 
     @Rule
-    public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
+    public TestRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     private final PlateTypeEntity plateTypeEntity =
             new PlateTypeEntity().setId(250L)

@@ -16,11 +16,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,12 +29,10 @@ import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
 import static edu.harvard.we99.test.BaseFixture.load;
 import static edu.harvard.we99.test.BaseFixture.name;
 import static edu.harvard.we99.util.JacksonUtil.toJsonString;
-import static org.assertj.core.util.Arrays.array;
 
 /**
  * @author markford
  */
-@RunWith(Parameterized.class)
 public class FullMontyST {
     @Rule
     public LogTestRule logTestRule = new LogTestRule();
@@ -64,46 +59,12 @@ public class FullMontyST {
         pts = null;
     }
 
-    @Parameterized.Parameters
-    public static List<Object[]> params() throws Exception {
-        List<Object[]> params = new ArrayList<>();
-
-        params.add(array(PlateClientStrategy.json));
-        params.add(array(PlateClientStrategy.text));
-
-        return params;
-    }
-
     @Before
     public void setUp() throws Exception {
         xp = es.create(
                 new Experiment(name("Experiment")).setProtocol(new Protocol(name("p")))
         );
     }
-
-    public enum PlateClientStrategy {
-        json {
-            @Override
-            public void run(PlatesClient pc, Experiment experiment, PlateType plateType, InputStream csv) throws Exception {
-                pc.fullMonty(experiment, plateType, csv);
-            }
-        }, text {
-            @Override
-            public void run(PlatesClient pc, Experiment experiment, PlateType plateType, InputStream csv) throws Exception {
-                pc.stringMonty(experiment, plateType, csv);
-            }
-        };
-
-        public abstract void run(PlatesClient pc, Experiment experiment, PlateType plateType, InputStream csv) throws Exception;
-    }
-
-
-    private final PlateClientStrategy strategy;
-
-    public FullMontyST(PlateClientStrategy strategy) {
-        this.strategy = strategy;
-    }
-
 
     @Test
     public void test() throws Exception {
@@ -137,7 +98,7 @@ public class FullMontyST {
                         .setName(name("pt")).setManufacturer("Foo Inc")
                         .setDim(new PlateDimension(16, 24)));
         PlatesClient pc = new PlatesClient(new URL(WebAppIT.WE99_URL), WebAppIT.WE99_EMAIL, WebAppIT.WE99_PW);
-        strategy.run(pc, xp, pt, new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
+        pc.fullMonty(xp, pt, new ByteArrayInputStream(sb.toString().getBytes("UTF-8")));
 
         Plates plates = es.getExperiment(xp.getId()).getPlates().list(0, 100, null);
         assertJsonEquals(

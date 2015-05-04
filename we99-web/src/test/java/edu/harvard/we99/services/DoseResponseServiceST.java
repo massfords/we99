@@ -8,23 +8,16 @@ import edu.harvard.we99.services.experiments.DoseResponseResource;
 import edu.harvard.we99.services.experiments.ExperimentResource;
 import edu.harvard.we99.test.EastCoastTimezoneRule;
 import edu.harvard.we99.test.LogTestRule;
-import edu.harvard.we99.test.Scrubbers;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
-
-import static edu.harvard.we99.test.BaseFixture.assertJsonEquals;
-import static edu.harvard.we99.test.BaseFixture.load;
-import static edu.harvard.we99.util.JacksonUtil.toJsonString;
+import org.junit.rules.TestRule;
 
 /**
  * @author alan orcharton
  */
-//@Ignore("ignored as this test depends on python + libs being installed. " +
-  //      "Should move this to a profile")
 public class DoseResponseServiceST {
     @Rule
     public LogTestRule logTestRule = new LogTestRule();
@@ -32,7 +25,7 @@ public class DoseResponseServiceST {
     private static DoseResponseResultsFixture resultsFixture;
 
     @Rule
-    public EastCoastTimezoneRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
+    public TestRule eastCoastTimezoneRule = new EastCoastTimezoneRule();
 
     @BeforeClass
     public static void init() throws Exception{

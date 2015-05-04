@@ -17,25 +17,20 @@ angular.module('we99App')
 
     // Color scale.
     var colors = d3.scale.category20();
-
-
-
-    // Retrieve list of experiments
+      
+    // Retrieve list of assays
     RestService.getExperiments()
       .success(function (response) {
 
 
-        // Experiment Drop Down
+        // Assay Drop Down
         $scope.experiments = response.values;
         $scope.selectedExperiment = $scope.experiments[0];
 
-
-
-
-        // Watch the selected experiment for change.
+        // Watch the selected assay for change.
         $scope.$watch('selectedExperiment', function(experiment) {
 
-          // Update the data based on the selected experiment.
+          // Update the data based on the selected assay.]
           RestService.getDoseResponseData(experiment.id)
             .success(function(response){
 
@@ -91,7 +86,7 @@ angular.module('we99App')
         });
 
       }).error(function(){
-        $scope.errorText='Failed to load experiment data.';
+        $scope.errorText='Failed to load assay data.';
       });;
 
     function fullDisplayRefresh(){

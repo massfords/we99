@@ -4,8 +4,8 @@
 #
 # name, status, protocol, desc
 # -----------------------------------------------------------------------------
-experiment uno, UNPUBLISHED, Alpha, Experiment using the Alpha protocol
-experiment dos, UNPUBLISHED, Beta, Experiment using the Beta protocol
-experiment tres, UNPUBLISHED, Gamma, Experiment using the Gamma protocol
-experiment cuatro, PUBLISHED, Delta, Experiment using the Delta protocol
-experiment cinco, PUBLISHED, Omega, Experiment using the Omega protocol
+assay uno, UNPUBLISHED, Alpha, Assay using the Alpha protocol
+assay dos, UNPUBLISHED, Beta, Assay using the Beta protocol
+assay tres, UNPUBLISHED, Gamma, Assay using the Gamma protocol
+assay cuatro, PUBLISHED, Delta, Assay using the Delta protocol
+assay cinco, PUBLISHED, Omega, Assay using the Omega protocol

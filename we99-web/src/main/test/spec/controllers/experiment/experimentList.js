@@ -75,7 +75,7 @@ describe('Controller: ExperimentCtrl', function () {
     });
   }));
 
-  it('should retrieve all experiments on init', function () {
+  it('should retrieve all assays on init', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(3);
     expect(scope.experiments[0].name).toBe("experiment dos");
@@ -87,7 +87,7 @@ describe('Controller: ExperimentCtrl', function () {
 
   });
 
-  it('should remove experiment after delete call', function () {
+  it('should remove assay after delete call', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(3);
 
@@ -104,7 +104,7 @@ describe('Controller: ExperimentCtrl', function () {
     }
   });
 
-  it('should not remove experiment if delete call canceled', function () {
+  it('should not remove assay if delete call canceled', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(3);
 
@@ -126,4 +126,44 @@ describe('Controller: ExperimentCtrl', function () {
     expect(location.saved).toBe('/experiment/addedit/'+ scope.currentExperiment.id);
 
   });
+
+  it('should start tour', function () {
+    httpBackend.flush();
+    scope.startTour();
+
+    expect(scope.startJoyRide).toBe(true);
+  });
+
+  it('should publish experiment after confirmation', function () {
+    httpBackend.flush();
+
+    var target={id:2, name:'Blah blah', status: 'UNPUBLISHED'};
+
+    // test confirmed publish
+    spyOn(window, 'confirm').and.returnValue(true);
+    scope.publish(target);
+
+    httpBackend.whenPOST("services/rest/experiment/2/publish").respond("ok");
+
+    httpBackend.flush();
+
+    expect(target.status).toBe('PUBLISHED');
+  });
+
+  it('should clear alerts after dismiss call', function () {
+    httpBackend.flush();
+
+    scope.infoText='blah';
+    scope.dismiss('info');
+    expect(scope.infoText).toBeNull();
+
+
+    scope.errorText='blah';
+    scope.dismiss('error');
+    expect(scope.errorText).toBeNull();
+
+
+  });
+
+
 });

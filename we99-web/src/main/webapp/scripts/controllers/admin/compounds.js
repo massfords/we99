@@ -68,7 +68,7 @@ angular.module('we99App')
      * Controller of the we99App
      */
     angular.module('we99App')
-      .controller('ImportCompoundsCtrl', function ($scope,$upload,RestURLs,RestService,$modalInstance) {
+      .controller('ImportCompoundsCtrl', function ($scope,$upload,RestURLs,RestService,$modalInstance,$log) {
 
     $scope.$watch('files', function () {
       $scope.upload($scope.files);

@@ -86,7 +86,6 @@ public interface ExperimentResource {
     @PreAuthorize("hasRole('PERM_READ_PLATES')")
     DoseResponseResource getDoseResponses();
 
-
     @GET
     @Path("/results")
     @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
@@ -112,26 +111,7 @@ public interface ExperimentResource {
                     required = true, dataType = "edu.harvard.we99.domain.PlateType",
                     paramType = "form"),
             @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
-    Response fullMonty(@Multipart("plateType") @ApiParam("DO NOT SET THROUGH SWAGGER") PlateType plateType,
-                       @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER")  InputStream csv);
-
-
-    /**
-     * Uploads results for all of the plates in the experiment.
-     * @param csv Assay Interchange Result Format (AIRF)
-     * @statuscode 409 If we don't understand the format of the CSV
-     */
-    @POST
-    @Path("/stringMonty")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @ApiOperation("Processes the uploaded CSV and returns the parsed results")
-    @PreAuthorize("hasRole('PERM_MODIFY_RESULTS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name="plateType", value = "The Plate Type",
-                    required = true, dataType = "edu.harvard.we99.domain.PlateType",
-                    paramType = "form"),
-            @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
-    @Deprecated // todo - remove this interface after verifying that UI isn't calling it
-    Response stringMonty(@Multipart("plateType") @ApiParam("DO NOT SET THROUGH SWAGGER") String plateType,
+    Response fullMonty(@Multipart(value="namePrefix", required = false) @ApiParam("Prefix to use for the plates created") String namePrefix,
+                       @Multipart("plateType") @ApiParam("DO NOT SET THROUGH SWAGGER") PlateType plateType,
                        @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER")  InputStream csv);
 }
