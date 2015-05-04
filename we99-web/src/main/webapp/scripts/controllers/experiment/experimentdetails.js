@@ -81,12 +81,15 @@ angular.module('we99App')
       $scope.openBulkResultsModal=function(){
         var modalInstance = $modal.open({
           backdrop: true,
-          size: 'lg',
+          size: 'md',
           templateUrl: 'views/plate-mgmt/importresults.html',
           controller: 'ImportResultsCtrl',
           resolve: {
             experiment: function () {
               return SelectedExperimentSvc.getSelected();
+            }, // set plate to null for bulk results upload
+            plate: function () {
+              return null;
             }
           }
         });
@@ -95,6 +98,29 @@ angular.module('we99App')
         });
 
       };
+
+      $scope.uploadSinglePlateResults=function(plate){
+        var modalInstance = $modal.open({
+          backdrop: true,
+          size: 'md',
+          templateUrl: 'views/plate-mgmt/importresults.html',
+          controller: 'ImportResultsCtrl',
+          resolve: {
+            experiment: function () {
+              return SelectedExperimentSvc.getSelected();
+            }, // set plate to null for bulk results upload
+            plate: function () {
+              return plate;
+            }
+          }
+        });
+        modalInstance.result.then(function (returnVal) {
+          $scope.refreshPlates(); // Refreshes plate  when bulk results modal closed
+        });
+
+      };
+
+
 
       //=== Tour Settings ===
 

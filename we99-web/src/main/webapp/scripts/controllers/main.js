@@ -11,4 +11,5 @@ angular.module('we99App')
   .controller('MainCtrl', function ($scope) {
 
     // To contain main page logic, if needed
+    $scope.loaded=true;
   });

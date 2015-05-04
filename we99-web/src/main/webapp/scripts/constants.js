@@ -191,6 +191,15 @@ app.constant('TourConstants', {
 
     ,{
       type: "element",
+      selector: ".glyphicon-upload:first",
+      heading: "Assay Details",
+      text: "Click the upload button on a row to import results for a single a plate in the assay.",
+      placement: "top",
+      scroll: true
+    }
+    ,
+    {
+      type: "element",
       selector: ".glyphicon-remove-circle:first",
       heading: "Assay Details",
       text: "Click the delete button to remove a plate from the assay.",

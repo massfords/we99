@@ -15,4 +15,10 @@ describe('Controller: MainCtrl', function () {
       $scope: scope
     });
   }));
+
+  it('should set loaded flag',function(){
+
+    expect(scope.loaded).toBe(true);
+
+  });
 });

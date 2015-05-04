@@ -53,6 +53,7 @@
           <th st-sort="barcode">Barcode</th>
           <!-- compounds is count of labels -->
           <th st-sort="wells">Wells</th>
+          <th st-sort="hasResults">Results</th>
           <th st-sort="plateMap">Plate Type</th>
           <th class="action">Action</th>
         </tr>
@@ -66,10 +67,15 @@
           <td>{{plate.name}}</td>
           <td>{{plate.barcode}}</td>
           <td>{{plate.wellCount}}</td>
+          <td>
+            <span ng-if="plate.hasResults">Uploaded</span>
+            <span ng-if="!plate.hasResults">None</span>
+            <button class="btn btn-link" title="Upload Single Plate Results" ng-click="uploadSinglePlateResults(plate)">
+            <span class="glyphicon glyphicon-upload" style="color:black;"></span></button>
+          </td>
           <td>{{plate.plateType.name}}</td>
           <td class="action">
             <i class="glyphicon glyphicon-remove-circle" title="Delete" ng-click="removePlate(plate)"></i>
-            <!--<i class="glyphicon glyphicon-zoom-in" title="View Details" ng-click="viewPlate(plate)"></i>-->
           </td>
         </tr>
         </tbody>

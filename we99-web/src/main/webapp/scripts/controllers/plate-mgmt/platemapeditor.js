@@ -120,7 +120,7 @@ angular.module('we99App')
             url: RestURLs.plateMap,
             method: "POST",
             file: file,
-            fields: {name: $scope.name}
+            fields: {name: $scope.name, description: $scope.description}
           }).progress(function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             $log.log('progress: ' + progressPercentage + '% ' +
