@@ -609,7 +609,7 @@ DataVis.prototype.convertPlateResultData = function(data){
 
       wd[row][col].value = wr.samples[0].value;
 
-      wd[row][col].date = Date.parse(wr.samples[0].measuredAt);
+      wd[row][col].date = Date.parse(plateResult.created);
 
     });
     plateResult.plate.wells.forEach(function(well){
@@ -643,12 +643,20 @@ DataVis.prototype.convertPlateResultData = function(data){
 
     console.log(plateResult);
 
+    function plateName(){
+      if(plateResult.plate.barcode){
+        return plateResult.plate.barcode;
+      }else{
+        return plateResult.plate.name;
+      }
+    }
+
     if(plateResult.metrics.length != 0) {
       return {
         plateIndex: plateResult.plate.id,
         experimentIndex: plateResult.plate.experimentId,
         data: dataSet,
-        name: plateResult.plate.barcode,
+        name: plateName(),
         z: ro(plateResult.metrics[0].zee),
         z_prime: ro(plateResult.metrics[0].zeePrime),
         pos_avg: ro(plateResult.metrics[0].avgPositive),
@@ -659,7 +667,7 @@ DataVis.prototype.convertPlateResultData = function(data){
         plateIndex: plateResult.plate.id,
         experimentIndex: plateResult.plate.experimentId,
         data: dataSet,
-        name: plateResult.plate.barcode,
+        name: plateName(),
         z: null,
         z_prime: null,
         pos_avg: null,
@@ -684,8 +692,6 @@ DataVis.prototype.convertDoseResponseData = function(data){
   var compounds = [];
 
   data.forEach(function(compound){
-
-
 
     function toBool(string){
       if(string === "INCLUDED"){
