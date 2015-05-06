@@ -107,11 +107,14 @@ public interface ExperimentResource {
     @ApiOperation("Processes the uploaded CSV and returns the parsed results")
     @PreAuthorize("hasRole('PERM_MODIFY_RESULTS') and this.experiment.status == T(edu.harvard.we99.domain.ExperimentStatus).UNPUBLISHED")
     @ApiImplicitParams({
+            @ApiImplicitParam(name="plateName", value = "Prefix to use for the plate",
+                    required = true, dataType = "string",
+                    paramType = "form"),
             @ApiImplicitParam(name="plateType", value = "The Plate Type",
                     required = true, dataType = "edu.harvard.we99.domain.PlateType",
                     paramType = "form"),
             @ApiImplicitParam(name="file", value = "CSV", required = true, dataType = "file", paramType = "form")})
-    Response fullMonty(@Multipart(value="namePrefix", required = false) @ApiParam("Prefix to use for the plates created") String namePrefix,
+    Response fullMonty(@Multipart(value="plateName", required = false) @ApiParam("DO NOT SET THROUGH SWAGGER")  String namePrefix,
                        @Multipart("plateType") @ApiParam("DO NOT SET THROUGH SWAGGER") PlateType plateType,
                        @Multipart("file") @ApiParam("DO NOT SET THROUGH SWAGGER")  InputStream csv);
 }
