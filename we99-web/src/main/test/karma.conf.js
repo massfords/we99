@@ -45,6 +45,7 @@ module.exports = function(config) {
       'webapp/bower_components/uri.js/src/jquery.URI.min.js',
       'webapp/bower_components/uri.js/src/URI.fragmentQuery.js',
       'webapp/bower_components/uri.js/src/URI.fragmentURI.js',
+      'webapp/bower_components/angular-loading-bar/build/loading-bar.js',
       'webapp/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'webapp/scripts/**/*.js',

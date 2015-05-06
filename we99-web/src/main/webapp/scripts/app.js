@@ -20,7 +20,8 @@ angular
     'smart-table',
     'angularFileUpload',
     'ngJoyRide',
-    "checklist-model"
+    'checklist-model',
+	'angular-loading-bar'
   ])
   .config(function ($routeProvider) {
     $routeProvider
