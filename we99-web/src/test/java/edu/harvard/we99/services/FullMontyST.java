@@ -42,6 +42,8 @@ public class FullMontyST {
     private static PlateTypeService pts;
     private final Random r = new Random();
 
+    private static final String OS_NEWLINE=System.getProperty("line.separator");
+
     private Experiment xp;
 
     @BeforeClass
@@ -88,7 +90,7 @@ public class FullMontyST {
         }
 
         StringBuilder sb = new StringBuilder();
-        lines.stream().forEach(s-> sb.append(s).append("\n"));
+        lines.stream().forEach(s-> sb.append(s).append(OS_NEWLINE));
 
 //        System.out.println(sb);
 
@@ -109,7 +111,7 @@ public class FullMontyST {
 
     private List<String> allCompounds() throws Exception {
         String all = IOUtils.toString(getClass().getResourceAsStream("/FullMontyST/all-compounds.txt"));
-        String[] split = all.split("\n");
+        String[] split = all.split(OS_NEWLINE);
         return Arrays.asList(split).stream().collect(Collectors.toList());
     }
 
