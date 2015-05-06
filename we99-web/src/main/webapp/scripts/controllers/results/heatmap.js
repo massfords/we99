@@ -78,14 +78,14 @@ angular.module('we99App')
 
 
               });
-            }).error(function(response){
+            }).error(function(){
               $scope.errorText="Could not retrieve plate list for assay [id=" + experimentId + "]";
-            });;
+            });
 
         });
 
       })
-      .error(function(response){
+      .error(function(){
         $scope.errorText="Could not retrieve assays list.";
       });
 
@@ -142,6 +142,37 @@ angular.module('we99App')
       // Wipe out contents.
       d3.select(displayBoxLocation).html("");
 
+      /**
+       * On click handler a well on the heatmap.
+       *
+       * @param d The well.
+       */
+      var heatMapOnClick = function(d) {
+        $scope.data[$scope.selectedIndex - 1].data.forEach(function(dinner){
+          if(dinner.wellIndex === d.wellIndex){
+            dinner.included = !dinner.included;
+
+            RestService.updatePlateResults(
+              $scope.data[$scope.selectedIndex - 1].experimentIndex,
+              $scope.data[$scope.selectedIndex - 1].plateIndex, {
+                status: toText(dinner.included),
+                coordinate:{
+                  col: dinner.col,
+                  row: dinner.row
+                }
+              }
+            ).success(function(response){
+                $scope.data[$scope.selectedIndex - 1] =  v.convertPlateResultData([response])[0];
+                console.log($scope.data);
+                fullDisplayRefresh();
+              });
+
+          }
+        });
+        renderListView($scope.data);
+        renderSingleView();
+      };
+
       // Render single largish heatmap.
       v.renderSingleHeatMap({
         location: displayBoxLocation,
@@ -151,31 +182,7 @@ angular.module('we99App')
           fixedsize_x: 400,
           fixedsize_y: 400
         },
-        onCellClick: function(d) {
-          $scope.data[$scope.selectedIndex - 1].data.forEach(function(dinner){
-            if(dinner.wellIndex === d.wellIndex){
-              dinner.included = !dinner.included;
-
-              RestService.updatePlateResults(
-                  $scope.data[$scope.selectedIndex - 1].experimentIndex,
-                  $scope.data[$scope.selectedIndex - 1].plateIndex, {
-                    status: toText(dinner.included),
-                    coordinate:{
-                      col: dinner.col,
-                      row: dinner.row
-                    }
-                  }
-                ).success(function(response){
-                  $scope.data[$scope.selectedIndex - 1] =  v.convertPlateResultData([response])[0];
-                  console.log($scope.data);
-                  fullDisplayRefresh();
-                });
-
-            }
-          });
-          renderListView($scope.data);
-          renderSingleView();
-        }
+        onCellClick: heatMapOnClick
       });
 
       // Re-render the details of the plate being displayed -- managed by angular.
@@ -253,7 +260,6 @@ angular.module('we99App')
           min: $scope.coloring.min,
           max: $scope.coloring.max
         }
-
       );
     }
 
@@ -265,6 +271,26 @@ angular.module('we99App')
      * @returns {{pageSize: number, paginationIndex: number, from: number, to: number, of: *}}
      */
     function getDefaultPaginationInfo(data){
+
+      // Helper function to managing the paging state.
+      var doPaging = function(direction) {
+        switch(direction){
+          case 'NEXT':
+            if( ( ($scope.pagination.pageSize * ($scope.pagination.paginationIndex + 1) )) < $scope.pagination.of){
+              $scope.pagination.paginationIndex ++;
+            }
+            break;
+          case "PREV":
+            if($scope.pagination.paginationIndex > 0){
+              $scope.pagination.paginationIndex --;
+            }
+            break;
+        }
+        $scope.pagination.from = ($scope.pagination.pageSize * $scope.pagination.paginationIndex) + 1;
+        $scope.pagination.to = Math.min( ($scope.pagination.from - 1) + $scope.pagination.pageSize, $scope.data.length)
+        renderListView($scope.data);
+      };
+
       var pageSize = 12;
       return {
         pageSize: pageSize,
@@ -272,23 +298,7 @@ angular.module('we99App')
         from: 1,
         to: Math.min(pageSize, data.length),
         of: data.length,
-        doPaging: function(direction) {
-          switch(direction){
-            case 'NEXT':
-              if( ( ($scope.pagination.pageSize * ($scope.pagination.paginationIndex + 1) )) < $scope.pagination.of){
-                $scope.pagination.paginationIndex ++;
-              }
-              break;
-            case "PREV":
-              if($scope.pagination.paginationIndex > 0){
-                $scope.pagination.paginationIndex --;
-              }
-              break;
-          }
-          $scope.pagination.from = ($scope.pagination.pageSize * $scope.pagination.paginationIndex) + 1;
-          $scope.pagination.to = Math.min( ($scope.pagination.from - 1) + $scope.pagination.pageSize, $scope.data.length)
-          renderListView($scope.data);
-        }
+        doPaging: doPaging
       };
     }
 

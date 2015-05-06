@@ -192,6 +192,7 @@ public class DbPopulator {
 
     private void loadExperiments(StreamFactory sf, EntityManager em) throws IOException {
 
+
         Random rand = new Random();
         // get the corning plate type
         List<ExperimentMapping> experimentMappings = loadData(
@@ -219,6 +220,7 @@ public class DbPopulator {
             userEntities.forEach(ue -> ue.addExperiment(ee));
             userEntities.forEach(em::merge);
 
+            Set <String> compounds = new HashSet<>();
             // add some plates to the experiment
             for(int i=0; i<25; i++) {
 
@@ -239,7 +241,6 @@ public class DbPopulator {
 
                 // Used for the well result assignment date.
                 CompoundEntity currentCompound;
-                Set <String> compounds = new HashSet<>();
 
                 DateTime analysisDate = new DateTime().minusMinutes(rand.nextInt(10000));
                 for(int row=0; row<pte.getDim().getRows(); row++) {
@@ -248,9 +249,10 @@ public class DbPopulator {
 
                     // Make a new compound at the start of a row.
                     String compoundName = "C" + rand.nextInt(2000) + "-" + rand.nextInt(2000);
-                    while(!compounds.add(compoundName)){
+                    while(compounds.contains(compoundName)){
                         compoundName = "C" + rand.nextInt(2000) + "-" + rand.nextInt(2000);
                     }
+                    compounds.add(compoundName);
                     currentCompound = new CompoundEntity().setName(compoundName);
                     em.persist(currentCompound);
 
@@ -376,8 +378,6 @@ public class DbPopulator {
         em.getTransaction().commit();
 
     }
-
-
 
     private ProtocolEntity selectProtocol(EntityManager em, ExperimentMapping expMapping) {
         ProtocolEntity pe;

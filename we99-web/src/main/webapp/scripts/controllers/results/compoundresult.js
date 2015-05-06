@@ -17,7 +17,7 @@ angular.module('we99App')
 
     // Color scale.
     var colors = d3.scale.category20();
-      
+
     // Retrieve list of assays
     RestService.getExperiments()
       .success(function (response) {
@@ -112,6 +112,13 @@ angular.module('we99App')
 
       // Draw each selected compound.
       console.log($scope.selectedCompounds);
+
+      var scaleY = {
+        min: d3.min($scope.selectedCompounds.map(function (d) { return d.MIN; })),
+        max: d3.max($scope.selectedCompounds.map(function (d) { return d.MAX; }))
+      };
+
+
       $scope.selectedCompounds.forEach(function(compound, i){
 
         var data = compound.curve
@@ -133,10 +140,7 @@ angular.module('we99App')
               width: 200,
               height: 200,
               location: "#" + tileLoc,
-              scaleY: {
-                min: d3.min(data.map(function (d) { return d[1]; })),
-                max: d3.max(data.map(function (d) { return d[1]; }))
-              },
+              scaleY: scaleY,
               scaleX: {
                 min: d3.min(data.map(function (d) { return d[0]; })),
                 max: d3.max(data.map(function (d) { return d[0]; }))
@@ -156,10 +160,7 @@ angular.module('we99App')
                   width: 600,
                   height: 600,
                   location: displayBoxLocation,
-                  scaleY: {
-                    min: d3.min(data.map(function (d) { return d[1]; })),
-                    max: d3.max(data.map(function (d) { return d[1]; }))
-                  },
+                  scaleY: scaleY,
                   scaleX: {
                     min: d3.min(data.map(function (d) { return d[0]; })),
                     max: d3.max(data.map(function (d) { return d[0]; }))
