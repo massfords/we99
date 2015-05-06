@@ -126,6 +126,60 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<!-- Automatically grab required frontend dependencies -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<executions>
+					<execution>
+						<id>npm install</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<workingDirectory>./src/main</workingDirectory>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>bower install</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>bower</executable>
+							<workingDirectory>./src/main</workingDirectory>
+							<arguments>
+								<argument>install</argument>
+								<argument>--verbose</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<!-- Use grunt to run frontend unit tests in jasmine -->
+						<id>grunt test runner</id>
+						<phase>test</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>grunt</executable>
+							<workingDirectory>./src/main</workingDirectory>
+							<arguments>
+								<argument>test</argument>
+								<argument>--no-color</argument>
+								<!--<argument>&#45;&#45;verbose</argument>-->
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -140,38 +194,9 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <version>1.3.2</version>
                         <executions>
-                            <execution>
-								<id>npm install</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-								<configuration>
-									<executable>npm</executable>
-									<workingDirectory>./src/main</workingDirectory>
-									<arguments>
-										<argument>install</argument>
-									</arguments>
-								</configuration>
-                            </execution>
-							<execution>
-								<id>bower install</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-								<configuration>
-									<executable>bower</executable>
-									<workingDirectory>./src/main</workingDirectory>
-									<arguments>
-										<argument>install</argument>
-										<argument>--verbose</argument>
-									</arguments>
-								</configuration>
-                            </execution>
-							<execution>
+                           	<execution>
 								<!-- Use grunt to prepare frontend for distribution (minifies it) -->
-								<!-- Prepared frontend files will be stored in src/main/dist -->
+								<!-- Prepared frontend files will be stored in target/dist -->
 								<id>grunt distribution build</id>
 								<phase>compile</phase>
 								<goals>
