@@ -11,7 +11,7 @@ describe('Service: RestService', function () {
     restService = _RestService_;
   }));
 
-  it('should do something', function () {
+  it('should be automatically defined as injected factory', function () {
     expect(!!restService).toBe(true);
   });
 });

@@ -198,14 +198,7 @@ describe('Controller: CompoundsCtrl', function () {
     expect(scope.startJoyRide).toBe(true);
   });
 
-  it('should open modal', function () {
-    httpBackend.flush();
-    scope.startTour();
-
-    expect(scope.startJoyRide).toBe(true);
-  })
-
-  it('should open modal', function () {
+  it('should open modal for import', function () {
     httpBackend.flush();
     scope.importCompounds();
     fakeModal.close('good');

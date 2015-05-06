@@ -6551,11 +6551,15 @@ describe('Controller: DoseResponseCntrl', function () {
     });
   }));
 
-  it('should retrieve all experiments on init', function () {
+  it('should retrieve all experiments and related compounds on init', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(3);
     expect(scope.experiments[0].name).toBe("experiment uno");
     expect(scope.experiments[2].protocol.name).toBe("Gamma");
+
+    expect(scope.compounds.length).toBeGreaterThan(0);
+    //nothing selected at the start
+    expect(scope.selectedCompounds).not.toBeDefined();
 
   });
 
@@ -6580,6 +6584,9 @@ describe('Controller: DoseResponseCntrl', function () {
 
 
   });
+
+
+
 
 
 });

@@ -38,7 +38,7 @@ describe('Service: SelectedExperimentSvc', function () {
     SelectedExperimentSvc.setSelected(null);
   });
 
-  it('should do something', function () {
+  it('should be injected as service and defined', function () {
     expect(!!SelectedExperimentSvc).toBe(true);
   });
 

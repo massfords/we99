@@ -3703,7 +3703,7 @@ describe('Controller: WellQcCntrl', function () {
     });
   }));
 
-  it('should retrieve all experiments on init', function () {
+  it('should retrieve all experiments and results data on init', function () {
     httpBackend.flush();
 
     expect(scope.experiments.length).toBe(1);

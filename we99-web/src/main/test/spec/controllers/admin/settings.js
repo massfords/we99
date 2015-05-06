@@ -72,7 +72,7 @@ describe('Controller: AdminSettingsCtrl', function () {
     expect(scope.infoText).toBeNull();
   });
 
-  it('should save email server settings on post', function () {
+  it('should save email filter on post', function () {
     scope.saveEmailFilter();
     httpBackend.flush();
     expect(scope.infoText).toBe('Saved email filter settings.');

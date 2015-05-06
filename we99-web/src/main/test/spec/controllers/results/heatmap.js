@@ -3697,14 +3697,14 @@ describe('Controller: HeatmapCtrl', function () {
     httpBackend.whenGET("services/rest/experiment/1/plates/3/results").respond(results);
     //httpBackend.whenDELETE("services/rest/experiment/2").respond("");
 
-
+    //wipe logs
     console.log = function() {};
     HeatmapCtrl = $controller('HeatmapCtrl', {
       $scope: scope
     });
   }));
 
-  it('should retrieve all experiments on init', function () {
+  it('should retrieve all experiments and the results data on init', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(1);
     expect(scope.selectedIndex).toBe(1);
@@ -3718,6 +3718,46 @@ describe('Controller: HeatmapCtrl', function () {
 
     expect(scope.startJoyRide).toBe(true);
   });
+
+  it('should re-render heatmap when different plate is clicked', function () {
+    httpBackend.flush();
+
+
+    expect(scope.selectedIndex).toBe(1);
+
+    //plate with id 3 is third in overall list:
+    scope.selectPlate(1);
+    expect(scope.selectedIndex).toBe(3);
+
+  });
+
+  it('should mark well as outlier when clicked', function () {
+    httpBackend.flush();
+
+    httpBackend.whenPOST("services/rest/experiment/1/plates/1/results/update").respond(results);
+    scope.doHeatMapOnClick({wellIndex: 76});
+    httpBackend.flush();
+
+
+  });
+
+  it('should retrieve default page when prompted', function () {
+    httpBackend.flush();
+
+    var paging=scope.doGetDefaultPaginationInfo({length:5});
+    //expect that page index starts at 0
+    expect(scope.pagination.paginationIndex).toBe(0);
+    //set our offset really high to allow the next page
+    scope.pagination.of=9999999;
+    paging.doPaging('NEXT');
+    // expect page to ++
+    expect(scope.pagination.paginationIndex).toBe(1);
+    paging.doPaging('PREV');
+    // expect page to --
+    expect(scope.pagination.paginationIndex).toBe(0);
+
+  });
+
 
 
 

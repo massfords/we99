@@ -159,7 +159,7 @@ describe('Controller: PlateTypeEditorCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
+  it('should attach a list of default plate type options to the scope', function () {
     expect(scope.getPlateTypeOptions().length).toBeGreaterThan(2);
   });
 

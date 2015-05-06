@@ -172,6 +172,8 @@ angular.module('we99App')
         renderListView($scope.data);
         renderSingleView();
       };
+      // make available to testing
+      $scope.doHeatMapOnClick=heatMapOnClick;
 
       // Render single largish heatmap.
       v.renderSingleHeatMap({
@@ -301,6 +303,8 @@ angular.module('we99App')
         doPaging: doPaging
       };
     }
+    // make accessible to testing
+    $scope.doGetDefaultPaginationInfo=getDefaultPaginationInfo;
 
     //=== Tour Settings ===
 

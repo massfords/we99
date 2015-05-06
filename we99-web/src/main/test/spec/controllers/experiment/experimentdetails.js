@@ -132,9 +132,18 @@ describe('Controller: ExperimentDetailsCtrl', function () {
 
   });
 
-  it('should open modal for add plate', function() {
+  it('should open modal for add bulk results', function() {
     $httpBackend.flush();
     scope.openBulkResultsModal();
+
+    expect('ImportResultsCtrl').toBe(fakeModalCall.config.controller);
+    expect(fakeModalCall.config.templateUrl).toBeDefined();
+
+  });
+
+  it('should open modal for add single plate results', function() {
+    $httpBackend.flush();
+    scope.uploadSinglePlateResults();
 
     expect('ImportResultsCtrl').toBe(fakeModalCall.config.controller);
     expect(fakeModalCall.config.templateUrl).toBeDefined();

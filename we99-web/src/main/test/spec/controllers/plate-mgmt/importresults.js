@@ -5,7 +5,7 @@ describe('Controller: ImportResultsCtrl', function () {
   beforeEach(module('we99App'));
 
   var ImportResultsCtrl,
-    scope, fakeModal, fakeOption, fakePlateTypeModal, fakeUpload;
+    scope, fakeModal, fakeUpload;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope,$log) {
@@ -45,17 +45,19 @@ describe('Controller: ImportResultsCtrl', function () {
       },
       close: function( item ) {
 
-        this.success=true;
+        this.confirmed=true;
         //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
-        this.result.confirmCallBack( item );
+        if(this.result.confirmCallBack)
+          this.result.confirmCallBack( item );
       },
       dismiss: function( type ) {
         this.canceled=true;
         //The user clicked cancel on the modal dialog, call the stored cancel callback
-        this.result.cancelCallback( type );
+        if(this.result.cancelCallback)
+          this.result.cancelCallback( type );
       },
       canceled: false,
-      success: false
+      confirmed: false
     };
 
     ImportResultsCtrl = $controller('ImportResultsCtrl', {
@@ -69,7 +71,7 @@ describe('Controller: ImportResultsCtrl', function () {
   }));
 
 
-  it('should start with a defined scope.experiment and success=false ', function () {
+  it('should start with a defined scope.experiment and success = false ', function () {
     expect(scope.experiment).toBeDefined();
     expect(scope.experiment).not.toBeNull();
     expect(scope.success).toBe(false);
@@ -87,4 +89,20 @@ describe('Controller: ImportResultsCtrl', function () {
     expect(fakeUpload.savedConfig.url).toContain("services/rest");
   });
 
+  it('should close modal instance with confirmed state when success = true', function () {
+
+    expect(fakeModal.confirmed).toBe(false);
+
+    scope.success=true;
+    scope.dismiss();
+
+    expect(fakeModal.confirmed).toBe(true);
+
+  });
+
+  it('set alert to null when closeAlert() is hit', function () {
+    scope.modalResponseMsg="too hot!";
+    scope.closeAlert();
+    expect(scope.modalResponseMsg).toBeNull();
+  });
 });

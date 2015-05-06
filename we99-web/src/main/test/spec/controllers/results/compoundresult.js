@@ -6551,11 +6551,14 @@ describe('Controller: CompoundResultsCntrl', function () {
     });
   }));
 
-  it('should retrieve all experiments on init', function () {
+  it('should retrieve all experiments and related compounds on init', function () {
     httpBackend.flush();
     expect(scope.experiments.length).toBe(3);
     expect(scope.experiments[0].name).toBe("experiment uno");
     expect(scope.experiments[2].protocol.name).toBe("Gamma");
+
+    expect(scope.compounds.length).toBeGreaterThan(0);
+    expect(scope.selectedCompounds.length).toBeGreaterThan(0);
 
   });
 
@@ -6566,7 +6569,7 @@ describe('Controller: CompoundResultsCntrl', function () {
     expect(scope.startJoyRide).toBe(true);
   });
 
-  it('should remove and add compounds from selected when toggle funct called', function () {
+  it('should remove/add compounds from selected list when toggle function called', function () {
     httpBackend.flush();
 
     expect(scope.compounds).toBeDefined();
