@@ -13,7 +13,7 @@ angular.module('we99App')
   .controller('WellQcCntrl', ["$q", "$scope", "RestService","TourConstants", function ($q, $scope, RestService,TourConstants) {
 
     var v = new DataVis();
-    var displayBoxLocation = "#scatter-plot";
+    var displayBoxLocation = "#qc-scatter-plot";
 
     function transform(data){
       var result = [];

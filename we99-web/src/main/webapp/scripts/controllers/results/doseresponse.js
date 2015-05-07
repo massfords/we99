@@ -55,7 +55,7 @@ angular.module('we99App')
      */
     function fullDisplayRefresh(){
 
-      var displayBoxLocation = "#scatter-plot";
+      var displayBoxLocation = "#dr-scatter-plot";
 
       // Wipe out any current content
       d3.select(displayBoxLocation).html("");

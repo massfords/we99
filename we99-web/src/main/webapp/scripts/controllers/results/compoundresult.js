@@ -96,18 +96,18 @@ angular.module('we99App')
 
       // Display Reset
       d3.select(".coloration").attr("fill","white");
-      d3.select("#display-container").html("");
+      d3.select("#compound-display-container").html("");
 
       // Setup for single and tiled mode.
       var displayBoxLocation = null;
       switch($scope.renderMode){
         case "SINGLE":
-          d3.select("#display-container")
-            .html('<svg style="width: 600px; height: 600px" id="scatter-plot"></svg>');
-          displayBoxLocation="#scatter-plot";
+          d3.select("#compound-display-container")
+            .html('<svg style="width: 600px; height: 600px" id="composite-scatter-plot"></svg>');
+          displayBoxLocation="#composite-scatter-plot";
           break;
         case "TILED":
-          displayBoxLocation="#display-container";
+          displayBoxLocation="#compound-display-container";
           break;
       }
 

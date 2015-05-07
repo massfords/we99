@@ -1,4 +1,5 @@
-'use strict';
+(function(){
+  'use strict';
 
 
 /**
@@ -16,7 +17,7 @@ angular.module('we99App')
 
     // Links to display elements.
     var listBoxLocation = "#list-box";
-    var displayBoxLocation = "#display-box";
+    var displayBoxLocation = "#heat-map-display-box";
 
     // Retrieve list of assays
     RestService.getExperiments()
@@ -317,3 +318,5 @@ angular.module('we99App')
 
   }]
 );
+
+})();

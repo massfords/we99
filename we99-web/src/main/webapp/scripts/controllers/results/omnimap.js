@@ -1,3 +1,4 @@
+(function(){
 'use strict';
 
 
@@ -22,9 +23,6 @@ angular.module('we99App')
 
     // Links to display elements.
     var displayBoxLocation = "#display-box";
-
-
-
 
     // Retrieve list of assays
     RestService.getExperiments()
@@ -69,7 +67,7 @@ angular.module('we99App')
               });
             }).error(function(response){
               $scope.errorText="Could not retrieve plate list for assay [id=" + experimentId + "]";
-            });;
+            });
 
 
         });
@@ -191,7 +189,7 @@ angular.module('we99App')
                    d.col >= renderBox.col.one &
                    d.col <= renderBox.col.two + 1 ){
 
-            var newd = $.extend(true, {}, d);;
+            var newd = $.extend(true, {}, d);
             newd.row = newd.row - renderBox.row.one;
             newd.col = newd.col - renderBox.col.one;
             newWells.push(newd);
@@ -205,9 +203,7 @@ angular.module('we99App')
         location: "#display-box",
         data: wellValues,
         colorScale: $scope.coloring.colorScale,
-        mapFormat: {
-          fixedsize_x: 900
-        },
+        mapFormat: { fixedsize_x: 900 },
         onMouseDown: function(a){
           // First part of render box.
           console.log($scope.state);
@@ -334,4 +330,5 @@ angular.module('we99App')
 
 
   }]
-);
+)
+})();
