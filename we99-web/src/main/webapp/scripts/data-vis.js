@@ -656,7 +656,7 @@ DataVis.prototype.convertPlateResultData = function(data){
         plateIndex: plateResult.plate.id,
         experimentIndex: plateResult.plate.experimentId,
         data: dataSet,
-        name: plateName(),
+        name: plateName().substr(0,10),
         z: ro(plateResult.metrics[0].zee),
         z_prime: ro(plateResult.metrics[0].zeePrime),
         pos_avg: ro(plateResult.metrics[0].avgPositive),

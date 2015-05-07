@@ -49,30 +49,33 @@ angular.module('we99App')
                */
               $scope.toggleCompound = function(compound){
 
-                if(compound.hasCurve) {
-                  // Determine if the compound is already selected.
-                  var index = -1;
-                  $scope.selectedCompounds.forEach(function (d, i) {
-                    if (compound.$$hashKey === d.$$hashKey) {
-                      index = i;
+                if($scope.selectedCompounds.length < 9){
+
+                  if(compound.hasCurve) {
+                    // Determine if the compound is already selected.
+                    var index = -1;
+                    $scope.selectedCompounds.forEach(function (d, i) {
+                      if (compound.$$hashKey === d.$$hashKey) {
+                        index = i;
+                      }
+                    });
+
+                    // If it is remove it.
+                    if (index > -1) {
+                      $scope.selectedCompounds.splice(index, 1);
+                    } else {
+                      $scope.selectedCompounds.push(compound);
                     }
-                  });
 
-                  // If it is remove it.
-                  if (index > -1) {
-                    $scope.selectedCompounds.splice(index, 1);
-                  } else {
-                    $scope.selectedCompounds.push(compound);
+                    // Full display refresh doesn't handle the coloration
+                    // of the toggled compound correctly.
+                    d3.select("#" + compound.compound)
+                      .attr("fill", "white");
+
+                    fullDisplayRefresh();
+
+
                   }
-
-                  // Full display refresh doesn't handle the coloration
-                  // of the toggled compound correctly.
-                  d3.select("#" + compound.compound)
-                    .attr("fill", "white");
-
-                  fullDisplayRefresh();
-
-
                 }
 
               };
@@ -87,7 +90,7 @@ angular.module('we99App')
 
       }).error(function(){
         $scope.errorText='Failed to load assay data.';
-      });;
+      });
 
     function fullDisplayRefresh(){
 
@@ -175,10 +178,7 @@ angular.module('we99App')
                 break;
         }
 
-
-
-        d3.select("#" + compound.compound)
-          .attr("fill", colors(i));
+        d3.select("#" + compound.compound).attr("fill", colors(i));
 
       });
     }
