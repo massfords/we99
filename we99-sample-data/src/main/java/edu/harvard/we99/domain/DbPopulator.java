@@ -222,7 +222,7 @@ public class DbPopulator {
 
             Set <String> compounds = new HashSet<>();
             // add some plates to the experiment
-            for(int i=0; i<25; i++) {
+            for(int i=0; i<10; i++) {
 
                 PlateEntity pe = new PlateEntity()
                         .setName("plate " + i + " for exp " + ee.getId())

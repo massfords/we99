@@ -49,8 +49,6 @@ angular.module('we99App')
                */
               $scope.toggleCompound = function(compound){
 
-                if($scope.selectedCompounds.length < 9){
-
                   if(compound.hasCurve) {
                     // Determine if the compound is already selected.
                     var index = -1;
@@ -64,7 +62,9 @@ angular.module('we99App')
                     if (index > -1) {
                       $scope.selectedCompounds.splice(index, 1);
                     } else {
-                      $scope.selectedCompounds.push(compound);
+                      if($scope.selectedCompounds.length < 9){
+                        $scope.selectedCompounds.push(compound);
+                      }
                     }
 
                     // Full display refresh doesn't handle the coloration
@@ -74,8 +74,6 @@ angular.module('we99App')
 
                     fullDisplayRefresh();
 
-
-                  }
                 }
 
               };
