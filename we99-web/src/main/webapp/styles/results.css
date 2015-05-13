@@ -15,7 +15,8 @@
 }
 
 .omnimap-display-box {
-  width: 800px;
+  width: 950px;
+  margin-bottom: 30px;
   float: left;
 }
 
@@ -34,8 +35,8 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  width: 700px;
-  maring-bottom: 15px;
+  width: 950px;
+  margin-bottom: 15px;
 }
 
 .assay-summary,

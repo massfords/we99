@@ -203,7 +203,7 @@ angular.module('we99App')
         location: "#display-box",
         data: wellValues,
         colorScale: $scope.coloring.colorScale,
-        mapFormat: { fixedsize_x: 900 },
+        mapFormat: { fixedsize_x: 1175 },
         onMouseDown: function(a){
           // First part of render box.
           console.log($scope.state);
